@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using WpfApp1.Model;
 namespace WpfApp1
 {
     /// <summary>
@@ -23,15 +23,26 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            listNames();
         }
 
         private void ButtonAddName_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtName.Text) && !lstNames.Items.Contains(txtName.Text))
             {
-                lstNames.Items.Add(txtName.Text);
+                DatabaseInteraction.Instance.GuardarNombre(txtName.Text);// Guarda el nombre en la base de datos
+                lstNames.Items.Clear();
                 txtName.Clear();
+                listNames();
             }
+        }
+
+        private void listNames()
+        {
+            List<Nombre> names = DatabaseInteraction.Instance.GetNombres();//Obtiene los nombres que estan en la base de datos
+            foreach (Nombre nombre in names)
+                lstNames.Items.Add(nombre.Name);
+
         }
     }
 }
