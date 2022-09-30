@@ -91,7 +91,7 @@
                 <Button Height="80"
                         Width="200"
                         Background="#1597e5"
-                        Margin="0,20,0,0">
+                        Margin="0,20,0,0" Click="Button_Click">
                     <TextBlock Text="Volver a tomar fotografía"
                                FontFamily="arial"
                                FontSize="25"

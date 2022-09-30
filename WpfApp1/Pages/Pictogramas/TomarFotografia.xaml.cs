@@ -50,7 +50,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         #endregion
 
-        BitmapImage photo;
+        System.Windows.Controls.Image photoCamera = new System.Windows.Controls.Image();
         public TomarFotografia()
         {
             InitializeComponent();
@@ -67,7 +67,10 @@ namespace WpfApp1.Pages.Pictogramas
         public void btnStart_Click(object sender, RoutedEventArgs e)
         {
             btn_aceptar.IsEnabled = true;
-            capturePhoto.Source = videoPlayer.Source.CloneCurrentValue();
+            videoPlayer.Source = videoPlayer.Source.CloneCurrentValue();
+            photoCamera = videoPlayer;
+
+            StopCamera();
 
         }
 
@@ -92,9 +95,9 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            string filename = "C:\\IntegraBoard\\repo\\userProfile\\images\\cameraPhoto.png";
-            RenderTargetBitmap render = new RenderTargetBitmap(259, 203, 96, 96, PixelFormats.Default);
-            render.Render(capturePhoto);
+            string filename = "C:\\IntegraBoard\\repo\\userProfile\\images\\cameraPhoto2.png";
+            RenderTargetBitmap render = new RenderTargetBitmap(500, 500, 96, 96, PixelFormats.Default);
+            render.Render(photoCamera);
             PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(render));
             using (Stream stream = File.Create(filename))
@@ -107,6 +110,8 @@ namespace WpfApp1.Pages.Pictogramas
         private void btn_cancelar_Click(object sender, RoutedEventArgs e)
         {
             StopCamera();
+
+
         }
 
         private void GetVideoDevices()
@@ -168,6 +173,17 @@ namespace WpfApp1.Pages.Pictogramas
         {
             this.NavigationService.Navigate(new CrearPictograma());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_videoSource.IsRunning)
+            {
+                StartCamera();
+            }
+
+        }
+
+
     }
 
     static class BitmapHelpers
