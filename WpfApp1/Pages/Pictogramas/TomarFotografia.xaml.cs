@@ -67,7 +67,7 @@ namespace WpfApp1.Pages.Pictogramas
         public void btnStart_Click(object sender, RoutedEventArgs e)
         {
             btn_aceptar.IsEnabled = true;
-            capturePhoto.Source = videoPlayer.Source.CloneCurrentValue();
+            //capturePhoto.Source = videoPlayer.Source.CloneCurrentValue();
 
         }
 
@@ -94,7 +94,7 @@ namespace WpfApp1.Pages.Pictogramas
         {
             string filename = "C:\\IntegraBoard\\repo\\userProfile\\images\\cameraPhoto.png";
             RenderTargetBitmap render = new RenderTargetBitmap(259, 203, 96, 96, PixelFormats.Default);
-            render.Render(capturePhoto);
+            //render.Render(capturePhoto);
             PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(render));
             using (Stream stream = File.Create(filename))
