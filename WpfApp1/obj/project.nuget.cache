@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "pUKWC2br8sQZlMVyv/z7wYA8FA6gsJ7kuy5I5oO61Zka3I4SqQcX9TAloFZpGrxx7yjvHi0Mz3bVOg4hx3GYZg==",
+  "dgSpecHash": "biPBCD6g2rXZKdX+h9jS6FhpVpPM8Z7Ra+nuwqfKGA6NRxCWZ3uxTP0zzAiJ0PWZ4SiSktEamKMOm/AtDchKlA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\animu\\Escritorio\\LW\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+  "projectFilePath": "C:\\Users\\Tomas\\Desktop\\Trabajo\\prototype\\WpfApp1\\WpfApp1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\animu\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\aforge.controls\\2.2.5\\aforge.controls.2.2.5.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\aforge.imaging\\2.2.5\\aforge.imaging.2.2.5.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\aforge.math\\2.2.5\\aforge.math.2.2.5.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\aforge.video\\2.2.5\\aforge.video.2.2.5.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\aforge.video.directshow\\2.2.5\\aforge.video.directshow.2.2.5.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\cswebcam\\1.0.3\\cswebcam.1.0.3.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\animu\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+    "C:\\Users\\Tomas\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\aforge.controls\\2.2.5\\aforge.controls.2.2.5.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\aforge.imaging\\2.2.5\\aforge.imaging.2.2.5.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\aforge.math\\2.2.5\\aforge.math.2.2.5.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\aforge.video\\2.2.5\\aforge.video.2.2.5.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\aforge.video.directshow\\2.2.5\\aforge.video.directshow.2.2.5.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\cswebcam\\1.0.3\\cswebcam.1.0.3.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Tomas\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
   ],
   "logs": [
     {

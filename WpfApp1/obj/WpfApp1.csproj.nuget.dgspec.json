@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\animu\\Escritorio\\LW\\WpfApp1\\WpfApp1\\WpfApp1.csproj": {}
+    "C:\\Users\\Tomas\\Desktop\\Trabajo\\prototype\\WpfApp1\\WpfApp1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\animu\\Escritorio\\LW\\WpfApp1\\WpfApp1\\WpfApp1.csproj": {
+    "C:\\Users\\Tomas\\Desktop\\Trabajo\\prototype\\WpfApp1\\WpfApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\animu\\Escritorio\\LW\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
+        "projectUniqueName": "C:\\Users\\Tomas\\Desktop\\Trabajo\\prototype\\WpfApp1\\WpfApp1.csproj",
         "projectName": "WpfApp1",
-        "projectPath": "C:\\Users\\animu\\Escritorio\\LW\\WpfApp1\\WpfApp1\\WpfApp1.csproj",
-        "packagesPath": "C:\\Users\\animu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\animu\\Escritorio\\LW\\WpfApp1\\WpfApp1\\obj\\",
+        "projectPath": "C:\\Users\\Tomas\\Desktop\\Trabajo\\prototype\\WpfApp1\\WpfApp1.csproj",
+        "packagesPath": "C:\\Users\\Tomas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tomas\\Desktop\\Trabajo\\prototype\\WpfApp1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\animu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tomas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

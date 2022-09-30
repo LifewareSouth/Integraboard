@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\animu\Escritorio\LW\WpfApp1\WpfApp1\obj\Debug\net6.0-windows\
+C:\Users\Tomas\Desktop\Trabajo\prototype\WpfApp1\obj\Debug\net6.0-windows\
 WpfApp1
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\animu\Escritorio\LW\WpfApp1\WpfApp1\App.xaml
+C:\Users\Tomas\Desktop\Trabajo\prototype\WpfApp1\App.xaml
 6-1723927395
 
 10-1133024235
-201-1548197503
+201-798882996
 MainWindow.xaml;Pages\MenuPage.xaml;Pages\Pictogramas\CrearPictograma.xaml;Pages\Pictogramas\MainPictogramasPage.xaml;Pages\Pictogramas\TomarFotografia.xaml;Pages\Tableros.xaml;
 
-False
+True
 

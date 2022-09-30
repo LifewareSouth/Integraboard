@@ -1,20 +1,20 @@
 ﻿WpfApp1
-1.0.0.0
+
 
 winexe
 C#
 .cs
-c:\Users\animu\Escritorio\LW\WpfApp1\WpfApp1\obj\Debug\net6.0-windows\
+C:\Users\Tomas\Desktop\Trabajo\prototype\WpfApp1\obj\Debug\net6.0-windows\
 WpfApp1
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-c:\Users\animu\Escritorio\LW\WpfApp1\WpfApp1\App.xaml
+C:\Users\Tomas\Desktop\Trabajo\prototype\WpfApp1\App.xaml
 6-1723927395
 
-10-1133024235
-201-1548197503
+8-1062378693
+201-798882996
 MainWindow.xaml;Pages\MenuPage.xaml;Pages\Pictogramas\CrearPictograma.xaml;Pages\Pictogramas\MainPictogramasPage.xaml;Pages\Pictogramas\TomarFotografia.xaml;Pages\Tableros.xaml;
 
-True
+False
 
