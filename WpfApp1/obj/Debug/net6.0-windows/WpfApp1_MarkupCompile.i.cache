@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\animu\Escritorio\LW\WpfApp1\WpfApp1\App.xaml
-11407045341
+6-1723927395
 
-5-1303815099
-194-200944676
-MainWindow.xaml;
+10-1133024235
+201-1548197503
+MainWindow.xaml;Pages\MenuPage.xaml;Pages\Pictogramas\CrearPictograma.xaml;Pages\Pictogramas\MainPictogramasPage.xaml;Pages\Pictogramas\TomarFotografia.xaml;Pages\Tableros.xaml;
 
-False
+True
 

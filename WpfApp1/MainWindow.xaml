@@ -5,29 +5,201 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="10">
+        Title="MainWindow" Height="800" Width="1280"
+        WindowStyle = "None"
+        ResizeMode = "NoResize">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <Label>Names</Label>
-        <ListBox Grid.Row="1" x:Name="lstNames" />
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
-            <TextBox x:Name="txtName" />
-            <Button x:Name="btnAdd" Margin="0,5,0,0" Click="ButtonAddName_Click">Add Name</Button>
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-500,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid Background="#04293a"
+          MouseDown="Grid_MouseDown">
+        <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
+        <!--Side Menu-->
+        <StackPanel Panel.ZIndex="2" 
+                    Name="LeftMenu" 
+                    Orientation="Horizontal" 
+                    Height="800" 
+                    HorizontalAlignment="Left" 
+                    Margin='-500,0,0,0' Grid.RowSpan="2">
+            <Border BorderThickness="2" 
+                    Width="500" 
+                    Background="#003b49" 
+                    BorderBrush="#707070">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="500"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="235"/>
+                        <ColumnDefinition Width="235"/>
+                        <ColumnDefinition Width="20"/>
+
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" 
+                            Orientation="Vertical">
+                        <TextBlock Text="Menú"
+                               Foreground="White"
+                               FontSize="60"
+                               FontWeight="Bold"
+                               FontFamily="Arial"
+                               Margin="20,20,0,5"/>
+                        <TextBlock Text="Opciones"
+                               Foreground="White"
+                               FontSize="35"
+                               FontFamily="Arial"
+                               Margin="20,0,0,0"
+                               />
+                    </StackPanel>
+
+                    <Button x:Name="notificaciones"
+                            Grid.Column="1"
+                            Height="60"
+                            Width="200"
+                            Content="Notificaciones"
+                            Background="#1597e5"
+                            Foreground="White"
+                            FontSize="20"
+                            FontFamily="Arial"
+                            FontWeight="Bold"
+                            />
+
+                    <Button x:Name="btnclose"
+                                Click="btnclose_Click_1"  
+                                Grid.Column="2" 
+                                Height="60"
+                                Width="20"
+                                Grid.Row="1"
+                                Margin="5,248,-5,192">
+
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="Aqua"/>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="10,0,0,10"
+                                        Background="{TemplateBinding Background}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Center">
+
+                        <Button x:Name="pictogramas"
+                                Content="Pictogramas"
+                                Height="200" Width="200"
+                                Background="#ffe162"
+                                FontSize="20"
+                                FontFamily="Arial"
+                                FontWeight="Bold"
+                                Click="Pictogramas_Click"/>
+
+                        <Button x:Name="perfil"
+                                Content="Perfil"
+                                Height="200" Width="200"
+                                Margin="0,40,0,0"
+                                Background="#9ede73"
+                                FontSize="20"
+                                FontFamily="Arial"
+                                FontWeight="Bold"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" 
+                                Grid.Row="1"
+                                VerticalAlignment="Center">
+
+                        <Button x:Name="tableros"
+                                Content="Tableros"
+                                Height="200" Width="200"
+                                Background="#69dadb"
+                                FontSize="20"
+                                FontFamily="Arial"
+                                FontWeight="Bold" Click="Tableros_Click"/>
+
+                        <Button x:Name="profesionales"
+                                Content="Profesionales"
+                                Height="200" Width="200"
+                                Margin="0,40,0,0"
+                                Background="#ff75a0"
+                                FontSize="20"
+                                FontFamily="Arial"
+                                FontWeight="Bold"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="0"
+                                Grid.Row="2"
+                                Orientation="Vertical" Margin="0,0,0,-46"
+                                >
+                        <Button x:Name="cerrarSesion"
+                                Grid.Column="1"
+                                Height="60"
+                                Width="200"
+                                Content="Cerrar Sesion"
+                                Background="#fff8cd"
+                                Foreground="Black"
+                                FontSize="20"
+                                FontFamily="Arial"
+                                FontWeight="Bold"
+                                Margin="0,5,0,0"/>
+                        
+                        <Button x:Name="salir"
+                                Grid.Column="1"
+                                Height="60"
+                                Width="200"
+                                Content="Salir"
+                                Background="#ff6464"
+                                Foreground="Black"
+                                FontSize="20"
+                                FontFamily="Arial"
+                                FontWeight="Bold"
+                                Margin="0,10,0,0"
+                                Click="Salir_Click"
+                                />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Vertical">
+                <Grid Margin="0,400,0,0">
+                    <Button x:Name="btnshow" 
+                            BorderThickness="0"
+                            Click="btnshow_Click_3">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Aqua"/>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="20" Height="60"
+                                        CornerRadius="0,10,10,0"
+                                        Background="{TemplateBinding Background}">
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </StackPanel>
         </StackPanel>
-
-
-
-
-
+        
+        
     </Grid>
 </Window>

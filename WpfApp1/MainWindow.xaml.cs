@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace WpfApp1
 {
@@ -23,15 +12,54 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            btnshow.Click += Btnshow_Click;
+            btnclose.Click += Btnclose_Click;
+            Main.NavigationService.Navigate(new MenuPage());
+        }
+        private void Btnclose_Click(object sender, RoutedEventArgs e)
+        {
+            Storyboard sb = Resources["CloseMenu"] as Storyboard;
+            sb.Begin(LeftMenu);
+        }
+        private void Btnshow_Click(object sender, RoutedEventArgs e)
+        {
+            Storyboard sb = Resources["OpenMenu"] as Storyboard;
+            sb.Begin(LeftMenu);
         }
 
-        private void ButtonAddName_Click(object sender, RoutedEventArgs e)
+
+        private void btnshow_Click_3(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtName.Text) && !lstNames.Items.Contains(txtName.Text))
+
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
             {
-                lstNames.Items.Add(txtName.Text);
-                txtName.Clear();
+                DragMove();
             }
+        }
+
+        private void btnclose_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Salir_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Pictogramas_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new MainPicrogramasPage();
+
+        }
+
+        private void Tableros_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Tableros();
         }
     }
 }

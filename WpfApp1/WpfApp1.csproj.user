@@ -7,7 +7,33 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Pages\MenuPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Pictogramas\CrearPictograma.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Pictogramas\TomarFotografia.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Tableros.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\MenuPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Pictogramas\CrearPictograma.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Pictogramas\TomarFotografia.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Tableros.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

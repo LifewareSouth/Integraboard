@@ -1,0 +1,34 @@
+﻿<Page x:Class="WpfApp1.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      Title="MenuPage">
+
+    <Grid Background="#04293a">
+        
+
+        <TextBlock Text="Menú"
+                    Foreground="White"
+                    FontSize="60"
+                    FontWeight="Bold"
+                    FontFamily="Arial"
+                    Margin="50,30,0,0"/>
+            <Button Content="Profesional"
+                        Height="65" 
+                        Width="250"
+                        Margin="930,-150,0,500"
+                        Background="#1597e5"
+                        FontFamily=" Arial"
+                        FontSize="35"
+                        Foreground="White"/>
+
+            <Rectangle Fill="#003b49"
+                   Margin="50,130,50,50" 
+                   Stroke="#707070"/>
+        <Frame x:Name="MenuPageFrame"/>
+    </Grid>
+</Page>
