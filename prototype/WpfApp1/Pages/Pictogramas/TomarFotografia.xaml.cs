@@ -67,6 +67,8 @@ namespace WpfApp1.Pages.Pictogramas
         public void btnStart_Click(object sender, RoutedEventArgs e)
         {
             btn_aceptar.IsEnabled = true;
+            btnTomarOtra.Visibility = Visibility.Visible;
+            btnStart.IsEnabled = false;
             videoPlayer.Source = videoPlayer.Source.CloneCurrentValue();
             photoCamera = videoPlayer;
 
@@ -110,6 +112,7 @@ namespace WpfApp1.Pages.Pictogramas
         private void btn_cancelar_Click(object sender, RoutedEventArgs e)
         {
             StopCamera();
+            this.NavigationService.GoBack();
 
 
         }
@@ -174,11 +177,14 @@ namespace WpfApp1.Pages.Pictogramas
             this.NavigationService.Navigate(new CrearPictograma());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnTomarOtra_Click(object sender, RoutedEventArgs e)
         {
             if (!_videoSource.IsRunning)
             {
                 StartCamera();
+                btn_aceptar.IsEnabled = false;
+                btnTomarOtra.Visibility = Visibility.Hidden;
+                btnStart.IsEnabled = true;
             }
 
         }

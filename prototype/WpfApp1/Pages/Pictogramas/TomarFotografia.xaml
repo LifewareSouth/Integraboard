@@ -77,7 +77,8 @@
                          Grid.Row="1"
                         VerticalAlignment="Center"
                         Height="600">
-                <Button Height="80"
+                <Button x:Name="btnStart"
+                        Height="80"
                         Width="200"
                         Background="#1597e5"
                         Content="Tomar Foto"
@@ -88,10 +89,12 @@
                         Click ="btnStart_Click"
                         Cursor="Hand"/>
 
-                <Button Height="80"
+                <Button x:Name="btnTomarOtra"
+                        Height="80"
                         Width="200"
                         Background="#1597e5"
-                        Margin="0,20,0,0" Click="Button_Click">
+                        Visibility="Hidden"
+                        Margin="0,20,0,0" Click="btnTomarOtra_Click">
                     <TextBlock Text="Volver a tomar fotografía"
                                FontFamily="arial"
                                FontSize="25"
@@ -109,6 +112,7 @@
                             Height="50"
                             Width="150"
                             Background="#1597e5"
+                            IsEnabled="False"
                             Content="Guardar"
                             Foreground="White"
                             FontSize="25"
