@@ -77,7 +77,8 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="white" 
+                    Click="btnPreview_Click"/>
 
             <Button Content="Asignar"
                     Grid.Column="2" 
@@ -88,7 +89,8 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="#707070"
+                    IsEnabled="false"/>
 
             <Button Content="Editar"
                     Grid.Column="1" 
@@ -101,7 +103,8 @@
                     FontWeight="SemiBold"
                     Foreground="white"/>
 
-            <Button Content="Eliminar"
+            <Button x:Name="btnEliminar"
+                    Content="Eliminar"
                     Grid.Column="2" 
                     Grid.Row="3" 
                     Height="90"
@@ -110,7 +113,7 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="white" Click="btnEliminar_Click"/>
         </Grid>
 
         <Label Content="Acciones"
