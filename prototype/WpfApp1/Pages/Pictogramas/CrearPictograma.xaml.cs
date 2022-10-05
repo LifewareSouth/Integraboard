@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,43 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class CrearPictograma : Page
     {
+        bool _navigationServiceAssigned = false;
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (IsImageFromCamera == true)
+                {
+                    PictogramImage.Source = LoadBitmapImage(@"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png");
+
+                }
+
+                // TODO: whatever state management you're going to do
+            }
+        }
+        private static bool IsImageFromCamera = false;
+        private static readonly CrearPictograma instance = new CrearPictograma();
+        public static CrearPictograma Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
         public CrearPictograma()
         {
             InitializeComponent();
         }
-
+        
         private void GoToPictogramas(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPicrogramasPage());
@@ -57,6 +90,31 @@ namespace WpfApp1.Pages.Pictogramas
         private void TakePicture_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new TomarFotografia());
+        }
+
+        public void ImagenFromCamera()
+        {
+            IsImageFromCamera = true;            
+        }
+        public static BitmapImage LoadBitmapImage(string fileName)
+        {
+            try
+            {
+                using (var stream = new FileStream(fileName, FileMode.Open))
+                {
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                    return bitmapImage;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

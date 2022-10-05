@@ -6,10 +6,11 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.Pictogramas"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="CrearPictograma">
+      Title="CrearPictograma"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
-
+        
         <Frame x:Name="CrearPictos" NavigationUIVisibility="Hidden"/>
 
         <StackPanel Orientation="Horizontal" 
@@ -56,12 +57,15 @@
                         Grid.Row="0"
                         HorizontalAlignment="Left" 
                         Margin="330,0,0,0">
-                <Rectangle Height="200" 
-                       Width="200"
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       Margin="10"
-                       Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Border Height="200" 
+                        Width="200" BorderBrush="White" OpacityMask="Black" BorderThickness="1">
+
+                    <Image x:Name="PictogramImage"
+                           Height="200" 
+                           Width="200"
+                           />
+                </Border>
                 <StackPanel Orientation="Vertical"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
@@ -224,7 +228,7 @@
                                Width="380"
                                TextWrapping="Wrap"/>
                 </StackPanel>
-                
+
 
                 <Rectangle Grid.Row="2"
                            Grid.Column="2"
@@ -232,7 +236,7 @@
                            Height="150"
                            Width="200"
                            Stroke="White"/>
-                
+
                 <StackPanel Orientation="Vertical"
                             Grid.Column="2"
                             Grid.Row="2"
@@ -253,7 +257,7 @@
                             FontFamily="Arial"
                             FontSize="15"
                             Margin="15" Click="SelectSound_Click"/>
-                    
+
 
                 </StackPanel>
             </Grid>
