@@ -183,15 +183,13 @@ namespace WpfApp1.Pages.Pictogramas
         {
             if (!_videoSource.IsRunning)
             {
-                StartCamera();
+                StartCamera(); 
                 btn_aceptar.IsEnabled = false;
                 btnTomarOtra.Visibility = Visibility.Hidden;
                 btnStart.IsEnabled = true;
             }
 
         }
-
-
     }
 
     static class BitmapHelpers

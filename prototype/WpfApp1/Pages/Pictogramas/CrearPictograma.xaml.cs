@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
+using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -57,6 +60,12 @@ namespace WpfApp1.Pages.Pictogramas
         public CrearPictograma()
         {
             InitializeComponent();
+            foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
+            {
+                object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
+            }
+
+            CategoriaPict.Text = ( Repository.PictogramCategoryToString(Pictogram.PictogramCategory.Verbos)).ToString();
         }
         
         private void GoToPictogramas(object sender, RoutedEventArgs e)
@@ -115,6 +124,40 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 return null;
             }
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void GuardarPict_Click(object sender, RoutedEventArgs e)
+        {
+            if (validateConditionsToSave())
+            {
+               //codigo para guardar
+            }
+        }
+
+        private bool validateConditionsToSave()
+        {
+            bool valido = true;
+            if (String.IsNullOrWhiteSpace(NombrePict.Text) == true)
+            {
+                Hint1.Visibility = Visibility.Visible;
+                Hint1.Text = "El pictograma debe llevar un nombre";
+                valido = false;
+                //buttonSave.IsEnabled = false;
+            }
+            else if (String.IsNullOrWhiteSpace(TextPict.Text) == true)
+            {
+                Hint1.Visibility = Visibility.Visible;
+                Hint1.Text = "El pictograma debe tener un texto";
+                valido = false;
+            }
+            return valido;
+
+
         }
     }
 }
