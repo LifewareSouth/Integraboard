@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 
@@ -26,6 +27,8 @@ namespace WpfApp1.Pages.Pictogramas
     public partial class CrearPictograma : Page
     {
         bool _navigationServiceAssigned = false;
+        string TipoImagen = null, pathImagen;
+
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
             if (_navigationServiceAssigned == false)
@@ -40,11 +43,10 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 if (IsImageFromCamera == true)
                 {
+                    pathImagen = @"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png";
                     PictogramImage.Source = LoadBitmapImage(@"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png");
-
+                    TipoImagen = "Camara";
                 }
-
-                // TODO: whatever state management you're going to do
             }
         }
         private static bool IsImageFromCamera = false;
@@ -64,7 +66,6 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
-
             CategoriaPict.Text = ( Repository.PictogramCategoryToString(Pictogram.PictogramCategory.Verbos)).ToString();
         }
         
@@ -93,7 +94,13 @@ namespace WpfApp1.Pages.Pictogramas
             Microsoft.Win32.OpenFileDialog ofdImage = new OpenFileDialog();
             ofdImage.Filter = "Imagenes (*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
             bool? response = ofdImage.ShowDialog();
-            
+            foreach (string name in ofdImage.SafeFileNames)
+            {
+                pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
+            }
+            TipoImagen = "Archivo";
+            PictogramImage.Source = LoadBitmapImage(pathImagen);
+
         }
 
         private void TakePicture_Click(object sender, RoutedEventArgs e)
@@ -153,6 +160,18 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 Hint1.Visibility = Visibility.Visible;
                 Hint1.Text = "El pictograma debe tener un texto";
+                valido = false;
+            }
+            else if (String.IsNullOrWhiteSpace(TextPict.Text) == true)
+            {
+                Hint1.Visibility = Visibility.Visible;
+                Hint1.Text = "El pictograma debe tener un texto";
+                valido = false;
+            }
+            else if (TipoImagen==null)
+            {
+                Hint1.Visibility = Visibility.Visible;
+                Hint1.Text = "El pictograma debe tener una imagen";
                 valido = false;
             }
             return valido;
