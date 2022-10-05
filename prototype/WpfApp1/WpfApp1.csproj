@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\NewFolder\**" />
-    <EmbeddedResource Remove="Pages\NewFolder\**" />
-    <None Remove="Pages\NewFolder\**" />
-    <Page Remove="Pages\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AForge" Version="2.2.5" />
     <PackageReference Include="AForge.Controls" Version="2.2.5" />
     <PackageReference Include="AForge.Imaging" Version="2.2.5" />
