@@ -76,11 +76,13 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void SelectSound_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog ofdSound = new OpenFileDialog();
+
+            this.NavigationService.Navigate(new SelectSound());
+            /*Microsoft.Win32.OpenFileDialog ofdSound = new OpenFileDialog();
             
             ofdSound.Filter = "Sonidos (*.mp3)|*.mp3";
             bool? response = ofdSound.ShowDialog();
-            
+            */
 
             /*if(response == true)
             {
