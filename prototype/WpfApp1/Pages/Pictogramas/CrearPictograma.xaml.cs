@@ -142,6 +142,13 @@ namespace WpfApp1.Pages.Pictogramas
         {
             if (validateConditionsToSave())
             {
+                int IdImagen = Repository.Instance.GuardarImagen(pathImagen);
+                Pictogram pict = new Pictogram();
+                pict.Nombre = NombrePict.Text;
+                pict.Texto = TextPict.Text;
+                pict.Categoria = CategoriaPict.SelectedItem.ToString();
+                pict.idImagen = IdImagen;
+                Repository.Instance.CrearPictograma(pict);
                //codigo para guardar
             }
         }
