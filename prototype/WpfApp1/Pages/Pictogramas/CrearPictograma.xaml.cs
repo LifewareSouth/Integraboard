@@ -91,16 +91,8 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog ofdImage = new OpenFileDialog();
-            ofdImage.Filter = "Imagenes (*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
-            bool? response = ofdImage.ShowDialog();
-            foreach (string name in ofdImage.SafeFileNames)
-            {
-                pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
-            }
-            TipoImagen = "Archivo";
-            PictogramImage.Source = LoadBitmapImage(pathImagen);
-
+            this.NavigationService.Navigate(new SelectImage());
+            
         }
 
         private void TakePicture_Click(object sender, RoutedEventArgs e)
