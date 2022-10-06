@@ -11,9 +11,6 @@
     
     <Grid Background="White">
 
-
-
-
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
