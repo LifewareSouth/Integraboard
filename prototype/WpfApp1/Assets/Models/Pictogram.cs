@@ -13,6 +13,7 @@ namespace WpfApp1.Model
     public class Pictogram
     {
         public int ID { get; set; }
+        public string idAlfaPict { get; set; }
         public string Nombre { get; set; }
         public string Texto { get; set; }
         public enum PictogramCategory { Educacion, Comunicacion, Verbos, Objetos, AVD, Comidas, Lugares, Naturaleza, Otros };

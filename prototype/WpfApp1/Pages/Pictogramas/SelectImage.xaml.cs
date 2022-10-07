@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -37,7 +38,13 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
             }
+            Repository.Instance.GuardarImagen(pathImagen);
             //PictogramImage.Source = LoadBitmapImage(pathImagen);
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }
