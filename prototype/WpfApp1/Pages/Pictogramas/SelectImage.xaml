@@ -125,7 +125,7 @@
                             Content="Cancelar"
                             Foreground="White"
                             FontSize="25"
-                            Margin="10,0,0,0"
+                            Margin="10,0,0,0" Click="Cancelar_Click"
                             />
 
                     </StackPanel>
