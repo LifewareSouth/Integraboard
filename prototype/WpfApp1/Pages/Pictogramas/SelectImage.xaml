@@ -110,12 +110,13 @@
                                 Grid.RowSpan="2">
 
                         <Button x:Name="btn_aceptar"
-                            Height="50"
-                            Width="150"
-                            Background="#1597e5"
-                            Content="Guardar"
-                            Foreground="White"
-                            FontSize="25"
+                                Height="50"
+                                Width="150"
+                                Background="#1597e5"
+                                Content="Guardar"
+                                Foreground="White"
+                                FontSize="25"
+                                Click="btn_aceptarClick"
                             />
 
                         <Button x:Name="Cancelar"
@@ -138,6 +139,8 @@
                            Fill="#707070"/>
             </Grid>
         </Grid>
+
+
         <Grid.RowDefinitions>
             <RowDefinition Height="105"/>
             <RowDefinition Height="670"/>

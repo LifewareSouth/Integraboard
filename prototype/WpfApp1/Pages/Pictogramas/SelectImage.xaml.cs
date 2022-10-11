@@ -39,5 +39,12 @@ namespace WpfApp1.Pages.Pictogramas
             }
             //PictogramImage.Source = LoadBitmapImage(pathImagen);
         }
+
+        private void btn_aceptarClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }
