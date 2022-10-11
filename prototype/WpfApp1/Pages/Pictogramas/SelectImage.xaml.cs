@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
+using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -22,9 +23,11 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class SelectImage : Page
     {
+        List<ImagenModel> images = new List<ImagenModel>();
         public SelectImage()
         {
             InitializeComponent();
+            Repository.Instance.getAllImages();
         }
 
         private void AddImages_Click(object sender, RoutedEventArgs e)
