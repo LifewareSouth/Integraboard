@@ -23,11 +23,11 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class SelectImage : Page
     {
-        List<ImagenModel> images = new List<ImagenModel>();
+        List<ImagenModel> ListaImagenes = new List<ImagenModel>();
         public SelectImage()
         {
             InitializeComponent();
-            Repository.Instance.getAllImages();
+            ListaImagenes = Repository.Instance.getAllImages();
         }
 
         private void AddImages_Click(object sender, RoutedEventArgs e)
@@ -49,5 +49,7 @@ namespace WpfApp1.Pages.Pictogramas
         {
             this.NavigationService.GoBack();
         }
+        
+
     }
 }

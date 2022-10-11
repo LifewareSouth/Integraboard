@@ -85,7 +85,7 @@ namespace WpfApp1.Assets
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
-                string query = "CREATE TABLE IF NOT EXISTS imagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB ,alfaImagen TEXT, PRIMARY key( idImagen AUTOINCREMENT));" +
+                string query = "CREATE TABLE IF NOT EXISTS imagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS etiquetas (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));";
@@ -105,12 +105,12 @@ namespace WpfApp1.Assets
             {
                 //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
                 conexion.Open();
-                string query = "insert into imagenes(nombreImagen, blobImagen,alfaImagen) values (@nombreImagen, @blobImagen,@alfaImagen)";
+                string query = "insert into imagenes(idAlfaImagen, nombreImagen, blobImagen) values (@idAlfaImagen, @nombreImagen, @blobImagen)";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 SQLiteParameter parametro = new SQLiteParameter("@blobImagen", System.Data.DbType.Binary);
                 cmd.Parameters.Add(new SQLiteParameter("@nombreImagen", imageName));
-                cmd.Parameters.Add(new SQLiteParameter("@alfaImagen", alfaIdImagen));
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", alfaIdImagen));
                 parametro.Value = pic;
                 cmd.Parameters.Add(parametro);
                 cmd.CommandType = System.Data.CommandType.Text;
@@ -202,7 +202,7 @@ namespace WpfApp1.Assets
                         listaImagenes.Add(new ImagenModel
                         {
                             ID = int.Parse(dr["idImagen"].ToString()),
-                            idAlfaImagen = dr["nombreImagen"].ToString(),
+                            idAlfaImagen = dr["idAlfaImagen"].ToString(),
                             Nombre = dr["nombreImagen"].ToString(),
                             Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"])
                         });
