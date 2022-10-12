@@ -22,7 +22,18 @@
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="CSWebCam" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Lifeware.SoftwareCommon">
+      <HintPath>..\LifewareSoftwareCommon\obj\Debug\Lifeware.SoftwareCommon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(SolutionDir)LifewareSoftwareLauncher\bin\$(ConfigurationName)&quot; &quot;$(SolutionDir)\WpfApp1\bin\$(ConfigurationName)\net6.0-windows\LifewareSoftwareLauncher\&quot; /E /Y" />
+  </Target>
 
 </Project>
