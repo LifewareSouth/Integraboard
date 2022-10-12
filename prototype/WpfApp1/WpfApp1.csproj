@@ -30,6 +30,9 @@
     <Reference Include="Lifeware.SoftwareCommon">
       <HintPath>..\LifewareSoftwareCommon\obj\Debug\Lifeware.SoftwareCommon.dll</HintPath>
     </Reference>
+    <Reference Include="LifewareSoftwareLogic">
+      <HintPath>..\resources\LifewareSoftwareLogic.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
