@@ -1,0 +1,21 @@
+﻿<Page x:Class="WpfApp1.Pages.Pictogramas.VoiceRecorder"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages.Pictogramas"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="VoiceRecorder">
+
+    <Grid>
+        <Button x:Name="record_btn" Content="Grabar" HorizontalAlignment="Left" Margin="189,239,0,0" VerticalAlignment="Top" Height="57" Width="104" Click="record_btn_Click"/>
+        <Button x:Name="save" Content="Guardar" HorizontalAlignment="Left" Margin="318,239,0,0" VerticalAlignment="Top" Height="57" Width="146" Click="save_Click"/>
+        <Button x:Name="play" Content="Reproducir" HorizontalAlignment="Left" Margin="487,239,0,0" VerticalAlignment="Top" Height="57" Width="127"/>
+        <Label x:Name="lbl_rec" Content="Grabador de voz" HorizontalAlignment="Left" Margin="171,100,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="cancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,395,0,0" VerticalAlignment="Top" Click="cancelar_Click"/>
+        <Label x:Name="lbl_timer" Content="Duración: 0" HorizontalAlignment="Left" Margin="507,100,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <ComboBox x:Name="sourceList" HorizontalAlignment="Left" Margin="220,333,0,0" VerticalAlignment="Top" Width="363"/>
+
+    </Grid>
+</Page>
