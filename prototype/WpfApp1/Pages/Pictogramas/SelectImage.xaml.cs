@@ -27,12 +27,7 @@ namespace WpfApp1.Pages.Pictogramas
         public SelectImage()
         {
             InitializeComponent();
-            ListaImagenes = Repository.Instance.getAllImages();
-            if(ListaImagenes.Count > 0)
-            {
-                ListViewImages.ItemsSource = ListaImagenes;
-            }
-            
+            ActualizarLista();
         }
 
         private void AddImages_Click(object sender, RoutedEventArgs e)
@@ -42,14 +37,25 @@ namespace WpfApp1.Pages.Pictogramas
             Microsoft.Win32.OpenFileDialog ofdImage = new OpenFileDialog();
             ofdImage.Filter = "Imagenes (*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
             bool? response = ofdImage.ShowDialog();
-            foreach (string name in ofdImage.SafeFileNames)
+            if (response == true)
             {
-                pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
+                foreach (string name in ofdImage.SafeFileNames)
+                {
+                    pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
+                }
+                Repository.Instance.GuardarImagen(pathImagen);
+                ActualizarLista();
             }
-            Repository.Instance.GuardarImagen(pathImagen);
-            //PictogramImage.Source = LoadBitmapImage(pathImagen);
         }
 
+        private void ActualizarLista()
+        {
+            ListaImagenes = Repository.Instance.getAllImages();
+            if (ListaImagenes.Count > 0)
+            {
+                ListViewImages.ItemsSource = ListaImagenes;
+            }
+        }
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
@@ -58,6 +64,21 @@ namespace WpfApp1.Pages.Pictogramas
         private void btn_aceptarClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ListViewImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListViewImages.SelectedValue != null)
+            {
+                btn_aceptar.IsEnabled = true;
+                ImagenModel ModeloImagen = ((ImagenModel)ListViewImages.SelectedItem);
+            }
+            else
+            {
+                btn_aceptar.IsEnabled = false;
+            }
+            
+            
         }
     }
 }
