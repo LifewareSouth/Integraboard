@@ -54,7 +54,10 @@ namespace WpfApp1.Pages.Pictogramas
         {
             this.NavigationService.GoBack();
         }
-        
 
+        private void btn_aceptarClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

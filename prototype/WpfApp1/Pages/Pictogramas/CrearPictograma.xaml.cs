@@ -60,6 +60,8 @@ namespace WpfApp1.Pages.Pictogramas
         {
 
             this.NavigationService.Navigate(new SelectSound());
+            
+            
             /*Microsoft.Win32.OpenFileDialog ofdSound = new OpenFileDialog();
             
             ofdSound.Filter = "Sonidos (*.mp3)|*.mp3";

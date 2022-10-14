@@ -116,7 +116,7 @@
                                 Background="#1597e5"
                                 Foreground="White"
                                 FontSize="25"
-                                FontWeight="SemiBold"
+                                FontWeight="SemiBold" Click="RecordSound_Click"
                                 />
                     </StackPanel>
                     
