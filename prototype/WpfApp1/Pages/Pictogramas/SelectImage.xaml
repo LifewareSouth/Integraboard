@@ -56,8 +56,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="50"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition/> <!-- Aquí va la listView -->
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0"
                            Content="Seleccione una imagen ya cargada:"
@@ -72,6 +71,37 @@
                              HorizontalAlignment="Right"
                              Margin="0,0,60,0"/>
 
+                    <Grid Grid.Row="2">
+                        <ScrollViewer Margin="10">
+                            <ListBox x:Name="ListViewImages"
+                                     Grid.Column="2"
+                                     ItemsSource="{Binding ImagenModel}"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     Background="Transparent">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Height="150" Width="100">
+                                            <Image Source="{Binding Imagen}"
+                                                   DockPanel.Dock="Top"/>
+                                            <TextBlock Text="{Binding Nombre}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="White"
+                                                       FontSize="15"
+                                                       FontFamily="arial"
+                                                       FontWeight="SemiBold"
+                                                       TextAlignment="Center"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -116,7 +146,7 @@
                                 Content="Guardar"
                                 Foreground="White"
                                 FontSize="25"
-                                Click="btn_aceptarClick"
+                                
                             />
 
                         <Button x:Name="Cancelar"

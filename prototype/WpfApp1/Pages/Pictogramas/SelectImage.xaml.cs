@@ -28,6 +28,11 @@ namespace WpfApp1.Pages.Pictogramas
         {
             InitializeComponent();
             ListaImagenes = Repository.Instance.getAllImages();
+            if(ListaImagenes.Count > 0)
+            {
+                ListViewImages.ItemsSource = ListaImagenes;
+            }
+            
         }
 
         private void AddImages_Click(object sender, RoutedEventArgs e)

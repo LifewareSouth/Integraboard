@@ -242,9 +242,8 @@
                               VerticalAlignment="Top"
                               Text="Seleccione Categoría"
                               Foreground="#707070"
-                              FontSize="25"
+                              FontSize="20"
                               FontFamily="Arial"
-                              FontWeight="SemiBold"
                               FontStyle="Italic"
                               Margin="4,0,0,0"/>
                     <TextBlock Text="Corresponde a la categoría asociada al pictograma"
