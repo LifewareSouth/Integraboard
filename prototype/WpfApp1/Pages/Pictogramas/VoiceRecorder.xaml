@@ -10,12 +10,13 @@
 
     <Grid>
         <Button x:Name="record_btn" Content="Grabar" HorizontalAlignment="Left" Margin="189,239,0,0" VerticalAlignment="Top" Height="57" Width="104" Click="record_btn_Click"/>
-        <Button x:Name="save" Content="Guardar" HorizontalAlignment="Left" Margin="318,239,0,0" VerticalAlignment="Top" Height="57" Width="146" Click="save_Click"/>
-        <Button x:Name="play" Content="Reproducir" HorizontalAlignment="Left" Margin="487,239,0,0" VerticalAlignment="Top" Height="57" Width="127"/>
+        <Button x:Name="save" Content="Terminar Grabacion" IsEnabled="False" HorizontalAlignment="Left" Margin="318,239,0,0" VerticalAlignment="Top" Height="57" Width="146" Click="save_Click"/>
+        <Button x:Name="playbtn" Content="Reproducir" IsEnabled="False" HorizontalAlignment="Left" Margin="487,239,0,0" VerticalAlignment="Top" Height="57" Width="127" Click="playbtn_Click"/>
+        <Button x:Name="stopbtn" Content="Pausar" Visibility="Hidden" IsEnabled="False" HorizontalAlignment="Left" Margin="487,239,0,0" VerticalAlignment="Top" Height="57" Width="127" Click="stopbtn_Click"/>
         <Label x:Name="lbl_rec" Content="Grabador de voz" HorizontalAlignment="Left" Margin="171,100,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Button x:Name="cancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,395,0,0" VerticalAlignment="Top" Click="cancelar_Click"/>
+        <Button x:Name="cancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="415,394,0,0" VerticalAlignment="Top" Click="cancelar_Click" RenderTransformOrigin="0.542,0.476"/>
         <Label x:Name="lbl_timer" Content="Duración: 0" HorizontalAlignment="Left" Margin="507,100,0,0" VerticalAlignment="Top" Foreground="White"/>
         <ComboBox x:Name="sourceList" HorizontalAlignment="Left" Margin="220,333,0,0" VerticalAlignment="Top" Width="363"/>
-
+        <Button x:Name="guardarbtn" Content="Guardar como Sonido" IsEnabled="False" HorizontalAlignment="Left" Margin="271,394,0,0" VerticalAlignment="Top" Click="guardarbtn_Click"/>
     </Grid>
 </Page>

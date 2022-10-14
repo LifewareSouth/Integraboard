@@ -23,6 +23,10 @@ using System.Windows.Threading;
 using System.IO;
 using System.Timers;
 using System.Diagnostics.Metrics;
+using System.Windows.Shell;
+using NAudio.Lame;
+using System.Net;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -31,6 +35,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class VoiceRecorder : Page
     {
+        string VOICEPATH = @"C:\IntegraBoard\repo\grabaciones\voice.wav";
         public VoiceRecorder()
         {
             InitializeComponent();
@@ -42,10 +47,6 @@ namespace WpfApp1.Pages.Pictogramas
         }
         System.Timers.Timer timer = new System.Timers.Timer();
         static int m_counter = 0;
-        /*
-        [DllImport("winmm.dll", EntryPoint = "mciSendStringA", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        private static extern int record(string lpstrCommand, string lpstrReturnString, int uReturnLength, int hwndCallback);
-        */
         public WaveIn waveSource = null;
         public WaveFileWriter waveFile = null;
         private void cancelar_Click(object sender, RoutedEventArgs e)
@@ -53,12 +54,17 @@ namespace WpfApp1.Pages.Pictogramas
             this.NavigationService.GoBack();
         }
 
-        
+
         private void record_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (File.Exists(VOICEPATH))
+            {
+                File.Delete(VOICEPATH);
+            }
             if (!Directory.Exists(@"C:\IntegraBoard\repo\grabaciones"))
             {
-                if (!Directory.Exists(@"C:\IntegraBoard\repo")){
+                if (!Directory.Exists(@"C:\IntegraBoard\repo"))
+                {
                     if (!Directory.Exists(@"C:\IntegraBoard"))
                     {
                         Directory.CreateDirectory(@"C:\IntegraBoard");
@@ -72,14 +78,15 @@ namespace WpfApp1.Pages.Pictogramas
             lbl_rec.Content = "Grabando...";
             lbl_rec.Foreground = Brushes.Red;
             //-----------------------------------
-            m_counter = 0;
+            if (m_counter != 0)
+            {
+                m_counter = -1;
+            }
+            
+            timer = new System.Timers.Timer();
             timer.Interval = 1000;
             timer.Elapsed += OnTimerElaspsed;
             timer.Start();
-
-            /*record("open new Type waveaudio Alias recsound", "", 0, 0);
-            record("record recsound", "", 0, 0);
-            */
             waveSource = new WaveIn();
             waveSource.DeviceNumber = sourceList.SelectedIndex;
             waveSource.WaveFormat = new WaveFormat(44100, 1);
@@ -87,10 +94,11 @@ namespace WpfApp1.Pages.Pictogramas
             waveSource.DataAvailable += new EventHandler<WaveInEventArgs>(waveSource_DataAvailable);
             waveSource.RecordingStopped += new EventHandler<StoppedEventArgs>(waveSource_RecordingStopped);
 
-            waveFile = new WaveFileWriter(@"C:\IntegraBoard\repo\grabaciones\sample.wav", waveSource.WaveFormat);
+            waveFile = new WaveFileWriter(VOICEPATH, waveSource.WaveFormat);
 
             waveSource.StartRecording();
-            
+            playbtn.IsEnabled = false;
+
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -99,16 +107,14 @@ namespace WpfApp1.Pages.Pictogramas
             save.IsEnabled = false;
             lbl_rec.Content = "Grabador de voz";
             lbl_rec.Foreground = Brushes.White;
+            guardarbtn.IsEnabled = true;
 
             timer.Stop();
-            /*
-            record("save recsound C:\\Users\\Tomas\\Desktop\\sample2.wav", "", 0, 0);
-            record("close recsound", "", 0, 0);
-            */
-
+            playbtn.IsEnabled = true;
             waveSource.Dispose();
             waveSource.StopRecording();
             
+
         }
         void waveSource_DataAvailable(object sender, WaveInEventArgs e)
         {
@@ -138,12 +144,52 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void OnTimerElaspsed(object sender, ElapsedEventArgs e)
         {
-            m_counter++;
+            m_counter = m_counter +1;
             lbl_timer.Dispatcher.Invoke(() =>
             {
-
-                lbl_timer.Content = "Duración: "+ m_counter;
+                lbl_timer.Content = "Duración: " + m_counter;
             });
+        }
+        private NAudio.Wave.WaveFileReader wave = null;
+        private NAudio.Wave.DirectSoundOut output = null;
+        private void playbtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(VOICEPATH))
+            {
+                return;
+            }
+            wave = new NAudio.Wave.WaveFileReader(VOICEPATH);
+            output = new NAudio.Wave.DirectSoundOut();
+            output.Init(new NAudio.Wave.WaveChannel32(wave));
+            output.Play();
+            playbtn.Visibility = Visibility.Hidden;
+            playbtn.IsEnabled = false;
+            stopbtn.IsEnabled = true;
+            stopbtn.Visibility = Visibility.Visible;
+            record_btn.IsEnabled = false;
+
+        }
+        private void stopbtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (output != null)
+            {
+                output.Stop();
+                output.Dispose();
+                wave.Dispose();
+            }
+            playbtn.Visibility = Visibility.Visible;
+            playbtn.IsEnabled = true;
+            stopbtn.IsEnabled = false;
+            stopbtn.Visibility = Visibility.Hidden;
+            record_btn.IsEnabled = true;
+        }
+       
+
+        private void guardarbtn_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreSonido ="voice_"+ Repository.Instance.getVoiceNumber();
+            Repository.Instance.CrearSonido(VOICEPATH, nombreSonido,true);
+            this.NavigationService.GoBack();
         }
     }
 }

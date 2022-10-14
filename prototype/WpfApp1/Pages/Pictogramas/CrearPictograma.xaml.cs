@@ -59,8 +59,7 @@ namespace WpfApp1.Pages.Pictogramas
         private void SelectSound_Click(object sender, RoutedEventArgs e)
         {
 
-            //this.NavigationService.Navigate(new SelectSound());
-            this.NavigationService.Navigate(new VoiceRecorder());
+            this.NavigationService.Navigate(new SelectSound());
             
             
             /*Microsoft.Win32.OpenFileDialog ofdSound = new OpenFileDialog();

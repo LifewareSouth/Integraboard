@@ -1,10 +1,13 @@
 ﻿using AForge.Imaging.Filters;
+using NAudio.Lame;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -26,7 +29,7 @@ namespace WpfApp1.Assets
                 return instance;
             }
         }
-
+        string DIRECTORY_SONIDOS = "C:\\IntegraBoard\\repo\\sonidos";
         public static string PictogramCategoryToString(Pictogram.PictogramCategory pCategory)
         {
             switch (pCategory)
@@ -86,6 +89,7 @@ namespace WpfApp1.Assets
             {
                 conexion.Open();
                 string query = "CREATE TABLE IF NOT EXISTS imagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS sonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS etiquetas (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));";
@@ -299,7 +303,181 @@ namespace WpfApp1.Assets
                     conexion.Close();
                 }
             }
+        } 
+        public void CrearSonido(string pathSonido,string nombreSonido,bool isVoice)
+        {
+
+            if (!Directory.Exists(DIRECTORY_SONIDOS)){
+                Directory.CreateDirectory(DIRECTORY_SONIDOS);
+            }
+
+            string alfaSound = Guid.NewGuid().ToString();
+            string pathSonidoMp3 = DIRECTORY_SONIDOS + "\\" + alfaSound + ".mp3";
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into sonidos(idAlfaSonido,nombreSonido,pathSonido) values (@idAlfaSonido,@nombreSonido,@pathSonido)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaSonido", alfaSound));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreSonido", nombreSonido));
+                cmd.Parameters.Add(new SQLiteParameter("@pathSonido", pathSonidoMp3));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+            if (isVoice)
+            {
+                FileStream fs;
+                byte[] rawData = ConvertToMp3(pathSonido);
+                fs = new FileStream(pathSonidoMp3, FileMode.OpenOrCreate, FileAccess.Write);
+                fs.Write(rawData, 0, rawData.Length);
+                fs.Close();
+            }
+            else
+            {
+                File.Copy(pathSonido, pathSonidoMp3, true);
+            }
+        }
+        public int getVoiceNumber()
+        {
+            int numeroVoice = 0;
+            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT count(nombreSonido) as total from sonidos where nombreSonido  like 'voice%'";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int total = int.Parse(dr["total"].ToString());
+                        numeroVoice = total + 1;
+                    }
+                }
+                conexion.Close();
+            }
+            return numeroVoice;
+        }
+        public List<SoundModel> GetAllSounds()
+        {
+            List<SoundModel> ListaSonidos = new List<SoundModel>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idSonido, idAlfaSonido,nombreSonido,pathSonido  from sonidos order by idSonido desc;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ListaSonidos.Add(new SoundModel
+                        {
+                            ID = int.Parse(dr["idSonido"].ToString()),
+                            idAlfaSonido = dr["idAlfaSonido"].ToString(),
+                            Nombre = dr["nombreSonido"].ToString(),
+                            pathSonido = dr["pathSonido"].ToString(),
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+            return ListaSonidos;
+        }
+        public byte[] ConvertToMp3(string pathWav)
+        {
+            using (var client = new WebClient())
+            {
+                var file = client.DownloadData(pathWav);
+                var target = new WaveFormat(44100, 1);
+                using (var outPutStream = new MemoryStream())
+                using (var waveStream = new WaveFileReader(new MemoryStream(file)))
+                using (var conversionStream = new WaveFormatConversionStream(target, waveStream))
+                using (var writer = new LameMP3FileWriter(outPutStream, conversionStream.WaveFormat, 64, null))
+                {
+                    conversionStream.CopyTo(writer);
+
+                    return outPutStream.ToArray();
+                }
+            }
+        }
+
+        public List<Pictogram> getAllPict()
+        {
+            List<Pictogram> listaPict = new List<Pictogram>();
+            int sound_id;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
+                "from pictogramas p " +
+                "JOIN imagenes i on p.idImagen = i.idImagen  " +
+                "LEFT join sonidos s on p.idSonido = s.idSonido order by idPict DESC;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int.TryParse(dr["idSonido"].ToString(), out sound_id);
+                        listaPict.Add(new Pictogram
+                        {
+                            ID = int.Parse(dr["idPict"].ToString()),
+                            idAlfaPict = dr["idAlfaPict"].ToString(),
+                            Nombre = dr["nombrePict"].ToString(),
+                            Texto = dr["textoPict"].ToString(),
+                            Categoria = dr["categoriaPict"].ToString(),
+                            idImagen = int.Parse(dr["idPict"].ToString()),
+                            nombreImagen = dr["nombreImagen"].ToString(),
+                            Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]),
+                            idSonido = sound_id,
+                            nombreSonido = dr["nombreSonido"].ToString(),
+                            pathSonido = dr["pathSonido"].ToString(),
+                            ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString()))
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+            return listaPict;
+
+        }
+        public List<Etiqueta> GetEtiquetasFromPict(int idPictograma)
+        {
+            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select p.idEtiqueta,idAlfaEtiqueta,nombreEtiqueta " +
+                    "from pictEtiqueta p " +
+                    "join etiquetas e on e.idEtiqueta = p.idEtiqueta " +
+                    "where idPictograma = @idPictograma ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPictograma", idPictograma));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetas.Add(new Etiqueta
+                        {
+                            ID = int.Parse(dr["idEtiqueta"].ToString()),
+                            idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
+                            NombreEtiqueta = dr["nombreEtiqueta"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaEtiquetas;
         }
     }
-    
 }

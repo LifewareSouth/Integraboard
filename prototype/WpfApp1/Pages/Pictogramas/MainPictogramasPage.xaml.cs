@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
+using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Pictogramas;
 
@@ -25,6 +27,7 @@ namespace WpfApp1
         public MainPicrogramasPage()
         {
             InitializeComponent();
+            List<Pictogram>listaPict =  Repository.Instance.getAllPict();
         }
 
         /*private void Button_Click(object sender, RoutedEventArgs e)

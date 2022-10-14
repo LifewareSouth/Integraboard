@@ -24,6 +24,7 @@ namespace WpfApp1.Model
         public int? idSonido { get; set; }
         public string nombreSonido { get; set; }
         public string pathSonido { get; set; }
+        public List<Etiqueta> ListaEtiquetas { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
