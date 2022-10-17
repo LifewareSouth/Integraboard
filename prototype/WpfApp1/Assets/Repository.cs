@@ -141,7 +141,63 @@ namespace WpfApp1.Assets
             }
             //return idImagen;
         }
+        public int GuardarImagenCamara(string pathImagen)
+        {
+            byte[] pic = File.ReadAllBytes(pathImagen);
+            int numeroImagenCamera = 0;
+            string imageName = System.IO.Path.GetFileNameWithoutExtension(pathImagen);
+            string alfaIdImagen = Guid.NewGuid().ToString();
+            int idImagen = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT count(nombreImagen) as total from imagenes where nombreImagen  like 'cameraPhoto_%'";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
 
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int total = int.Parse(dr["total"].ToString());
+                        numeroImagenCamera = total + 1;
+                    }
+                }
+                conexion.Close();
+                //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                query = "insert into imagenes(idAlfaImagen, nombreImagen, blobImagen) values (@idAlfaImagen, @nombreImagen, @blobImagen)";
+
+                cmd = new SQLiteCommand(query, conexion);
+                SQLiteParameter parametro = new SQLiteParameter("@blobImagen", System.Data.DbType.Binary);
+                cmd.Parameters.Add(new SQLiteParameter("@nombreImagen", "cameraPhoto_" + numeroImagenCamera));
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", alfaIdImagen));
+                parametro.Value = pic;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
+                //BUSCA LA ID DE LA IMAGEN RECIEN AGREGADA
+                query = "select idImagen from imagenes where idAlfaImagen = @idAlfaImagen";
+                conexion.Open();
+                cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", alfaIdImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idImagen = int.Parse(dr["idImagen"].ToString());
+                    }
+                }
+                conexion.Close();
+                
+            }
+            return idImagen;
+        }
         public void CrearPictograma(Pictogram pict)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))

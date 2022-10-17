@@ -29,7 +29,7 @@ namespace WpfApp1.Pages.Pictogramas
             InitializeComponent();
             ActualizarLista();
         }
-
+        ImagenModel ImagenSeleccionada = new ImagenModel();
         private void AddImages_Click(object sender, RoutedEventArgs e)
         {
             //Aquí va lo que estaba en la otra page
@@ -71,7 +71,7 @@ namespace WpfApp1.Pages.Pictogramas
             if (ListViewImages.SelectedValue != null)
             {
                 btn_aceptar.IsEnabled = true;
-                ImagenModel ModeloImagen = ((ImagenModel)ListViewImages.SelectedItem);
+                ImagenSeleccionada = ((ImagenModel)ListViewImages.SelectedItem);
             }
             else
             {
@@ -79,6 +79,15 @@ namespace WpfApp1.Pages.Pictogramas
             }
             
             
+        }
+
+        private void btn_aceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewImages.SelectedValue != null)
+            {
+                CrearPictograma.Instance.ImagenFromDB(ImagenSeleccionada);
+                this.NavigationService.GoBack();
+            }
         }
     }
 }

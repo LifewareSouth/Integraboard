@@ -146,7 +146,7 @@
                                 Content="Guardar"
                                 Foreground="White"
                                 FontSize="25"
-                                IsEnabled="False"
+                                IsEnabled="False" Click="btn_aceptar_Click"
                                 
                             />
 

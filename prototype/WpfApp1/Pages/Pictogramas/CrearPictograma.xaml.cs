@@ -30,6 +30,8 @@ namespace WpfApp1.Pages.Pictogramas
         bool _navigationServiceAssigned = false;
         string TipoImagen = null, pathImagen;
         private static bool IsImageFromCamera = false;
+        private static bool IsImageFromDB = false;
+        private static ImagenModel imageDB = new ImagenModel();
         private static readonly CrearPictograma instance = new CrearPictograma();
         private static List<Etiqueta> ListaEtiquetas = new List<Etiqueta>();
         public static CrearPictograma Instance
@@ -61,18 +63,6 @@ namespace WpfApp1.Pages.Pictogramas
 
             this.NavigationService.Navigate(new SelectSound());
             
-            
-            /*Microsoft.Win32.OpenFileDialog ofdSound = new OpenFileDialog();
-            
-            ofdSound.Filter = "Sonidos (*.mp3)|*.mp3";
-            bool? response = ofdSound.ShowDialog();
-            */
-
-            /*if(response == true)
-            {
-                string filepath = ofd.FileName;
-                MessageBox.Show(filepath);
-            }*/
         }
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)
@@ -88,7 +78,16 @@ namespace WpfApp1.Pages.Pictogramas
 
         public void ImagenFromCamera()
         {
-            IsImageFromCamera = true;            
+            IsImageFromCamera = true;
+            IsImageFromDB = false;
+
+
+        }
+        public void ImagenFromDB(ImagenModel imagenModel)
+        {
+            IsImageFromDB = true;
+            IsImageFromCamera = false;
+            imageDB = imagenModel;
         }
         public static BitmapImage LoadBitmapImage(string fileName)
         {
@@ -123,6 +122,14 @@ namespace WpfApp1.Pages.Pictogramas
                 List<string> etiquetasPict = new List<string>();
                 List<int> idsTags = new List<int>();
                 Pictogram pict = new Pictogram();
+                if(TipoImagen == "Camara")
+                {
+                    pict.idImagen = Repository.Instance.GuardarImagenCamara(@"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png");
+                }
+                else if(TipoImagen == "Database")
+                {
+                    pict.idImagen = imageDB.ID;
+                }
                 pict.Nombre = NombrePict.Text;
                 pict.Texto = TextPict.Text;
                 pict.Categoria = CategoriaPict.SelectedItem.ToString();
@@ -152,7 +159,6 @@ namespace WpfApp1.Pages.Pictogramas
                     }
                     Repository.Instance.AsociarEtiquetasPict(idsTags, idNewPict);
                 }
-
                 this.NavigationService.GoBack();
             }
         }
@@ -200,6 +206,11 @@ namespace WpfApp1.Pages.Pictogramas
                     pathImagen = @"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png";
                     PictogramImage.Source = LoadBitmapImage(@"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png");
                     TipoImagen = "Camara";
+                }
+                else if (IsImageFromDB == true)
+                {
+                    PictogramImage.Source = imageDB.Imagen;
+                    TipoImagen = "Database";
                 }
             }
         }
