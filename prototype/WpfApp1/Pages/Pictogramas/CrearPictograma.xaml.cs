@@ -32,6 +32,8 @@ namespace WpfApp1.Pages.Pictogramas
         private static bool IsImageFromCamera = false;
         private static bool IsImageFromDB = false;
         private static ImagenModel imageDB = new ImagenModel();
+        private bool isEdit = false;
+        private static Pictogram pictogramEdit = new Pictogram();
         private static readonly CrearPictograma instance = new CrearPictograma();
         private static List<Etiqueta> ListaEtiquetas = new List<Etiqueta>();
         public static CrearPictograma Instance
@@ -51,6 +53,39 @@ namespace WpfApp1.Pages.Pictogramas
             }
             CategoriaPict.Text = ( Repository.PictogramCategoryToString(Pictogram.PictogramCategory.Verbos)).ToString();
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
+        }
+        public CrearPictograma(Pictogram editPict)
+        {
+            InitializeComponent();
+            foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
+            {
+                object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
+            }
+            ListaEtiquetas = Repository.Instance.getAllEtiquetas();
+            NombrePict.Text = editPict.Nombre;
+            TextPict.Text = editPict.Texto;
+            CategoriaPict.Text = editPict.Categoria;
+            IsImageFromDB = true;
+            imageDB.ID = editPict.idImagen;
+            imageDB.Nombre = editPict.nombreImagen;
+            imageDB.Imagen = editPict.Imagen;
+            PictogramImage.Source = editPict.Imagen;
+            string etiquetas = "";
+            foreach(Etiqueta etiqueta in editPict.ListaEtiquetas)
+            {
+                if(editPict.ListaEtiquetas.First() == etiqueta)
+                {
+                    etiquetas = etiqueta.NombreEtiqueta;
+                }
+                else
+                {
+                    etiquetas = etiquetas+","+ etiqueta.NombreEtiqueta;
+                }
+            }
+            EtiquetaPict.Text = etiquetas;
+            isEdit = true;
+            pictogramEdit = editPict;
+            TipoImagen = "Database";
         }
         
         private void GoToPictogramas(object sender, RoutedEventArgs e)
@@ -133,36 +168,54 @@ namespace WpfApp1.Pages.Pictogramas
                 pict.Nombre = NombrePict.Text;
                 pict.Texto = TextPict.Text;
                 pict.Categoria = CategoriaPict.SelectedItem.ToString();
-                //pict.idImagen = IdImagen;
-                Repository.Instance.CrearPictograma(pict);
-                int idNewPict = Repository.Instance.getLatestPictogram();
-                if (String.IsNullOrWhiteSpace(EtiquetaPict.Text) == false)
+                if (!isEdit)//PREGUNTA SI SE ESTA EDITANDO UN PICTOGRAMA O SI ES UNO NUEVO
                 {
-                    string textoEtiquetas = EtiquetaPict.Text;
-                    string[] conjuntoEtiquetas = textoEtiquetas.Split(", ");
-                    foreach (string tag in conjuntoEtiquetas)
+                    Repository.Instance.CrearPictograma(pict);
+                    int idNewPict = Repository.Instance.getLatestPictogram();
+                    if (String.IsNullOrWhiteSpace(EtiquetaPict.Text) == false)
                     {
-                        etiquetasPict.Add(tag);
+                        idsTags = idTags(EtiquetaPict.Text);
+                        Repository.Instance.AsociarEtiquetasPict(idsTags, idNewPict,true);
                     }
-                    foreach (string tag in etiquetasPict)
-                    {
-                        //EN CASO DE NO EXISTIR LA ETIQUETA PREVIEMENTE
-                        if (!ListaEtiquetas.Any(x => x.NombreEtiqueta == tag))
-                        {
-                            Repository.Instance.InsertEtiqueta(tag);
-                            idsTags.Add(Repository.Instance.GetIdEtiqueta(tag));
-                        }
-                        else
-                        {
-                            idsTags.Add(ListaEtiquetas.Where(x => x.NombreEtiqueta == tag).Select(ListIdPict => ListIdPict.ID).First());
-                        }
-                    }
-                    Repository.Instance.AsociarEtiquetasPict(idsTags, idNewPict);
                 }
+                else
+                {
+                    pict.ID = pictogramEdit.ID;
+                    Repository.Instance.EditPictogram(pict);
+                    if (String.IsNullOrWhiteSpace(EtiquetaPict.Text) == false)
+                    {
+                        idsTags = idTags(EtiquetaPict.Text);
+                        Repository.Instance.AsociarEtiquetasPict(idsTags,pictogramEdit.ID, false);
+                    }
+                }
+                // MainPicrogramasPage.Instance.runUpdate();  HACER QUE SE ACTUALIZE AL EDITAR O GUARDAR UN NUEVO PICTOGRAMA
                 this.NavigationService.GoBack();
             }
         }
-
+        private List<int> idTags(string textoEtiquetas)
+        {
+            List<int> idsTags = new List<int>();
+            List<string> etiquetasPict = new List<string>();
+            string[] conjuntoEtiquetas = textoEtiquetas.Split(",");
+            foreach (string tag in conjuntoEtiquetas)
+            {
+                etiquetasPict.Add(tag);
+            }
+            foreach (string tag in etiquetasPict)
+            {
+                //EN CASO DE NO EXISTIR LA ETIQUETA PREVIEMENTE
+                if (!ListaEtiquetas.Any(x => x.NombreEtiqueta == tag))
+                {
+                    Repository.Instance.InsertEtiqueta(tag);
+                    idsTags.Add(Repository.Instance.GetIdEtiqueta(tag));
+                }
+                else
+                {
+                    idsTags.Add(ListaEtiquetas.Where(x => x.NombreEtiqueta == tag).Select(ListIdPict => ListIdPict.ID).First());
+                }
+            }
+            return idsTags;
+        }
         private bool validateConditionsToSave()
         {
             bool valido = true;

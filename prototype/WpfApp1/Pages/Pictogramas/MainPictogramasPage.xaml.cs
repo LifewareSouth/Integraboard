@@ -24,12 +24,42 @@ namespace WpfApp1
     /// </summary>
     public partial class MainPicrogramasPage : Page
     {
+        static List<Pictogram> listaPict = new List<Pictogram>();
+        private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
+        public static MainPicrogramasPage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public MainPicrogramasPage()
         {
             InitializeComponent();
-            List<Pictogram>listaPict =  Repository.Instance.getAllPict();
+            ActualizarLista();
         }
+        private void ActualizarLista()
+        {
+            Style rowStyle = new Style(typeof(DataGridRow));
+            rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
+                                     new MouseButtonEventHandler(Row_DoubleClick)));
+            
+            listaPict = Repository.Instance.getAllPict();
+            if (listaPict.Count > 0)
+            {
+                ListViewPictograms.ItemsSource = listaPict;
+            }
+        }
+        private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
+            this.NavigationService.Navigate(new CrearPictograma(pictEdit));
+        }
         /*private void Button_Click(object sender, RoutedEventArgs e)
         {
             Pictos.Content = new Tableros();
@@ -58,6 +88,11 @@ namespace WpfApp1
             PictoPreview w = new PictoPreview();
             w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
+        }
+
+        private void Actualizar_Click(object sender, RoutedEventArgs e)
+        {
+            ActualizarLista();
         }
     }
 }

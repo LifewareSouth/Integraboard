@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
@@ -244,6 +245,24 @@ namespace WpfApp1.Assets
             }
             return idPict;
         }
+        public void EditPictogram(Pictogram pict)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "UPDATE pictogramas set nombrePict = @nombrePict , textoPict = @textoPict, categoriaPict = @categoriaPict, idImagen = @idImagen, idSonido = @idSonido where idPict= @idPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@nombrePict", pict.Nombre));
+                cmd.Parameters.Add(new SQLiteParameter("@textoPict", pict.Texto));
+                cmd.Parameters.Add(new SQLiteParameter("@categoriaPict", pict.Categoria));
+                cmd.Parameters.Add(new SQLiteParameter("@idImagen", pict.idImagen));
+                cmd.Parameters.Add(new SQLiteParameter("@idSonido", pict.idSonido));
+                cmd.Parameters.Add(new SQLiteParameter("@idPict", pict.ID));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
 
         public List<ImagenModel> getAllImages()
         {
@@ -342,24 +361,75 @@ namespace WpfApp1.Assets
             return IdEtiqueta;
         }
 
-        public void AsociarEtiquetasPict(List<int>ListaEtiquetas,int idPict)
+        public void AsociarEtiquetasPict(List<int>ListaEtiquetas,int idPict, bool isNew)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
+                List<int> listaEtiquetasAsociadas = new List<int>();
+                List<int> listaEtiquetasEliminadas = new List<int>();
+                if (!isNew)//EN CASO DE EDITAR LAS ETIQUETAS DE UN PICTOGRAMA
+                {
+                    conexion.Open();
+                    string query = "select idEtiqueta from pictEtiqueta where idPictograma = @idPictograma; ";
+                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                    cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    using (SQLiteDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            listaEtiquetasAsociadas.Add(int.Parse(dr["idEtiqueta"].ToString()));
+                        }
+                    }
+                    conexion.Close();
+                        
+                }
                 //ASOCIA LAS ETIQUETAS CON EL PICTOGRAMA
                 foreach (int idEtiqueta in ListaEtiquetas)
                 {
-                    conexion.Open();
-                    string query = "insert into pictEtiqueta( IdEtiqueta,IdPictograma) values (@IdEtiqueta, @IdPictograma)";
-                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-                    cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idEtiqueta));
-                    cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    conexion.Close();
+                    bool existe = false;
+                    if (!isNew)
+                    {
+                        if (listaEtiquetasAsociadas.Contains(idEtiqueta))
+                        {
+                            existe = true;
+                        }
+                    }
+                    if (!existe)
+                    {
+                        conexion.Open();
+                        string query = "insert into pictEtiqueta( IdEtiqueta,IdPictograma) values (@IdEtiqueta, @IdPictograma)";
+                        SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                        cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idEtiqueta));
+                        cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        conexion.Close();
+                    }
                 }
+                if (!isNew)
+                {
+                    foreach(int idTag in listaEtiquetasAsociadas)
+                    {
+                        if (!ListaEtiquetas.Contains(idTag))
+                        {
+                            conexion.Open();
+                            string query = "Delete from pictEtiqueta where IdEtiqueta  = @IdEtiqueta and IdPictograma = @IdPictograma ;" +
+                                "VACUUM;";
+                            SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                            cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idTag));
+                            cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
+                            cmd.CommandType = System.Data.CommandType.Text;
+                            cmd.ExecuteNonQuery();
+                            conexion.Close();
+                        }
+                    }
+                }
+                
+
             }
-        } 
+        }
+        
         public void CrearSonido(string pathSonido,string nombreSonido,bool isVoice)
         {
 
@@ -490,7 +560,7 @@ namespace WpfApp1.Assets
                             Nombre = dr["nombrePict"].ToString(),
                             Texto = dr["textoPict"].ToString(),
                             Categoria = dr["categoriaPict"].ToString(),
-                            idImagen = int.Parse(dr["idPict"].ToString()),
+                            idImagen = int.Parse(dr["idImagen"].ToString()),
                             nombreImagen = dr["nombreImagen"].ToString(),
                             Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]),
                             idSonido = sound_id,
