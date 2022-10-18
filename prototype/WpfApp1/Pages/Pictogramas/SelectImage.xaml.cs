@@ -24,6 +24,7 @@ namespace WpfApp1.Pages.Pictogramas
     public partial class SelectImage : Page
     {
         List<ImagenModel> ListaImagenes = new List<ImagenModel>();
+        List<ImagenModel> filteredImages = new List<ImagenModel>();
         public SelectImage()
         {
             InitializeComponent();
@@ -61,11 +62,6 @@ namespace WpfApp1.Pages.Pictogramas
             this.NavigationService.GoBack();
         }
 
-        private void btn_aceptarClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ListViewImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListViewImages.SelectedValue != null)
@@ -77,8 +73,6 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 btn_aceptar.IsEnabled = false;
             }
-            
-            
         }
 
         private void btn_aceptar_Click(object sender, RoutedEventArgs e)
@@ -88,6 +82,27 @@ namespace WpfApp1.Pages.Pictogramas
                 CrearPictograma.Instance.ImagenFromDB(ImagenSeleccionada);
                 this.NavigationService.GoBack();
             }
+        }
+
+        private void busqueda_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<ImagenModel> filtro = new List<ImagenModel>();
+            if (busqueda.Text != null || busqueda.Text != "")
+            {
+                foreach (ImagenModel imagenes in ListaImagenes)
+                {
+                    if (imagenes.Nombre.Contains(busqueda.Text))
+                    {
+                        filtro.Add(imagenes);
+                    }
+                }
+                filteredImages = filtro;
+            }
+            else
+            {
+                filteredImages = ListaImagenes;
+            }
+            ListViewImages.ItemsSource = filteredImages;
         }
     }
 }

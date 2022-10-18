@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="Pictogramas">
-
+      Title="Pictogramas"
+      Loaded="page_Loaded">
     <Grid Background="#04293a">
         <Frame x:Name="Pictos" NavigationUIVisibility="Hidden"/>
         <StackPanel Orientation="Horizontal">
@@ -144,7 +144,7 @@
                     Foreground="#707070"
                     IsEnabled="false"/>
 
-            <Button Content="Editar"
+            <Button x:Name="Editar" Content="Editar"
                     Grid.Column="1" 
                     Grid.Row="3" 
                     Height="90"
@@ -153,7 +153,7 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="white" Click="Editar_Click"/>
 
             <Button x:Name="btnEliminar"
                     Content="Eliminar"
@@ -177,7 +177,6 @@
                Foreground="White"
                HorizontalAlignment="Center"
                VerticalAlignment="Top"/>
-        <Button x:Name="Actualizar" Grid.Column="1" Content="Actualizar" HorizontalAlignment="Left" Margin="103,53,0,0" Grid.Row="2" VerticalAlignment="Top" Click="Actualizar_Click"/>
         <!--Grid de la vista completa-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

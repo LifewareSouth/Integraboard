@@ -65,11 +65,11 @@
                            FontStyle="Italic"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
-                    <TextBox Grid.Row="1"
+                    <TextBox x:Name="busqueda" Grid.Row="1"
                              Height="50"
                              Width="350"
                              HorizontalAlignment="Right"
-                             Margin="0,0,60,0"/>
+                             Margin="0,0,60,0" TextChanged="busqueda_TextChanged"/>
 
                     <Grid Grid.Row="2">
                         <ScrollViewer Margin="10">

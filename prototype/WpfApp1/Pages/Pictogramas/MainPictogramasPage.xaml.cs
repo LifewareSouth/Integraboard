@@ -24,6 +24,8 @@ namespace WpfApp1
     /// </summary>
     public partial class MainPicrogramasPage : Page
     {
+        bool _navigationServiceAssigned = false;
+        static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();
         private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
         public static MainPicrogramasPage Instance
@@ -90,9 +92,37 @@ namespace WpfApp1
             w.Show();
         }
 
-        private void Actualizar_Click(object sender, RoutedEventArgs e)
+        public void runActualizarLista()
         {
-            ActualizarLista();
+            actualizandoPictogramas = true;
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (actualizandoPictogramas == true)
+                {
+                    ActualizarLista();
+                    actualizandoPictogramas = false;
+                }
+            }
+        }
+
+        private void Editar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewPictograms.SelectedValue != null)
+            {
+                Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
+                this.NavigationService.Navigate(new CrearPictograma(pictEdit));
+            }
         }
     }
 }

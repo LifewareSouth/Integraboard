@@ -95,15 +95,12 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void SelectSound_Click(object sender, RoutedEventArgs e)
         {
-
             this.NavigationService.Navigate(new SelectSound());
-            
         }
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new SelectImage());
-            
         }
 
         private void TakePicture_Click(object sender, RoutedEventArgs e)
@@ -115,8 +112,6 @@ namespace WpfApp1.Pages.Pictogramas
         {
             IsImageFromCamera = true;
             IsImageFromDB = false;
-
-
         }
         public void ImagenFromDB(ImagenModel imagenModel)
         {
@@ -188,7 +183,7 @@ namespace WpfApp1.Pages.Pictogramas
                         Repository.Instance.AsociarEtiquetasPict(idsTags,pictogramEdit.ID, false);
                     }
                 }
-                // MainPicrogramasPage.Instance.runUpdate();  HACER QUE SE ACTUALIZE AL EDITAR O GUARDAR UN NUEVO PICTOGRAMA
+                MainPicrogramasPage.Instance.runActualizarLista();
                 this.NavigationService.GoBack();
             }
         }
@@ -224,7 +219,6 @@ namespace WpfApp1.Pages.Pictogramas
                 Hint1.Visibility = Visibility.Visible;
                 Hint1.Text = "El pictograma debe llevar un nombre";
                 valido = false;
-                //buttonSave.IsEnabled = false;
             }
             else if (String.IsNullOrWhiteSpace(TextPict.Text) == true)
             {
@@ -239,8 +233,6 @@ namespace WpfApp1.Pages.Pictogramas
                 valido = false;
             }
             return valido;
-
-
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
