@@ -36,6 +36,7 @@ namespace WpfApp1.Pages.Pictogramas
         private static Pictogram pictogramEdit = new Pictogram();
         private static readonly CrearPictograma instance = new CrearPictograma();
         private static List<Etiqueta> ListaEtiquetas = new List<Etiqueta>();
+        private static SoundModel sonidoSeleccionado = new SoundModel();
         public static CrearPictograma Instance
         {
             get
@@ -119,6 +120,10 @@ namespace WpfApp1.Pages.Pictogramas
             IsImageFromCamera = false;
             imageDB = imagenModel;
         }
+        public void SoundFromDb(SoundModel soundModel)
+        {
+            sonidoSeleccionado = soundModel;
+        }
         public static BitmapImage LoadBitmapImage(string fileName)
         {
             try
@@ -159,6 +164,10 @@ namespace WpfApp1.Pages.Pictogramas
                 else if(TipoImagen == "Database")
                 {
                     pict.idImagen = imageDB.ID;
+                }
+                if (sonidoSeleccionado != null)
+                {
+                    pict.idSonido = sonidoSeleccionado.ID;
                 }
                 pict.Nombre = NombrePict.Text;
                 pict.Texto = TextPict.Text;

@@ -88,5 +88,27 @@ namespace WpfApp1.Pages.Pictogramas
             waveOut.Stop();
             this.waveOut.Dispose();
         }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void btn_aceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewSounds.SelectedValue != null)
+            {
+                //EN CASO DE ESTAR REPRODUCIENDO SONIDO, LO PAUSA
+                if (waveOut != null)
+                {
+                    if (waveOut.PlaybackState == PlaybackState.Playing)
+                    {
+                        StopSound();
+                    }
+                }                
+                CrearPictograma.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
+                this.NavigationService.GoBack();
+            }
+        }
     }
 }

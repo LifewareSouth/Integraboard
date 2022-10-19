@@ -185,7 +185,7 @@
                             Background="#1597e5"
                             Content="Guardar"
                             Foreground="White"
-                            FontSize="25"
+                            FontSize="25" Click="btn_aceptar_Click"
                             />
 
                         <Button x:Name="Cancelar"
@@ -195,7 +195,7 @@
                             Content="Cancelar"
                             Foreground="White"
                             FontSize="25"
-                            Margin="10,0,0,0"
+                            Margin="10,0,0,0" Click="Cancelar_Click"
                             />
 
                     </StackPanel>
