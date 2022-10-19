@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -77,12 +78,20 @@ namespace WpfApp1
             this.NavigationService.Navigate(new CrearPictograma());
         }
 
-        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        private async void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new DeleteDialog());
-            DeleteDialogWin w = new DeleteDialogWin();
-            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            w.Show();
+            if (ListViewPictograms.SelectedValue != null)
+            {
+                DeleteDialogWin w = new DeleteDialogWin();
+                w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                var result = w.ShowDialog();
+                if(result == true)
+                {
+                    Pictogram pictEliminar = ((Pictogram)ListViewPictograms.SelectedItem);
+                    Repository.Instance.deletePictograma(pictEliminar.ID);
+                    ActualizarLista();
+                }
+            }
         }
 
         private void btnPreview_Click(object sender, RoutedEventArgs e)

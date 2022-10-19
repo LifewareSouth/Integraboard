@@ -25,5 +25,10 @@ namespace WpfApp1.Pages.Dialogs
         {
             Close();
         }
+
+        private void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;   
+        }
     }
 }
