@@ -5,18 +5,179 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp1.Pages.Pictogramas"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="1280"
       Title="VoiceRecorder">
 
-    <Grid>
-        <Button x:Name="record_btn" Content="Grabar" HorizontalAlignment="Left" Margin="189,239,0,0" VerticalAlignment="Top" Height="57" Width="104" Click="record_btn_Click"/>
-        <Button x:Name="save" Content="Terminar Grabacion" IsEnabled="False" HorizontalAlignment="Left" Margin="318,239,0,0" VerticalAlignment="Top" Height="57" Width="146" Click="save_Click"/>
-        <Button x:Name="playbtn" Content="Reproducir" IsEnabled="False" HorizontalAlignment="Left" Margin="487,239,0,0" VerticalAlignment="Top" Height="57" Width="127" Click="playbtn_Click"/>
-        <Button x:Name="stopbtn" Content="Pausar" Visibility="Hidden" IsEnabled="False" HorizontalAlignment="Left" Margin="487,239,0,0" VerticalAlignment="Top" Height="57" Width="127" Click="stopbtn_Click"/>
-        <Label x:Name="lbl_rec" Content="Grabador de voz" HorizontalAlignment="Left" Margin="171,100,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Button x:Name="cancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="415,394,0,0" VerticalAlignment="Top" Click="cancelar_Click" RenderTransformOrigin="0.542,0.476"/>
-        <Label x:Name="lbl_timer" Content="Duración: 0" HorizontalAlignment="Left" Margin="507,100,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <ComboBox x:Name="sourceList" HorizontalAlignment="Left" Margin="220,333,0,0" VerticalAlignment="Top" Width="363"/>
-        <Button x:Name="guardarbtn" Content="Guardar como Sonido" IsEnabled="False" HorizontalAlignment="Left" Margin="271,394,0,0" VerticalAlignment="Top" Click="guardarbtn_Click"/>
+    <Grid Background="#04293a">
+        <Frame x:Name="voiceRecorder" NavigationUIVisibility="Hidden"/>
+        <StackPanel Orientation="Horizontal" 
+                    VerticalAlignment="Center"
+                    Grid.Row="0">
+            <!--Botón para volver al menú-->
+            <Button x:Name="volverPictos"
+                    Width="200"
+                    Height="70"
+                    Margin="20,0,20,0"
+                    Content="Pictogramas"
+                    FontFamily="arial"
+                    FontSize="30"
+                    FontWeight="SemiBold"
+                    Foreground="white"
+                    Background="#1597e5"
+                    />
+            <!---->
+            <Label Content="Grabadora de Sonido"
+                   x:Name="lbl_rec"
+                   FontFamily="Arial"
+                   FontWeight="Bold"
+                   FontSize="60" 
+                   Foreground="White"
+                   VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Rectangle Height="670"
+                   Width="900"
+                   Grid.Row="1"
+                   Fill="#003b49"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="190"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.RowSpan="2"
+                            VerticalAlignment="Center"
+                            Margin="0,80,0,0">
+                    <StackPanel Grid.Row="0"
+                            Orientation="Vertical"
+                            VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal"
+                                >
+                        <Button x:Name="playbtn" 
+                                Content="Reproducir" 
+                                IsEnabled="False" 
+                                Height="80"
+                                Width="200"
+                                Margin="20"
+                                Background="#1597e5"
+                                Foreground="White"
+                                FontSize="25"
+                                FontWeight="SemiBold"
+                                Click="playbtn_Click"/>
+
+                        <Border BorderBrush="White"
+                        Height="100"
+                        Width="400"
+                        BorderThickness="4">
+
+                        <Label x:Name="lbl_timer" 
+                           Content="Duración: 0" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontSize="50"/>
+                    </Border>
+                        <Button x:Name="stopbtn"
+                                Content="Pausar" 
+                                IsEnabled="False"
+                                Visibility="Hidden"
+                                Height="80"
+                                Width="200"
+                                Margin="20"
+                                Background="#1597e5"
+                                Foreground="White"
+                                FontSize="25"
+                                FontWeight="SemiBold"
+                                Click="stopbtn_Click"/>
+                    </StackPanel>
+                    
+
+                    <ComboBox x:Name="sourceList"
+                              Width="400"
+                              Height="30"
+                              Margin="-20,20,0,0"
+                              FontSize="20"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Margin="0,50,0,0">
+                    <!--boton de grabar-->
+                    <Button x:Name="record_btn" 
+                            Content="Grabar" 
+                            Width="200"
+                            Height="100"
+                            Margin="20"
+                            Background="#1597e5"
+                            Foreground="White"
+                            FontSize="25"
+                            FontWeight="SemiBold" 
+                        Click="record_btn_Click"/>
+                    <!--boton de terminar grabación-->
+
+                    <Button x:Name="save" 
+                            IsEnabled="False"  
+                            Width="200"
+                            Height="100"
+                            Margin="20"
+                            Background="#1597e5"
+                            Foreground="White"
+                            FontSize="25"
+                            FontWeight="SemiBold"
+                        Click="save_Click">
+                        <TextBlock Text="Terminar Grabacion"
+                                   TextWrapping="Wrap"/>
+                    </Button>
+                    
+                </StackPanel>
+                </StackPanel>
+                
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom">
+                    <Button x:Name="guardarbtn" 
+                            Content="Guardar como Sonido"
+                            Grid.Row="2"
+                            IsEnabled="False"
+                            Height="50"
+                            Width="300"
+                            Background="#1597e5"
+                            Foreground="White"
+                            FontSize="25"
+                            Click="guardarbtn_Click"/>
+
+                    <Button x:Name="cancelar"
+                            Margin="10"
+                            Height="50"
+                            Width="150"
+                            Background="#ff6464"
+                            Content="Cancelar"
+                            Foreground="White"
+                            FontSize="25"
+                            Click="cancelar_Click" 
+                            RenderTransformOrigin="0.542,0.476"/>
+                </StackPanel>
+                
+            </Grid>
+            
+        </Grid>
+        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="105"/>
+            <RowDefinition Height="670"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
     </Grid>
 </Page>

@@ -76,7 +76,7 @@ namespace WpfApp1.Pages.Pictogramas
             record_btn.IsEnabled = false;
             save.IsEnabled = true;
             lbl_rec.Content = "Grabando...";
-            lbl_rec.Foreground = Brushes.Red;
+            lbl_rec.Foreground = Brushes.White;
             //-----------------------------------
             if (m_counter != 0)
             {

@@ -27,6 +27,10 @@ namespace WpfApp1.Pages.Pictogramas
         {
             InitializeComponent();
             List<SoundModel> listSonidos = Repository.Instance.GetAllSounds();
+            if (listSonidos.Count > 0)
+            {
+                ListViewSounds.ItemsSource = listSonidos;
+            }
         }
 
         private void AddSounds_Click(object sender, RoutedEventArgs e)
