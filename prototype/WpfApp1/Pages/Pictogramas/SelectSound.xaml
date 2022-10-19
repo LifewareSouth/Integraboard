@@ -56,7 +56,6 @@
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
-                        <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0"
                            Content="Seleccione un sonido ya cargado:"
@@ -70,6 +69,37 @@
                              Width="350"
                              HorizontalAlignment="Right"
                              Margin="0,0,60,0"/>
+
+                    <Grid Grid.Row="2">
+                        <!-- aqui va la lista -->
+                        <ScrollViewer Margin="10">
+                            <ListBox x:Name="ListViewSounds"
+                                     Grid.Column="2"
+                                     ItemsSource="{Binding SoundModel}"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     Background="Transparent">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Height="150" Width="100">
+                                            <TextBlock Text="{Binding Nombre}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="White"
+                                                       FontSize="15"
+                                                       FontFamily="arial"
+                                                       FontWeight="SemiBold"
+                                                       TextAlignment="Center"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </Grid>
 
                 </Grid>
 

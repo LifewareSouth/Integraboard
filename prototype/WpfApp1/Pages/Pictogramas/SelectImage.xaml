@@ -140,15 +140,17 @@
                                 Grid.RowSpan="2">
 
                         <Button x:Name="btn_aceptar"
+                                Content="Guardar"
                                 Height="50"
                                 Width="150"
                                 Background="#1597e5"
-                                Content="Guardar"
                                 Foreground="White"
+
                                 FontSize="25"
                                 IsEnabled="False" Click="btn_aceptar_Click"
                                 
                             />
+
 
                         <Button x:Name="Cancelar"
                             Height="50"
