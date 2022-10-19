@@ -148,6 +148,27 @@
                                 FontSize="25"
                                 FontWeight="SemiBold" Click="RecordSound_Click"
                                 />
+                        <Button x:Name="playbtn"
+                                Height="50"
+                                Width="250"
+                                Content="Reproducir"
+                                Background="#1597e5"
+                                Foreground="White"
+                                FontSize="25"
+                                FontWeight="SemiBold" 
+                                Click="playbtn_Click"
+                                />
+                        <Button x:Name="pausebtn"
+                                Height="50"
+                                Width="250"
+                                Content="Pausar"
+                                Background="#1597e5"
+                                Foreground="White"
+                                FontSize="25"
+                                FontWeight="SemiBold" 
+                                Click="pausebtn_Click"
+                                IsEnabled="False"
+                                />
                     </StackPanel>
                     
 
