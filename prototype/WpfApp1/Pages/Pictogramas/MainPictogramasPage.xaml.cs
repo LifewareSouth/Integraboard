@@ -24,12 +24,44 @@ namespace WpfApp1
     /// </summary>
     public partial class MainPicrogramasPage : Page
     {
+        bool _navigationServiceAssigned = false;
+        static bool actualizandoPictogramas = false;
+        static List<Pictogram> listaPict = new List<Pictogram>();
+        private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
+        public static MainPicrogramasPage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public MainPicrogramasPage()
         {
             InitializeComponent();
-            List<Pictogram>listaPict =  Repository.Instance.getAllPict();
+            ActualizarLista();
         }
+        private void ActualizarLista()
+        {
+            Style rowStyle = new Style(typeof(DataGridRow));
+            rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
+                                     new MouseButtonEventHandler(Row_DoubleClick)));
+            
+            listaPict = Repository.Instance.getAllPict();
+            if (listaPict.Count > 0)
+            {
+                ListViewPictograms.ItemsSource = listaPict;
+            }
+        }
+        private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
+            this.NavigationService.Navigate(new CrearPictograma(pictEdit));
+        }
         /*private void Button_Click(object sender, RoutedEventArgs e)
         {
             Pictos.Content = new Tableros();
@@ -58,6 +90,39 @@ namespace WpfApp1
             PictoPreview w = new PictoPreview();
             w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             w.Show();
+        }
+
+        public void runActualizarLista()
+        {
+            actualizandoPictogramas = true;
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (actualizandoPictogramas == true)
+                {
+                    ActualizarLista();
+                    actualizandoPictogramas = false;
+                }
+            }
+        }
+
+        private void Editar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewPictograms.SelectedValue != null)
+            {
+                Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
+                this.NavigationService.Navigate(new CrearPictograma(pictEdit));
+            }
         }
     }
 }

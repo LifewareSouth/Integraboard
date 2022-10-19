@@ -65,11 +65,11 @@
                            FontStyle="Italic"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
-                    <TextBox Grid.Row="1"
+                    <TextBox x:Name="busqueda" Grid.Row="1"
                              Height="50"
                              Width="350"
                              HorizontalAlignment="Right"
-                             Margin="0,0,60,0"/>
+                             Margin="0,0,60,0" TextChanged="busqueda_TextChanged"/>
 
                     <Grid Grid.Row="2">
                         <ScrollViewer Margin="10">
@@ -77,7 +77,7 @@
                                      Grid.Column="2"
                                      ItemsSource="{Binding ImagenModel}"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     Background="Transparent">
+                                     Background="Transparent" SelectionChanged="ListViewImages_SelectionChanged">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
@@ -145,7 +145,12 @@
                                 Width="150"
                                 Background="#1597e5"
                                 Foreground="White"
-                                FontSize="25"/>
+
+                                FontSize="25"
+                                IsEnabled="False" Click="btn_aceptar_Click"
+                                
+                            />
+
 
                         <Button x:Name="Cancelar"
                             Height="50"

@@ -24,17 +24,13 @@ namespace WpfApp1.Pages.Pictogramas
     public partial class SelectImage : Page
     {
         List<ImagenModel> ListaImagenes = new List<ImagenModel>();
+        List<ImagenModel> filteredImages = new List<ImagenModel>();
         public SelectImage()
         {
             InitializeComponent();
-            ListaImagenes = Repository.Instance.getAllImages();
-            if(ListaImagenes.Count > 0)
-            {
-                ListViewImages.ItemsSource = ListaImagenes;
-            }
-            
+            ActualizarLista();
         }
-
+        ImagenModel ImagenSeleccionada = new ImagenModel();
         private void AddImages_Click(object sender, RoutedEventArgs e)
         {
             //Aquí va lo que estaba en la otra page
@@ -42,22 +38,71 @@ namespace WpfApp1.Pages.Pictogramas
             Microsoft.Win32.OpenFileDialog ofdImage = new OpenFileDialog();
             ofdImage.Filter = "Imagenes (*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
             bool? response = ofdImage.ShowDialog();
-            foreach (string name in ofdImage.SafeFileNames)
+            if (response == true)
             {
-                pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
+                foreach (string name in ofdImage.SafeFileNames)
+                {
+                    pathImagen = ofdImage.FileNames.Where(stringToCheck => stringToCheck.Contains(name)).First();
+                }
+                Repository.Instance.GuardarImagen(pathImagen);
+                ActualizarLista();
             }
-            Repository.Instance.GuardarImagen(pathImagen);
-            //PictogramImage.Source = LoadBitmapImage(pathImagen);
         }
 
+        private void ActualizarLista()
+        {
+            ListaImagenes = Repository.Instance.getAllImages();
+            if (ListaImagenes.Count > 0)
+            {
+                ListViewImages.ItemsSource = ListaImagenes;
+            }
+        }
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
 
-        private void btn_aceptarClick(object sender, RoutedEventArgs e)
+        private void ListViewImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ListViewImages.SelectedValue != null)
+            {
+                btn_aceptar.IsEnabled = true;
+                ImagenSeleccionada = ((ImagenModel)ListViewImages.SelectedItem);
+            }
+            else
+            {
+                btn_aceptar.IsEnabled = false;
+            }
+        }
 
+        private void btn_aceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewImages.SelectedValue != null)
+            {
+                CrearPictograma.Instance.ImagenFromDB(ImagenSeleccionada);
+                this.NavigationService.GoBack();
+            }
+        }
+
+        private void busqueda_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<ImagenModel> filtro = new List<ImagenModel>();
+            if (busqueda.Text != null || busqueda.Text != "")
+            {
+                foreach (ImagenModel imagenes in ListaImagenes)
+                {
+                    if (imagenes.Nombre.Contains(busqueda.Text))
+                    {
+                        filtro.Add(imagenes);
+                    }
+                }
+                filteredImages = filtro;
+            }
+            else
+            {
+                filteredImages = ListaImagenes;
+            }
+            ListViewImages.ItemsSource = filteredImages;
         }
     }
 }

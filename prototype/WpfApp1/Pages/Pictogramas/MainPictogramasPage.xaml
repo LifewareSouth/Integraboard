@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="Pictogramas">
-
+      Title="Pictogramas"
+      Loaded="page_Loaded">
     <Grid Background="#04293a">
         <Frame x:Name="Pictos" NavigationUIVisibility="Hidden"/>
         <StackPanel Orientation="Horizontal">
@@ -31,7 +31,59 @@
                Foreground="White"
                VerticalAlignment="Center"/>
         </StackPanel>
+        <Grid Grid.Column="0" Margin="46,90,46,55" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <!-- Aquí va la listView -->
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                           Content="Seleccione una imagen ya cargada:"
+                           Foreground="White"
+                           FontSize="30"
+                           FontStyle="Italic"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"/>
+            <TextBox Grid.Row="1"
+                             Height="50"
+                             Width="350"
+                             HorizontalAlignment="Right"
+                             Margin="0,0,60,0"/>
 
+            <Grid Grid.Row="2">
+                <ScrollViewer Margin="10">
+                    <ListBox x:Name="ListViewPictograms"
+                                     Grid.Column="2"
+                                     ItemsSource="{Binding Pictogram}"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     Background="Transparent" SelectionChanged="ListViewPictograms_SelectionChanged"
+                             MouseDoubleClick="Row_DoubleClick">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Height="150" Width="100">
+                                    <Image Source="{Binding Imagen}"
+                                                   DockPanel.Dock="Top"/>
+                                    <TextBlock Text="{Binding Nombre}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="White"
+                                                       FontSize="15"
+                                                       FontFamily="arial"
+                                                       FontWeight="SemiBold"
+                                                       TextAlignment="Center"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
 
         <Rectangle Grid.Row="1"
                    Grid.Column="1"
@@ -39,7 +91,7 @@
                    Height="480"
                    Width="420"
                    Stroke="#FF707070"/>
-        
+
         <!-- Grid de la botonera del costado-->
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -92,7 +144,7 @@
                     Foreground="#707070"
                     IsEnabled="false"/>
 
-            <Button Content="Editar"
+            <Button x:Name="Editar" Content="Editar"
                     Grid.Column="1" 
                     Grid.Row="3" 
                     Height="90"
@@ -101,7 +153,7 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="white" Click="Editar_Click"/>
 
             <Button x:Name="btnEliminar"
                     Content="Eliminar"
@@ -136,7 +188,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        
+
 
 
     </Grid>
