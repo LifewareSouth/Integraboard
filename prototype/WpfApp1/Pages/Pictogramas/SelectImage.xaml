@@ -87,7 +87,9 @@
                                     <DataTemplate>
                                         <DockPanel Height="150" Width="100">
                                             <Image Source="{Binding Imagen}"
-                                                   DockPanel.Dock="Top"/>
+                                                   DockPanel.Dock="Top"
+                                                   MaxHeight="100"
+                                                   MaxWidth="100"/>
                                             <TextBlock Text="{Binding Nombre}"
                                                        TextTrimming="CharacterEllipsis"
                                                        TextWrapping="Wrap"
