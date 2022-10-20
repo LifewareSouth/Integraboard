@@ -25,7 +25,8 @@ namespace Lifeware.SoftwareCommon
         public static string AppName { get { return APPNAME; } }
         public static string AppVersion { get { return APPVERSION; } }
         public static string AppGuid { get { return APPGUID; } }
-        public static string ExeName { get { return $"{APPNAME}.exe"; } }
+        // public static string ExeName { get { return $"{APPNAME}.exe"; } }
+        public static string ExeName { get { return "WpfApp1.exe"; } }
         public static string UpdateUrl { get { return UPDATE_URL; } }
     }
 }
