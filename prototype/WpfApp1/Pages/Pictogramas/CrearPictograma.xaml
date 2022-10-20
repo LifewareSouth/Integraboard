@@ -288,7 +288,7 @@
                             Click="SelectSound_Click"/>
                     
                     <TextBlock Text="el sonido seleccionado es: "
-                               x:Name="sonidoSeleccionado"
+                               x:Name="selectedSound"
                                Width="220"
                                Foreground="White"
                                FontSize="20"
