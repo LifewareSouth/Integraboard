@@ -68,7 +68,7 @@
                              Height="50"
                              Width="350"
                              HorizontalAlignment="Right"
-                             Margin="0,0,60,0"/>
+                             Margin="0,0,10,0"/>
 
                     <Grid Grid.Row="2">
                         <!-- aqui va la lista -->
@@ -109,7 +109,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock Grid.Row="0"
                                Text="Subir sonido(s) nuevo(s):"
                                Foreground="white"
@@ -150,7 +150,8 @@
                                 />
                         <Button x:Name="playbtn"
                                 Height="50"
-                                Width="250"
+                                Width="200"
+                                Margin="0,30,0,0"
                                 Content="Reproducir"
                                 Background="#1597e5"
                                 Foreground="White"
@@ -160,7 +161,8 @@
                                 />
                         <Button x:Name="pausebtn"
                                 Height="50"
-                                Width="250"
+                                Width="200"
+                                Margin="0,10,0,0"
                                 Content="Pausar"
                                 Background="#1597e5"
                                 Foreground="White"
@@ -170,7 +172,7 @@
                                 IsEnabled="False"
                                 />
                     </StackPanel>
-                    
+
 
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Bottom"

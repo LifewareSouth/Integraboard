@@ -84,8 +84,12 @@
                         HorizontalAlignment="Left" 
                         Margin="330,0,0,0">
 
-                <Border Height="200" 
-                        Width="200" BorderBrush="White" OpacityMask="Black" BorderThickness="1">
+                <Border x:Name="pictoBorde"
+                        Height="220" 
+                        Width="220" 
+                        BorderBrush="White" 
+                        OpacityMask="Black" 
+                        BorderThickness="10">
 
                     <Image x:Name="PictogramImage"
                            Height="200" 
@@ -251,23 +255,26 @@
                 </StackPanel>
 
 
-                <Rectangle Grid.Row="2"
+                <Rectangle Grid.Row="1"
                            Grid.Column="2"
-                           Grid.RowSpan="2"
-                           Height="150"
-                           Width="200"
+                           Grid.RowSpan="3"
+                           Height="250"
+                           Width="245"
                            Stroke="White"/>
 
                 <StackPanel Orientation="Vertical"
                             Grid.Column="2"
-                            Grid.Row="2"
-                            Grid.RowSpan="2"
-                            VerticalAlignment="Center">
+                            Grid.Row="1"
+                            Grid.RowSpan="3"
+                            >
                     <Label Content="Opcional:"
                            Width="150"
                            Foreground="white"
                            FontSize="20"
-                           FontStyle="Italic"/>
+                           FontStyle="Italic"
+                           HorizontalAlignment="Left"
+                           Margin="10,20,0,0"
+                           />
 
                     <Button x:Name="SelectSound"
                             Height="55"
@@ -277,8 +284,16 @@
                             Foreground="White"
                             FontFamily="Arial"
                             FontSize="15"
-                            Margin="15" Click="SelectSound_Click"/>
-
+                            Margin="15" 
+                            Click="SelectSound_Click"/>
+                    
+                    <TextBlock Text="el sonido seleccionado es: "
+                               x:Name="sonidoSeleccionado"
+                               Width="220"
+                               Foreground="White"
+                               FontSize="20"
+                               TextWrapping="Wrap"
+                               TextDecorations="Underline"/>
 
                 </StackPanel>
             </Grid>
