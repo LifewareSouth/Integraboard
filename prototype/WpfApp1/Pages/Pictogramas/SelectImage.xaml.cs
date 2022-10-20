@@ -87,7 +87,8 @@ namespace WpfApp1.Pages.Pictogramas
         private void busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<ImagenModel> filtro = new List<ImagenModel>();
-            if (busqueda.Text != null || busqueda.Text != "")
+            filteredImages = ListaImagenes;
+            if (busqueda.Text != null && busqueda.Text != "")
             {
                 foreach (ImagenModel imagenes in ListaImagenes)
                 {
@@ -97,10 +98,6 @@ namespace WpfApp1.Pages.Pictogramas
                     }
                 }
                 filteredImages = filtro;
-            }
-            else
-            {
-                filteredImages = ListaImagenes;
             }
             ListViewImages.ItemsSource = filteredImages;
         }

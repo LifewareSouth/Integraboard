@@ -49,15 +49,25 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom">
-                <Label Content="Buscador:"
+                    <ComboBox x:Name="CategoriaPict" Height="25"
+                              Width="340"
+                              HorizontalAlignment="left"
+                              VerticalAlignment="Top"
+                              Text="Seleccione Categoría"
+                              Foreground="Black"
+                              FontSize="18"
+                              FontFamily="Arial"
+                              FontWeight="Regular"
+                              Margin="4,0,0,0" SelectionChanged="CategoriaPict_SelectionChanged"/>
+                    <Label Content="Buscador:"
                        FontSize="25"
                        FontWeight="Regular"
                        FontFamily="arial"
                        Foreground="White"/>
-                    <TextBox Grid.Row="1"
+                    <TextBox x:Name="buscadorPict" Grid.Row="1"
                              Height="50"
                              Width="250"
-                             Margin="10,0,10,0"/>
+                             Margin="10,0,10,0" TextChanged="buscadorPict_TextChanged"/>
                 </StackPanel> 
             </StackPanel>
             
