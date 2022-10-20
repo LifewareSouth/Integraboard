@@ -14,7 +14,7 @@ namespace Lifeware.SoftwareCommon
         //TODO: Establecer nombre de aplicación aca
         private const string APPNAME = "Integraboard_version_4";
         //TODO: Establecer versión de aplicación. Recordar actualizar en cada Release
-        public const string APPVERSION = "0.0.0.1";
+        public const string APPVERSION = "0.0.1";
         //TODO: Establecer GUID de la aplicación.
         private const string APPGUID = "c914f1b1-d3be-4266-9730-ed6942f3cea9";
         //TODO: Establecer URL de descargas y actualizaciones de la aplicación

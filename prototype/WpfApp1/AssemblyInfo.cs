@@ -2,18 +2,18 @@ using Lifeware.SoftwareCommon;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
-/*
+
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyTitle("IntegraBoard")]
+[assembly: AssemblyTitle("IntegraBoard v.4")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IntegraBoard")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyProduct("IntegraBoard v.4")]
+[assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-*/
+
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
@@ -23,7 +23,7 @@ using System.Windows;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
-/*
+
 [assembly: AssemblyVersion(GlobalConfig.APPVERSION)]
 [assembly: AssemblyFileVersion(GlobalConfig.APPVERSION)]
-*/
+
