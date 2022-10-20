@@ -243,7 +243,7 @@
                               FontSize="18"
                               FontFamily="Arial"
                               FontWeight="Regular"
-                              Margin="4,0,0,0"/>
+                              Margin="4,0,0,0" SelectionChanged="CategoriaPict_SelectionChanged"/>
                     <TextBlock Text="Corresponde a la categoría asociada al pictograma"
                                Foreground="white"
                                HorizontalAlignment="Left"

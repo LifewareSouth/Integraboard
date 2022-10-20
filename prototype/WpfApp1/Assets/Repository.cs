@@ -5,12 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
@@ -74,6 +76,60 @@ namespace WpfApp1.Assets
 
             }
             return "";
+        }
+        public SolidColorBrush categoryColor(string categoria)
+        {
+            SolidColorBrush col = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
+            switch (categoria)
+            {
+                case "Educación":
+                    {
+                        
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#F44336");
+                        return col;
+                    }
+                case "Comunicación":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFEB3B");
+                        return col;
+                    }
+                case "Verbos":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#2196F3");
+                        return col;
+                    }
+                case "Objetos":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#9E9E9E");
+                        return col;
+                    }
+                case "AVD":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF9800");
+                        return col;
+                    }
+                case "Comidas":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#795548");
+                        return col;
+                    }
+                case "Lugares":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#9C27B0");
+                        return col;
+                    }
+                case "Naturaleza":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#4CAF50");
+                        return col;
+                    }
+                case "Otros":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
+                        return col;
+                    }
+            }
+            return col;
         }
         public BitmapImage ImageFromBuffer(Byte[] bytes)
         {

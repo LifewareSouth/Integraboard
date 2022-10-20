@@ -48,24 +48,27 @@ namespace WpfApp1.Pages.Pictogramas
         public CrearPictograma()
         {
             InitializeComponent();
+            rellenarCategorias();
+            CategoriaPict.Text = (Repository.PictogramCategoryToString(Pictogram.PictogramCategory.Verbos)).ToString();
+            pictoBorde.BorderBrush = Repository.Instance.categoryColor("Verbos");
+            ListaEtiquetas = Repository.Instance.getAllEtiquetas();
+        }
+        private void rellenarCategorias()
+        {
             foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
             {
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
-            CategoriaPict.Text = ( Repository.PictogramCategoryToString(Pictogram.PictogramCategory.Verbos)).ToString();
-            ListaEtiquetas = Repository.Instance.getAllEtiquetas();
         }
         public CrearPictograma(Pictogram editPict)
         {
             InitializeComponent();
-            foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
-            {
-                object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
-            }
+            rellenarCategorias();
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
             NombrePict.Text = editPict.Nombre;
             TextPict.Text = editPict.Texto;
             CategoriaPict.Text = editPict.Categoria;
+            pictoBorde.BorderBrush = Repository.Instance.categoryColor(editPict.Categoria);
             IsImageFromDB = true;
             imageDB.ID = editPict.idImagen;
             imageDB.Nombre = editPict.nombreImagen;
@@ -251,6 +254,12 @@ namespace WpfApp1.Pages.Pictogramas
                 _navigationServiceAssigned = true;
             }
         }
+
+        private void CategoriaPict_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            pictoBorde.BorderBrush = Repository.Instance.categoryColor(CategoriaPict.SelectedItem.ToString());
+        }
+
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             if (e.NavigationMode == NavigationMode.Back)
