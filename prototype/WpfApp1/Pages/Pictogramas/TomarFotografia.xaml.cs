@@ -107,6 +107,8 @@ namespace WpfApp1.Pages.Pictogramas
                 encoder.Save(stream);
             }
             StopCamera();
+            CrearPictograma.Instance.ImagenFromCamera();
+            this.NavigationService.GoBack();
         }
 
         private void btn_cancelar_Click(object sender, RoutedEventArgs e)
@@ -181,15 +183,13 @@ namespace WpfApp1.Pages.Pictogramas
         {
             if (!_videoSource.IsRunning)
             {
-                StartCamera();
+                StartCamera(); 
                 btn_aceptar.IsEnabled = false;
                 btnTomarOtra.Visibility = Visibility.Hidden;
                 btnStart.IsEnabled = true;
             }
 
         }
-
-
     }
 
     static class BitmapHelpers

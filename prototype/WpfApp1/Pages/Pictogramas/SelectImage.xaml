@@ -1,0 +1,186 @@
+﻿<Page x:Class="WpfApp1.Pages.Pictogramas.SelectImage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages.Pictogramas"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      
+      Title="SelectImage">
+
+    <Grid Background="#04293a">
+        <Frame x:Name="selectImage" NavigationUIVisibility="Hidden"/>
+        <!-- Grid de la ventana completa -->
+
+        <StackPanel Orientation="Horizontal" 
+                    VerticalAlignment="Center"
+                    Grid.Row="0">
+            <!--Botón para volver al menú-->
+            <Button x:Name="volverPictos"
+                    Width="200"
+                    Height="70"
+                    Margin="20,0,20,0"
+                    Content="Pictogramas"
+                    FontFamily="arial"
+                    FontSize="30"
+                    FontWeight="SemiBold"
+                    Foreground="white"
+                    Background="#1597e5"
+                    />
+            <!---->
+            <Label Content="Seleccionar Imagen" 
+               FontFamily="Arial"
+               FontWeight="Bold"
+               FontSize="60" 
+               Foreground="White"
+               VerticalAlignment="Center"/>
+        </StackPanel>
+        <Rectangle Height="670"
+                   Width="900"
+                   Grid.Row="1"
+                   Fill="#003b49"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="190"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1"
+                  Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="550"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/> <!-- Aquí va la listView -->
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Content="Seleccione una imagen ya cargada:"
+                           Foreground="White"
+                           FontSize="30"
+                           FontStyle="Italic"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"/>
+                    <TextBox x:Name="busqueda" Grid.Row="1"
+                             Height="50"
+                             Width="350"
+                             HorizontalAlignment="Right"
+                             Margin="0,0,60,0" TextChanged="busqueda_TextChanged"/>
+
+                    <Grid Grid.Row="2">
+                        <ScrollViewer Margin="10">
+                            <ListBox x:Name="ListViewImages"
+                                     Grid.Column="2"
+                                     ItemsSource="{Binding ImagenModel}"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     Background="Transparent" SelectionChanged="ListViewImages_SelectionChanged">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Height="150" Width="100">
+                                            <Image Source="{Binding Imagen}"
+                                                   DockPanel.Dock="Top"
+                                                   MaxHeight="100"
+                                                   MaxWidth="100"/>
+                                            <TextBlock Text="{Binding Nombre}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="White"
+                                                       FontSize="15"
+                                                       FontFamily="arial"
+                                                       FontWeight="SemiBold"
+                                                       TextAlignment="Center"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Subir imagen(es) nueva(s):"
+                               Foreground="white"
+                               TextWrapping="Wrap"
+                               FontSize="30"
+                               FontFamily="arial"
+                               FontStyle="Italic"/>
+                    <Button x:Name="AddImages"
+                            Height="100"
+                            Width="250"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Background="#1597e5"
+                            Click="AddImages_Click">
+                        <TextBlock Text="Agregar imágenes nuevas"
+                                   TextWrapping="Wrap"
+                                   Foreground="White"
+                                   FontSize="25"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center"/>
+                    </Button>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Center"
+                                Margin="0,200,0,0"
+                                Grid.Row="1"
+                                Grid.RowSpan="2">
+
+                        <Button x:Name="btn_aceptar"
+                                Content="Guardar"
+                                Height="50"
+                                Width="150"
+                                Background="#1597e5"
+                                Foreground="White"
+
+                                FontSize="25"
+                                IsEnabled="False" Click="btn_aceptar_Click"
+                                
+                            />
+
+
+                        <Button x:Name="Cancelar"
+                            Height="50"
+                            Width="150"
+                            Background="#ff6464"
+                            Content="Cancelar"
+                            Foreground="White"
+                            FontSize="25"
+                            Margin="10,0,0,0" Click="Cancelar_Click"
+                            />
+
+                    </StackPanel>
+
+                </Grid>
+                <Rectangle Height="550"
+                           Width="2"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           Fill="#707070"/>
+            </Grid>
+        </Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="105"/>
+            <RowDefinition Height="670"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+    </Grid>
+</Page>

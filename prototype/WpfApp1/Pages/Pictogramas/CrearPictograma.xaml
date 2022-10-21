@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.Pictogramas"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="CrearPictograma">
+      Title="CrearPictograma"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
 
@@ -51,17 +52,50 @@
                 <RowDefinition Height="350"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right">
+                <Button x:Name="GuardarPict" Content="Guardar"
+                        Height="40"
+                        Width="150"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="20"
+                        Foreground="White"
+                        Background="#1597e5"
+                        Click="GuardarPict_Click"
+                        />
+                <Button x:Name="Cancelar" Content="Cancelar"
+                        Height="40"
+                        Width="150"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="20"
+                        Foreground="White"
+                        Background="#ff6464"
+                        Margin="20,0,0,0" Click="Cancelar_Click"/>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal"
                         Grid.Column="1"
                         Grid.Row="0"
                         HorizontalAlignment="Left" 
                         Margin="330,0,0,0">
-                <Rectangle Height="200" 
-                       Width="200"
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       Margin="10"
-                       Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Border x:Name="pictoBorde"
+                        Height="220" 
+                        Width="220" 
+                        BorderBrush="White" 
+                        OpacityMask="Black" 
+                        BorderThickness="10">
+
+                    <Image x:Name="PictogramImage"
+                           Height="200" 
+                           Width="200"
+                           />
+                </Border>
                 <StackPanel Orientation="Vertical"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
@@ -73,7 +107,8 @@
                             Foreground="White"
                             FontFamily="Arial"
                             FontSize="18"
-                            FontWeight="SemiBold" Click="SelectImage_Click"
+                            FontWeight="SemiBold" 
+                            Click="SelectImage_Click"
                             />
 
                     <Button x:Name="TakePicture"
@@ -113,15 +148,13 @@
                             Grid.Row="0"
                             Orientation="Vertical"
                             VerticalAlignment="Bottom">
-                    <TextBox VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Height="25"
-                            Width="340"
-                            Text="Ingrese el nombre del pictograma"
-                            FontSize="15"
-                            FontStyle="Italic"
-                            Foreground="#999999"
-                            Margin="5,10,0,5"/>
+                    <TextBox x:Name="NombrePict" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Height="25"
+                             Width="340"
+                             FontSize="15"
+                             Foreground="Black"
+                             Margin="5,10,0,5"/>
                     <Label Content="Este es el nombre con el que se registrará el pictograma"
                            Foreground="white"
                            HorizontalAlignment="Left"
@@ -143,15 +176,13 @@
                             Grid.Row="1"
                             Orientation="Vertical"
                             VerticalAlignment="Bottom">
-                    <TextBox VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Height="25"
-                            Width="340"
-                            Text="Ingrese el texto"
-                            FontSize="15"
-                            FontStyle="Italic"
-                            Foreground="#999999"
-                            Margin="5,10,0,5"/>
+                    <TextBox x:Name="TextPict" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Height="25"
+                             Width="340"
+                             FontSize="15"
+                             Foreground="Black"
+                             Margin="5,10,0,5"/>
                     <Label Content="Este es el texto que se incluirá dentro del pictograma"
                            Foreground="white"
                            HorizontalAlignment="Left"
@@ -174,14 +205,12 @@
                             Grid.ColumnSpan="2"
                             Orientation="Vertical"
                             VerticalAlignment="Bottom">
-                    <TextBox VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Height="25"
-                            Width="340"
-                            Text="Ingrese el texto"
-                            FontSize="15"
-                            FontStyle="Italic"
-                            Foreground="#999999"
+                    <TextBox x:Name="EtiquetaPict" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Height="25"
+                             Width="340"
+                             FontSize="15"
+                             Foreground="Black"
                             Margin="5,10,0,5"/>
                     <TextBlock Text="Las etiquetas son palabras que ayudarán a identificar un grupo de pictogramas"
                                Foreground="white"
@@ -205,17 +234,16 @@
                             Grid.ColumnSpan="2"
                             Orientation="Vertical"
                             VerticalAlignment="Bottom">
-                    <ComboBox Height="25"
+                    <ComboBox x:Name="CategoriaPict" Height="25"
                               Width="340"
                               HorizontalAlignment="left"
                               VerticalAlignment="Top"
                               Text="Seleccione Categoría"
-                              Foreground="#707070"
-                              FontSize="25"
+                              Foreground="Black"
+                              FontSize="18"
                               FontFamily="Arial"
-                              FontWeight="SemiBold"
-                              FontStyle="Italic"
-                              Margin="4,0,0,0"/>
+                              FontWeight="Regular"
+                              Margin="4,0,0,0" SelectionChanged="CategoriaPict_SelectionChanged"/>
                     <TextBlock Text="Corresponde a la categoría asociada al pictograma"
                                Foreground="white"
                                HorizontalAlignment="Left"
@@ -223,26 +251,30 @@
                                Margin="4,0,0,0" Height="37"
                                Width="380"
                                TextWrapping="Wrap"/>
-                </StackPanel>
-                
 
-                <Rectangle Grid.Row="2"
+                </StackPanel>
+
+
+                <Rectangle Grid.Row="1"
                            Grid.Column="2"
-                           Grid.RowSpan="2"
-                           Height="150"
-                           Width="200"
+                           Grid.RowSpan="3"
+                           Height="250"
+                           Width="245"
                            Stroke="White"/>
-                
+
                 <StackPanel Orientation="Vertical"
                             Grid.Column="2"
-                            Grid.Row="2"
-                            Grid.RowSpan="2"
-                            VerticalAlignment="Center">
+                            Grid.Row="1"
+                            Grid.RowSpan="3"
+                            >
                     <Label Content="Opcional:"
                            Width="150"
                            Foreground="white"
                            FontSize="20"
-                           FontStyle="Italic"/>
+                           FontStyle="Italic"
+                           HorizontalAlignment="Left"
+                           Margin="10,20,0,0"
+                           />
 
                     <Button x:Name="SelectSound"
                             Height="55"
@@ -252,11 +284,20 @@
                             Foreground="White"
                             FontFamily="Arial"
                             FontSize="15"
-                            Margin="15" Click="SelectSound_Click"/>
+                            Margin="15" 
+                            Click="SelectSound_Click"/>
                     
+                    <TextBlock Text="el sonido seleccionado es: "
+                               x:Name="selectedSound"
+                               Width="220"
+                               Foreground="White"
+                               FontSize="20"
+                               TextWrapping="Wrap"
+                               TextDecorations="Underline"/>
 
                 </StackPanel>
             </Grid>
+            <TextBlock x:Name="Hint1" HorizontalAlignment="Left" Margin="35,0,0,0" TextWrapping="Wrap" Text="" Foreground="white" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
 
         </Grid>
 

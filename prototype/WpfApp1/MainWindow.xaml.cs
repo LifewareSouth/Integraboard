@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using WpfApp1.Assets;
 using Lifeware.SoftwareCommon;
+
 
 namespace WpfApp1
 {
@@ -29,6 +31,8 @@ namespace WpfApp1
             btnshow.Click += Btnshow_Click;
             btnclose.Click += Btnclose_Click;
             Main.NavigationService.Navigate(new MenuPage());
+            Repository.Instance.CreacionDeTablas();
+            
         }
         private void Btnclose_Click(object sender, RoutedEventArgs e)
         {

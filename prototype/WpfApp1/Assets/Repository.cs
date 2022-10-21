@@ -1,0 +1,700 @@
+﻿using AForge.Imaging.Filters;
+using NAudio.Lame;
+using NAudio.Wave;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SQLite;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
+using System.Windows.Shapes;
+using WpfApp1.Model;
+using WpfApp1.Pages.Pictogramas;
+
+namespace WpfApp1.Assets
+{
+    public class Repository
+    {
+        private static string SqliteConnection = ConfigurationManager.ConnectionStrings["SqliteConnection"].ConnectionString;
+        private static readonly Repository instance = new Repository();
+        public static Repository Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+        string DIRECTORY_SONIDOS = "C:\\IntegraBoard\\repo\\sonidos";
+        public static string PictogramCategoryToString(Pictogram.PictogramCategory pCategory)
+        {
+            switch (pCategory)
+            {
+                case (Pictogram.PictogramCategory.Educacion):
+                    {
+                        return "Educación";
+                    }
+                case (Pictogram.PictogramCategory.Comunicacion):
+                    {
+                        return "Comunicación";
+                    }
+                case (Pictogram.PictogramCategory.Verbos):
+                    {
+                        return "Verbos";
+                    }
+                case (Pictogram.PictogramCategory.Objetos):
+                    {
+                        return "Objetos";
+                    }
+                case (Pictogram.PictogramCategory.AVD):
+                    {
+                        return "AVD";
+                    }
+                case (Pictogram.PictogramCategory.Comidas):
+                    {
+                        return "Comidas";
+                    }
+                case (Pictogram.PictogramCategory.Lugares):
+                    {
+                        return "Lugares";
+                    }
+                case (Pictogram.PictogramCategory.Naturaleza):
+                    {
+                        return "Naturaleza";
+                    }
+                case (Pictogram.PictogramCategory.Otros):
+                    {
+                        return "Otros";
+                    }
+
+            }
+            return "";
+        }
+        public SolidColorBrush categoryColor(string categoria)
+        {
+            SolidColorBrush col = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
+            switch (categoria)
+            {
+                case "Educación":
+                    {
+                        
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#F44336");
+                        return col;
+                    }
+                case "Comunicación":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFEB3B");
+                        return col;
+                    }
+                case "Verbos":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#2196F3");
+                        return col;
+                    }
+                case "Objetos":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#9E9E9E");
+                        return col;
+                    }
+                case "AVD":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF9800");
+                        return col;
+                    }
+                case "Comidas":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#795548");
+                        return col;
+                    }
+                case "Lugares":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#9C27B0");
+                        return col;
+                    }
+                case "Naturaleza":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#4CAF50");
+                        return col;
+                    }
+                case "Otros":
+                    {
+                        col = (SolidColorBrush)new BrushConverter().ConvertFrom("#000000");
+                        return col;
+                    }
+            }
+            return col;
+        }
+        public BitmapImage ImageFromBuffer(Byte[] bytes)
+        {
+            MemoryStream stream = new MemoryStream(bytes);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.EndInit();
+            return image;
+        }
+        public void CreacionDeTablas()
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "CREATE TABLE IF NOT EXISTS imagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS sonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS etiquetas (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void GuardarImagen(string pathImagen)
+        {
+            byte[] pic = File.ReadAllBytes(pathImagen);
+            string imageName = System.IO.Path.GetFileNameWithoutExtension(pathImagen);
+            string alfaIdImagen = Guid.NewGuid().ToString();
+            int idImagen = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into imagenes(idAlfaImagen, nombreImagen, blobImagen) values (@idAlfaImagen, @nombreImagen, @blobImagen)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                SQLiteParameter parametro = new SQLiteParameter("@blobImagen", System.Data.DbType.Binary);
+                cmd.Parameters.Add(new SQLiteParameter("@nombreImagen", imageName));
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", alfaIdImagen));
+                parametro.Value = pic;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+                /*
+                //BUSCA LA ID DE LA IMAGEN RECIEN AGREGADA
+                query = "select idImagen from imagenes where alfaImagen = @alfaImagen";
+                conexion.Open();
+                cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@alfaImagen", alfaIdImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idImagen = int.Parse(dr["idImagen"].ToString());
+                    }
+                }
+                conexion.Close();
+                */
+            }
+            //return idImagen;
+        }
+        public int GuardarImagenCamara(string pathImagen)
+        {
+            byte[] pic = File.ReadAllBytes(pathImagen);
+            int numeroImagenCamera = 0;
+            string imageName = System.IO.Path.GetFileNameWithoutExtension(pathImagen);
+            string alfaIdImagen = Guid.NewGuid().ToString();
+            int idImagen = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT count(nombreImagen) as total from imagenes where nombreImagen  like 'cameraPhoto_%'";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int total = int.Parse(dr["total"].ToString());
+                        numeroImagenCamera = total + 1;
+                    }
+                }
+                conexion.Close();
+                //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                query = "insert into imagenes(idAlfaImagen, nombreImagen, blobImagen) values (@idAlfaImagen, @nombreImagen, @blobImagen)";
+
+                cmd = new SQLiteCommand(query, conexion);
+                SQLiteParameter parametro = new SQLiteParameter("@blobImagen", System.Data.DbType.Binary);
+                cmd.Parameters.Add(new SQLiteParameter("@nombreImagen", "cameraPhoto_" + numeroImagenCamera));
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", alfaIdImagen));
+                parametro.Value = pic;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
+                //BUSCA LA ID DE LA IMAGEN RECIEN AGREGADA
+                query = "select idImagen from imagenes where idAlfaImagen = @idAlfaImagen";
+                conexion.Open();
+                cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", alfaIdImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idImagen = int.Parse(dr["idImagen"].ToString());
+                    }
+                }
+                conexion.Close();
+                
+            }
+            return idImagen;
+        }
+        public void CrearPictograma(Pictogram pict)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into pictogramas(idAlfaPict, nombrePict,textoPict,categoriaPict,idImagen,idSonido) values (@idAlfaPict, @nombrePict,@textoPict,@categoriaPict,@idImagen,@idSonido)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", Guid.NewGuid().ToString()));
+                cmd.Parameters.Add(new SQLiteParameter("@nombrePict", pict.Nombre));
+                cmd.Parameters.Add(new SQLiteParameter("@textoPict", pict.Texto));
+                cmd.Parameters.Add(new SQLiteParameter("@categoriaPict", pict.Categoria));
+                cmd.Parameters.Add(new SQLiteParameter("@idImagen", pict.idImagen));
+                cmd.Parameters.Add(new SQLiteParameter("@idSonido", pict.idSonido));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
+            }
+        }
+        public int getLatestPictogram()
+        {
+            int idPict = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                //OBTENER LA ULTIMA ID CREADA
+                string query = "SELECT idPict FROM pictogramas ORDER by idPict DESC limit 1";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["idPict"].ToString()) != 0)
+                        {
+                            idPict = int.Parse(dr["idPict"].ToString());
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return idPict;
+        }
+        public void EditPictogram(Pictogram pict)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "UPDATE pictogramas set nombrePict = @nombrePict , textoPict = @textoPict, categoriaPict = @categoriaPict, idImagen = @idImagen, idSonido = @idSonido where idPict= @idPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@nombrePict", pict.Nombre));
+                cmd.Parameters.Add(new SQLiteParameter("@textoPict", pict.Texto));
+                cmd.Parameters.Add(new SQLiteParameter("@categoriaPict", pict.Categoria));
+                cmd.Parameters.Add(new SQLiteParameter("@idImagen", pict.idImagen));
+                cmd.Parameters.Add(new SQLiteParameter("@idSonido", pict.idSonido));
+                cmd.Parameters.Add(new SQLiteParameter("@idPict", pict.ID));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+
+        public List<ImagenModel> getAllImages()
+        {
+            List<ImagenModel> listaImagenes = new List<ImagenModel>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idImagen, idAlfaImagen, nombreImagen, blobImagen  from imagenes order by idImagen desc;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaImagenes.Add(new ImagenModel
+                        {
+                            ID = int.Parse(dr["idImagen"].ToString()),
+                            idAlfaImagen = dr["idAlfaImagen"].ToString(),
+                            Nombre = dr["nombreImagen"].ToString(),
+                            Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"])
+                        });
+
+                        
+                    }
+                }
+                conexion.Close();
+            }
+            return listaImagenes;
+        }
+        public List<Etiqueta> getAllEtiquetas()
+        {
+            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idEtiqueta, idAlfaEtiqueta, nombreEtiqueta from etiquetas;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetas.Add(new Etiqueta
+                        {
+                            ID = int.Parse(dr["idEtiqueta"].ToString()),
+                            idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
+                            NombreEtiqueta = dr["nombreEtiqueta"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaEtiquetas;
+        }
+        public void InsertEtiqueta(string NombreEtiqueta)
+        {
+            int IdEtiqueta = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE LA ETIQUETA A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into etiquetas(idAlfaEtiqueta, nombreEtiqueta) values (@idAlfaEtiqueta, @nombreEtiqueta)";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaEtiqueta", Guid.NewGuid().ToString()));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreEtiqueta", NombreEtiqueta));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public int GetIdEtiqueta(string NombreEtiqueta)
+        {
+            int IdEtiqueta = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //BUSCA LA ID DE LA ETIQUETA
+                conexion.Open();
+                string query = "select idEtiqueta from etiquetas where nombreEtiqueta = @nombreEtiqueta";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@nombreEtiqueta", NombreEtiqueta));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        IdEtiqueta = int.Parse(dr["idEtiqueta"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return IdEtiqueta;
+        }
+
+        public void AsociarEtiquetasPict(List<int>ListaEtiquetas,int idPict, bool isNew)
+        {
+
+            List<int> listaEtiquetasAsociadas = new List<int>();
+            List<int> listaEtiquetasEliminadas = new List<int>();
+            if (!isNew)//EN CASO DE EDITAR LAS ETIQUETAS DE UN PICTOGRAMA
+            {
+                listaEtiquetasAsociadas = getEtiquetasAsociadas(idPict);
+            }
+            //ASOCIA LAS ETIQUETAS CON EL PICTOGRAMA
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                    foreach (int idEtiqueta in ListaEtiquetas)
+                {
+                    bool existe = false;
+                    if (!isNew)
+                    {
+                        if (listaEtiquetasAsociadas.Contains(idEtiqueta))
+                        {
+                            existe = true;
+                        }
+                    }
+                    if (!existe)
+                    {
+                        conexion.Open();
+                        string query = "insert into pictEtiqueta( IdEtiqueta,IdPictograma) values (@IdEtiqueta, @IdPictograma)";
+                        SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                        cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idEtiqueta));
+                        cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            if (!isNew)
+                {
+                    foreach(int idTag in listaEtiquetasAsociadas)
+                    {
+                        if (!ListaEtiquetas.Contains(idTag))
+                        {
+                            deleteAsociacionEtiquetasPict(idPict,idTag);
+                        }
+                    }
+                }
+                
+
+            
+        }
+        public List<int> getEtiquetasAsociadas(int idPict)
+        {
+            List<int> listaEtiquetasAsociadas = new List<int>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idEtiqueta from pictEtiqueta where idPictograma = @idPictograma; ";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetasAsociadas.Add(int.Parse(dr["idEtiqueta"].ToString()));
+                    }
+                }
+                conexion.Close();
+            }
+            return listaEtiquetasAsociadas;
+        }
+        public void deleteAsociacionEtiquetasPict(int idPict,int idTag)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "Delete from pictEtiqueta where IdEtiqueta  = @IdEtiqueta and IdPictograma = @IdPictograma ;" +
+                    "VACUUM;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idTag));
+                cmd.Parameters.Add(new SQLiteParameter("@IdPictograma", idPict));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void CrearSonido(string pathSonido,string nombreSonido,bool isVoice)
+        {
+
+            if (!Directory.Exists(DIRECTORY_SONIDOS)){
+                Directory.CreateDirectory(DIRECTORY_SONIDOS);
+            }
+
+            string alfaSound = Guid.NewGuid().ToString();
+            string pathSonidoMp3 = DIRECTORY_SONIDOS + "\\" + alfaSound + ".mp3";
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE LA IMAGEN A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into sonidos(idAlfaSonido,nombreSonido,pathSonido) values (@idAlfaSonido,@nombreSonido,@pathSonido)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaSonido", alfaSound));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreSonido", nombreSonido));
+                cmd.Parameters.Add(new SQLiteParameter("@pathSonido", pathSonidoMp3));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+            if (isVoice)
+            {
+                FileStream fs;
+                byte[] rawData = ConvertToMp3(pathSonido);
+                fs = new FileStream(pathSonidoMp3, FileMode.OpenOrCreate, FileAccess.Write);
+                fs.Write(rawData, 0, rawData.Length);
+                fs.Close();
+            }
+            else
+            {
+                File.Copy(pathSonido, pathSonidoMp3, true);
+            }
+        }
+        public int getVoiceNumber()
+        {
+            int numeroVoice = 0;
+            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT count(nombreSonido) as total from sonidos where nombreSonido  like 'voice%'";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int total = int.Parse(dr["total"].ToString());
+                        numeroVoice = total + 1;
+                    }
+                }
+                conexion.Close();
+            }
+            return numeroVoice;
+        }
+        public List<SoundModel> GetAllSounds()
+        {
+            List<SoundModel> ListaSonidos = new List<SoundModel>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idSonido, idAlfaSonido,nombreSonido,pathSonido  from sonidos order by idSonido desc;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        ListaSonidos.Add(new SoundModel
+                        {
+                            ID = int.Parse(dr["idSonido"].ToString()),
+                            idAlfaSonido = dr["idAlfaSonido"].ToString(),
+                            Nombre = dr["nombreSonido"].ToString(),
+                            pathSonido = dr["pathSonido"].ToString(),
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+            return ListaSonidos;
+        }
+        public byte[] ConvertToMp3(string pathWav)
+        {
+            using (var client = new WebClient())
+            {
+                var file = client.DownloadData(pathWav);
+                var target = new WaveFormat(44100, 1);
+                using (var outPutStream = new MemoryStream())
+                using (var waveStream = new WaveFileReader(new MemoryStream(file)))
+                using (var conversionStream = new WaveFormatConversionStream(target, waveStream))
+                using (var writer = new LameMP3FileWriter(outPutStream, conversionStream.WaveFormat, 64, null))
+                {
+                    conversionStream.CopyTo(writer);
+
+                    return outPutStream.ToArray();
+                }
+            }
+        }
+
+        public List<Pictogram> getAllPict()
+        {
+            List<Pictogram> listaPict = new List<Pictogram>();
+            int sound_id;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
+                "from pictogramas p " +
+                "JOIN imagenes i on p.idImagen = i.idImagen  " +
+                "LEFT join sonidos s on p.idSonido = s.idSonido order by idPict DESC;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int.TryParse(dr["idSonido"].ToString(), out sound_id);
+                        listaPict.Add(new Pictogram
+                        {
+                            ID = int.Parse(dr["idPict"].ToString()),
+                            idAlfaPict = dr["idAlfaPict"].ToString(),
+                            Nombre = dr["nombrePict"].ToString(),
+                            Texto = dr["textoPict"].ToString(),
+                            Categoria = dr["categoriaPict"].ToString(),
+                            idImagen = int.Parse(dr["idImagen"].ToString()),
+                            nombreImagen = dr["nombreImagen"].ToString(),
+                            Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]),
+                            idSonido = sound_id,
+                            nombreSonido = dr["nombreSonido"].ToString(),
+                            pathSonido = dr["pathSonido"].ToString(),
+                            ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString()))
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+            return listaPict;
+
+        }
+        public List<Etiqueta> GetEtiquetasFromPict(int idPictograma)
+        {
+            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select p.idEtiqueta,idAlfaEtiqueta,nombreEtiqueta " +
+                    "from pictEtiqueta p " +
+                    "join etiquetas e on e.idEtiqueta = p.idEtiqueta " +
+                    "where idPictograma = @idPictograma ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPictograma", idPictograma));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetas.Add(new Etiqueta
+                        {
+                            ID = int.Parse(dr["idEtiqueta"].ToString()),
+                            idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
+                            NombreEtiqueta = dr["nombreEtiqueta"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaEtiquetas;
+        }
+        public void deletePictograma(int idPict)
+        {
+            //QUITA LA ASOCIACION DEL PICTOGRAMA CON LAS ETIQUETAS
+            List<int> ListaEtiquetasAsociadas = getEtiquetasAsociadas(idPict);
+            foreach(int idTag in ListaEtiquetasAsociadas)
+            {
+                deleteAsociacionEtiquetasPict(idPict, idTag);
+            }
+            //ELIMINA EL PICTOGRAMA DE LA BASE DE DATOS
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "Delete from pictogramas where idPict  = @idPict;" +
+                    "VACUUM;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPict", idPict));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+    }
+}

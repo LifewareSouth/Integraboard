@@ -11,15 +11,6 @@
     <Grid Background="#04293a">
         <Frame x:Name="TomarFoto" NavigationUIVisibility="Hidden"/>
 
-        
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        </Grid>
-
         <StackPanel Orientation="Horizontal" 
                     VerticalAlignment="Center"
                     Grid.Row="0">
@@ -48,8 +39,6 @@
                    Width="900"
                    Grid.Row="1"
                    Fill="#003b49"/>
-
-
 
         <StackPanel Orientation="Horizontal"
                      Grid.Row="1"
