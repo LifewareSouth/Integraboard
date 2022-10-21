@@ -47,8 +47,9 @@
                     HorizontalAlignment="Left"
                        Margin="20,0,0,0"/>
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom">
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        >
                     <ComboBox x:Name="CategoriaPict" Height="25"
                               Width="340"
                               HorizontalAlignment="left"
@@ -58,7 +59,8 @@
                               FontSize="18"
                               FontFamily="Arial"
                               FontWeight="Regular"
-                              Margin="4,0,0,0" SelectionChanged="CategoriaPict_SelectionChanged"/>
+                              Margin="4,0,0,0"
+                              SelectionChanged="CategoriaPict_SelectionChanged"/>
                     <Label Content="Buscador:"
                        FontSize="25"
                        FontWeight="Regular"
@@ -88,17 +90,35 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <DockPanel Height="150" Width="100">
-                                    <Image Source="{Binding Imagen}"
-                                                   DockPanel.Dock="Top"/>
-                                    <TextBlock Text="{Binding Nombre}"
+                                <DockPanel Height="180" Width="180">
+                                    <Border x:Name="pictoBorde"
+                                    Height="180" 
+                                    Width="180"
+                                    BorderBrush="{Binding colorBorde}"
+                                    DockPanel.Dock="Top"
+                                    BorderThickness="10"
+                                            >
+                                        <StackPanel 
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                            <Image Source="{Binding Imagen}"
+                                            
+                                            Height="100"
+                                            Width="100"
+                                                   Margin="10"/>
+                                            <TextBlock Text="{Binding Texto}"
                                                        TextTrimming="CharacterEllipsis"
                                                        TextWrapping="Wrap"
                                                        Foreground="White"
                                                        FontSize="15"
                                                        FontFamily="arial"
                                                        FontWeight="SemiBold"
-                                                       TextAlignment="Center"/>
+                                                       TextAlignment="Center"
+                                                       VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                        
+                                    </Border>
+
                                 </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

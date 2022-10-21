@@ -257,7 +257,7 @@
 
                 <Rectangle Grid.Row="1"
                            Grid.Column="2"
-                           Grid.RowSpan="3"
+                           Grid.RowSpan="4"
                            Height="250"
                            Width="245"
                            Stroke="White"/>
@@ -294,7 +294,17 @@
                                FontSize="20"
                                TextWrapping="Wrap"
                                TextDecorations="Underline"/>
-
+                    <Button x:Name="quitarSonido"
+                            HorizontalAlignment="Center" 
+                            Content="Quitar Sonido" 
+                            Width="98"
+                            Foreground="White"
+                            Background="Red"
+                            FontFamily="Arial"
+                            FontSize="15"
+                            Margin="30" Click="quitarSonido_Click"
+                            Visibility="Hidden"
+                            BorderBrush="Red"/>
                 </StackPanel>
             </Grid>
             <TextBlock x:Name="Hint1" HorizontalAlignment="Left" Margin="35,0,0,0" TextWrapping="Wrap" Text="" Foreground="white" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
