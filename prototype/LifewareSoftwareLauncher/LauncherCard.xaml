@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="LifewareSoftwareLauncher.LauncherCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LifewareSoftwareLauncher"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500" x:Name="CardControl" Loaded="CardControl_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <materialDesign:Card Margin="5,5,5,0"  >
+            <Grid VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="350*" />
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="120*"  />
+                    <RowDefinition Height="15*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"  />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+
+                <fa:ImageAwesome Grid.Column="0" Grid.Row="0" Icon="{Binding Path=Icon, ElementName=CardControl}" Spin="{Binding Path=IconSpin, ElementName=CardControl}" IsEnabled="True" Foreground="#FFFFA200"  Width="50" Height="50" HorizontalAlignment="Center" />
+
+
+                <Grid Grid.Row="0" Grid.Column="1" >
+                    <ContentControl Name="contentControlLogin" >
+                        
+                    </ContentControl>
+                    <TextBlock  Name="textBoxPrimaryText" Style="{StaticResource MaterialDesignDisplay1TextBlock}" Foreground="{DynamicResource MaterialDesignBodyLight}" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Path=PrimaryText, ElementName=CardControl}" />
+
+                </Grid>
+                <Grid Grid.Row="1"></Grid>
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                    <!--<DockPanel>-->
+
+                        <TextBlock Padding="20" Foreground="{DynamicResource MaterialDesignBodyLight}" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Path=SecondaryText, ElementName=CardControl}"  />
+                        
+                    <!--</DockPanel>-->
+
+                </Border>
+                <ProgressBar Visibility="Hidden" Name="progressBarStatus" Grid.Row="3" Grid.ColumnSpan="2" IsIndeterminate="True" ></ProgressBar>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
