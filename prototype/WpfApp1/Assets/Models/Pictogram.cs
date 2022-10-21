@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace WpfApp1.Model
 {
@@ -25,7 +26,7 @@ namespace WpfApp1.Model
         public string nombreSonido { get; set; }
         public string pathSonido { get; set; }
         public List<Etiqueta> ListaEtiquetas { get; set; }
-
+        public SolidColorBrush colorBorde { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

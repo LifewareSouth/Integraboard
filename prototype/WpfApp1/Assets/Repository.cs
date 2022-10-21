@@ -636,7 +636,8 @@ namespace WpfApp1.Assets
                             idSonido = sound_id,
                             nombreSonido = dr["nombreSonido"].ToString(),
                             pathSonido = dr["pathSonido"].ToString(),
-                            ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString()))
+                            ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString())),
+                            colorBorde = categoryColor(dr["categoriaPict"].ToString())
                         });
                     }
                 }
