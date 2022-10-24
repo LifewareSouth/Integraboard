@@ -39,41 +39,46 @@
                 <!-- Aquí va la listView -->
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
-               <Label  Content="Seleccione una imagen ya cargada:"
+                <Label  Content="Seleccione una imagen ya cargada:"
                     Foreground="White"
                     FontSize="30"
                     FontStyle="Italic"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                        Margin="20,0,0,0"/>
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
+                <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
                         >
-                    <ComboBox x:Name="CategoriaPict" Height="25"
-                              Width="340"
-                              HorizontalAlignment="left"
-                              VerticalAlignment="Top"
+                    <Label Content="Categoría:"
+                           FontSize="20"
+                           FontWeight="Regular"
+                           FontFamily="arial"
+                           Foreground="White"/>
+                    <ComboBox x:Name="CategoriaPict" 
+                              Height="20"
+                              Width="250"
                               Text="Seleccione Categoría"
                               Foreground="Black"
-                              FontSize="18"
+                              FontSize="15"
                               FontFamily="Arial"
                               FontWeight="Regular"
-                              Margin="4,0,0,0"
                               SelectionChanged="CategoriaPict_SelectionChanged"/>
                     <Label Content="Buscador:"
-                       FontSize="25"
+                       FontSize="20"
                        FontWeight="Regular"
                        FontFamily="arial"
                        Foreground="White"/>
                     <TextBox x:Name="buscadorPict" Grid.Row="1"
-                             Height="50"
+                             Height="20"
                              Width="250"
-                             Margin="10,0,10,0" TextChanged="buscadorPict_TextChanged"/>
-                </StackPanel> 
+                             FontFamily="arial"
+                             FontSize="18"
+                             Margin="10,0,10,0" 
+                             TextChanged="buscadorPict_TextChanged"/>
+                </StackPanel>
             </StackPanel>
-            
-            
+
+
 
             <Grid Grid.Row="1">
                 <ScrollViewer Margin="10">
@@ -116,7 +121,7 @@
                                                        TextAlignment="Center"
                                                        VerticalAlignment="Bottom"/>
                                         </StackPanel>
-                                        
+
                                     </Border>
 
                                 </DockPanel>
