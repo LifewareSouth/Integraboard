@@ -16,9 +16,21 @@
                 BorderBrush="white"
                 BorderThickness="10"
                 Grid.Row="1">
-            <Image x:Name="pictoPreview"
+            <StackPanel>
+                <Image x:Name="pictoPreview"
                    Height="300"
                    Width="300"/>
+                <TextBlock x:Name="pictoTexto"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap"
+                           Foreground="White"
+                           FontSize="35"
+                           FontFamily="arial"
+                           FontWeight="SemiBold"
+                           TextAlignment="Center"
+                           VerticalAlignment="Bottom"/>
+            </StackPanel>
+            
         </Border>
         <Button x:Name="closePreview"
                 Content="X"

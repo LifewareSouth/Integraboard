@@ -30,6 +30,7 @@ namespace WpfApp1.Pages.Dialogs
             InitializeComponent();
             pictoPreview.Source = pict.Imagen;
             bordePict.BorderBrush = pict.colorBorde;
+            pictoTexto.Text = pict.Texto;
         }
         private void closePreview_Click(object sender, RoutedEventArgs e)
         {
