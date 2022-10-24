@@ -9,13 +9,16 @@
         WindowStyle = "None"
         ResizeMode = "NoResize">
     <Grid Background="#04293a">
-        
-        <Border Height="380"
+
+        <Border x:Name="bordePict"
+                Height="380"
                 Width="380"
                 BorderBrush="white"
-                BorderThickness="2"
+                BorderThickness="10"
                 Grid.Row="1">
-            <Image x:Name="pictoPreview"/>
+            <Image x:Name="pictoPreview"
+                   Height="300"
+                   Width="300"/>
         </Border>
         <Button x:Name="closePreview"
                 Content="X"

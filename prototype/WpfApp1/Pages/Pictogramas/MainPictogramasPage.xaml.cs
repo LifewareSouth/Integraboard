@@ -104,9 +104,14 @@ namespace WpfApp1
 
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
-            PictoPreview w = new PictoPreview();
-            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            w.Show();
+            if (ListViewPictograms.SelectedValue != null)
+            {
+                Pictogram pictSeleccionado = ((Pictogram)ListViewPictograms.SelectedItem);
+                PictoPreview w = new PictoPreview(pictSeleccionado);
+                w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                w.Show();
+            }
+                
         }
 
         public void runActualizarLista()
