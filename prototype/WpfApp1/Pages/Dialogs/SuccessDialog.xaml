@@ -22,7 +22,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
-            <Label Content="¡Listo!"
+            <Label x:Name="Mensaje" Content="¡Listo!"
                    Foreground="White"
                    FontSize="30"
                    FontWeight="SemiBold"
