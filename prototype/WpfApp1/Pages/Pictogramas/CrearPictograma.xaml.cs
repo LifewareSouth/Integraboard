@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -176,6 +177,7 @@ namespace WpfApp1.Pages.Pictogramas
                 List<string> etiquetasPict = new List<string>();
                 List<int> idsTags = new List<int>();
                 Pictogram pict = new Pictogram();
+                string Mensaje = "";
                 if(TipoImagen == "Camara")
                 {
                     pict.idImagen = Repository.Instance.GuardarImagenCamara(@"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png");
@@ -200,6 +202,7 @@ namespace WpfApp1.Pages.Pictogramas
                         idsTags = idTags(EtiquetaPict.Text);
                         Repository.Instance.AsociarEtiquetasPict(idsTags, idNewPict,true);
                     }
+                    Mensaje = "Creado correctamente!";
                 }
                 else
                 {
@@ -210,7 +213,11 @@ namespace WpfApp1.Pages.Pictogramas
                         idsTags = idTags(EtiquetaPict.Text);
                         Repository.Instance.AsociarEtiquetasPict(idsTags,pictogramEdit.ID, false);
                     }
+                    Mensaje = "Actualizado correctamente!";
                 }
+                SuccessDialog success = new SuccessDialog(Mensaje);
+                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                success.Show();
                 MainPicrogramasPage.Instance.runActualizarLista();
                 this.NavigationService.GoBack();
             }
