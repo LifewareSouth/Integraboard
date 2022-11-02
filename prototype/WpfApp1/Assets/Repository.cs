@@ -303,6 +303,46 @@ namespace WpfApp1.Assets
             }
             return idPict;
         }
+        public Pictogram getOnePictogram(int ID)
+        {
+            Pictogram pict = new Pictogram();
+            int sound_id;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                //OBTENER LA ULTIMA ID CREADA
+                string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
+                    "from pictogramas p " +
+                    "JOIN imagenes i on p.idImagen = i.idImagen  " +
+                    "LEFT join sonidos s on p.idSonido = s.idSonido " +
+                    "where idPict = @idPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int.TryParse(dr["idSonido"].ToString(), out sound_id);
+                        pict.ID = int.Parse(dr["idPict"].ToString());
+                        pict.idAlfaPict = dr["idAlfaPict"].ToString();
+                        pict.Nombre = dr["nombrePict"].ToString();
+                        pict.Texto = dr["textoPict"].ToString();
+                        pict.Categoria = dr["categoriaPict"].ToString();
+                        pict.idImagen = int.Parse(dr["idImagen"].ToString());
+                        pict.nombreImagen = dr["nombreImagen"].ToString();
+                        pict.Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]);
+                        pict.idSonido = sound_id;
+                        pict.nombreSonido = dr["nombreSonido"].ToString();
+                        pict.pathSonido = dr["pathSonido"].ToString();
+                        pict.ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString()));
+                        pict.colorBorde = categoryColor(dr["categoriaPict"].ToString());
+                        
+                    }
+                }
+                conexion.Close();
+            }
+            return pict;
+        }
         public void EditPictogram(Pictogram pict)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
