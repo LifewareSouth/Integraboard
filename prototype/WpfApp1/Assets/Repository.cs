@@ -317,6 +317,7 @@ namespace WpfApp1.Assets
                     "LEFT join sonidos s on p.idSonido = s.idSonido " +
                     "where idPict = @idPict;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPict", ID));
                 cmd.CommandType = System.Data.CommandType.Text;
                 using (SQLiteDataReader dr = cmd.ExecuteReader())
                 {
@@ -738,6 +739,69 @@ namespace WpfApp1.Assets
                 cmd.ExecuteNonQuery();
                 conexion.Close();
             }
+        }
+
+        public List<pictTablero> getPictTableros(int idTablero)
+        {
+            List<pictTablero> listaPictTableros = new List<pictTablero>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idPictTablero, idTablero, idPictograma, x, y from pictTableros where idTablero = @idTablero";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaPictTableros.Add(new pictTablero
+                        {
+                            ID = int.Parse(dr["idPictTablero"].ToString()),
+                            idTablero = int.Parse(dr["idTablero"].ToString()),
+                            idPictograma = int.Parse(dr["idPictograma"].ToString()),
+                            x = int.Parse(dr["x"].ToString()),
+                            y = int.Parse(dr["y"].ToString()),
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaPictTableros;
+        }
+        public List<Board> getAllBoards()
+        {
+            List<Board> listaTableros = new List<Board>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idTablero, idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,screenshot from tableros;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaTableros.Add(new Board
+                        {
+                            ID = int.Parse(dr["idPictTablero"].ToString()),
+                            idAlfaTablero = dr["idAlfaTablero"].ToString(),
+                            nombreTablero = dr["nombreTablero"].ToString(),
+                            tipo = dr["tipo"].ToString(),
+                            filas = int.Parse(dr["filas"].ToString()),
+                            columnas = int.Parse(dr["columnas"].ToString()),
+                            idPictPortada = int.Parse(dr["pictPortada"].ToString()),
+                            pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
+                            screenshot = ImageFromBuffer((System.Byte[])dr["screenshot"]),
+                            pictTableros = getPictTableros(int.Parse(dr["idPictTablero"].ToString()))
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaTableros;
         }
     }
 }
