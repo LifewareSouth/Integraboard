@@ -106,7 +106,7 @@ namespace WpfApp1.Pages.Pictogramas
                         StopSound();
                     }
                 }                
-                CrearPictograma.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
+                CrearPictos.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
                 this.NavigationService.GoBack();
             }
         }

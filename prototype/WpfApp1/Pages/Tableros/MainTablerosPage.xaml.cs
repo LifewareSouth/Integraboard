@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Pages.Pictogramas;
 
 namespace WpfApp1.Pages.Tableros
 {
@@ -23,6 +24,16 @@ namespace WpfApp1.Pages.Tableros
         public MainTablerosPage()
         {
             InitializeComponent();
+        }
+
+        private void goToCrearTableros(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CrearTableros());
+        }
+
+        private void goToMenu(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainTablerosPage());
         }
     }
 }

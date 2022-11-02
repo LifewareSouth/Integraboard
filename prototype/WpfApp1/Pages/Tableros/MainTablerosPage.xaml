@@ -23,7 +23,7 @@
                     FontWeight="SemiBold"
                     Foreground="white"
                     Background="#1597e5"
-                    />
+                    Click="goToMenu"/>
             <!---->
             <Label Content="Tableros" 
                    FontFamily="Arial"
@@ -66,6 +66,7 @@
                     FontSize="25"
                     FontWeight="SemiBold"
                     Foreground="white" 
+                    Click="goToCrearTableros" 
                     />
 
             <Button Content="Previsualizar"

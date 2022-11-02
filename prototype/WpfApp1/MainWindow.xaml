@@ -130,7 +130,8 @@
                                 Background="#69dadb"
                                 FontSize="20"
                                 FontFamily="Arial"
-                                FontWeight="Bold" Click="Tableros_Click"/>
+                                FontWeight="Bold"
+                                Click="Tableros_Click"/>
 
                         <Button x:Name="profesionales"
                                 Content="Profesionales"

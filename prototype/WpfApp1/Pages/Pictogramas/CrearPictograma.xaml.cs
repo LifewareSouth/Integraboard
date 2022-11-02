@@ -26,7 +26,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// <summary>
     /// Lógica de interacción para CrearPictograma.xaml
     /// </summary>
-    public partial class CrearPictograma : Page
+    public partial class CrearPictos : Page
     {
         bool _navigationServiceAssigned = false;
         string TipoImagen = null, pathImagen;
@@ -36,10 +36,10 @@ namespace WpfApp1.Pages.Pictogramas
         private static ImagenModel imageDB = new ImagenModel();
         private bool isEdit = false;
         private static Pictogram pictogramEdit = new Pictogram();
-        private static readonly CrearPictograma instance = new CrearPictograma();
+        private static readonly CrearPictos instance = new CrearPictos();
         private static List<Etiqueta> ListaEtiquetas = new List<Etiqueta>();
         private static SoundModel sonidoSeleccionado = new SoundModel();
-        public static CrearPictograma Instance
+        public static CrearPictos Instance
         {
             get
             {
@@ -47,7 +47,7 @@ namespace WpfApp1.Pages.Pictogramas
             }
         }
 
-        public CrearPictograma()
+        public CrearPictos()
         {
             InitializeComponent();
             rellenarCategorias();
@@ -62,7 +62,7 @@ namespace WpfApp1.Pages.Pictogramas
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
         }
-        public CrearPictograma(Pictogram editPict)
+        public CrearPictos(Pictogram editPict)
         {
             InitializeComponent();
             rellenarCategorias();

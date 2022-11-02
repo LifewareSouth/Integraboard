@@ -1,4 +1,4 @@
-﻿<Page x:Class="WpfApp1.Pages.Pictogramas.CrearPictograma"
+﻿<Page x:Class="WpfApp1.Pages.Pictogramas.CrearPictos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,7 @@
 
     <Grid Background="#04293a">
 
-        <Frame x:Name="CrearPictos" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="CrearPicto" NavigationUIVisibility="Hidden"/>
 
         <StackPanel Orientation="Horizontal" 
                     VerticalAlignment="Center"
