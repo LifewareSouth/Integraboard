@@ -803,5 +803,71 @@ namespace WpfApp1.Assets
 
             return listaTableros;
         }
+        public int crearTablero(Board board, byte[] screenshot)
+        {
+            string alfaIdBoard = Guid.NewGuid().ToString();
+            int idBoard = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE EL TABLERO A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into tableros( idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,screenshot) " +
+                    "values (@idAlfaTablero, @nombreTablero, @tipo,@filas,@columnas,@pictPortada,@screenshot)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreTablero", board.nombreTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@tipo", board.tipo));
+                cmd.Parameters.Add(new SQLiteParameter("@filas", board.filas));
+                cmd.Parameters.Add(new SQLiteParameter("@columnas", board.columnas));
+                cmd.Parameters.Add(new SQLiteParameter("@pictPortada", board.idPictPortada));
+                SQLiteParameter parametro = new SQLiteParameter("@screenshot", System.Data.DbType.Binary);
+                parametro.Value = screenshot;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
+                //BUSCA LA ID DEL TABLERO RECIEN AGREGADO
+                query = "select idTablero from tableros where idAlfaTablero = @idAlfaTablero";
+                conexion.Open();
+                cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idBoard = int.Parse(dr["idImagen"].ToString());
+                    }
+                }
+                conexion.Close();
+
+            }
+            return idBoard;
+        }
+        public void EnlazarPictBoard(int idTablero, int idPict, int x, int y)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //ENLAZA LOS PICTOGRAMAS DEL TABLERO EN LA BD LOCAL
+                conexion.Open();
+                string query = "insert into pictTableros( idTablero, idPictograma, x,y) " +
+                    "values ( @idTablero, @idPictograma, @x,@y)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@idPictograma", idPict));
+                cmd.Parameters.Add(new SQLiteParameter("@x", x));
+                cmd.Parameters.Add(new SQLiteParameter("@y", y));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
+            }
+        }
     }
 }
