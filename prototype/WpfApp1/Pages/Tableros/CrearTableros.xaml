@@ -71,7 +71,7 @@
                        FontSize="25"
                        FontFamily="arial"
                        Margin="15,0,0,0"/>
-                <ComboBox Width="200"
+                <ComboBox x:Name="comboBoxTipo" Width="200"
                           Height="25"
                           HorizontalAlignment="Left"
                           Margin="20,0,0,0"/>
@@ -89,7 +89,7 @@
                             Foreground="White"
                             Height="40"
                             Width="40"
-                            Background="#1597e5"/>
+                            Background="#1597e5" Click="LessRows_Click"/>
                     <Label x:Name="rows"
                            Content="4"
                            FontSize="30"
@@ -101,7 +101,7 @@
                             Foreground="White"
                             Height="40"
                             Width="40"
-                            Background="#1597e5"/>
+                            Background="#1597e5" Click="MoreRows_Click"/>
                 </StackPanel>
                 <Label Content="Columnas:"
                        Foreground="white"
@@ -116,7 +116,7 @@
                             Foreground="White"
                             Height="40"
                             Width="40"
-                            Background="#1597e5"/>
+                            Background="#1597e5" Click="LessCols_Click"/>
                     <Label x:Name="Cols"
                            Content="4"
                            FontSize="30"
@@ -128,7 +128,7 @@
                             Foreground="White"
                             Height="40"
                             Width="40"
-                            Background="#1597e5"/>
+                            Background="#1597e5" Click="MoreCols_Click"/>
                 </StackPanel>
                 <Label Content="Etiquetas:"
                        FontSize="25"
