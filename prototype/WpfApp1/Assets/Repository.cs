@@ -149,7 +149,9 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS sonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS etiquetas (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));";
+                    "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER, screenshot BLOB ,PRIMARY KEY(idTablero AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -300,6 +302,47 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
             return idPict;
+        }
+        public Pictogram getOnePictogram(int ID)
+        {
+            Pictogram pict = new Pictogram();
+            int sound_id;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                //OBTENER LA ULTIMA ID CREADA
+                string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
+                    "from pictogramas p " +
+                    "JOIN imagenes i on p.idImagen = i.idImagen  " +
+                    "LEFT join sonidos s on p.idSonido = s.idSonido " +
+                    "where idPict = @idPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPict", ID));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int.TryParse(dr["idSonido"].ToString(), out sound_id);
+                        pict.ID = int.Parse(dr["idPict"].ToString());
+                        pict.idAlfaPict = dr["idAlfaPict"].ToString();
+                        pict.Nombre = dr["nombrePict"].ToString();
+                        pict.Texto = dr["textoPict"].ToString();
+                        pict.Categoria = dr["categoriaPict"].ToString();
+                        pict.idImagen = int.Parse(dr["idImagen"].ToString());
+                        pict.nombreImagen = dr["nombreImagen"].ToString();
+                        pict.Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]);
+                        pict.idSonido = sound_id;
+                        pict.nombreSonido = dr["nombreSonido"].ToString();
+                        pict.pathSonido = dr["pathSonido"].ToString();
+                        pict.ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString()));
+                        pict.colorBorde = categoryColor(dr["categoriaPict"].ToString());
+                        
+                    }
+                }
+                conexion.Close();
+            }
+            return pict;
         }
         public void EditPictogram(Pictogram pict)
         {
@@ -695,6 +738,135 @@ namespace WpfApp1.Assets
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 conexion.Close();
+            }
+        }
+
+        public List<pictTablero> getPictTableros(int idTablero)
+        {
+            List<pictTablero> listaPictTableros = new List<pictTablero>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idPictTablero, idTablero, idPictograma, x, y from pictTableros where idTablero = @idTablero";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaPictTableros.Add(new pictTablero
+                        {
+                            ID = int.Parse(dr["idPictTablero"].ToString()),
+                            idTablero = int.Parse(dr["idTablero"].ToString()),
+                            idPictograma = int.Parse(dr["idPictograma"].ToString()),
+                            x = int.Parse(dr["x"].ToString()),
+                            y = int.Parse(dr["y"].ToString()),
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaPictTableros;
+        }
+        public List<Board> getAllBoards()
+        {
+            List<Board> listaTableros = new List<Board>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idTablero, idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,screenshot from tableros;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaTableros.Add(new Board
+                        {
+                            ID = int.Parse(dr["idPictTablero"].ToString()),
+                            idAlfaTablero = dr["idAlfaTablero"].ToString(),
+                            nombreTablero = dr["nombreTablero"].ToString(),
+                            tipo = dr["tipo"].ToString(),
+                            filas = int.Parse(dr["filas"].ToString()),
+                            columnas = int.Parse(dr["columnas"].ToString()),
+                            idPictPortada = int.Parse(dr["pictPortada"].ToString()),
+                            pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
+                            screenshot = ImageFromBuffer((System.Byte[])dr["screenshot"]),
+                            pictTableros = getPictTableros(int.Parse(dr["idPictTablero"].ToString()))
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaTableros;
+        }
+        public int crearTablero(Board board, byte[] screenshot)
+        {
+            string alfaIdBoard = Guid.NewGuid().ToString();
+            int idBoard = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE EL TABLERO A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into tableros( idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,screenshot) " +
+                    "values (@idAlfaTablero, @nombreTablero, @tipo,@filas,@columnas,@pictPortada,@screenshot)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreTablero", board.nombreTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@tipo", board.tipo));
+                cmd.Parameters.Add(new SQLiteParameter("@filas", board.filas));
+                cmd.Parameters.Add(new SQLiteParameter("@columnas", board.columnas));
+                cmd.Parameters.Add(new SQLiteParameter("@pictPortada", board.idPictPortada));
+                SQLiteParameter parametro = new SQLiteParameter("@screenshot", System.Data.DbType.Binary);
+                parametro.Value = screenshot;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
+                //BUSCA LA ID DEL TABLERO RECIEN AGREGADO
+                query = "select idTablero from tableros where idAlfaTablero = @idAlfaTablero";
+                conexion.Open();
+                cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idBoard = int.Parse(dr["idImagen"].ToString());
+                    }
+                }
+                conexion.Close();
+
+            }
+            return idBoard;
+        }
+        public void EnlazarPictBoard(int idTablero, int idPict, int x, int y)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //ENLAZA LOS PICTOGRAMAS DEL TABLERO EN LA BD LOCAL
+                conexion.Open();
+                string query = "insert into pictTableros( idTablero, idPictograma, x,y) " +
+                    "values ( @idTablero, @idPictograma, @x,@y)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@idPictograma", idPict));
+                cmd.Parameters.Add(new SQLiteParameter("@x", x));
+                cmd.Parameters.Add(new SQLiteParameter("@y", y));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                conexion.Close();
+
             }
         }
     }
