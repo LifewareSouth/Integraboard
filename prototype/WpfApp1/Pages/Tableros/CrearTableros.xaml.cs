@@ -28,6 +28,7 @@ namespace WpfApp1.Pages.Tableros
         {
             InitializeComponent();
             tiposTablero();
+            AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
         }
         private void tiposTablero()
@@ -81,6 +82,7 @@ namespace WpfApp1.Pages.Tableros
             if (_rows > 1)
             {
                 rowCounter--;
+                AjustarTablero();
             }
         }
 
@@ -89,6 +91,7 @@ namespace WpfApp1.Pages.Tableros
             if (_columns < 7)
             {
                 columnsCounter++;
+                AjustarTablero();
             }
         }
 
@@ -97,6 +100,7 @@ namespace WpfApp1.Pages.Tableros
             if (_columns > 1)
             {
                 columnsCounter--;
+                AjustarTablero();
             }
         }
 
@@ -104,8 +108,13 @@ namespace WpfApp1.Pages.Tableros
         {
             if (_rows < 7)
             {
-                rowCounter++;  
+                rowCounter++;
+                AjustarTablero();
             }
+        }
+        private void AjustarTablero()
+        {
+            int totalCuadros = rowCounter * columnsCounter;
         }
     }
 }
