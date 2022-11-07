@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AForge.Imaging.Filters;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
+using WpfApp1.UserControls;
 
 namespace WpfApp1.Pages.Tableros
 {
@@ -115,6 +117,10 @@ namespace WpfApp1.Pages.Tableros
         private void AjustarTablero()
         {
             int totalCuadros = rowCounter * columnsCounter;
+            for (int i = 0; i < totalCuadros; i++)
+            {
+                AddPictogram.Add();
+            }
         }
     }
 }
