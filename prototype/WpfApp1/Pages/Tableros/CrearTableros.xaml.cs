@@ -32,7 +32,7 @@ namespace WpfApp1.Pages.Tableros
         {
             
             InitializeComponent();
-            Tablero.ItemsSource = views;
+            
             tiposTablero();
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
@@ -118,19 +118,47 @@ namespace WpfApp1.Pages.Tableros
                 AjustarTablero();
             }
         }
-        private ObservableCollection<AddPictogram> views =
-    new ObservableCollection<AddPictogram>();
+        private BindingList<AddPictogram> views =
+    new BindingList<AddPictogram>();
         public AddPictogram addpict { get; set; }
         private void AjustarTablero()
         {
             addpict = new AddPictogram();
+            Grid grid = FindVisualChild<Grid>(Tablero);
             int totalCuadros = rowCounter * columnsCounter;
             views.Clear();
             BindingList<AddPictogram> tempList = new BindingList<AddPictogram>();
             for (int i = 0; i < totalCuadros; i++)
             {
-                views.Add(addpict);
+                tempList.Add(new AddPictogram());
             }
+            for (int i = 0; i < rowCounter; i++)
+
+            {
+                //testTablero2.RowDefinitions.Add(new RowDefinition());
+               
+
+            }
+
+            for (int j = 0; j < columnsCounter; j++)
+            {
+                //grid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            views = tempList;
+            Tablero.ItemsSource = views;
+        }
+        private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is T)
+                    return (T)child;
+                var childOfChild = FindVisualChild<T>(child);
+                if (childOfChild != null)
+                    return childOfChild;
+            }
+            return null;
         }
     }
 }
