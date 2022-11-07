@@ -119,7 +119,7 @@ namespace WpfApp1.Pages.Tableros
             int totalCuadros = rowCounter * columnsCounter;
             for (int i = 0; i < totalCuadros; i++)
             {
-                AddPictogram.Add();
+                
             }
         }
     }

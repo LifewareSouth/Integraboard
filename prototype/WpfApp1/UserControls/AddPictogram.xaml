@@ -9,33 +9,31 @@
              d:DesignHeight="200" d:DesignWidth="200">
     <Grid>
         <Frame x:Name="addPictogram" NavigationUIVisibility="Hidden"/>
-        <materialDesign:Card x:Name="Card"  Width="200" Height="200" >
-            <Canvas>
+        <Border BorderThickness="5"
+                BorderBrush="#1597e5"
+                Height="200"
+                Width="200">
+            <StackPanel Orientation="Vertical">
                 <Button x:Name="AddPictograms" 
                         HorizontalAlignment="Left" 
-                        Background="WhiteSmoke"
-                        Canvas.Left="10" 
-                        Canvas.Top="10" 
+                        Background="White"
                         Height="180" 
-                        Width="180"
+                        Width="191"
                         Click="AddPictogramClick">
-                    <materialDesign:PackIcon x:Name="ButtonIcon" 
-                                             Kind="PlusCircle" 
-                                             Height="73" 
-                                             Width="78" 
-                                             Foreground="#1597e5"/>
+                    <Label Content="+"
+                           FontSize="50"
+                           Foreground="#1597e5"/>
                 </Button>
-                <TextBlock x:Name="actionLabel"  
+            <TextBlock x:Name="actionLabel"  
                            TextWrapping="Wrap" 
                            Text="" 
-                           Canvas.Left="10" 
-                           Canvas.Top="138" 
-                           Height="36" 
+                           Height="20" 
                            Width="180" 
                            TextAlignment="Center" 
                            FontSize="26.667" 
                            Foreground="#1597e5" />
-            </Canvas>
-        </materialDesign:Card>
+            </StackPanel>
+            
+        </Border>
     </Grid>
 </UserControl>
