@@ -64,6 +64,8 @@
                 <TextBox Height="20"
                          Width="300"
                          HorizontalAlignment="Left"
+                         Background="White"
+                         Foreground="Black"
                          Margin="20,0,0,0"/>
 
                 <Label Content="Seleccione el tipo de tablero:"
@@ -74,6 +76,8 @@
                 <ComboBox x:Name="comboBoxTipo" Width="200"
                           Height="25"
                           HorizontalAlignment="Left"
+                          Background="White"
+                          Foreground="Black"
                           Margin="20,0,0,0"/>
                 <Label Content="Filas:"
                        Foreground="white"
@@ -149,6 +153,9 @@
                         Width="125"
                         Content="+"
                         FontSize="60"
+                        Background="White"
+                        Foreground="Black"
+                        BorderBrush="#707070"
                         />
                 <Button x:Name="guardarTablero"
                         Content="Guardar"
@@ -171,6 +178,24 @@
             <Grid Grid.Row="1"
                   Grid.Column="1">
                 <Rectangle Fill="#003b49"/>
+                <Viewbox>
+                    <ItemsControl x:Name="Tablero" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Viewbox Width="200" Height="200" >
+                                <ContentControl Content="{Binding PictogramView}" ClipToBounds="True" />
+                            </Viewbox>
+                            </DataTemplate>
+                            
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                </Viewbox>
             </Grid>
         </Grid>
         <!--botonera debajo del grid de pictogramas, con opciones de pictogramas-->
