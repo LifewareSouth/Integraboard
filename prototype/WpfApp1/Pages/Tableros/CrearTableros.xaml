@@ -179,7 +179,7 @@
                   Grid.Column="1">
                 <Rectangle Fill="#003b49"/>
                 <Viewbox>
-                    <ItemsControl x:Name="Tablero" >
+                    <ItemsControl x:Name="Tablero" ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=Window}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>
