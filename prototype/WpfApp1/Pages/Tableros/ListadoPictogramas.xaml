@@ -9,7 +9,7 @@
       Title="ListadoPictogramas">
 
     <Grid Background="#04293a">
-        <Frame x:Name="ListadoPictograma" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="ListadoPictogramass" NavigationUIVisibility="Hidden"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
             <!--Botón para volver al menú-->
             <Button x:Name="volverMenu"

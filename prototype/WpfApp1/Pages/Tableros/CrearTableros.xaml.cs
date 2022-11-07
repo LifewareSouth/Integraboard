@@ -1,6 +1,8 @@
 ﻿using AForge.Imaging.Filters;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Text;
@@ -28,7 +30,9 @@ namespace WpfApp1.Pages.Tableros
     {
         public CrearTableros()
         {
+            
             InitializeComponent();
+            Tablero.ItemsSource = views;
             tiposTablero();
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
@@ -114,12 +118,18 @@ namespace WpfApp1.Pages.Tableros
                 AjustarTablero();
             }
         }
+        private ObservableCollection<AddPictogram> views =
+    new ObservableCollection<AddPictogram>();
+        public AddPictogram addpict { get; set; }
         private void AjustarTablero()
         {
+            addpict = new AddPictogram();
             int totalCuadros = rowCounter * columnsCounter;
+            views.Clear();
+            BindingList<AddPictogram> tempList = new BindingList<AddPictogram>();
             for (int i = 0; i < totalCuadros; i++)
             {
-                
+                views.Add(addpict);
             }
         }
     }
