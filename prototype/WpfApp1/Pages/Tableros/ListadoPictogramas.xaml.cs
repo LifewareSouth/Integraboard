@@ -48,9 +48,7 @@ namespace WpfApp1.Pages.Tableros
         }
         private void ActualizarLista()
         {
-            Style rowStyle = new Style(typeof(DataGridRow));
-            rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
-                                     new MouseButtonEventHandler(Row_DoubleClick)));
+
 
             listaPict = Repository.Instance.getAllPict();
             if (listaPict.Count > 0)
@@ -63,12 +61,7 @@ namespace WpfApp1.Pages.Tableros
 
 
         }
-        //no sé qué tan necesario sea esto realmente, pero lo dejo ahí
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
-            this.NavigationService.Navigate(new CrearPictos(pictEdit));
-        }
+
         public void runActualizarLista()
         {
             actualizandoPictogramas = true;
@@ -122,6 +115,11 @@ namespace WpfApp1.Pages.Tableros
                 filteredPict = filtro;
             }
             ListViewPictograms.ItemsSource = filteredPict;
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

@@ -75,8 +75,7 @@
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          Background="Transparent"
                          SelectionMode="Multiple"
-                         SelectionChanged="ListViewPictograms_SelectionChanged"
-                         MouseDoubleClick="Row_DoubleClick">
+                         SelectionChanged="ListViewPictograms_SelectionChanged">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
@@ -139,7 +138,7 @@
                             Content="Cancelar"
                             Foreground="White"
                             FontSize="25"
-                            Margin="10,0,0,0"
+                            Margin="10,0,0,0" Click="Cancelar_Click"
                             />
 
             </StackPanel>

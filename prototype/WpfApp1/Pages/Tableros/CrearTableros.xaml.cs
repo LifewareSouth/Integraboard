@@ -160,5 +160,17 @@ namespace WpfApp1.Pages.Tableros
             }
             return null;
         }
+
+        private void doubleclick_addpictogram(object sender, RoutedEventArgs e)
+        {
+
+            this.NavigationService.Navigate(new ListadoPictogramas());
+        }
+
+        private void t1(object sender, RoutedEventArgs e)
+        {
+
+            
+        }
     }
 }

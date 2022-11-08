@@ -180,17 +180,18 @@
                 <Rectangle Fill="#003b49"/>
                 <Grid x:Name="testTablero2"   >
                     
-                    <ItemsControl x:Name="Tablero" ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                    <ItemsControl x:Name="Tablero" ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=UserControl}}" MouseDoubleClick="doubleclick_addpictogram ">
                         <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Rows="{Binding rowCounter}" Columns="{Binding columnsCounter}" Grid.IsSharedSizeScope="True" Height="auto"  Width="auto" x:Name="testTablero"  >
+                            <ItemsPanelTemplate >
+                                <UniformGrid Rows="{Binding rowCounter}" Columns="{Binding columnsCounter}" Grid.IsSharedSizeScope="True" Height="auto"  Width="auto" x:Name="testTablero"    >
 
                                 </UniformGrid>
+                                
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Viewbox Width="200" Height="200" >
+                            <DataTemplate >
+                                <Viewbox Width="200" Height="200"  >
                                 <ContentControl  Content="{Binding PictogramView}" ClipToBounds="True" />
                             </Viewbox>
                             </DataTemplate>
