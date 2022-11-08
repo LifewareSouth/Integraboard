@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
+using WpfApp1.Model;
+using WpfApp1.Pages.Pictogramas;
 
 namespace WpfApp1.Pages.Tableros
 {
@@ -20,9 +23,105 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class ListadoPictogramas : Page
     {
+        bool _navigationServiceAssigned = false;
+        static bool actualizandoPictogramas = false;
+        static List<Pictogram> listaPict = new List<Pictogram>();
+        static List<Pictogram> filteredPict = new List<Pictogram>();
+        private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
+        public static MainPicrogramasPage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public ListadoPictogramas()
         {
             InitializeComponent();
+            CategoriaPict.Items.Add("Todas");
+            foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
+            {
+                object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
+            }
+            CategoriaPict.Text = "Todas";
+            ActualizarLista();
+        }
+        private void ActualizarLista()
+        {
+            Style rowStyle = new Style(typeof(DataGridRow));
+            rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
+                                     new MouseButtonEventHandler(Row_DoubleClick)));
+
+            listaPict = Repository.Instance.getAllPict();
+            if (listaPict.Count > 0)
+            {
+                ListViewPictograms.ItemsSource = listaPict;
+            }
+        }
+        private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+
+        }
+        //no sé qué tan necesario sea esto realmente, pero lo dejo ahí
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
+            this.NavigationService.Navigate(new CrearPictos(pictEdit));
+        }
+        public void runActualizarLista()
+        {
+            actualizandoPictogramas = true;
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (actualizandoPictogramas == true)
+                {
+                    ActualizarLista();
+                    actualizandoPictogramas = false;
+                }
+            }
+        }
+        private void buscadorPict_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AplicarFiltro();
+        }
+
+        private void CategoriaPict_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AplicarFiltro();
+        }
+        private void AplicarFiltro()
+        {
+            string textSearch = buscadorPict.Text.ToUpper();
+            List<Pictogram> filtro = new List<Pictogram>();
+            Pictogram asd = new Pictogram();
+            filteredPict = listaPict;
+            if (CategoriaPict.SelectedItem.ToString() != "Todas")
+            {
+                filtro = filteredPict.Where(x => (x.Categoria.Equals(CategoriaPict.SelectedItem.ToString()))) /* filtro categorias*/
+                .ToList();
+                filteredPict = filtro;
+            }
+            if (buscadorPict.Text != null && buscadorPict.Text != "")
+            {
+                filtro = filteredPict.Where(x => (x.Nombre.ToUpper().Contains(textSearch)) ||  /*filtro nombre*/
+                (x.Texto.ToUpper().Contains(textSearch)) || /* filtro texto*/
+                (x.ListaEtiquetas.Where(x => (x.NombreEtiqueta.ToUpper().Contains(textSearch))).Count() > 0)) /* filtro etiquetas*/
+                .ToList();
+                filteredPict = filtro;
+            }
+            ListViewPictograms.ItemsSource = filteredPict;
         }
     }
 }

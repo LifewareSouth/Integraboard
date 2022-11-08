@@ -10,13 +10,14 @@
 
     <Grid Background="#04293a">
         <Frame x:Name="ListadoPictogramass" NavigationUIVisibility="Hidden"/>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="0">
             <!--Botón para volver al menú-->
             <Button x:Name="volverMenu"
                     Width="180"
                     Height="70"
                     Margin="20,0,20,0"
-                    Content="Menú"
+                    Content="Tableros"
                     FontFamily="arial"
                     FontSize="30"
                     FontWeight="SemiBold"
@@ -24,12 +25,130 @@
                     Background="#1597e5"
                     />
             <!---->
-            <Label Content="Tableros" 
+            <Label Content="Seleccionar Pictogramas" 
                    FontFamily="Arial"
                    FontWeight="Bold"
                    FontSize="60" 
                    Foreground="White"
                    VerticalAlignment="Center"/>
         </StackPanel>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,10,0">
+                <Label Content="Categoría:"
+                        FontSize="20"
+                        FontWeight="Regular"
+                        FontFamily="arial"
+                        Foreground="White"/>
+                <ComboBox x:Name="CategoriaPict" 
+                            Height="20"
+                            Width="250"
+                            Text="Seleccione Categoría"
+                            Foreground="Black"
+                            FontSize="15"
+                            FontFamily="Arial"
+                            FontWeight="Regular"
+                            SelectionChanged="CategoriaPict_SelectionChanged"/>
+                <Label Content="Buscador:"
+                    FontSize="20"
+                    FontWeight="Regular"
+                    FontFamily="arial"
+                    Foreground="White"/>
+                <TextBox x:Name="buscadorPict"
+                            Height="20"
+                            Width="250"
+                            FontFamily="arial"
+                            FontSize="18"
+                            Margin="10,0,10,0" 
+                            TextChanged="buscadorPict_TextChanged"/>
+            </StackPanel>
+
+
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <ScrollViewer Margin="20">
+                <ListBox x:Name="ListViewPictograms"
+                         ItemsSource="{Binding Pictogram}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Background="Transparent"
+                         SelectionMode="Multiple"
+                         SelectionChanged="ListViewPictograms_SelectionChanged"
+                         MouseDoubleClick="Row_DoubleClick">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Height="180" Width="180">
+                                <Border x:Name="pictoBorde"
+                                    Height="180" 
+                                    Width="180"
+                                    BorderBrush="{Binding colorBorde}"
+                                    DockPanel.Dock="Top"
+                                    BorderThickness="10"
+                                            >
+                                    <StackPanel 
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                        <Image Source="{Binding Imagen}"
+                                               Height="100"
+                                               Width="100"
+                                               Margin="10"/>
+                                        <TextBlock Text="{Binding Texto}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                Foreground="White"
+                                                FontSize="15"
+                                                FontFamily="arial"
+                                                FontWeight="SemiBold"
+                                                TextAlignment="Center"
+                                                VerticalAlignment="Bottom"/>
+                                    </StackPanel>
+
+                                </Border>
+
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="3">
+            <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,20,0">
+
+                <Button x:Name="btn_aceptar"
+                                Content="Guardar"
+                                Height="50"
+                                Width="150"
+                                Background="#1597e5"
+                                Foreground="White"
+                                FontSize="25"
+                                />
+
+                <Button x:Name="Cancelar"
+                            Height="50"
+                            Width="150"
+                            Background="#ff6464"
+                            Content="Cancelar"
+                            Foreground="White"
+                            FontSize="25"
+                            Margin="10,0,0,0"
+                            />
+
+            </StackPanel>
+        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
     </Grid>
 </Page>

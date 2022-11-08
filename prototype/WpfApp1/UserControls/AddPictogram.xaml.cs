@@ -29,8 +29,11 @@ namespace WpfApp1.UserControls
 
         private void AddPictogramClick(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new ListadoPictogramas());
+            //this.NavigationService.Navigate(new MenuPage());
             //addPictogram.Content = ListadoPictogramas();
+            /*Uri uri = new Uri("./Pages/Tableros/ListadoTrableros.xaml", UriKind.Relative);
+            this.NavigationService.Navigate(uri);
+            */
         }
     }
 }
