@@ -17,21 +17,13 @@
                 <Button x:Name="AddPictograms" 
                         HorizontalAlignment="Left" 
                         Background="White"
-                        Height="180" 
+                        Height="191" 
                         Width="191"
                         Click="AddPictogramClick">
                     <Label Content="+"
                            FontSize="50"
                            Foreground="#1597e5"/>
                 </Button>
-            <TextBlock x:Name="actionLabel"  
-                           TextWrapping="Wrap" 
-                           Text="" 
-                           Height="20" 
-                           Width="180" 
-                           TextAlignment="Center" 
-                           FontSize="26.667" 
-                           Foreground="#1597e5" />
             </StackPanel>
             
         </Border>

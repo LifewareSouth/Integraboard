@@ -179,7 +179,7 @@
                   Grid.Column="1">
                 <Rectangle Fill="#003b49"/>
                 <Grid x:Name="testTablero2"   >
-                    <!--
+                    <!-- esto no funcionó
                     <ItemsControl x:Name="Tablero" ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=UserControl}}" MouseDoubleClick="doubleclick_addpictogram ">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate >
@@ -199,29 +199,36 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                     -->
+                    <Viewbox >
                     <ListView x:Name="Tablero"
                               Background="Transparent"
-                              Height="590"
-                              Width="800"
-                              ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              MouseDoubleClick="testEvent">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="{Binding rowCounter}" 
                                              Columns="{Binding columnsCounter}"
                                              Grid.IsSharedSizeScope="True" 
                                              Height="auto"  
-                                             Width="auto" 
+                                             Width="auto"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
                                              x:Name="testTablero"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                        <!--<ItemsControl.ItemTemplate>-->
-                            <!--<DataTemplate >-->
-                                <!--<Viewbox Width="200" Height="200"  >-->
-                                    <!--<ContentControl  Content="{Binding PictogramView}" ClipToBounds="True" />-->
-                                <!--</Viewbox> -->
-                            <!--</DataTemplate>
-                        </ItemsControl.ItemTemplate>-->
+                        <!--
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate >
+                                <Viewbox Width="200" Height="200"  >
+                                    <ContentControl  Content="{Binding PictogramView}" ClipToBounds="True" />
+                                </Viewbox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        -->
                     </ListView>
+                    </Viewbox>
                 </Grid>
             </Grid>
         </Grid>
