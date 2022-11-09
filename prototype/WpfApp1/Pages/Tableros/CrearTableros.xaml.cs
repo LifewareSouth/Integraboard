@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -88,6 +89,8 @@ namespace WpfApp1.Pages.Tableros
             if (_rows > 1)
             {
                 rowCounter--;
+                UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
+                foundUniformGrid.Rows = rowCounter;
                 AjustarTablero();
             }
         }
@@ -97,6 +100,8 @@ namespace WpfApp1.Pages.Tableros
             if (_columns < 7)
             {
                 columnsCounter++;
+                UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
+                foundUniformGrid.Columns = columnsCounter;
                 AjustarTablero();
             }
         }
@@ -106,6 +111,8 @@ namespace WpfApp1.Pages.Tableros
             if (_columns > 1)
             {
                 columnsCounter--;
+                UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
+                foundUniformGrid.Columns = columnsCounter;
                 AjustarTablero();
             }
         }
@@ -115,6 +122,8 @@ namespace WpfApp1.Pages.Tableros
             if (_rows < 7)
             {
                 rowCounter++;
+                UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
+                foundUniformGrid.Rows = rowCounter;
                 AjustarTablero();
             }
         }
@@ -123,6 +132,11 @@ namespace WpfApp1.Pages.Tableros
         public AddPictogram addpict { get; set; }
         private void AjustarTablero()
         {
+            
+            
+            //ItemsPanelTemplate itemsPanelTemplate = new ItemsPanelTemplate();
+            //Template
+
             addpict = new AddPictogram();
             Grid grid = FindVisualChild<Grid>(Tablero);
             int totalCuadros = rowCounter * columnsCounter;
