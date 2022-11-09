@@ -127,36 +127,15 @@ namespace WpfApp1.Pages.Tableros
                 AjustarTablero();
             }
         }
-        private BindingList<AddPictogram> views =
-    new BindingList<AddPictogram>();
+        private BindingList<AddPictogram> views = new BindingList<AddPictogram>();
         public AddPictogram addpict { get; set; }
         private void AjustarTablero()
         {
-            
-            
-            //ItemsPanelTemplate itemsPanelTemplate = new ItemsPanelTemplate();
-            //Template
-
-            addpict = new AddPictogram();
-            Grid grid = FindVisualChild<Grid>(Tablero);
             int totalCuadros = rowCounter * columnsCounter;
-            views.Clear();
             BindingList<AddPictogram> tempList = new BindingList<AddPictogram>();
             for (int i = 0; i < totalCuadros; i++)
             {
                 tempList.Add(new AddPictogram());
-            }
-            for (int i = 0; i < rowCounter; i++)
-
-            {
-                //testTablero2.RowDefinitions.Add(new RowDefinition());
-               
-
-            }
-
-            for (int j = 0; j < columnsCounter; j++)
-            {
-                //grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
             views = tempList;
             Tablero.ItemsSource = views;
@@ -181,15 +160,5 @@ namespace WpfApp1.Pages.Tableros
             this.NavigationService.Navigate(new ListadoPictogramas());
         }
 
-        private void testEvent(object sender, MouseButtonEventArgs e)
-        {
-            this.NavigationService.Navigate(new ListadoPictogramas());
-        }
-
-        private void t1(object sender, RoutedEventArgs e)
-        {
-
-            
-        }
     }
 }
