@@ -181,6 +181,11 @@ namespace WpfApp1.Pages.Tableros
             this.NavigationService.Navigate(new ListadoPictogramas());
         }
 
+        private void testEvent(object sender, MouseButtonEventArgs e)
+        {
+            this.NavigationService.Navigate(new ListadoPictogramas());
+        }
+
         private void t1(object sender, RoutedEventArgs e)
         {
 
