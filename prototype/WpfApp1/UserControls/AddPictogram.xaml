@@ -18,8 +18,7 @@
                         HorizontalAlignment="Left" 
                         Background="White"
                         Height="191" 
-                        Width="191"
-                        Click="AddPictogramClick">
+                        Width="191">
                     <Label Content="+"
                            FontSize="50"
                            Foreground="#1597e5"/>

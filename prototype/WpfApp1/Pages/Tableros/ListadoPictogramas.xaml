@@ -128,7 +128,7 @@
                                 Width="150"
                                 Background="#1597e5"
                                 Foreground="White"
-                                FontSize="25"
+                                FontSize="25" Click="btn_aceptar_Click"
                                 />
 
                 <Button x:Name="Cancelar"

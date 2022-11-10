@@ -29,14 +29,45 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class CrearTableros : Page
     {
+        bool _navigationServiceAssigned = false;
+        static pictTablero CuadroSeleccionado = new pictTablero();
+        static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
+        static bool AgregandoPict = false;
+        private static readonly CrearTableros instance = new CrearTableros();
+        public static CrearTableros Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public CrearTableros()
         {
             
             InitializeComponent();
-            
+            listaPictTablero = new Collection<pictTablero>();
             tiposTablero();
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (AgregandoPict)
+                {
+                    AjustarTablero();
+                    AgregandoPict = false;
+                }
+            }
         }
         private void tiposTablero()
         {
@@ -127,18 +158,28 @@ namespace WpfApp1.Pages.Tableros
                 AjustarTablero();
             }
         }
-        private BindingList<AddPictogram> views = new BindingList<AddPictogram>();
-        public AddPictogram addpict { get; set; }
+        private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         private void AjustarTablero()
         {
             int totalCuadros = rowCounter * columnsCounter;
-            BindingList<AddPictogram> tempList = new BindingList<AddPictogram>();
-            for (int i = 0; i < totalCuadros; i++)
+            BindingList<pictTablero> tempVistas = new BindingList<pictTablero>();
+            for (int i = 0; i < rowCounter; i++)
             {
-                tempList.Add(new AddPictogram());
+                for(int j = 0; j < columnsCounter; j++)
+                {
+                    pictTablero pictTab = new pictTablero();
+                    if (listaPictTablero.Any(x => (x.x == i) && (x.y == j)))
+                    {
+                        pictTab = listaPictTablero.Where(x => (x.x == i) && (x.y == j)).First();
+                    }
+                    pictTab.x = j;
+                    pictTab.y = i;
+                    tempVistas.Add(pictTab);
+
+                }
             }
-            views = tempList;
-            Tablero.ItemsSource = views;
+            vistas = tempVistas;
+            Tablero.ItemsSource = vistas;
         }
         private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
@@ -154,11 +195,71 @@ namespace WpfApp1.Pages.Tableros
             return null;
         }
 
+        private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var asd = Tablero.SelectedValue;
+        }
+
+
         private void doubleclick_addpictogram(object sender, RoutedEventArgs e)
         {
+            var seleccion = (pictTablero)Tablero.SelectedValue;
+            if (seleccion.idPictograma == 0 || seleccion.idPictograma ==null)
+            {
+                CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
+                this.NavigationService.Navigate(new ListadoPictogramas());
+            }
+            
+        } 
+        public void addPict(List<Pictogram> listAddPict)
+        {
 
-            this.NavigationService.Navigate(new ListadoPictogramas());
+            foreach(Pictogram p in listAddPict)
+            {
+                
+                pictTablero pictTab = new pictTablero();
+                if (p == listAddPict.First())
+                {
+                    pictTab.idPictograma = p.ID;
+                    pictTab.pictograma = p;
+                    pictTab.x = CuadroSeleccionado.x;
+                    pictTab.y = CuadroSeleccionado.y;
+                    listaPictTablero.Add(pictTab);
+                }
+                else
+                {
+                    bool siguiente = false;
+                    for (int i = 0; i < rowCounter; i++)
+                    {
+                        for (int j = 0; j < columnsCounter; j++)
+                        {
+                            if (!listaPictTablero.Any(x => (x.x == j)&& (x.y == i) ))
+                            {
+                                if (!listaPictTablero.Any(x => (x.idPictograma == pictTab.ID)))
+                                {
+                                    pictTab.idPictograma = p.ID;
+                                    pictTab.pictograma = p;
+                                    pictTab.x = j;
+                                    pictTab.y = i;
+                                    listaPictTablero.Add(pictTab);
+                                    siguiente = true;
+                                }
+                                
+                            }
+                            if (siguiente)
+                                break;
+
+                        }
+                        if (siguiente)
+                            break;
+                    }
+                    
+                }
+                
+            }
+            AgregandoPict = true;
         }
+
 
     }
 }

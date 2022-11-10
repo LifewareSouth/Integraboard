@@ -121,5 +121,19 @@ namespace WpfApp1.Pages.Tableros
         {
             this.NavigationService.GoBack();
         }
+
+        private void btn_aceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewPictograms.SelectedItem != null)
+            {
+                List<Pictogram> listaPict = new List<Pictogram>();
+                foreach (Pictogram item in (ListViewPictograms.SelectedItems))
+                {
+                    listaPict.Add(item);
+                }
+                CrearTableros.Instance.addPict(listaPict);
+                this.NavigationService.GoBack();
+            }
+        }
     }
 }

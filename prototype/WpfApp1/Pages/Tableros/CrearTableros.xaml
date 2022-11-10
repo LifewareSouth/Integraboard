@@ -4,9 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp1.Pages.Tableros"
+      xmlns:myControls="clr-namespace:WpfApp1.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="CrearTableros">
+      Title="CrearTableros"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
         <Frame x:Name="CrearTablero" NavigationUIVisibility="Hidden"/>
@@ -204,9 +206,13 @@
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=views, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                              MouseDoubleClick="doubleclick_addpictogram">
-                        <ItemsControl.ItemsPanel>
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                              SelectionChanged="Tablero_SelectionChanged"
+                              MouseDoubleClick="doubleclick_addpictogram"
+
+                              
+                              >
+                        <ItemsControl.ItemsPanel >
                             <ItemsPanelTemplate x:Name="panelTest">
                                 <UniformGrid Rows="{Binding rowCounter}" 
                                              Columns="{Binding columnsCounter}"
@@ -215,10 +221,27 @@
                                              Width="auto"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             x:Name="testTablero"/>
+                                             x:Name="testTablero"
+                                             
+                                             />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                    </ListView>
+                            <ListView.ItemTemplate>
+                                <DataTemplate >
+                                    <Grid >
+                                        <Border x:Name="PictoRepresent2"
+                                        Height="200"
+                                        Width="200"
+                                        BorderBrush="White"
+                                        Background="White"
+                                        >
+                                            <Label  Content="{Binding pictograma.ID}"/>
+                                        </Border>
+                                    </Grid>
+                                    
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Viewbox>
                 </Grid>
             </Grid>

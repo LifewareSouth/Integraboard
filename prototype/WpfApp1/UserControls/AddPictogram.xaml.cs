@@ -26,7 +26,36 @@ namespace WpfApp1.UserControls
         {
             InitializeComponent();
         }
-
+        private int _posX;
+        private int _posY;
+        public int PosX
+        {
+            set
+            {
+                _posX = value;
+            }
+            get
+            {
+                return _posX;
+            }
+        }
+        public int PosY
+        {
+            set
+            {
+                _posY = value;
+            }
+            get
+            {
+                return _posY;
+            }
+        }
+        public AddPictogram(int x, int y)
+        {
+            InitializeComponent();
+            _posX = x;
+            _posY = y;
+        }
         private void AddPictogramClick(object sender, RoutedEventArgs e)
         {
             //this.NavigationService.Navigate(new MenuPage());
