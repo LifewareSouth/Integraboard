@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -216,7 +218,7 @@ namespace WpfApp1.Pages.Tableros
                 this.NavigationService.Navigate(new ListadoPictogramas());
             }
             
-        } 
+        }
         public void addPict(List<Pictogram> listAddPict)
         {
 
@@ -265,6 +267,26 @@ namespace WpfApp1.Pages.Tableros
             }
             AgregandoPict = true;
         }
+        private bool validateConditionsToSave()
+        {
+            bool valido = true;
+            if(nombreTablero.Text == null)
+            {
+                valido = false;
+            }
+            return valido;
+        }
+        private void guardarTablero_Click(object sender, RoutedEventArgs e)
+        {
+            if (validateConditionsToSave())
+            {
+                int idBoard;
+                
+                //this.NavigationService.GoBack();
+            }
+        }
+
+
 
 
     }
