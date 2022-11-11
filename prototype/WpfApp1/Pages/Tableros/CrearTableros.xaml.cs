@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,11 +160,32 @@ namespace WpfApp1.Pages.Tableros
                 AjustarTablero();
             }
         }
+        public static BitmapImage LoadBitmapImage(string fileName)
+        {
+            try
+            {
+                using (var stream = new FileStream(fileName, FileMode.Open))
+                {
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                    return bitmapImage;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         private void AjustarTablero()
         {
             int totalCuadros = rowCounter * columnsCounter;
             BindingList<pictTablero> tempVistas = new BindingList<pictTablero>();
+            var baseImage = LoadBitmapImage("C:/Users/animu/Escritorio/add(3).png");
             for (int i = 0; i < rowCounter; i++)
             {
                 for(int j = 0; j < columnsCounter; j++)
@@ -174,9 +197,13 @@ namespace WpfApp1.Pages.Tableros
                     }
                     else
                     {
+                        
                         Pictogram tempPictograma = new Pictogram();
-                        tempPictograma.colorBorde = new SolidColorBrush(Colors.LightGreen);
+                        tempPictograma.colorBorde = new SolidColorBrush(Colors.Cornsilk);
+                        tempPictograma.Imagen = baseImage;
+                        tempPictograma.Texto = "Asignar";
                         pictTab.pictograma = tempPictograma;
+
                     }
                     pictTab.x = j;
                     pictTab.y = i;
