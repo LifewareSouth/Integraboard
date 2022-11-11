@@ -168,9 +168,15 @@ namespace WpfApp1.Pages.Tableros
                 for(int j = 0; j < columnsCounter; j++)
                 {
                     pictTablero pictTab = new pictTablero();
-                    if (listaPictTablero.Any(x => (x.x == i) && (x.y == j)))
+                    if (listaPictTablero.Any(x => (x.x == j) && (x.y == i)))
                     {
-                        pictTab = listaPictTablero.Where(x => (x.x == i) && (x.y == j)).First();
+                        pictTab = listaPictTablero.Where(x => (x.x == j) && (x.y == i)).First();
+                    }
+                    else
+                    {
+                        Pictogram tempPictograma = new Pictogram();
+                        tempPictograma.colorBorde = new SolidColorBrush(Colors.LightGreen);
+                        pictTab.pictograma = tempPictograma;
                     }
                     pictTab.x = j;
                     pictTab.y = i;
