@@ -153,12 +153,10 @@
                 <Button x:Name="PictoRepresent"
                         Height="125"
                         Width="125"
-                        Content="+"
-                        FontSize="60"
-                        Background="White"
+                        Background="white"
                         Foreground="Black"
-                        BorderBrush="#707070"
-                        />
+                        FontSize="50"
+                        Content="+"/>
                 <Button x:Name="guardarTablero"
                         Content="Guardar"
                         Foreground="White"
