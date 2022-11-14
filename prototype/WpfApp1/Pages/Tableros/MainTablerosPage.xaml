@@ -128,13 +128,36 @@
                VerticalAlignment="Top"/>
         
         <!--grid de los tableros-->
-        <Rectangle Grid.Row="1"
-                   Grid.Column="0"
-                   Grid.RowSpan="2"
-                   Height="590"
-                   Width="790"
-                   Fill="#003b49"
-                   Stroke="#FF707070"/>
+
+        <ListView Grid.Column="0"
+                  Grid.Row="1"
+                  Grid.RowSpan="20"
+                  Height="590"
+                  Width="790">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true">
+                    <GridViewColumn Header="Pictograma"
+                                    Width="200"/>
+                    <GridViewColumn Header="Nombre de tablero"
+                                    Width="240"/>
+                    <GridViewColumn Header="Tipo"
+                                    Width="150"/>
+                    <GridViewColumn Header="Etiquetas"
+                                    Width="200"/>
+
+                    <GridView.ColumnHeaderContainerStyle>
+
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Height" Value="35"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <!--Grid de la vista completa-->
         <Grid.ColumnDefinitions>
