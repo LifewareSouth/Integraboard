@@ -18,7 +18,6 @@ namespace WpfApp1.Model
         public int columnas { get; set; }
         public int idPictPortada { get; set; }
         public Pictogram pictPortada { get; set; }
-        public BitmapImage screenshot { get; set; }
         public List<pictTablero> pictTableros { get; set; }
     }
 }

@@ -150,7 +150,7 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS etiquetas (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER, screenshot BLOB ,PRIMARY KEY(idTablero AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,PRIMARY KEY(idTablero AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
@@ -776,7 +776,7 @@ namespace WpfApp1.Assets
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
-                string query = "select idTablero, idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,screenshot from tableros;";
+                string query = "select idTablero, idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada from tableros;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 using (SQLiteDataReader dr = cmd.ExecuteReader())
@@ -793,7 +793,6 @@ namespace WpfApp1.Assets
                             columnas = int.Parse(dr["columnas"].ToString()),
                             idPictPortada = int.Parse(dr["pictPortada"].ToString()),
                             pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
-                            screenshot = ImageFromBuffer((System.Byte[])dr["screenshot"]),
                             pictTableros = getPictTableros(int.Parse(dr["idPictTablero"].ToString()))
                         });
                     }
@@ -803,7 +802,7 @@ namespace WpfApp1.Assets
 
             return listaTableros;
         }
-        public int crearTablero(Board board, byte[] screenshot)
+        public int crearTablero(Board board)
         {
             string alfaIdBoard = Guid.NewGuid().ToString();
             int idBoard = 0;
@@ -811,8 +810,8 @@ namespace WpfApp1.Assets
             {
                 //AÑADE EL TABLERO A LA BASE DE DATOS LOCAL
                 conexion.Open();
-                string query = "insert into tableros( idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,screenshot) " +
-                    "values (@idAlfaTablero, @nombreTablero, @tipo,@filas,@columnas,@pictPortada,@screenshot)";
+                string query = "insert into tableros( idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada) " +
+                    "values (@idAlfaTablero, @nombreTablero, @tipo,@filas,@columnas,@pictPortada)";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
@@ -821,9 +820,6 @@ namespace WpfApp1.Assets
                 cmd.Parameters.Add(new SQLiteParameter("@filas", board.filas));
                 cmd.Parameters.Add(new SQLiteParameter("@columnas", board.columnas));
                 cmd.Parameters.Add(new SQLiteParameter("@pictPortada", board.idPictPortada));
-                SQLiteParameter parametro = new SQLiteParameter("@screenshot", System.Data.DbType.Binary);
-                parametro.Value = screenshot;
-                cmd.Parameters.Add(parametro);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
 
@@ -840,7 +836,7 @@ namespace WpfApp1.Assets
                     while (dr.Read())
                     {
 
-                        idBoard = int.Parse(dr["idImagen"].ToString());
+                        idBoard = int.Parse(dr["idTablero"].ToString());
                     }
                 }
                 conexion.Close();

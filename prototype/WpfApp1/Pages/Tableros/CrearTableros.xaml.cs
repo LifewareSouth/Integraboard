@@ -7,6 +7,7 @@ using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +36,9 @@ namespace WpfApp1.Pages.Tableros
         static pictTablero CuadroSeleccionado = new pictTablero();
         static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
         static bool AgregandoPict = false;
+        static bool reemplazandoPict = false;
+        static bool addingPortada = false;
+        static Pictogram pictPortada = new Pictogram();
         private static readonly CrearTableros instance = new CrearTableros();
         public static CrearTableros Instance
         {
@@ -66,9 +70,24 @@ namespace WpfApp1.Pages.Tableros
             {
                 if (AgregandoPict)
                 {
+                    if(reemplazandoPict == true)
+                    {
+                        listaPictTablero.Remove(listaPictTablero.Where(x => x.pictograma.ID == CuadroSeleccionado.pictograma.ID).First());
+                        reemplazandoPict = false;
+                    }
                     AjustarTablero();
                     AgregandoPict = false;
                 }
+                else if (reemplazandoPict)
+                {
+                    reemplazandoPict = false;
+                }
+                else if (addingPortada)
+                {
+                    actualizarPictPortada();
+                    addingPortada = false;
+                }
+                
             }
         }
         private void tiposTablero()
@@ -240,10 +259,29 @@ namespace WpfApp1.Pages.Tableros
             if (seleccion.idPictograma == 0 || seleccion.idPictograma ==null)
             {
                 CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
-                this.NavigationService.Navigate(new ListadoPictogramas());
+                List<Pictogram> pictAgregados = new List<Pictogram>();
+                foreach(pictTablero pt in listaPictTablero)
+                {
+                    pictAgregados.Add(pt.pictograma);
+                }
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados));
+            }
+            else
+            {
+                reemplazandoPict = true;
+                CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
+                List<Pictogram> pictAgregados = new List<Pictogram>();
+                foreach (pictTablero pt in listaPictTablero)
+                {
+                    if(pt.ID != CuadroSeleccionado.pictograma.ID)
+                    {
+                        pictAgregados.Add(pt.pictograma);
+                    }
+                }
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados));
             }
             
-        } 
+        }
         public void addPict(List<Pictogram> listAddPict)
         {
 
@@ -277,22 +315,78 @@ namespace WpfApp1.Pages.Tableros
                                     listaPictTablero.Add(pictTab);
                                     siguiente = true;
                                 }
-                                
                             }
                             if (siguiente)
                                 break;
-
                         }
                         if (siguiente)
                             break;
                     }
-                    
                 }
                 
             }
             AgregandoPict = true;
         }
+        private bool validateConditionsToSave()
+        {
+            bool valido = true;
+            if(nombreTablero.Text == null)
+            {
+                valido = false;
+            }
+            if (listaPictTablero.Count ==0)
+            {
+                valido = false;
+            }
+            if(pictPortada.ID == 0)
+            {
+                valido=false;
+            }
+            return valido;
+        }
+        private void PictoRepresent_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ListadoPictogramas());
+        }
+        private void guardarTablero_Click(object sender, RoutedEventArgs e)
+        {
+            if (validateConditionsToSave())
+            {
+                int idBoard;
+                
+                Board newBoard = new Board();
+                newBoard.nombreTablero = nombreTablero.Text;
+                newBoard.tipo = comboBoxTipo.SelectedItem.ToString();
+                newBoard.filas = rowCounter;
+                newBoard.columnas = columnsCounter;
+                newBoard.idPictPortada = pictPortada.ID;
+                idBoard = Repository.Instance.crearTablero(newBoard);
+                this.NavigationService.GoBack();
+            }
+        }
+        public void addPictPortada(Pictogram pictogramaPortada)
+        {
+            pictPortada = pictogramaPortada;
+            addingPortada = true;
+        }
 
+        private void QuitarPictograma_Click(object sender, RoutedEventArgs e)
+        {
+            if (Tablero.SelectedItem != null)
+            {
+                var seleccion = (pictTablero)Tablero.SelectedValue;
+                if (seleccion.idPictograma != 0 )
+                {
+                    listaPictTablero.Remove(listaPictTablero.Where(x => x.pictograma.ID == seleccion.pictograma.ID).First());
+                    AjustarTablero();
+                }
+            }
+        }
 
+        public void actualizarPictPortada()
+        {
+            // ANITA AQUI ASIGNAR COSAS DE PICTOGRAMA DE PORTADA (pictPortada) 
+
+        }
     }
 }

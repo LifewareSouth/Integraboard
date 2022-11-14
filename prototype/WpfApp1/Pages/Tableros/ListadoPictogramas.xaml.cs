@@ -26,6 +26,7 @@ namespace WpfApp1.Pages.Tableros
         bool _navigationServiceAssigned = false;
         static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();
+        static bool isAddingPictogram = true;
         static List<Pictogram> filteredPict = new List<Pictogram>();
         private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
         public static MainPicrogramasPage Instance
@@ -38,13 +39,36 @@ namespace WpfApp1.Pages.Tableros
         public ListadoPictogramas()
         {
             InitializeComponent();
+            categorias();
+            ActualizarLista();
+            isAddingPictogram=false;
+            ListViewPictograms.SelectionMode = SelectionMode.Single;
+        }
+
+        public ListadoPictogramas(List<Pictogram> PictAgregados)
+        {
+            InitializeComponent();
+            ActualizarLista();
+            isAddingPictogram = true;
+            if(PictAgregados.Count > 0)
+            {//QUITAR DEL LISTADO LOS PICTOGRAMAS YA AGREGADOS
+                List<Pictogram> tempList = new List<Pictogram>();
+                foreach (Pictogram p in PictAgregados)
+                {
+                    listaPict.Remove(listaPict.Where(x => x.ID == p.ID).First());
+                }
+            }
+            categorias();
+
+        }
+        private void categorias()
+        {
             CategoriaPict.Items.Add("Todas");
             foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
             {
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
             CategoriaPict.Text = "Todas";
-            ActualizarLista();
         }
         private void ActualizarLista()
         {
@@ -58,7 +82,6 @@ namespace WpfApp1.Pages.Tableros
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
 
         }
 
@@ -78,11 +101,7 @@ namespace WpfApp1.Pages.Tableros
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                if (actualizandoPictogramas == true)
-                {
-                    ActualizarLista();
-                    actualizandoPictogramas = false;
-                }
+
             }
         }
         private void buscadorPict_TextChanged(object sender, TextChangedEventArgs e)
@@ -98,7 +117,6 @@ namespace WpfApp1.Pages.Tableros
         {
             string textSearch = buscadorPict.Text.ToUpper();
             List<Pictogram> filtro = new List<Pictogram>();
-            Pictogram asd = new Pictogram();
             filteredPict = listaPict;
             if (CategoriaPict.SelectedItem.ToString() != "Todas")
             {
@@ -126,14 +144,29 @@ namespace WpfApp1.Pages.Tableros
         {
             if (ListViewPictograms.SelectedItem != null)
             {
-                List<Pictogram> listaPict = new List<Pictogram>();
-                foreach (Pictogram item in (ListViewPictograms.SelectedItems))
+                if (!isAddingPictogram)//CUANDO SE AÑADE PICTOGRAMA DE PORTADA
                 {
-                    listaPict.Add(item);
+                    Pictogram p = new Pictogram();
+                    p = (Pictogram)ListViewPictograms.SelectedValue;
+                    CrearTableros.Instance.addPictPortada(p);
                 }
-                CrearTableros.Instance.addPict(listaPict);
+                else//CUANDO SE SUMAN PICTOGRAMAS AL TABLERO
+                {
+                    List<Pictogram> listaPict = new List<Pictogram>();
+                    foreach (Pictogram item in (ListViewPictograms.SelectedItems))
+                    {
+                        listaPict.Add(item);
+                    }
+                    if (isAddingPictogram)
+                    {
+                        CrearTableros.Instance.addPict(listaPict);
+                    }
+                }
+                
+                
                 this.NavigationService.GoBack();
             }
+
         }
     }
 }
