@@ -836,7 +836,7 @@ namespace WpfApp1.Assets
                     while (dr.Read())
                     {
 
-                        idBoard = int.Parse(dr["idImagen"].ToString());
+                        idBoard = int.Parse(dr["idTablero"].ToString());
                     }
                 }
                 conexion.Close();

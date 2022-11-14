@@ -158,6 +158,7 @@
                         Background="White"
                         Foreground="Black"
                         BorderBrush="#707070"
+                        MouseDoubleClick="PictoRepresent_DoubleClick"
                         />
                 <Button x:Name="guardarTablero"
                         Content="Guardar"
@@ -290,7 +291,7 @@
                         FontSize="20"
                         Foreground="White"
                         FontWeight="SemiBold"
-                        Background="#1597e5"/>
+                        Background="#1597e5" Click="QuitarPictograma_Click"/>
             </StackPanel>
             
         </Grid>        
