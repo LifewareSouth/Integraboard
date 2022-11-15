@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
+using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
 
 namespace WpfApp1.Pages.Tableros
@@ -21,9 +23,15 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class MainTablerosPage : Page
     {
+        static List<Board> listaTableros = new List<Board>();
         public MainTablerosPage()
         {
             InitializeComponent();
+            actualizarListaTableros();
+        }
+        private void actualizarListaTableros()
+        {
+            listaTableros = Repository.Instance.getAllBoards();
         }
 
         private void goToCrearTableros(object sender, RoutedEventArgs e)

@@ -38,6 +38,7 @@ namespace WpfApp1.Pages.Tableros
         static bool AgregandoPict = false;
         static bool reemplazandoPict = false;
         static bool addingPortada = false;
+        static bool isEditing = false;
         static Pictogram pictPortada = new Pictogram();
         private static readonly CrearTableros instance = new CrearTableros();
         public static CrearTableros Instance
@@ -361,6 +362,7 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
                 idBoard = Repository.Instance.crearTablero(newBoard);
+                savePictBoard(idBoard);
                 this.NavigationService.GoBack();
             }
         }
@@ -381,6 +383,24 @@ namespace WpfApp1.Pages.Tableros
                     AjustarTablero();
                 }
             }
+        }
+        private void savePictBoard(int idTablero)
+        {
+            if (isEditing)
+            {
+                //Cuando se edita el tablero
+            }
+            else
+            {
+                foreach (pictTablero pt in listaPictTablero)
+                {
+                    if(pt.x < columnsCounter && pt.y < rowCounter)
+                    {
+                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                    }
+                }
+            }
+
         }
 
         public void actualizarPictPortada()

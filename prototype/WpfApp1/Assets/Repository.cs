@@ -760,6 +760,7 @@ namespace WpfApp1.Assets
                             ID = int.Parse(dr["idPictTablero"].ToString()),
                             idTablero = int.Parse(dr["idTablero"].ToString()),
                             idPictograma = int.Parse(dr["idPictograma"].ToString()),
+                            pictograma = getOnePictogram(int.Parse(dr["idPictograma"].ToString())),
                             x = int.Parse(dr["x"].ToString()),
                             y = int.Parse(dr["y"].ToString()),
                         });
@@ -785,7 +786,7 @@ namespace WpfApp1.Assets
                     {
                         listaTableros.Add(new Board
                         {
-                            ID = int.Parse(dr["idPictTablero"].ToString()),
+                            ID = int.Parse(dr["idTablero"].ToString()),
                             idAlfaTablero = dr["idAlfaTablero"].ToString(),
                             nombreTablero = dr["nombreTablero"].ToString(),
                             tipo = dr["tipo"].ToString(),
@@ -793,7 +794,7 @@ namespace WpfApp1.Assets
                             columnas = int.Parse(dr["columnas"].ToString()),
                             idPictPortada = int.Parse(dr["pictPortada"].ToString()),
                             pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
-                            pictTableros = getPictTableros(int.Parse(dr["idPictTablero"].ToString()))
+                            pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
                         });
                     }
                 }
