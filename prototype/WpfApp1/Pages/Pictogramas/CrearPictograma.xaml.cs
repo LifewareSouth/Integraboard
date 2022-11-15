@@ -37,7 +37,7 @@ namespace WpfApp1.Pages.Pictogramas
         private bool isEdit = false;
         private static Pictogram pictogramEdit = new Pictogram();
         private static readonly CrearPictos instance = new CrearPictos();
-        private static List<Etiqueta> ListaEtiquetas = new List<Etiqueta>();
+        private static List<EtiquetaP> ListaEtiquetas = new List<EtiquetaP>();
         private static SoundModel sonidoSeleccionado = new SoundModel();
         public static CrearPictos Instance
         {
@@ -91,7 +91,7 @@ namespace WpfApp1.Pages.Pictogramas
                 IsSoundFromDB=false;
             }
             string etiquetas = "";
-            foreach (Etiqueta etiqueta in editPict.ListaEtiquetas)
+            foreach (EtiquetaP etiqueta in editPict.ListaEtiquetas)
             {
                 if (editPict.ListaEtiquetas.First() == etiqueta)
                 {

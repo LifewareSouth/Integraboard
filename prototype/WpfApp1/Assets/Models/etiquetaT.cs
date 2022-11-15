@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Model
 {
-    public class Etiqueta
+    /// <summary>
+    /// Etiquetas de Tableros
+    /// </summary>
+    public class etiquetaT
     {
         public int ID { get; set; }
         public string idAlfaEtiqueta { get; set; }

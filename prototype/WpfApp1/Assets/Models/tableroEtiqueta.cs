@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1.Model
+namespace WpfApp1.Assets.Models
 {
     /// <summary>
-    /// Asociacion entre pictograma y etiqueta de pictograma
+    /// Asociacion entre tableros y etiqueta de tablero
     /// </summary>
-    public class PictEtiqueta
+    internal class tableroEtiqueta
     {
         public int IdPictEtiqueta { get; set; }
         public int IdEtiqueta { get; set; }

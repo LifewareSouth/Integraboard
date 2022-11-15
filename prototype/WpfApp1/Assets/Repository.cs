@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using WpfApp1.Assets.Models;
 using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
 
@@ -150,6 +151,8 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS etiquetas (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictEtiqueta(IdPictEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idPictograma INTEGER,PRIMARY KEY(IdPictEtiqueta AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS etiquetasT (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS tableroEtiqueta(IdTableroEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idTablero INTEGER,PRIMARY KEY(IdTableroEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,PRIMARY KEY(idTablero AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
@@ -392,9 +395,9 @@ namespace WpfApp1.Assets
             }
             return listaImagenes;
         }
-        public List<Etiqueta> getAllEtiquetas()
+        public List<EtiquetaP> getAllEtiquetas()
         {
-            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            List<EtiquetaP> listaEtiquetas = new List<EtiquetaP>();
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
@@ -406,7 +409,7 @@ namespace WpfApp1.Assets
                 {
                     while (dr.Read())
                     {
-                        listaEtiquetas.Add(new Etiqueta
+                        listaEtiquetas.Add(new EtiquetaP
                         {
                             ID = int.Parse(dr["idEtiqueta"].ToString()),
                             idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
@@ -419,6 +422,9 @@ namespace WpfApp1.Assets
 
             return listaEtiquetas;
         }
+        /// <summary>
+        /// Crea una etiqueta nueva de pictograma
+        /// </summary>
         public void InsertEtiqueta(string NombreEtiqueta)
         {
             int IdEtiqueta = 0;
@@ -582,7 +588,7 @@ namespace WpfApp1.Assets
         public int getVoiceNumber()
         {
             int numeroVoice = 0;
-            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            List<EtiquetaP> listaEtiquetas = new List<EtiquetaP>();
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
@@ -689,9 +695,31 @@ namespace WpfApp1.Assets
             return listaPict;
 
         }
-        public List<Etiqueta> GetEtiquetasFromPict(int idPictograma)
+        public int GetIdEtiquetaT(string NombreEtiqueta)
         {
-            List<Etiqueta> listaEtiquetas = new List<Etiqueta>();
+            int IdEtiqueta = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //BUSCA LA ID DE LA ETIQUETA
+                conexion.Open();
+                string query = "select idEtiqueta from etiquetasT where nombreEtiqueta = @nombreEtiqueta";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@nombreEtiqueta", NombreEtiqueta));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        IdEtiqueta = int.Parse(dr["idEtiqueta"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return IdEtiqueta;
+        }
+        public List<EtiquetaP> GetEtiquetasFromPict(int idPictograma)
+        {
+            List<EtiquetaP> listaEtiquetas = new List<EtiquetaP>();
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
@@ -706,7 +734,7 @@ namespace WpfApp1.Assets
                 {
                     while (dr.Read())
                     {
-                        listaEtiquetas.Add(new Etiqueta
+                        listaEtiquetas.Add(new EtiquetaP
                         {
                             ID = int.Parse(dr["idEtiqueta"].ToString()),
                             idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
@@ -795,6 +823,7 @@ namespace WpfApp1.Assets
                             idPictPortada = int.Parse(dr["pictPortada"].ToString()),
                             pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
                             pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
+                            ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString()))
                         });
                     }
                 }
@@ -864,6 +893,170 @@ namespace WpfApp1.Assets
 
                 conexion.Close();
 
+            }
+        }
+        /// <summary>
+        /// Obtiene todas las etiquetas de tableros
+        /// </summary>
+        public List<etiquetaT> getAllEtiquetasTableros()
+        {
+            List<etiquetaT> listaEtiquetas = new List<etiquetaT>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idEtiqueta, idAlfaEtiqueta, nombreEtiqueta from etiquetasT;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetas.Add(new etiquetaT
+                        {
+                            ID = int.Parse(dr["idEtiqueta"].ToString()),
+                            idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
+                            NombreEtiqueta = dr["nombreEtiqueta"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaEtiquetas;
+        }
+        public List<etiquetaT> GetEtiquetasFromBoard(int idTablero)
+        {
+            List<etiquetaT> listaEtiquetas = new List<etiquetaT>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select t.idEtiqueta,idAlfaEtiqueta,nombreEtiqueta " +
+                    "from tableroEtiqueta t " +
+                    "join etiquetasT e on e.idEtiqueta = t.idEtiqueta " +
+                    "where idTablero = @idTablero ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetas.Add(new etiquetaT
+                        {
+                            ID = int.Parse(dr["idEtiqueta"].ToString()),
+                            idAlfaEtiqueta = dr["idAlfaEtiqueta"].ToString(),
+                            NombreEtiqueta = dr["nombreEtiqueta"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaEtiquetas;
+        }
+        /// <summary>
+        /// Obtiene todas las etiquetas un tablero especifico
+        /// </summary>
+        public List<int> getEtiquetasAsociadasTablero(int idBoard)
+        {
+            List<int> listaEtiquetasAsociadas = new List<int>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idEtiqueta from etiquetasT where idTablero = @idTablero; ";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idBoard));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaEtiquetasAsociadas.Add(int.Parse(dr["idEtiqueta"].ToString()));
+                    }
+                }
+                conexion.Close();
+            }
+            return listaEtiquetasAsociadas;
+        }
+        public void AsociarEtiquetasTablero(List<int> ListaEtiquetas, int idTablero, bool isNew)
+        {
+            
+            List<int> listaEtiquetasAsociadas = new List<int>();
+            List<int> listaEtiquetasEliminadas = new List<int>();
+            if (!isNew)//EN CASO DE EDITAR LAS ETIQUETAS DE UN TABLERO
+            {
+                listaEtiquetasAsociadas = getEtiquetasAsociadasTablero(idTablero);
+            }
+            //ASOCIA LAS ETIQUETAS CON EL PICTOGRAMA
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                foreach (int idEtiqueta in ListaEtiquetas)
+                {
+                    bool existe = false;
+                    if (!isNew)
+                    {
+                        if (listaEtiquetasAsociadas.Contains(idEtiqueta))
+                        {
+                            existe = true;
+                        }
+                    }
+                    if (!existe)
+                    {
+                        conexion.Open();
+                        string query = "insert into tableroEtiqueta( idEtiqueta,idTablero) values (@IdEtiqueta, @idTablero)";
+                        SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                        cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idEtiqueta));
+                        cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+            }
+            if (!isNew)
+            {
+                //ELIMINA LA ASOCIACION DE LA ETIQUETA CON EL TABLERO 
+                foreach (int idTag in listaEtiquetasAsociadas)
+                {
+                    if (!ListaEtiquetas.Contains(idTag))
+                    {
+                        deleteAsociacionEtiquetasTablero(idTablero, idTag);
+                    }
+                }
+            }
+        }
+        public void deleteAsociacionEtiquetasTablero(int idTablero, int idTag)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "Delete from tableroEtiqueta where IdEtiqueta  = @IdEtiqueta and idTablero = @idTablero ;" +
+                    "VACUUM;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@IdEtiqueta", idTag));
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        /// <summary>
+        /// Crea una etiqueta nueva de tablero
+        /// </summary>
+        public void InsertEtiquetaT(string NombreEtiqueta)
+        {
+            int IdEtiqueta = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE LA ETIQUETA A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into etiquetasT(idAlfaEtiqueta, nombreEtiqueta) values (@idAlfaEtiqueta, @nombreEtiqueta)";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaEtiqueta", Guid.NewGuid().ToString()));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreEtiqueta", NombreEtiqueta));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
             }
         }
     }

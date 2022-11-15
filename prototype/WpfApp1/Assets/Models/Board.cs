@@ -19,5 +19,6 @@ namespace WpfApp1.Model
         public int idPictPortada { get; set; }
         public Pictogram pictPortada { get; set; }
         public List<pictTablero> pictTableros { get; set; }
+        public List<etiquetaT> ListaEtiquetasTableros { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace WpfApp1.Pages.Tableros
         static bool reemplazandoPict = false;
         static bool addingPortada = false;
         static bool isEditing = false;
+        private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
         static Pictogram pictPortada = new Pictogram();
         private static readonly CrearTableros instance = new CrearTableros();
         public static CrearTableros Instance
@@ -56,6 +57,8 @@ namespace WpfApp1.Pages.Tableros
             tiposTablero();
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
+            ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -354,7 +357,7 @@ namespace WpfApp1.Pages.Tableros
             if (validateConditionsToSave())
             {
                 int idBoard;
-                
+                List<int> idsTags = new List<int>();
                 Board newBoard = new Board();
                 newBoard.nombreTablero = nombreTablero.Text;
                 newBoard.tipo = comboBoxTipo.SelectedItem.ToString();
@@ -363,8 +366,43 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.idPictPortada = pictPortada.ID;
                 idBoard = Repository.Instance.crearTablero(newBoard);
                 savePictBoard(idBoard);
+                if (!isEditing)
+                {
+                    if (String.IsNullOrWhiteSpace(Tags.Text) == false)
+                    {
+                        idsTags = idTags(Tags.Text);
+                        Repository.Instance.AsociarEtiquetasTablero(idsTags, idBoard, true);
+                    }
+                }
+
+
+
                 this.NavigationService.GoBack();
             }
+        }
+        private List<int> idTags(string textoEtiquetas)
+        {
+            List<int> idsTags = new List<int>();
+            List<string> etiquetasPict = new List<string>();
+            string[] conjuntoEtiquetas = textoEtiquetas.Split(",");
+            foreach (string tag in conjuntoEtiquetas)
+            {
+                etiquetasPict.Add(tag);
+            }
+            foreach (string tag in etiquetasPict)
+            {
+                //EN CASO DE NO EXISTIR LA ETIQUETA PREVIEMENTE
+                if (!ListaEtiquetasTableros.Any(x => x.NombreEtiqueta == tag))
+                {
+                    Repository.Instance.InsertEtiquetaT(tag);
+                    idsTags.Add(Repository.Instance.GetIdEtiquetaT(tag));
+                }
+                else
+                {
+                    idsTags.Add(ListaEtiquetasTableros.Where(x => x.NombreEtiqueta == tag).Select(ListIdPict => ListIdPict.ID).First());
+                }
+            }
+            return idsTags;
         }
         public void addPictPortada(Pictogram pictogramaPortada)
         {
