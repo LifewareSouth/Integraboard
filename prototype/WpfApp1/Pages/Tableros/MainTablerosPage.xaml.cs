@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
+using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1.Pages.Tableros
 {
@@ -24,6 +25,8 @@ namespace WpfApp1.Pages.Tableros
     public partial class MainTablerosPage : Page
     {
         static List<Board> listaTableros = new List<Board>();
+       
+
         public MainTablerosPage()
         {
             InitializeComponent();
@@ -32,6 +35,10 @@ namespace WpfApp1.Pages.Tableros
         private void actualizarListaTableros()
         {
             listaTableros = Repository.Instance.getAllBoards();
+            if (listaTableros.Count > 0)
+            {
+                listViewTableros.ItemsSource = listaTableros;
+            }
         }
 
         private void goToCrearTableros(object sender, RoutedEventArgs e)

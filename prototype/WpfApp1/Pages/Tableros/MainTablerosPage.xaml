@@ -133,15 +133,29 @@
                   Grid.Row="1"
                   Grid.RowSpan="20"
                   Height="590"
-                  Width="790">
+                  Width="790"
+                  ItemsSource="{Binding Board}"
+                  x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView AllowsColumnReorder="true">
                     <GridViewColumn Header="Pictograma"
-                                    Width="200"/>
+                                    Width="200" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding pictPortada.Imagen}"
+                                       Height="100"
+                                       Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Nombre de tablero"
-                                    Width="240"/>
+                                    Width="240"
+                                    DisplayMemberBinding=
+                          "{Binding Path=nombreTablero}"/>
                     <GridViewColumn Header="Tipo"
-                                    Width="150"/>
+                                    Width="150"
+                                    DisplayMemberBinding=
+                          "{Binding Path=tipo}"/>
                     <GridViewColumn Header="Etiquetas"
                                     Width="200"/>
 
