@@ -24,13 +24,42 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class MainTablerosPage : Page
     {
+        bool _navigationServiceAssigned = false;
+        static bool actualizandoLista = false;
         static List<Board> listaTableros = new List<Board>();
-       
+        private static readonly MainTablerosPage instance = new MainTablerosPage();
+        public static MainTablerosPage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
 
         public MainTablerosPage()
         {
             InitializeComponent();
             actualizarListaTableros();
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (actualizandoLista== true)
+                {
+                    actualizarListaTableros();
+                    actualizandoLista = false;
+                }
+
+            }
         }
         private void actualizarListaTableros()
         {
@@ -39,6 +68,10 @@ namespace WpfApp1.Pages.Tableros
             {
                 listViewTableros.ItemsSource = listaTableros;
             }
+        }
+        public void runActualizarLista()
+        {
+            actualizandoLista = true;
         }
 
         private void goToCrearTableros(object sender, RoutedEventArgs e)

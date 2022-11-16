@@ -384,7 +384,7 @@ namespace WpfApp1.Pages.Tableros
                 }
 
 
-
+                MainTablerosPage.Instance.runActualizarLista();
                 this.NavigationService.GoBack();
             }
         }
