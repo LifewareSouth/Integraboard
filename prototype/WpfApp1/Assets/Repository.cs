@@ -822,7 +822,7 @@ namespace WpfApp1.Assets
                             }
                             else
                             {
-                                etiquetasJuntas = etiquetasJuntas + "," + etiquetaT.NombreEtiqueta;
+                                etiquetasJuntas = etiquetasJuntas + ", " + etiquetaT.NombreEtiqueta;
                             }
                             
                         }
