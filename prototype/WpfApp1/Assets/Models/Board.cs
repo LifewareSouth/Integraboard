@@ -21,5 +21,6 @@ namespace WpfApp1.Model
         public List<pictTablero> pictTableros { get; set; }
         public List<etiquetaT> ListaEtiquetasTableros { get; set; }
         public string EtiquetasJuntas { get; set; }
+        public string asignacion { get; set; }
     }
 }
