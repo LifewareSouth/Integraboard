@@ -812,6 +812,20 @@ namespace WpfApp1.Assets
                 {
                     while (dr.Read())
                     {
+                        List<etiquetaT> listaEtiquetas = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString()));
+                        string etiquetasJuntas ="";
+                        foreach(etiquetaT etiquetaT in listaEtiquetas)
+                        {
+                            if(etiquetaT == listaEtiquetas.First())
+                            {
+                                etiquetasJuntas = etiquetaT.NombreEtiqueta;
+                            }
+                            else
+                            {
+                                etiquetasJuntas = etiquetasJuntas + "," + etiquetaT.NombreEtiqueta;
+                            }
+                            
+                        }
                         listaTableros.Add(new Board
                         {
                             ID = int.Parse(dr["idTablero"].ToString()),
@@ -823,7 +837,8 @@ namespace WpfApp1.Assets
                             idPictPortada = int.Parse(dr["pictPortada"].ToString()),
                             pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
                             pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
-                            ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString()))
+                            ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString())),
+                            EtiquetasJuntas=etiquetasJuntas
                         });
                     }
                 }
