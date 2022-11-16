@@ -263,7 +263,7 @@
                         Foreground="White"
                         FontWeight="SemiBold"
                         Background="#1597e5"
-                        Margin="20"/>
+                        Margin="20" Click="EditarPictograma_Click"/>
                 <Button x:Name="QuitarPictograma"
                         Height="50"
                         Width="200"
