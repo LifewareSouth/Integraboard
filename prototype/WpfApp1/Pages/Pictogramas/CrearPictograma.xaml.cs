@@ -20,6 +20,7 @@ using System.Xml.Linq;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
+using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -39,6 +40,7 @@ namespace WpfApp1.Pages.Pictogramas
         private static readonly CrearPictos instance = new CrearPictos();
         private static List<EtiquetaP> ListaEtiquetas = new List<EtiquetaP>();
         private static SoundModel sonidoSeleccionado = new SoundModel();
+        private bool isFromBoard = false;
         public static CrearPictos Instance
         {
             get
@@ -62,10 +64,11 @@ namespace WpfApp1.Pages.Pictogramas
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
         }
-        public CrearPictos(Pictogram editPict)
+        public CrearPictos(Pictogram editPict,bool fromboard)
         {
             InitializeComponent();
             rellenarCategorias();
+            isFromBoard = fromboard;
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
             NombrePict.Text = editPict.Nombre;
             TextPict.Text = editPict.Texto;
@@ -214,12 +217,24 @@ namespace WpfApp1.Pages.Pictogramas
                         Repository.Instance.AsociarEtiquetasPict(idsTags,pictogramEdit.ID, false);
                     }
                     Mensaje = "Actualizado correctamente!";
+                    
                 }
-                SuccessDialog success = new SuccessDialog(Mensaje);
-                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                success.Show();
-                MainPicrogramasPage.Instance.runActualizarLista();
-                this.NavigationService.GoBack();
+                if (isFromBoard)//Cuando se edita desde un tablero
+                {
+                    SuccessDialog succes = new SuccessDialog(Mensaje);
+                    succes.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    succes.Show();
+                    CrearTableros.Instance.actualizarPictogramaEditado();
+                    this.NavigationService.GoBack();
+                }
+                else
+                {
+                    SuccessDialog success = new SuccessDialog(Mensaje);
+                    success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    success.Show();
+                    MainPicrogramasPage.Instance.runActualizarLista();
+                    this.NavigationService.GoBack();
+                }
             }
         }
         private List<int> idTags(string textoEtiquetas)

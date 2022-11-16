@@ -39,6 +39,7 @@ namespace WpfApp1.Pages.Tableros
         static bool reemplazandoPict = false;
         static bool addingPortada = false;
         static bool isEditing = false;
+        static bool pictogramaEditado = false;
         private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
         static Pictogram pictPortada = new Pictogram();
         private static readonly CrearTableros instance = new CrearTableros();
@@ -90,6 +91,10 @@ namespace WpfApp1.Pages.Tableros
                 {
                     actualizarPictPortada();
                     addingPortada = false;
+                }
+                else if(pictogramaEditado)
+                {
+                    pictogramaEditado = false;
                 }
                 
             }
@@ -253,7 +258,10 @@ namespace WpfApp1.Pages.Tableros
 
         private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var asd = Tablero.SelectedValue;
+            if (Tablero.SelectedItem != null)
+            {
+                CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
+            }
         }
 
 
@@ -439,6 +447,27 @@ namespace WpfApp1.Pages.Tableros
                 }
             }
 
+        }
+
+        private void EditarPictograma_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Tablero.SelectedItem != null)
+            {
+                var seleccion = (pictTablero)Tablero.SelectedValue;
+                if (seleccion.idPictograma != 0)
+                {
+                    this.NavigationService.Navigate(new CrearPictos(seleccion.pictograma,true));
+                    AjustarTablero();
+                }
+            }
+        }
+        public void actualizarPictogramaEditado()
+        {
+            var asd = CuadroSeleccionado;
+            var qwe = listaPictTablero;
+            listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().pictograma = Repository.Instance.getOnePictogram(CuadroSeleccionado.idPictograma);
+            pictogramaEditado = true;
         }
 
         public void actualizarPictPortada()

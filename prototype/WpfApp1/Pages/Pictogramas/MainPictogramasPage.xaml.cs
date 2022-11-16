@@ -69,7 +69,7 @@ namespace WpfApp1
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
-            this.NavigationService.Navigate(new CrearPictos(pictEdit));
+            this.NavigationService.Navigate(new CrearPictos(pictEdit,false));
         }
         /*private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -143,7 +143,7 @@ namespace WpfApp1
             if (ListViewPictograms.SelectedValue != null)
             {
                 Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
-                this.NavigationService.Navigate(new CrearPictos(pictEdit));
+                this.NavigationService.Navigate(new CrearPictos(pictEdit,false));
             }
         }
 
