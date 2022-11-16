@@ -134,8 +134,12 @@
                   Grid.RowSpan="20"
                   Height="590"
                   Width="790"
+                  Background="#003b49"
+                  Foreground="White"
+                  FontSize="18"
                   ItemsSource="{Binding Board}"
                   x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}">
+
             <ListView.View>
                 <GridView AllowsColumnReorder="true">
                     <GridViewColumn Header="Pictograma"
@@ -144,7 +148,8 @@
                             <DataTemplate>
                                 <Image Source="{Binding pictPortada.Imagen}"
                                        Height="100"
-                                       Width="100"/>
+                                       Width="100"
+                                       HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -157,20 +162,54 @@
                                     DisplayMemberBinding=
                           "{Binding Path=tipo}"/>
                     <GridViewColumn Header="Etiquetas"
-                                    Width="200"/>
+                                    Width="200"
+                                    DisplayMemberBinding="{Binding Path=EtiquetasJuntas}"/>
 
                     <GridView.ColumnHeaderContainerStyle>
 
                         <Style TargetType="GridViewColumnHeader">
-                            <Setter Property="Height" Value="35"/>
-                            <Setter Property="FontSize" Value="20"/>
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                        <Border BorderThickness="0,0,0,1" 
+                                                BorderBrush="White" 
+                                                Background="Transparent">
+                                            <TextBlock x:Name="ContentHeader" 
+                                                       Text="{TemplateBinding Content}" 
+                                                       Padding="5,5,5,0" 
+                                                       Width="{TemplateBinding Width}" 
+                                                       TextAlignment="Center"
+                                                       FontSize="20"
+                                                       FontWeight="SemiBold"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="OverridesDefaultStyle" Value="True" />
+                            <Setter Property="Foreground" Value="White" />
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#f4f6af" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#f4f6af" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
 
         <!--Grid de la vista completa-->
