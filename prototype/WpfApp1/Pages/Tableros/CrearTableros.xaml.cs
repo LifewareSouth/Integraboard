@@ -414,7 +414,7 @@ namespace WpfApp1.Pages.Tableros
         }
         public void addPictPortada(Pictogram pictogramaPortada)
         {
-            pictPortada = pictogramaPortada;
+            pictPortada = pictogramaPortada; //este es el que se debe pasar al boton de agregar representante
             addingPortada = true;
         }
 

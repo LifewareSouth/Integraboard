@@ -141,7 +141,7 @@
                   ItemsSource="{Binding Board}"
                   x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
-                <GridView AllowsColumnReorder="true">
+                <GridView AllowsColumnReorder="False">
                     <GridViewColumn Header="Pictograma"
                                     Width="150" >
                         <GridViewColumn.CellTemplate>
@@ -163,7 +163,6 @@
                           "{Binding Path=tipo}"/>
                     <GridViewColumn Header="Etiquetas"
                                     Width="150">
-                        <!--DisplayMemberBinding="{Binding Path=EtiquetasJuntas}"-->
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path=EtiquetasJuntas}" TextWrapping="Wrap"/>
