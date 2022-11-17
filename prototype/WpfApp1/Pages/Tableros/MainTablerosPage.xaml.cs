@@ -28,6 +28,7 @@ namespace WpfApp1.Pages.Tableros
         static bool actualizandoLista = false;
         static List<Board> listaTableros = new List<Board>();
         private static readonly MainTablerosPage instance = new MainTablerosPage();
+        private static Board boardSelected = new Board();
         public static MainTablerosPage Instance
         {
             get
@@ -82,6 +83,22 @@ namespace WpfApp1.Pages.Tableros
         private void goToMenu(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainTablerosPage());
+        }
+
+        private void DoubleClick_Tablero(object sender, RoutedEventArgs e)
+        {
+            if (listViewTableros.SelectedItem != null)
+            {
+                this.NavigationService.Navigate(new CrearTableros(boardSelected));
+            }
+        }
+
+        private void listViewTableros_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listViewTableros.SelectedItem != null)
+            {
+                boardSelected = (Board)listViewTableros.SelectedItem;
+            }
         }
     }
 }
