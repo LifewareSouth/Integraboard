@@ -146,7 +146,7 @@
             <ListView.View>
                 <GridView AllowsColumnReorder="true">
                     <GridViewColumn Header="Pictograma"
-                                    Width="200" >
+                                    Width="150" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding pictPortada.Imagen}"
@@ -157,7 +157,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Nombre de tablero"
-                                    Width="240"
+                                    Width="150"
                                     DisplayMemberBinding=
                           "{Binding Path=nombreTablero}"/>
                     <GridViewColumn Header="Tipo"
@@ -165,8 +165,17 @@
                                     DisplayMemberBinding=
                           "{Binding Path=tipo}"/>
                     <GridViewColumn Header="Etiquetas"
-                                    Width="200"
-                                    DisplayMemberBinding="{Binding Path=EtiquetasJuntas}"/>
+                                    Width="150">
+                        <!--DisplayMemberBinding="{Binding Path=EtiquetasJuntas}"-->
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=EtiquetasJuntas}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Asignación"
+                                    Width="180"
+                                    DisplayMemberBinding="{Binding asignacion}"/>
 
                     <GridView.ColumnHeaderContainerStyle>
 
@@ -183,7 +192,8 @@
                                                        Width="{TemplateBinding Width}" 
                                                        TextAlignment="Center"
                                                        FontSize="20"
-                                                       FontWeight="SemiBold"/>
+                                                       FontWeight="SemiBold"
+                                                       TextWrapping="Wrap"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
