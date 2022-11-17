@@ -139,7 +139,10 @@
                   Foreground="White"
                   FontSize="18"
                   ItemsSource="{Binding Board}"
-                  x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}">
+                  x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  MouseDoubleClick="DoubleClick_Tablero"
+                  SelectionChanged="listViewTableros_SelectionChanged">
+
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Header="Pictograma"

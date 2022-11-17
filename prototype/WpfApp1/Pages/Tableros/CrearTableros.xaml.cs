@@ -43,6 +43,7 @@ namespace WpfApp1.Pages.Tableros
         private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
         static Pictogram pictPortada = new Pictogram();
         private static readonly CrearTableros instance = new CrearTableros();
+        static Board boardEditable = new Board();
         public static CrearTableros Instance
         {
             get
@@ -51,14 +52,46 @@ namespace WpfApp1.Pages.Tableros
             }
         }
         public CrearTableros()
-        {
-            
+        {            
             InitializeComponent();
+            rowCounter = 4;
+            columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
             tiposTablero();
+
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+
+        }
+        public CrearTableros(Board boardEdit)
+        {
+
+            InitializeComponent();
+            listaPictTablero = new Collection<pictTablero>();
+            tiposTablero();
+            ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+            boardEditable = boardEdit;
+            comboBoxTipo.Text = boardEdit.tipo;
+            nombreTablero.Text = boardEdit.nombreTablero;
+            foreach(pictTablero pt in boardEdit.pictTableros)
+            {
+                listaPictTablero.Add(pt);
+            }
+            rowCounter = boardEdit.filas;
+            columnsCounter = boardEdit.columnas;
+            foreach (etiquetaT et in boardEdit.ListaEtiquetasTableros)
+            {
+                if(et == boardEdit.ListaEtiquetasTableros.First())
+                {
+                    Tags.Text = et.NombreEtiqueta;
+                }
+                else
+                {
+                    Tags.Text = Tags.Text + "," + et.NombreEtiqueta;
+                }
+            }
+            AjustarTablero();
 
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
@@ -68,6 +101,7 @@ namespace WpfApp1.Pages.Tableros
                 NavigationService.Navigating += NavigationService_Navigating;
                 _navigationServiceAssigned = true;
             }
+            ajustarTamano();
         }
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
         {
@@ -99,6 +133,12 @@ namespace WpfApp1.Pages.Tableros
                 
             }
         }
+        private void ajustarTamano()
+        {
+            UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
+            foundUniformGrid.Columns = columnsCounter;
+            foundUniformGrid.Rows = rowCounter;
+        }
         private void tiposTablero()
         {
             foreach (Board.TableroTipo foo in Enum.GetValues(typeof(Board.TableroTipo)))
@@ -107,7 +147,7 @@ namespace WpfApp1.Pages.Tableros
             }
         }
 
-        int _rows = 4, _columns = 4;
+        int _rows =0, _columns=0 ;
         public int rowCounter
         {
             set
