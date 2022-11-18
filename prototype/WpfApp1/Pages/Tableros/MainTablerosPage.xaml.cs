@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
@@ -40,6 +42,7 @@ namespace WpfApp1.Pages.Tableros
         public MainTablerosPage()
         {
             InitializeComponent();
+            tiposTablero();
             actualizarListaTableros();
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
@@ -59,7 +62,13 @@ namespace WpfApp1.Pages.Tableros
                     actualizarListaTableros();
                     actualizandoLista = false;
                 }
-
+            }
+        }
+        private void tiposTablero()
+        {
+            foreach (Board.TableroTipo foo in Enum.GetValues(typeof(Board.TableroTipo)))
+            {
+                object aux = cbCustom.Items.Add(foo.ToString());
             }
         }
         private void actualizarListaTableros()
@@ -99,6 +108,54 @@ namespace WpfApp1.Pages.Tableros
             if (listViewTableros.SelectedItem != null)
             {
                 boardSelected = (Board)listViewTableros.SelectedItem;
+                if(boardSelected.asignacion =="No Asignado")
+                {
+                    botonAsignar.Content = "Asignar";
+                }
+                else if(boardSelected.asignacion == "Asignado")
+                {
+                    botonAsignar.Content = "Desasignar";
+                }
+            }
+        }
+
+        private void botonAsignar_Click(object sender, RoutedEventArgs e)
+        {
+            if(listViewTableros.SelectedItem != null)
+            {
+                int sIndex = listViewTableros.SelectedIndex;
+                if (boardSelected.asignacion == "No Asignado")
+                {
+                    Repository.Instance.asignacionTablero(true, boardSelected.ID);
+                }
+                else if (boardSelected.asignacion == "Asignado")
+                {
+                    Repository.Instance.asignacionTablero(false, boardSelected.ID);
+                }
+                listaTableros.Clear();
+                actualizarListaTableros();
+                listViewTableros.SelectedIndex = sIndex;
+            }
+            
+        }
+
+        private void cbCustom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cbCustom.SelectedItem.ToString() == "Comunicación")
+            {
+                this.NavigationService.Navigate(new CrearTableros());
+            }
+            else if (cbCustom.SelectedItem.ToString() == "Emociones")
+            {
+
+            }
+            else if (cbCustom.SelectedItem.ToString() == "Rutina")
+            {
+
+            }
+            else if (cbCustom.SelectedItem.ToString() == "Sonidos")
+            {
+
             }
         }
     }

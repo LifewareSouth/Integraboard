@@ -1145,5 +1145,29 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
+        public void asignacionTablero(bool asignar, int idTablero)
+        {
+            string asignado = "";
+            if (asignar)
+            {
+                asignado = "Asignado";
+            }
+            else
+            {
+                asignado = "No Asignado";
+            }
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                //idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,asignacion
+                string query = "UPDATE tableros set asignacion = @asignacion where idTablero= @idTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@asignacion", asignado));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
     }
 }
