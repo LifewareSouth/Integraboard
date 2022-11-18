@@ -72,6 +72,7 @@ namespace WpfApp1.Pages.Tableros
         }
         public void runActualizarLista()
         {
+            listaTableros.Clear();
             actualizandoLista = true;
         }
 
