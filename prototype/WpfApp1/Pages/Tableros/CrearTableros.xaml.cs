@@ -45,7 +45,7 @@ namespace WpfApp1.Pages.Tableros
         static bool isEditing = false;
         static bool pictogramaEditado = false;
         private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
-        static Pictogram pictPortada = new Pictogram();
+        static Pictogram pictPortada = Repository.Instance.defaultPict();
         private static readonly CrearTableros instance = new CrearTableros();
         static Board boardEditable = new Board();
         private static BitmapImage imagenAddPictograma = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.add3);
@@ -109,6 +109,7 @@ namespace WpfApp1.Pages.Tableros
                 _navigationServiceAssigned = true;
             }
             ajustarTamano();
+            imagenPictPortada();
         }
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
         {
@@ -145,6 +146,11 @@ namespace WpfApp1.Pages.Tableros
             UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
             foundUniformGrid.Columns = columnsCounter;
             foundUniformGrid.Rows = rowCounter;
+        }
+        private void imagenPictPortada()
+        {
+            System.Windows.Controls.Image imagenPortada = FindVisualChild<System.Windows.Controls.Image>(PictoRepresent);
+            imagenPortada.Source = pictPortada.Imagen;
         }
         private void tiposTablero()
         {
