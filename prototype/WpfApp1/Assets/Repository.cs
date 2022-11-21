@@ -778,7 +778,9 @@ namespace WpfApp1.Assets
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
-                string query = "Delete from pictogramas where idPict  = @idPict;" +
+                string query = "Delete from pictTableros where idPictograma  = @idPict;" +
+                    "update tableros  set pictPortada = 0,asignacion = 'No Asignado' where pictPortada = @idPict;" +
+                    "Delete from pictogramas where idPict  = @idPict;" +
                     "VACUUM;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.Parameters.Add(new SQLiteParameter("@idPict", idPict));
@@ -845,6 +847,15 @@ namespace WpfApp1.Assets
                             }
                             
                         }
+                        Pictogram pPortada = new Pictogram();
+                        if (int.Parse(dr["pictPortada"].ToString()) != 0)
+                        {
+                            pPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString()));
+                        }
+                        else
+                        {
+                            pPortada = defaultPict();
+                        }
                         listaTableros.Add(new Board
                         {
                             ID = int.Parse(dr["idTablero"].ToString()),
@@ -854,7 +865,7 @@ namespace WpfApp1.Assets
                             filas = int.Parse(dr["filas"].ToString()),
                             columnas = int.Parse(dr["columnas"].ToString()),
                             idPictPortada = int.Parse(dr["pictPortada"].ToString()),
-                            pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
+                            pictPortada = pPortada,
                             pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
                             ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString())),
                             EtiquetasJuntas=etiquetasJuntas,
@@ -1168,6 +1179,15 @@ namespace WpfApp1.Assets
                 cmd.ExecuteNonQuery();
                 conexion.Close();
             }
+        }
+        public Pictogram defaultPict()
+        {
+            Pictogram pict = new Pictogram();
+            pict.ID = 0;
+            pict.Nombre = "default";
+            pict.Texto = "default";
+            pict.Imagen = getImageFromResources(WpfApp1.Properties.Resources.add3);
+            return pict;
         }
     }
 }

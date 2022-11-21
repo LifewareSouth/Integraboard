@@ -126,7 +126,10 @@ namespace WpfApp1.Pages.Tableros
                 int sIndex = listViewTableros.SelectedIndex;
                 if (boardSelected.asignacion == "No Asignado")
                 {
-                    Repository.Instance.asignacionTablero(true, boardSelected.ID);
+                    if(boardSelected.idPictPortada != 0)
+                    {
+                        Repository.Instance.asignacionTablero(true, boardSelected.ID);
+                    }
                 }
                 else if (boardSelected.asignacion == "Asignado")
                 {
