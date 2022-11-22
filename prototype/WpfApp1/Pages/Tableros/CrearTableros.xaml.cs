@@ -45,7 +45,7 @@ namespace WpfApp1.Pages.Tableros
         static bool isEditing = false;
         static bool pictogramaEditado = false;
         private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
-        static Pictogram pictPortada = Repository.Instance.defaultPict();
+        static Pictogram pictPortada = new Pictogram();
         private static readonly CrearTableros instance = new CrearTableros();
         static Board boardEditable = new Board();
         private static BitmapImage imagenAddPictograma = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.add3);
@@ -63,7 +63,7 @@ namespace WpfApp1.Pages.Tableros
             columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
             tiposTablero();
-
+            pictPortada = Repository.Instance.defaultPict();
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();

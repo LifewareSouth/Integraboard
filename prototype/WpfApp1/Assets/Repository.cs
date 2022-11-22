@@ -1170,7 +1170,6 @@ namespace WpfApp1.Assets
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
-                //idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,asignacion
                 string query = "UPDATE tableros set asignacion = @asignacion where idTablero= @idTablero;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
@@ -1188,6 +1187,20 @@ namespace WpfApp1.Assets
             pict.Texto = "default";
             pict.Imagen = getImageFromResources(WpfApp1.Properties.Resources.add3);
             return pict;
+        }
+        public void deleteBoard(int idTablero)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "Delete from pictTableros where idTablero = @idTablero;" +
+                    "Delete from tableros where idTablero = @idTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
         }
     }
 }

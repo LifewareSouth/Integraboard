@@ -236,7 +236,9 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="white" 
+                    Click="btnEliminar_Click"
+                    />
         </Grid>
 
         <Label Content="Acciones"

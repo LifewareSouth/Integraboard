@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Windows.Shell;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Pictogramas;
 using WpfApp1.Pages.Tableros;
 
@@ -61,6 +62,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     actualizarListaTableros();
                     actualizandoLista = false;
+                    cbCustom.SelectedIndex = 0;
                 }
             }
         }
@@ -74,10 +76,9 @@ namespace WpfApp1.Pages.Tableros
         private void actualizarListaTableros()
         {
             listaTableros = Repository.Instance.getAllBoards();
-            if (listaTableros.Count > 0)
-            {
-                listViewTableros.ItemsSource = listaTableros;
-            }
+            
+            listViewTableros.ItemsSource = listaTableros;
+            
         }
         public void runActualizarLista()
         {
@@ -159,6 +160,21 @@ namespace WpfApp1.Pages.Tableros
             else if (cbCustom.SelectedItem.ToString() == "Sonidos")
             {
 
+            }
+        }
+
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewTableros.SelectedItem != null)
+            {
+                DeleteDialogWin w = new DeleteDialogWin();
+                w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                var result = w.ShowDialog();
+                if (result == true)
+                {
+                    Repository.Instance.deleteBoard(boardSelected.ID);
+                    actualizarListaTableros();
+                }
             }
         }
     }
