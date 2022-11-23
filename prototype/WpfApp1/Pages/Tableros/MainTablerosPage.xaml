@@ -11,7 +11,7 @@
     <Page.Resources>
         <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#1597e5" />
         <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#1597e5" />
-        <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="Black" />
+        <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="White" />
         <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
         <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
 
@@ -65,20 +65,22 @@
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <ToggleButton Name="ToggleButton" Grid.Column="2"
-                ClickMode="Press" Focusable="False"
-                IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
+                                        ClickMode="Press" Focusable="False"
+                                        IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                        Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
 
-                            <ContentPresenter Name="ContentSite" Margin="5, 3, 23, 3" IsHitTestVisible="False"
-                              HorizontalAlignment="Left" VerticalAlignment="Center"                              
-                              Content="{TemplateBinding ComboBox.SelectionBoxItem}" 
-                              ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
-                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                                <ContentPresenter   Name="ContentSite" Margin="5, 3, 23, 3" IsHitTestVisible="False"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Center"                              
+                                                    Content="{TemplateBinding ComboBox.SelectionBoxItem}" 
+                                                    ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
+                                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
                             <TextBox Name="PART_EditableTextBox" Margin="3, 3, 23, 3"                     
-                     IsReadOnly="{TemplateBinding IsReadOnly}"
-                     Visibility="Hidden" Background="Transparent"
-                     HorizontalAlignment="Left" VerticalAlignment="Center"
-                     Focusable="True" >
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     Visibility="Hidden" Background="Transparent"
+                                     Foreground="White"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Focusable="True" >
                                 <TextBox.Template>
                                     <ControlTemplate TargetType="TextBox" >
                                         <Border Name="PART_ContentHost" Focusable="False" />
@@ -172,13 +174,16 @@
             </Grid.RowDefinitions>
 
             <ComboBox x:Name="cbCustom"
-                      Text="test"
-                      FontSize="20"
+                      Text="Crear Tablero"
+                      IsEditable="True"
+                      IsReadOnly="True"
+                      FontSize="25"
+                      FontWeight="SemiBold"
                       Grid.ColumnSpan="3" 
                       Grid.Row="1" 
                       Height="100"
                       Width="280"
-                      Style="{StaticResource ComboBoxFlatStyle}" Foreground="Black"
+                      Style="{StaticResource ComboBoxFlatStyle}"
                       >
                 <ComboBoxItem Content="Test1"/>
             </ComboBox>
