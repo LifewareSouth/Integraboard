@@ -41,6 +41,7 @@ namespace WpfApp1.Pages.Pictogramas
         private static List<EtiquetaP> ListaEtiquetas = new List<EtiquetaP>();
         private static SoundModel sonidoSeleccionado = new SoundModel();
         private bool isFromBoard = false;
+        string tipoTablero;
         public static CrearPictos Instance
         {
             get
@@ -64,11 +65,12 @@ namespace WpfApp1.Pages.Pictogramas
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
         }
-        public CrearPictos(Pictogram editPict,bool fromboard)
+        public CrearPictos(Pictogram editPict,bool fromboard,string tipo)
         {
             InitializeComponent();
             rellenarCategorias();
             isFromBoard = fromboard;
+            tipoTablero = tipo;
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
             NombrePict.Text = editPict.Nombre;
             TextPict.Text = editPict.Texto;
@@ -224,7 +226,22 @@ namespace WpfApp1.Pages.Pictogramas
                     SuccessDialog succes = new SuccessDialog(Mensaje);
                     succes.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     succes.Show();
-                    CrearTableros.Instance.actualizarPictogramaEditado();
+                    if (tipoTablero == "Comunicación")
+                    {
+                        CrearTableros.Instance.actualizarPictogramaEditado();
+                    }
+                    else if (tipoTablero == "Emociones")
+                    {
+                        //
+                    }
+                    else if (tipoTablero == "Rutina")
+                    {
+                        //
+                    }
+                    else if (tipoTablero == "Sonidos")
+                    {
+                        TableroSonidos.Instance.actualizarPictogramaEditado();
+                    }
                     this.NavigationService.GoBack();
                 }
                 else

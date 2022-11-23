@@ -309,7 +309,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     pictAgregados.Add(pt.pictograma);
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados,"Comunicación"));
             }
             else
             {
@@ -323,7 +323,7 @@ namespace WpfApp1.Pages.Tableros
                         pictAgregados.Add(pt.pictograma);
                     }
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados,"Comunicación"));
             }
             
         }
@@ -391,7 +391,7 @@ namespace WpfApp1.Pages.Tableros
         }
         private void PictoRepresent_DoubleClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ListadoPictogramas());
+            this.NavigationService.Navigate(new ListadoPictogramas("Comunicación"));
         }
         private void guardarTablero_Click(object sender, RoutedEventArgs e)
         {
@@ -531,7 +531,7 @@ namespace WpfApp1.Pages.Tableros
                 var seleccion = (pictTablero)Tablero.SelectedValue;
                 if (seleccion.idPictograma != 0)
                 {
-                    this.NavigationService.Navigate(new CrearPictos(seleccion.pictograma,true));
+                    this.NavigationService.Navigate(new CrearPictos(seleccion.pictograma,true,"Comunicación"));
                     AjustarTablero();
                 }
             }

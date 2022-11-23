@@ -28,27 +28,37 @@ namespace WpfApp1.Pages.Tableros
         static List<Pictogram> listaPict = new List<Pictogram>();
         static bool isAddingPictogram = true;
         static List<Pictogram> filteredPict = new List<Pictogram>();
-        private static readonly ListadoPictogramas instance = new ListadoPictogramas();
+        string tipoTablero;
+        /*private static readonly ListadoPictogramas instance = new ListadoPictogramas();
         public static ListadoPictogramas Instance
         {
             get
             {
                 return instance;
             }
-        }
-        public ListadoPictogramas()
+        }*/
+        public ListadoPictogramas(string fromBoard)
         {
             InitializeComponent();
+            tipoTablero = fromBoard;
             categorias();
+            
             ActualizarLista();
             isAddingPictogram=false;
             ListViewPictograms.SelectionMode = SelectionMode.Single;
         }
 
-        public ListadoPictogramas(List<Pictogram> PictAgregados)
+        public ListadoPictogramas(List<Pictogram> PictAgregados, string fromBoard)
         {
             InitializeComponent();
+            tipoTablero = fromBoard;
             ActualizarLista();
+            if(fromBoard == "Sonidos")
+            {
+                List<Pictogram> tempPict = new List<Pictogram>();
+                tempPict = listaPict.Where(x => x.idSonido > 0).ToList();
+                listaPict = tempPict;
+            }
             isAddingPictogram = true;
             if(PictAgregados.Count > 0)
             {//QUITAR DEL LISTADO LOS PICTOGRAMAS YA AGREGADOS
@@ -148,7 +158,23 @@ namespace WpfApp1.Pages.Tableros
                 {
                     Pictogram p = new Pictogram();
                     p = (Pictogram)ListViewPictograms.SelectedValue;
-                    CrearTableros.Instance.addPictPortada(p);
+                    if(tipoTablero == "Comunicación")
+                    {
+                        CrearTableros.Instance.addPictPortada(p);
+                    }
+                    else if (tipoTablero == "Emociones")
+                    {
+                        //
+                    }
+                    else if (tipoTablero == "Rutina")
+                    {
+                        //
+                    }
+                    else if (tipoTablero == "Sonidos")
+                    {
+                        TableroSonidos.Instance.addPictPortada(p);
+                    }
+                    
                 }
                 else//CUANDO SE SUMAN PICTOGRAMAS AL TABLERO
                 {
@@ -159,7 +185,23 @@ namespace WpfApp1.Pages.Tableros
                     }
                     if (isAddingPictogram)
                     {
-                        CrearTableros.Instance.addPict(listaPict);
+                        
+                        if (tipoTablero == "Comunicación")
+                        {
+                            CrearTableros.Instance.addPict(listaPict);
+                        }
+                        else if (tipoTablero == "Emociones")
+                        {
+                            //
+                        }
+                        else if (tipoTablero == "Rutina")
+                        {
+                            //
+                        }
+                        else if (tipoTablero == "Sonidos")
+                        {
+                            TableroSonidos.Instance.addPict(listaPict);
+                        }
                     }
                 }
                 
