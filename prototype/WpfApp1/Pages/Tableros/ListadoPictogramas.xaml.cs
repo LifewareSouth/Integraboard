@@ -28,8 +28,8 @@ namespace WpfApp1.Pages.Tableros
         static List<Pictogram> listaPict = new List<Pictogram>();
         static bool isAddingPictogram = true;
         static List<Pictogram> filteredPict = new List<Pictogram>();
-        private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
-        public static MainPicrogramasPage Instance
+        private static readonly ListadoPictogramas instance = new ListadoPictogramas();
+        public static ListadoPictogramas Instance
         {
             get
             {

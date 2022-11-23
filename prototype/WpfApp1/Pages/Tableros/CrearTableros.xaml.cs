@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -24,6 +25,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Pictogramas;
 using WpfApp1.UserControls;
 
@@ -61,7 +63,7 @@ namespace WpfApp1.Pages.Tableros
             columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
             tiposTablero();
-
+            pictPortada = Repository.Instance.defaultPict();
             AjustarTablero();
             comboBoxTipo.Text = "Comunicación";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
@@ -71,12 +73,14 @@ namespace WpfApp1.Pages.Tableros
         {
 
             InitializeComponent();
+            isEditing = true;
             listaPictTablero = new Collection<pictTablero>();
             tiposTablero();
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
             boardEditable = boardEdit;
             comboBoxTipo.Text = boardEdit.tipo;
             nombreTablero.Text = boardEdit.nombreTablero;
+            pictPortada = boardEdit.pictPortada;
             foreach(pictTablero pt in boardEdit.pictTableros)
             {
                 listaPictTablero.Add(pt);
@@ -105,6 +109,7 @@ namespace WpfApp1.Pages.Tableros
                 _navigationServiceAssigned = true;
             }
             ajustarTamano();
+            imagenPictPortada();
         }
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
         {
@@ -141,6 +146,11 @@ namespace WpfApp1.Pages.Tableros
             UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
             foundUniformGrid.Columns = columnsCounter;
             foundUniformGrid.Rows = rowCounter;
+        }
+        private void imagenPictPortada()
+        {
+            System.Windows.Controls.Image imagenPortada = FindVisualChild<System.Windows.Controls.Image>(PictoRepresent);
+            imagenPortada.Source = pictPortada.Imagen;
         }
         private void tiposTablero()
         {
@@ -388,6 +398,7 @@ namespace WpfApp1.Pages.Tableros
             if (validateConditionsToSave())
             {
                 int idBoard;
+                string mensaje = "";
                 List<int> idsTags = new List<int>();
                 Board newBoard = new Board();
                 newBoard.nombreTablero = nombreTablero.Text;
@@ -395,18 +406,35 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
-                idBoard = Repository.Instance.crearTablero(newBoard);
-                savePictBoard(idBoard);
+               
                 if (!isEditing)
                 {
+                    idBoard = Repository.Instance.crearTablero(newBoard);
+                    
                     if (String.IsNullOrWhiteSpace(Tags.Text) == false)
                     {
                         idsTags = idTags(Tags.Text);
                         Repository.Instance.AsociarEtiquetasTablero(idsTags, idBoard, true);
                     }
+                    savePictBoard(idBoard);
+                    mensaje = "Tablero Creado";
+                }
+                else//EN CASO DE EDITAR TABLERO
+                {
+                    newBoard.ID = boardEditable.ID;
+                    Repository.Instance.updateTablero(newBoard);
+                    if (String.IsNullOrWhiteSpace(Tags.Text) == false)
+                    {
+                        idsTags = idTags(Tags.Text);
+                        Repository.Instance.AsociarEtiquetasTablero(idsTags, newBoard.ID, false);
+                    }
+                    savePictBoard(newBoard.ID);
+                    mensaje = "Actualización correcta";
                 }
 
-
+                SuccessDialog success = new SuccessDialog(mensaje);
+                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                success.Show();
                 MainTablerosPage.Instance.runActualizarLista();
                 this.NavigationService.GoBack();
             }
@@ -458,9 +486,32 @@ namespace WpfApp1.Pages.Tableros
             if (isEditing)
             {
                 //Cuando se edita el tablero
+                foreach (pictTablero pt in listaPictTablero)
+                {
+                    if (pt.x < columnsCounter && pt.y < rowCounter)
+                    {
+                        //EN EL CASO DE SER UN PICTOGRAMA NO AÑADIDO ANTERIORMENTE AL TABLERO
+                        if (!boardEditable.pictTableros.Any(x => x.idPictograma == pt.idPictograma))
+                        {
+                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                        }
+                        else
+                        {
+                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                        }
+                    }
+                }
+                //Lista para eliminar asociacion de pictogramas que ya no estan en el tablero
+                List<pictTablero> pictTabEliminar = new List<pictTablero>();
+                pictTabEliminar = boardEditable.pictTableros.Where(x=> (!listaPictTablero.Any(y=> y.idPictograma == x.idPictograma ))).ToList();
+                foreach (pictTablero deletePT in pictTabEliminar)
+                {
+                    Repository.Instance.quitarAsociacionPictTablero(idTablero, deletePT.idPictograma);
+                }
             }
             else
             {
+                //AL CREAR UN TABLERO SE CREAN TODAS LAS ASOCIACIONES DE LOS PICTOGRAMAS CON EL TABLERO
                 foreach (pictTablero pt in listaPictTablero)
                 {
                     if(pt.x < columnsCounter && pt.y < rowCounter)

@@ -56,10 +56,8 @@ namespace WpfApp1
                                      new MouseButtonEventHandler(Row_DoubleClick)));
             
             listaPict = Repository.Instance.getAllPict();
-            if (listaPict.Count > 0)
-            {
-                ListViewPictograms.ItemsSource = listaPict;
-            }
+            ListViewPictograms.ItemsSource = listaPict;
+            
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -71,10 +69,6 @@ namespace WpfApp1
             Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
             this.NavigationService.Navigate(new CrearPictos(pictEdit,false));
         }
-        /*private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Pictos.Content = new Tableros();
-        }*/
 
         private void VolverMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -116,6 +110,7 @@ namespace WpfApp1
 
         public void runActualizarLista()
         {
+            listaPict.Clear();
             actualizandoPictogramas = true;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)

@@ -778,7 +778,9 @@ namespace WpfApp1.Assets
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
-                string query = "Delete from pictogramas where idPict  = @idPict;" +
+                string query = "Delete from pictTableros where idPictograma  = @idPict;" +
+                    "update tableros  set pictPortada = 0,asignacion = 'No Asignado' where pictPortada = @idPict;" +
+                    "Delete from pictogramas where idPict  = @idPict;" +
                     "VACUUM;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.Parameters.Add(new SQLiteParameter("@idPict", idPict));
@@ -845,6 +847,15 @@ namespace WpfApp1.Assets
                             }
                             
                         }
+                        Pictogram pPortada = new Pictogram();
+                        if (int.Parse(dr["pictPortada"].ToString()) != 0)
+                        {
+                            pPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString()));
+                        }
+                        else
+                        {
+                            pPortada = defaultPict();
+                        }
                         listaTableros.Add(new Board
                         {
                             ID = int.Parse(dr["idTablero"].ToString()),
@@ -854,7 +865,7 @@ namespace WpfApp1.Assets
                             filas = int.Parse(dr["filas"].ToString()),
                             columnas = int.Parse(dr["columnas"].ToString()),
                             idPictPortada = int.Parse(dr["pictPortada"].ToString()),
-                            pictPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString())),
+                            pictPortada = pPortada,
                             pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
                             ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString())),
                             EtiquetasJuntas=etiquetasJuntas,
@@ -999,7 +1010,7 @@ namespace WpfApp1.Assets
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 conexion.Open();
-                string query = "select idEtiqueta from etiquetasT where idTablero = @idTablero; ";
+                string query = "select idEtiqueta from tableroEtiqueta where idTablero = @idTablero; ";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.Parameters.Add(new SQLiteParameter("@idTablero", idBoard));
                 cmd.CommandType = System.Data.CommandType.Text;
@@ -1090,6 +1101,102 @@ namespace WpfApp1.Assets
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.Parameters.Add(new SQLiteParameter("@idAlfaEtiqueta", Guid.NewGuid().ToString()));
                 cmd.Parameters.Add(new SQLiteParameter("@nombreEtiqueta", NombreEtiqueta));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void updateTablero(Board board)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                //idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,asignacion
+                string query = "UPDATE tableros set nombreTablero = @nombreTablero , tipo = @tipo, filas = @filas, columnas = @columnas, pictPortada = @pictPortada where idTablero= @idTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", board.ID));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreTablero", board.nombreTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@tipo", board.tipo));
+                cmd.Parameters.Add(new SQLiteParameter("@filas", board.filas));
+                cmd.Parameters.Add(new SQLiteParameter("@columnas", board.columnas));
+                cmd.Parameters.Add(new SQLiteParameter("@pictPortada", board.idPictPortada));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void updatePictTablero(int idTablero, int idPictograma, int posX, int posY)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "UPDATE pictTableros set x = @x , y = @y where idTablero= @idTablero and idPictograma =@idPictograma ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@idPictograma", idPictograma));
+                cmd.Parameters.Add(new SQLiteParameter("@x", posX));
+                cmd.Parameters.Add(new SQLiteParameter("@y", posY));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void quitarAsociacionPictTablero(int idTablero, int idPictograma)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "Delete from pictTableros where idTablero= @idTablero and idPictograma =@idPictograma ;" +
+                    "VACUUM;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@idPictograma", idPictograma));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void asignacionTablero(bool asignar, int idTablero)
+        {
+            string asignado = "";
+            if (asignar)
+            {
+                asignado = "Asignado";
+            }
+            else
+            {
+                asignado = "No Asignado";
+            }
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "UPDATE tableros set asignacion = @asignacion where idTablero= @idTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.Parameters.Add(new SQLiteParameter("@asignacion", asignado));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public Pictogram defaultPict()
+        {
+            Pictogram pict = new Pictogram();
+            pict.ID = 0;
+            pict.Nombre = "default";
+            pict.Texto = "default";
+            pict.Imagen = getImageFromResources(WpfApp1.Properties.Resources.add3);
+            return pict;
+        }
+        public void deleteBoard(int idTablero)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "Delete from pictTableros where idTablero = @idTablero;" +
+                    "Delete from tableros where idTablero = @idTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 conexion.Close();
