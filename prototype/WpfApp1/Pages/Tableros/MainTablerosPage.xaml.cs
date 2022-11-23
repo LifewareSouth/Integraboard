@@ -151,15 +151,15 @@ namespace WpfApp1.Pages.Tableros
             }
             else if (cbCustom.SelectedItem.ToString() == "Emociones")
             {
-
+                this.NavigationService.Navigate(new TableroEmociones());
             }
             else if (cbCustom.SelectedItem.ToString() == "Rutina")
             {
-
+                this.NavigationService.Navigate(new TableroRutina());
             }
             else if (cbCustom.SelectedItem.ToString() == "Sonidos")
             {
-
+                this.NavigationService.Navigate(new TableroSonidos());
             }
         }
 

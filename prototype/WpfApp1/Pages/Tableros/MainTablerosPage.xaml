@@ -14,6 +14,7 @@
         <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="White" />
         <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
         <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red"/>
 
         <ControlTemplate TargetType="ToggleButton" x:Key="ComboBoxToggleButtonTemplate">
             <Grid>
@@ -35,11 +36,9 @@
             VerticalAlignment="Center" />
             </Grid>
             <ControlTemplate.Triggers>
-                <Trigger Property="UIElement.IsMouseOver" Value="True">
-                    <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="WhiteSmoke"/>
-                </Trigger>
+
                 <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="WhiteSmoke"/>
+
                     <Setter Property="Shape.Fill" TargetName="Arrow" Value="white"/>
                 </Trigger>
                 <Trigger Property="UIElement.IsEnabled" Value="False">
@@ -60,6 +59,7 @@
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
             <Setter Property="TextElement.Foreground" Value="White"/>
             <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+            
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
