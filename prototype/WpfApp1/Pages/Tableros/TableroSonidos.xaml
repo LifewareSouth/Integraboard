@@ -136,11 +136,12 @@
                        FontSize="25"
                        FontFamily="arial"
                        Margin="15,0,0,0"/>
-                    <TextBox x:Name="nombreTablero" Height="20"
+                    <TextBox x:Name="nombreTablero" Height="40"
                          Width="300"
                          HorizontalAlignment="Left"
                          Background="White"
                          Foreground="Black"
+                             FontSize="30"
                          Margin="20,0,0,0"/>
                     <Label Content="Filas:"
                        Foreground="white"
@@ -202,8 +203,9 @@
                        Foreground="White"
                        Margin="15,0,0,0"/>
                     <TextBox x:Name="Tags"
-                         Height="25"
+                         Height="40"
                          Width="300"
+                             FontSize="30"
                          HorizontalAlignment="Left"
                          Margin="20,0,0,0"/>
                     <TextBlock Text="Seleccione el pictograma que representará al tablero:"
