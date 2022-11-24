@@ -25,7 +25,7 @@
                     Background="#1597e5"
                     Click="goToTableros"/>
             <!---->
-            <Label Content="Crear Tableros de Sonido" 
+            <Label Content="Crear Tablero de Sonido" 
                    FontFamily="Arial"
                    FontWeight="Bold"
                    FontSize="60" 
