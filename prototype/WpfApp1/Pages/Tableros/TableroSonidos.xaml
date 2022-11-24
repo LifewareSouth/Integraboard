@@ -142,18 +142,6 @@
                          Background="White"
                          Foreground="Black"
                          Margin="20,0,0,0"/>
-
-                    <Label Content="Seleccione el tipo de tablero:"
-                       Foreground="white"
-                       FontSize="25"
-                       FontFamily="arial"
-                       Margin="15,0,0,0"/>
-                    <ComboBox x:Name="comboBoxTipo" Width="200"
-                          Height="25"
-                          HorizontalAlignment="Left"
-                          Background="White"
-                          Foreground="Black"
-                          Margin="20,0,0,0"/>
                     <Label Content="Filas:"
                        Foreground="white"
                        FontSize="25"
