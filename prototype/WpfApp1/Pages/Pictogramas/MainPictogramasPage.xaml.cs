@@ -110,7 +110,7 @@ namespace WpfApp1
 
         public void runActualizarLista()
         {
-            listaPict.Clear();
+            //listaPict.Clear();
             actualizandoPictogramas = true;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)

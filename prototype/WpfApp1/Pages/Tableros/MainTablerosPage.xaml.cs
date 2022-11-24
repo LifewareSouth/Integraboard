@@ -82,7 +82,7 @@ namespace WpfApp1.Pages.Tableros
         }
         public void runActualizarLista()
         {
-            listaTableros.Clear();
+            //listaTableros.Clear();
             actualizandoLista = true;
         }
 
@@ -100,7 +100,22 @@ namespace WpfApp1.Pages.Tableros
         {
             if (listViewTableros.SelectedItem != null)
             {
-                this.NavigationService.Navigate(new CrearTableros(boardSelected));
+                if(boardSelected.tipo == "Comunicación")
+                {
+                    this.NavigationService.Navigate(new CrearTableros(boardSelected));
+                }
+                else if (boardSelected.tipo == "Emociones")
+                {
+                    //this.NavigationService.Navigate(new TableroEmociones(boardSelected));
+                }
+                else if (boardSelected.tipo == "Rutina")
+                {
+                    this.NavigationService.Navigate(new TableroRutina(boardSelected));
+                }
+                else if (boardSelected.tipo == "Sonidos")
+                {
+                    this.NavigationService.Navigate(new TableroSonidos(boardSelected));
+                }
             }
         }
 
@@ -174,6 +189,29 @@ namespace WpfApp1.Pages.Tableros
                 {
                     Repository.Instance.deleteBoard(boardSelected.ID);
                     actualizarListaTableros();
+                }
+            }
+        }
+
+        private void Editar_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewTableros.SelectedItem != null)
+            {
+                if (boardSelected.tipo == "Comunicación")
+                {
+                    this.NavigationService.Navigate(new CrearTableros(boardSelected));
+                }
+                else if (boardSelected.tipo == "Emociones")
+                {
+                    //this.NavigationService.Navigate(new TableroEmociones(boardSelected));
+                }
+                else if (boardSelected.tipo == "Rutina")
+                {
+                    this.NavigationService.Navigate(new TableroRutina(boardSelected));
+                }
+                else if (boardSelected.tipo == "Sonidos")
+                {
+                    this.NavigationService.Navigate(new TableroSonidos(boardSelected));
                 }
             }
         }

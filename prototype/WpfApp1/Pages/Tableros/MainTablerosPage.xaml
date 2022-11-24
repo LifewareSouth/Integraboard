@@ -229,7 +229,7 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white"/>
+                    Foreground="white" Click="Editar_Click"/>
 
             <Button x:Name="btnEliminar"
                     Content="Eliminar"
