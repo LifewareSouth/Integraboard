@@ -138,7 +138,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     pictogramaEditado = false;
                 }
-                
+                AjustarTablero();
             }
         }
         private void ajustarTamano()
@@ -375,7 +375,7 @@ namespace WpfApp1.Pages.Tableros
         private bool validateConditionsToSave()
         {
             bool valido = true;
-            if(nombreTablero.Text == null)
+            if(String.IsNullOrWhiteSpace(nombreTablero.Text) == true)
             {
                 valido = false;
             }
@@ -402,7 +402,7 @@ namespace WpfApp1.Pages.Tableros
                 List<int> idsTags = new List<int>();
                 Board newBoard = new Board();
                 newBoard.nombreTablero = nombreTablero.Text;
-                newBoard.tipo = comboBoxTipo.SelectedItem.ToString();
+                newBoard.tipo = "Comunicación";
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
@@ -538,8 +538,6 @@ namespace WpfApp1.Pages.Tableros
         }
         public void actualizarPictogramaEditado()
         {
-            var asd = CuadroSeleccionado;
-            var qwe = listaPictTablero;
             listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().pictograma = Repository.Instance.getOnePictogram(CuadroSeleccionado.idPictograma);
             pictogramaEditado = true;
         }

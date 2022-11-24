@@ -51,7 +51,6 @@ namespace WpfApp1.Pages.Tableros
         public TableroRutina()
         {
             InitializeComponent();
-            rowCounter = 0;
             columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
             tiposTablero();
@@ -130,7 +129,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     pictogramaEditado = false;
                 }
-
+                AjustarTablero();
             }
         }
 
@@ -153,13 +152,12 @@ namespace WpfApp1.Pages.Tableros
             }
         }
 
-        int _rows = 1, _columns = 1;
+        int _rows = 1, _columns = 0;
         public int rowCounter
         {
             set
             {
                 _rows = value;
-                rows.Content = rowCounter.ToString();
 
             }
             get
@@ -191,17 +189,6 @@ namespace WpfApp1.Pages.Tableros
             this.NavigationService.Navigate(new MainTablerosPage());
         }
 
-        private void LessRows_Click(object sender, RoutedEventArgs e)
-        {
-            if (_rows > 1)
-            {
-                rowCounter--;
-                UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
-                foundUniformGrid.Rows = rowCounter;
-                AjustarTablero();
-            }
-        }
-
         private void MoreCols_Click(object sender, RoutedEventArgs e)
         {
             if (_columns < 7)
@@ -220,17 +207,6 @@ namespace WpfApp1.Pages.Tableros
                 columnsCounter--;
                 UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
                 foundUniformGrid.Columns = columnsCounter;
-                AjustarTablero();
-            }
-        }
-
-        private void MoreRows_Click(object sender, RoutedEventArgs e)
-        {
-            if (_rows < 7)
-            {
-                rowCounter++;
-                UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
-                foundUniformGrid.Rows = rowCounter;
                 AjustarTablero();
             }
         }
@@ -302,7 +278,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     pictAgregados.Add(pt.pictograma);
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Comunicación"));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Rutina"));
             }
             else
             {
@@ -316,7 +292,7 @@ namespace WpfApp1.Pages.Tableros
                         pictAgregados.Add(pt.pictograma);
                     }
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Comunicación"));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Rutina"));
             }
 
         }
@@ -368,7 +344,7 @@ namespace WpfApp1.Pages.Tableros
         private bool validateConditionsToSave()
         {
             bool valido = true;
-            if (nombreTablero.Text == null)
+            if (String.IsNullOrWhiteSpace(nombreTablero.Text) == true)
             {
                 valido = false;
             }
@@ -384,7 +360,7 @@ namespace WpfApp1.Pages.Tableros
         }
         private void PictoRepresent_DoubleClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ListadoPictogramas("Comunicación"));
+            this.NavigationService.Navigate(new ListadoPictogramas("Rutina"));
         }
         private void guardarTablero_Click(object sender, RoutedEventArgs e)
         {
@@ -395,7 +371,7 @@ namespace WpfApp1.Pages.Tableros
                 List<int> idsTags = new List<int>();
                 Board newBoard = new Board();
                 newBoard.nombreTablero = nombreTablero.Text;
-                newBoard.tipo = comboBoxTipo.SelectedItem.ToString();
+                newBoard.tipo = "Rutina";
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
@@ -531,8 +507,6 @@ namespace WpfApp1.Pages.Tableros
         }
         public void actualizarPictogramaEditado()
         {
-            var asd = CuadroSeleccionado;
-            var qwe = listaPictTablero;
             listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().pictograma = Repository.Instance.getOnePictogram(CuadroSeleccionado.idPictograma);
             pictogramaEditado = true;
         }

@@ -236,7 +236,7 @@ namespace WpfApp1.Pages.Pictogramas
                     }
                     else if (tipoTablero == "Rutina")
                     {
-                        //
+                        TableroRutina.Instance.actualizarPictogramaEditado();
                     }
                     else if (tipoTablero == "Sonidos")
                     {
