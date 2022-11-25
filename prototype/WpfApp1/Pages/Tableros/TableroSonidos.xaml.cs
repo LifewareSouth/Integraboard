@@ -54,10 +54,10 @@ namespace WpfApp1.Pages.Tableros
             rowCounter = 4;
             columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
-            tiposTablero();
+            //tiposTablero();
             pictPortada = Repository.Instance.defaultPict();
             AjustarTablero();
-            comboBoxTipo.Text = "Sonidos";
+            //comboBoxTipo.Text = "Sonidos";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
         }
         public TableroSonidos(Board boardEdit)
@@ -66,10 +66,10 @@ namespace WpfApp1.Pages.Tableros
             InitializeComponent();
             isEditing = true;
             listaPictTablero = new Collection<pictTablero>();
-            tiposTablero();
+            //tiposTablero();
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
             boardEditable = boardEdit;
-            comboBoxTipo.Text = boardEdit.tipo;
+            //comboBoxTipo.Text = boardEdit.tipo;
             nombreTablero.Text = boardEdit.nombreTablero;
             pictPortada = boardEdit.pictPortada;
             foreach (pictTablero pt in boardEdit.pictTableros)
@@ -143,13 +143,13 @@ namespace WpfApp1.Pages.Tableros
             System.Windows.Controls.Image imagenPortada = FindVisualChild<System.Windows.Controls.Image>(PictoRepresent);
             imagenPortada.Source = pictPortada.Imagen;
         }
-        private void tiposTablero()
+        /*private void tiposTablero()
         {
             foreach (Board.TableroTipo foo in Enum.GetValues(typeof(Board.TableroTipo)))
             {
                 object aux = comboBoxTipo.Items.Add(foo.ToString());
             }
-        }
+        }*/
 
         int _rows = 0, _columns = 0;
         public int rowCounter

@@ -13,7 +13,8 @@
     <Grid Background="#04293a">
         <Frame x:Name="CrearTablero" NavigationUIVisibility="Hidden"/>
         
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    Grid.ColumnSpan="2">
             <!--Botón para volver al menú-->
             <Button x:Name="volverTableros"
                     Width="180"
@@ -27,7 +28,7 @@
                     Background="#1597e5"
                     Click="goToTableros"/>
             <!---->
-            <Label Content="Crear Tableros" 
+            <Label Content="Crear Tablero de Comunicación" 
                    FontFamily="Arial"
                    FontWeight="Bold"
                    FontSize="60" 
@@ -63,24 +64,14 @@
                        FontSize="25"
                        FontFamily="arial"
                        Margin="15,0,0,0"/>
-                <TextBox x:Name="nombreTablero" Height="20"
+                <TextBox x:Name="nombreTablero" Height="40"
                          Width="300"
+                         FontSize="30"
                          HorizontalAlignment="Left"
                          Background="White"
                          Foreground="Black"
                          Margin="20,0,0,0"/>
 
-                <Label Content="Seleccione el tipo de tablero:"
-                       Foreground="white"
-                       FontSize="25"
-                       FontFamily="arial"
-                       Margin="15,0,0,0"/>
-                <ComboBox x:Name="comboBoxTipo" Width="200"
-                          Height="25"
-                          HorizontalAlignment="Left"
-                          Background="White"
-                          Foreground="Black"
-                          Margin="20,0,0,0"/>
                 <Label Content="Filas:"
                        Foreground="white"
                        FontSize="25"
@@ -141,8 +132,9 @@
                        Foreground="White"
                        Margin="15,0,0,0"/>
                 <TextBox x:Name="Tags"
-                         Height="25"
+                         Height="40"
                          Width="300"
+                         FontSize="30"
                          HorizontalAlignment="Left"
                          Margin="20,0,0,0"/>
                 <TextBlock Text="Seleccione el pictograma que representará al tablero:"
