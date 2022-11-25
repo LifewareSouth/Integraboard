@@ -250,7 +250,7 @@ namespace WpfApp1.Pages.Pictogramas
                     success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     success.Show();
                     MainPicrogramasPage.Instance.runActualizarLista();
-                    this.NavigationService.GoBack();
+                    this.NavigationService.Navigate(new MainPicrogramasPage());
                 }
             }
         }

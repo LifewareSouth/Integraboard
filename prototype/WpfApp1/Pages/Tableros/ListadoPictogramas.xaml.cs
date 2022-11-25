@@ -168,7 +168,7 @@ namespace WpfApp1.Pages.Tableros
                     }
                     else if (tipoTablero == "Rutina")
                     {
-                        //
+                        TableroRutina.Instance.addPictPortada(p);
                     }
                     else if (tipoTablero == "Sonidos")
                     {

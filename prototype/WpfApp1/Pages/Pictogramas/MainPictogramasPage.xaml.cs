@@ -127,6 +127,7 @@ namespace WpfApp1
             {
                 if (actualizandoPictogramas == true)
                 {
+                    this.DataContext = null;
                     ActualizarLista();
                     actualizandoPictogramas = false;
                 }

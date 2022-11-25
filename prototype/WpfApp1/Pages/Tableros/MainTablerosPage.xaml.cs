@@ -61,8 +61,11 @@ namespace WpfApp1.Pages.Tableros
                 if (actualizandoLista== true)
                 {
                     actualizarListaTableros();
+                    
                     actualizandoLista = false;
                     cbCustom.SelectedIndex = 0;
+                    
+
                 }
             }
         }
@@ -145,6 +148,12 @@ namespace WpfApp1.Pages.Tableros
                     if(boardSelected.idPictPortada != 0)
                     {
                         Repository.Instance.asignacionTablero(true, boardSelected.ID);
+                    }
+                    else
+                    {
+                        WarningTableroSinPortada wT = new WarningTableroSinPortada();
+                        wT.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        var result = wT.ShowDialog();
                     }
                 }
                 else if (boardSelected.asignacion == "Asignado")

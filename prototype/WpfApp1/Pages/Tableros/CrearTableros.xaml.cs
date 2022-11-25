@@ -437,7 +437,7 @@ namespace WpfApp1.Pages.Tableros
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
                 MainTablerosPage.Instance.runActualizarLista();
-                this.NavigationService.GoBack();
+                this.NavigationService.Navigate(new MainTablerosPage());
             }
         }
         private List<int> idTags(string textoEtiquetas)
