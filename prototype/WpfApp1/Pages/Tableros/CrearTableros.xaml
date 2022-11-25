@@ -13,7 +13,8 @@
     <Grid Background="#04293a">
         <Frame x:Name="CrearTablero" NavigationUIVisibility="Hidden"/>
         
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    Grid.ColumnSpan="2">
             <!--Botón para volver al menú-->
             <Button x:Name="volverTableros"
                     Width="180"
@@ -27,7 +28,7 @@
                     Background="#1597e5"
                     Click="goToTableros"/>
             <!---->
-            <Label Content="Crear Tableros" 
+            <Label Content="Crear Tablero de Comunicación" 
                    FontFamily="Arial"
                    FontWeight="Bold"
                    FontSize="60" 
