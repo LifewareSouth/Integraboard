@@ -57,7 +57,7 @@ namespace WpfApp1.Pages.Tableros
             }
         }
         public CrearTableros()
-        {            
+        {
             InitializeComponent();
             rowCounter = 4;
             columnsCounter = 4;
@@ -81,7 +81,7 @@ namespace WpfApp1.Pages.Tableros
             comboBoxTipo.Text = boardEdit.tipo;
             nombreTablero.Text = boardEdit.nombreTablero;
             pictPortada = boardEdit.pictPortada;
-            foreach(pictTablero pt in boardEdit.pictTableros)
+            foreach (pictTablero pt in boardEdit.pictTableros)
             {
                 listaPictTablero.Add(pt);
             }
@@ -89,7 +89,7 @@ namespace WpfApp1.Pages.Tableros
             columnsCounter = boardEdit.columnas;
             foreach (etiquetaT et in boardEdit.ListaEtiquetasTableros)
             {
-                if(et == boardEdit.ListaEtiquetasTableros.First())
+                if (et == boardEdit.ListaEtiquetasTableros.First())
                 {
                     Tags.Text = et.NombreEtiqueta;
                 }
@@ -117,7 +117,7 @@ namespace WpfApp1.Pages.Tableros
             {
                 if (AgregandoPict)
                 {
-                    if(reemplazandoPict == true)
+                    if (reemplazandoPict == true)
                     {
                         listaPictTablero.Remove(listaPictTablero.Where(x => x.pictograma.ID == CuadroSeleccionado.pictograma.ID).First());
                         reemplazandoPict = false;
@@ -134,7 +134,7 @@ namespace WpfApp1.Pages.Tableros
                     actualizarPictPortada();
                     addingPortada = false;
                 }
-                else if(pictogramaEditado)
+                else if (pictogramaEditado)
                 {
                     pictogramaEditado = false;
                 }
@@ -160,13 +160,13 @@ namespace WpfApp1.Pages.Tableros
             }
         }
 
-        int _rows =0, _columns=0 ;
+        int _rows = 0, _columns = 0;
         public int rowCounter
         {
             set
             {
                 _rows = value;
-                rows.Content= rowCounter.ToString();
+                rows.Content = rowCounter.ToString();
 
             }
             get
@@ -249,7 +249,7 @@ namespace WpfApp1.Pages.Tableros
             BindingList<pictTablero> tempVistas = new BindingList<pictTablero>();
             for (int i = 0; i < rowCounter; i++)
             {
-                for(int j = 0; j < columnsCounter; j++)
+                for (int j = 0; j < columnsCounter; j++)
                 {
                     pictTablero pictTab = new pictTablero();
                     if (listaPictTablero.Any(x => (x.x == j) && (x.y == i)))
@@ -258,7 +258,7 @@ namespace WpfApp1.Pages.Tableros
                     }
                     else
                     {
-                        
+
                         Pictogram tempPictograma = new Pictogram();
                         tempPictograma.colorBorde = new SolidColorBrush(Colors.Cornsilk);
                         tempPictograma.Imagen = imagenAddPictograma;
@@ -301,15 +301,15 @@ namespace WpfApp1.Pages.Tableros
         private void doubleclick_addpictogram(object sender, RoutedEventArgs e)
         {
             var seleccion = (pictTablero)Tablero.SelectedValue;
-            if (seleccion.idPictograma == 0 || seleccion.idPictograma ==null)
+            if (seleccion.idPictograma == 0 || seleccion.idPictograma == null)
             {
                 CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
                 List<Pictogram> pictAgregados = new List<Pictogram>();
-                foreach(pictTablero pt in listaPictTablero)
+                foreach (pictTablero pt in listaPictTablero)
                 {
                     pictAgregados.Add(pt.pictograma);
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados,"Comunicación"));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Comunicación"));
             }
             else
             {
@@ -318,21 +318,21 @@ namespace WpfApp1.Pages.Tableros
                 List<Pictogram> pictAgregados = new List<Pictogram>();
                 foreach (pictTablero pt in listaPictTablero)
                 {
-                    if(pt.ID != CuadroSeleccionado.pictograma.ID)
+                    if (pt.ID != CuadroSeleccionado.pictograma.ID)
                     {
                         pictAgregados.Add(pt.pictograma);
                     }
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados,"Comunicación"));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Comunicación"));
             }
-            
+
         }
         public void addPict(List<Pictogram> listAddPict)
         {
 
-            foreach(Pictogram p in listAddPict)
+            foreach (Pictogram p in listAddPict)
             {
-                
+
                 pictTablero pictTab = new pictTablero();
                 if (p == listAddPict.First())
                 {
@@ -349,7 +349,7 @@ namespace WpfApp1.Pages.Tableros
                     {
                         for (int j = 0; j < columnsCounter; j++)
                         {
-                            if (!listaPictTablero.Any(x => (x.x == j)&& (x.y == i) ))
+                            if (!listaPictTablero.Any(x => (x.x == j) && (x.y == i)))
                             {
                                 if (!listaPictTablero.Any(x => (x.idPictograma == pictTab.ID)))
                                 {
@@ -368,24 +368,24 @@ namespace WpfApp1.Pages.Tableros
                             break;
                     }
                 }
-                
+
             }
             AgregandoPict = true;
         }
         private bool validateConditionsToSave()
         {
             bool valido = true;
-            if(String.IsNullOrWhiteSpace(nombreTablero.Text) == true)
+            if (String.IsNullOrWhiteSpace(nombreTablero.Text) == true)
             {
                 valido = false;
             }
-            if (listaPictTablero.Count ==0)
+            if (listaPictTablero.Count == 0)
             {
                 valido = false;
             }
-            if(pictPortada.ID == 0)
+            if (pictPortada.ID == 0)
             {
-                valido=false;
+                valido = false;
             }
             return valido;
         }
@@ -406,11 +406,11 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
-               
+
                 if (!isEditing)
                 {
                     idBoard = Repository.Instance.crearTablero(newBoard);
-                    
+
                     if (String.IsNullOrWhiteSpace(Tags.Text) == false)
                     {
                         idsTags = idTags(Tags.Text);
@@ -474,7 +474,7 @@ namespace WpfApp1.Pages.Tableros
             if (Tablero.SelectedItem != null)
             {
                 var seleccion = (pictTablero)Tablero.SelectedValue;
-                if (seleccion.idPictograma != 0 )
+                if (seleccion.idPictograma != 0)
                 {
                     listaPictTablero.Remove(listaPictTablero.Where(x => x.pictograma.ID == seleccion.pictograma.ID).First());
                     AjustarTablero();
@@ -503,7 +503,7 @@ namespace WpfApp1.Pages.Tableros
                 }
                 //Lista para eliminar asociacion de pictogramas que ya no estan en el tablero
                 List<pictTablero> pictTabEliminar = new List<pictTablero>();
-                pictTabEliminar = boardEditable.pictTableros.Where(x=> (!listaPictTablero.Any(y=> y.idPictograma == x.idPictograma ))).ToList();
+                pictTabEliminar = boardEditable.pictTableros.Where(x => (!listaPictTablero.Any(y => y.idPictograma == x.idPictograma))).ToList();
                 foreach (pictTablero deletePT in pictTabEliminar)
                 {
                     Repository.Instance.quitarAsociacionPictTablero(idTablero, deletePT.idPictograma);
@@ -514,7 +514,7 @@ namespace WpfApp1.Pages.Tableros
                 //AL CREAR UN TABLERO SE CREAN TODAS LAS ASOCIACIONES DE LOS PICTOGRAMAS CON EL TABLERO
                 foreach (pictTablero pt in listaPictTablero)
                 {
-                    if(pt.x < columnsCounter && pt.y < rowCounter)
+                    if (pt.x < columnsCounter && pt.y < rowCounter)
                     {
                         Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
                     }
@@ -531,7 +531,7 @@ namespace WpfApp1.Pages.Tableros
                 var seleccion = (pictTablero)Tablero.SelectedValue;
                 if (seleccion.idPictograma != 0)
                 {
-                    this.NavigationService.Navigate(new CrearPictos(seleccion.pictograma,true,"Comunicación"));
+                    this.NavigationService.Navigate(new CrearPictos(seleccion.pictograma, true, "Comunicación"));
                     AjustarTablero();
                 }
             }
@@ -546,6 +546,92 @@ namespace WpfApp1.Pages.Tableros
         {
             // ANITA AQUI ASIGNAR COSAS DE PICTOGRAMA DE PORTADA (pictPortada) 
 
+        }
+        private void Tablero_DragLeave(object sender, System.Windows.DragEventArgs e)
+        {
+            
+        }
+        private void Tablero_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+
+        }
+        private void TodoItem_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (e.LeftButton== MouseButtonState.Pressed &&
+                sender is FrameworkElement frameworkElement)
+            {
+                object todoItem = frameworkElement.DataContext;
+                //DragDrop.DoDragDrop(Tablero, Tablero, System.Windows.DragDropEffects.Move);
+                System.Windows.DragDropEffects dragDropResult = DragDrop.DoDragDrop(frameworkElement,
+                   new System.Windows.DataObject(System.Windows.DataFormats.Serializable, todoItem),
+                   System.Windows.DragDropEffects.Move);
+
+                intercambiarPos();
+            }
+        }
+        private void TodoItem_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+            
+                if (sender is FrameworkElement element)
+                {
+                    TargetTodoItem = element.DataContext;
+                    InsertedTodoItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+
+                    TodoItemInsertedCommand?.Execute(null);
+                }
+            
+        }
+        public static readonly DependencyProperty TodoItemInsertedCommandProperty =
+            DependencyProperty.Register("TodoItemInsertedCommand", typeof(ICommand), typeof(CrearTableros),
+                new PropertyMetadata(null));
+
+        public ICommand TodoItemInsertedCommand
+        {
+            get { return (ICommand)GetValue(TodoItemInsertedCommandProperty); }
+            set { SetValue(TodoItemInsertedCommandProperty, value); }
+        }
+        public static readonly DependencyProperty TargetTodoItemProperty =
+            DependencyProperty.Register("TargetTodoItem", typeof(object), typeof(CrearTableros),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public object TargetTodoItem
+        {
+            get { return (object)GetValue(TargetTodoItemProperty); }
+            set { SetValue(TargetTodoItemProperty, value); }
+        }
+        public static readonly DependencyProperty InsertedTodoItemProperty =
+            DependencyProperty.Register("InsertedTodoItem", typeof(object), typeof(CrearTableros),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public object InsertedTodoItem
+        {
+            get { return (object)GetValue(InsertedTodoItemProperty); }
+            set { SetValue(InsertedTodoItemProperty, value); }
+        }
+
+        private void intercambiarPos()
+        {
+            pictTablero target = (pictTablero)TargetTodoItem;
+            pictTablero pictToMove = (pictTablero)InsertedTodoItem;
+            if (pictToMove.idPictograma != 0)
+            {
+                if (target.idPictograma == 0)
+                {
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                }
+                else
+                {
+                    int tempx = pictToMove.x;
+                    int tempy = pictToMove.y;
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                }
+            
+            AjustarTablero();
+            }
         }
     }
 }
