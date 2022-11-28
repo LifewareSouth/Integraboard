@@ -586,6 +586,92 @@ namespace WpfApp1.Pages.Tableros
             // ANITA AQUI ASIGNAR COSAS DE PICTOGRAMA DE PORTADA (pictPortada) 
 
         }
+        private void Tablero_DragLeave(object sender, System.Windows.DragEventArgs e)
+        {
+
+        }
+        private void Tablero_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+
+        }
+        private void TodoItem_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                sender is FrameworkElement frameworkElement)
+            {
+                object todoItem = frameworkElement.DataContext;
+                //DragDrop.DoDragDrop(Tablero, Tablero, System.Windows.DragDropEffects.Move);
+                System.Windows.DragDropEffects dragDropResult = DragDrop.DoDragDrop(frameworkElement,
+                   new System.Windows.DataObject(System.Windows.DataFormats.Serializable, todoItem),
+                   System.Windows.DragDropEffects.Move);
+
+                intercambiarPos();
+            }
+        }
+        private void TodoItem_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+
+            if (sender is FrameworkElement element)
+            {
+                TargetTodoItem = element.DataContext;
+                InsertedTodoItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+
+                TodoItemInsertedCommand?.Execute(null);
+            }
+
+        }
+        public static readonly DependencyProperty TodoItemInsertedCommandProperty =
+            DependencyProperty.Register("TodoItemInsertedCommand", typeof(ICommand), typeof(CrearTableros),
+                new PropertyMetadata(null));
+
+        public ICommand TodoItemInsertedCommand
+        {
+            get { return (ICommand)GetValue(TodoItemInsertedCommandProperty); }
+            set { SetValue(TodoItemInsertedCommandProperty, value); }
+        }
+        public static readonly DependencyProperty TargetTodoItemProperty =
+            DependencyProperty.Register("TargetTodoItem", typeof(object), typeof(CrearTableros),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public object TargetTodoItem
+        {
+            get { return (object)GetValue(TargetTodoItemProperty); }
+            set { SetValue(TargetTodoItemProperty, value); }
+        }
+        public static readonly DependencyProperty InsertedTodoItemProperty =
+            DependencyProperty.Register("InsertedTodoItem", typeof(object), typeof(CrearTableros),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public object InsertedTodoItem
+        {
+            get { return (object)GetValue(InsertedTodoItemProperty); }
+            set { SetValue(InsertedTodoItemProperty, value); }
+        }
+
+        private void intercambiarPos()
+        {
+            pictTablero target = (pictTablero)TargetTodoItem;
+            pictTablero pictToMove = (pictTablero)InsertedTodoItem;
+            if (pictToMove.idPictograma != 0)
+            {
+                if (target.idPictograma == 0)
+                {
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                }
+                else
+                {
+                    int tempx = pictToMove.x;
+                    int tempy = pictToMove.y;
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                }
+
+                AjustarTablero();
+            }
+        }
     }
 }
 
