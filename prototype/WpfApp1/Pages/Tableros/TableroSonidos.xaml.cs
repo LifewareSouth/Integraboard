@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -40,7 +41,9 @@ namespace WpfApp1.Pages.Tableros
         private static readonly TableroSonidos instance = new TableroSonidos();
         static Board boardEditable = new Board();
         private static BitmapImage imagenAddPictograma = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.add3);
-
+        Mp3FileReader reader;
+        IWavePlayer waveOut;
+        SoundModel sonidoReproducible = new SoundModel();
         public static TableroSonidos Instance
         {
             get
@@ -388,6 +391,13 @@ namespace WpfApp1.Pages.Tableros
         {
             if (validateConditionsToSave())
             {
+                if (waveOut != null)
+                {
+                    if (waveOut.PlaybackState == PlaybackState.Playing)
+                    {
+                        StopSound();
+                    }
+                }
                 int idBoard;
                 string mensaje = "";
                 List<int> idsTags = new List<int>();
@@ -535,14 +545,42 @@ namespace WpfApp1.Pages.Tableros
 
         private void escucharPictograma_Click(object sender, RoutedEventArgs e)
         {
-            var seleccion = (pictTablero)Tablero.SelectedValue;
-            if (seleccion.idPictograma != 0 && seleccion.idPictograma != null)
+            if (Tablero.SelectedItem != null)
             {
-                CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
-                //
+                var seleccion = (pictTablero)Tablero.SelectedValue;
+                if (seleccion.idPictograma != 0 && seleccion.idPictograma != null)
+                {
+                    if (waveOut != null)
+                    {
+                        if (waveOut.PlaybackState == PlaybackState.Playing)
+                        {
+                            StopSound();
+                        }
+                    }
+                    CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
+                    SoundModel tempSound = new SoundModel();
+                    tempSound.ID = seleccion.pictograma.idSonido;
+                    tempSound.Nombre = seleccion.pictograma.nombreSonido;
+                    tempSound.pathSonido = seleccion.pictograma.pathSonido;
+                    sonidoReproducible = tempSound;
+                    PlaySound(sonidoReproducible.pathSonido);
+                }
             }
+            
+        }
+        public void PlaySound(string audioPath)
+        {
+            reader = new Mp3FileReader(audioPath);
+            waveOut = new WaveOutEvent();
+            waveOut.Init(reader);
+            waveOut.Play();
         }
 
+        public void StopSound()
+        {
+            waveOut.Stop();
+            this.waveOut.Dispose();
+        }
         public void actualizarPictPortada()
         {
             // ANITA AQUI ASIGNAR COSAS DE PICTOGRAMA DE PORTADA (pictPortada) 
