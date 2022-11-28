@@ -61,9 +61,17 @@
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                               SelectionChanged="Tablero_SelectionChanged"
                               MouseDoubleClick="doubleclick_addpictogram"
-
+                              AllowDrop="True"
+                              DragLeave="Tablero_DragLeave"
+                              DragOver="Tablero_DragOver"
                               
                               >
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <EventSetter Event="MouseMove" Handler="TodoItem_MouseMove" />
+                                        <EventSetter Event="DragOver" Handler="TodoItem_DragOver" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
                                 <ItemsControl.ItemsPanel >
                                     <ItemsPanelTemplate x:Name="panelTest">
                                         <UniformGrid Rows="{Binding rowCounter}" 
