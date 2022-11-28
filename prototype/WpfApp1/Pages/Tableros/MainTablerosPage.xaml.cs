@@ -30,6 +30,7 @@ namespace WpfApp1.Pages.Tableros
         bool _navigationServiceAssigned = false;
         static bool actualizandoLista = false;
         static List<Board> listaTableros = new List<Board>();
+        static List<Board> filteredBoard = new List<Board>();
         private static readonly MainTablerosPage instance = new MainTablerosPage();
         private static Board boardSelected = new Board();
         public static MainTablerosPage Instance
@@ -71,9 +72,12 @@ namespace WpfApp1.Pages.Tableros
         }
         private void tiposTablero()
         {
+            tipoTablero.Items.Add("Todos");
+            tipoTablero.SelectedIndex = 0;
             foreach (Board.TableroTipo foo in Enum.GetValues(typeof(Board.TableroTipo)))
             {
                 object aux = cbCustom.Items.Add(foo.ToString());
+                tipoTablero.Items.Add(foo.ToString());
             }
         }
         private void actualizarListaTableros()
@@ -224,5 +228,39 @@ namespace WpfApp1.Pages.Tableros
                 }
             }
         }
+
+        private void buscadorTableros_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AplicarFiltro();
+        }
+        private void tipoTablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AplicarFiltro();
+        }
+
+        private void AplicarFiltro()
+        {
+            string textSearch = buscadorTableros.Text.ToUpper();
+            List<Board> filtro = new List<Board>();
+            Board asd = new Board();
+            filteredBoard = listaTableros;
+            if (tipoTablero.SelectedItem.ToString() != "Todos")
+            {
+                filtro = filteredBoard.Where(x => (x.tipo.Equals(tipoTablero.SelectedItem.ToString()))) /* filtro categorias*/
+                .ToList();
+                filteredBoard = filtro;
+            }
+            if (buscadorTableros.Text != null && buscadorTableros.Text != "")
+            {
+                filtro = filteredBoard.Where(x => (x.nombreTablero.ToUpper().Contains(textSearch)) ||  /*filtro nombre*/
+                //(x.Texto.ToUpper().Contains(textSearch)) || /* filtro texto*/
+                (x.ListaEtiquetasTableros.Where(x => (x.NombreEtiqueta.ToUpper().Contains(textSearch))).Count() > 0)) /* filtro etiquetas*/
+                .ToList();
+                filteredBoard = filtro;
+            }
+            listViewTableros.ItemsSource = filteredBoard;
+        }
+
+        
     }
 }

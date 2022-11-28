@@ -22,7 +22,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Advertencia!!!!! D:"
+            <Label Content="Advertencia"
                    Foreground="White"
                    FontSize="30"
                    FontWeight="SemiBold"

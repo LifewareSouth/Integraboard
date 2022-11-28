@@ -34,11 +34,12 @@
         <Grid Grid.Column="0" 
               Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="95"/>
                 <RowDefinition/>
                 <!-- Aquí va la listView -->
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical"
+                        Margin="0,0,0,0">
                 <Label  Content="Seleccione una imagen ya cargada:"
                     Foreground="White"
                     FontSize="30"
@@ -55,24 +56,24 @@
                            FontFamily="arial"
                            Foreground="White"/>
                     <ComboBox x:Name="CategoriaPict" 
-                              Height="20"
+                              Height="35"
                               Width="250"
                               Text="Seleccione Categoría"
                               Foreground="Black"
-                              FontSize="15"
+                              FontSize="25"
                               FontFamily="Arial"
                               FontWeight="Regular"
                               SelectionChanged="CategoriaPict_SelectionChanged"/>
                     <Label Content="Buscador:"
-                       FontSize="20"
+                       FontSize="25"
                        FontWeight="Regular"
                        FontFamily="arial"
                        Foreground="White"/>
                     <TextBox x:Name="buscadorPict" Grid.Row="1"
-                             Height="20"
+                             Height="35"
                              Width="250"
                              FontFamily="arial"
-                             FontSize="18"
+                             FontSize="25"
                              Margin="10,0,10,0" 
                              TextChanged="buscadorPict_TextChanged"/>
                 </StackPanel>
@@ -81,7 +82,7 @@
 
 
             <Grid Grid.Row="1">
-                <ScrollViewer Margin="10">
+                <ScrollViewer Margin="0,10,0,0">
                     <ListBox x:Name="ListViewPictograms"
                              ItemsSource="{Binding Pictogram}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -140,7 +141,9 @@
                    Stroke="#FF707070"/>
 
         <!-- Grid de la botonera del costado-->
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" 
+              Grid.Column="1"
+              >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition/>
@@ -152,7 +155,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition Height="55"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <Button Content="Crear Pictograma"
@@ -231,7 +234,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="105"/>
-            <RowDefinition Height="590"/>
+            <RowDefinition Height="620"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
