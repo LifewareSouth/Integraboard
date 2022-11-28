@@ -533,6 +533,16 @@ namespace WpfApp1.Pages.Tableros
             pictogramaEditado = true;
         }
 
+        private void escucharPictograma_Click(object sender, RoutedEventArgs e)
+        {
+            var seleccion = (pictTablero)Tablero.SelectedValue;
+            if (seleccion.idPictograma != 0 && seleccion.idPictograma != null)
+            {
+                CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
+                //
+            }
+        }
+
         public void actualizarPictPortada()
         {
             // ANITA AQUI ASIGNAR COSAS DE PICTOGRAMA DE PORTADA (pictPortada) 

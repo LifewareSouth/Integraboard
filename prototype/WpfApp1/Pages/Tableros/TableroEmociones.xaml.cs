@@ -299,7 +299,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     pictAgregados.Add(pt.pictograma);
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Comunicación"));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Emociones"));
             }
             else
             {
@@ -313,7 +313,7 @@ namespace WpfApp1.Pages.Tableros
                         pictAgregados.Add(pt.pictograma);
                     }
                 }
-                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Comunicación"));
+                this.NavigationService.Navigate(new ListadoPictogramas(pictAgregados, "Emociones"));
             }
 
         }
@@ -381,7 +381,7 @@ namespace WpfApp1.Pages.Tableros
         }
         private void PictoRepresent_DoubleClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ListadoPictogramas("Comunicación"));
+            this.NavigationService.Navigate(new ListadoPictogramas("Emociones"));
         }
         private void guardarTablero_Click(object sender, RoutedEventArgs e)
         {
@@ -392,7 +392,7 @@ namespace WpfApp1.Pages.Tableros
                 List<int> idsTags = new List<int>();
                 Board newBoard = new Board();
                 newBoard.nombreTablero = nombreTablero.Text;
-                newBoard.tipo = "Comunicación";
+                newBoard.tipo = "Emociones";
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;

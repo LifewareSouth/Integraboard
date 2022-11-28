@@ -164,7 +164,7 @@ namespace WpfApp1.Pages.Tableros
                     }
                     else if (tipoTablero == "Emociones")
                     {
-                        //
+                        TableroEmociones.Instance.addPictPortada(p);
                     }
                     else if (tipoTablero == "Rutina")
                     {
@@ -192,7 +192,7 @@ namespace WpfApp1.Pages.Tableros
                         }
                         else if (tipoTablero == "Emociones")
                         {
-                            //
+                            TableroEmociones.Instance.addPict(listaPict);
                         }
                         else if (tipoTablero == "Rutina")
                         {
