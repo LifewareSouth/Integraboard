@@ -10,10 +10,14 @@
         ResizeMode = "NoResize">
     <Grid Background="#04293a">
 
-        <Border x:Name="bordePict"
+        <Grid Grid.Row="1"
+              Height="380"
+              Width="380"
+              Background="White">
+           <Border x:Name="bordePict"
                 Height="380"
                 Width="380"
-                BorderBrush="white"
+                BorderBrush="DeepPink"
                 BorderThickness="10"
                 Grid.Row="1">
             <StackPanel>
@@ -23,7 +27,7 @@
                 <TextBlock x:Name="pictoTexto"
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="Wrap"
-                           Foreground="White"
+                           Foreground="Black"
                            FontSize="35"
                            FontFamily="arial"
                            FontWeight="SemiBold"
@@ -31,7 +35,9 @@
                            VerticalAlignment="Bottom"/>
             </StackPanel>
             
-        </Border>
+        </Border> 
+        </Grid>
+        
         <Button x:Name="closePreview"
                 Content="X"
                 Grid.Row="0" 

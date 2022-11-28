@@ -83,11 +83,13 @@
                         Grid.Row="0"
                         HorizontalAlignment="Left" 
                         Margin="330,0,0,0">
-
-                <Border x:Name="pictoBorde"
+                <Grid Background="White"
+                      Height="220"
+                      Width="220">
+                    <Border x:Name="pictoBorde"
                         Height="220" 
                         Width="220" 
-                        BorderBrush="White" 
+                        BorderBrush="Green" 
                         OpacityMask="Black" 
                         BorderThickness="10">
 
@@ -96,6 +98,8 @@
                            Width="200"
                            />
                 </Border>
+                </Grid>
+                
                 <StackPanel Orientation="Vertical"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">

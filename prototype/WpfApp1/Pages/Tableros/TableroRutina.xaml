@@ -79,7 +79,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate >
-                                        <Grid >
+                                        <Grid Background="White">
                                             <Border 
                                                 Width="200" Height="200"
                                                 BorderBrush="{Binding pictograma.colorBorde}"
@@ -94,7 +94,7 @@
                                                     <TextBlock Text="{Binding pictograma.Texto}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                Foreground="White"
+                                                Foreground="Black"
                                                 FontSize="25"
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"
