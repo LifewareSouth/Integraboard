@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.Pictogramas"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="SelectSound">
+      Title="SelectSound"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
         <Frame x:Name="selectSound" NavigationUIVisibility="Hidden"/>
@@ -69,7 +70,6 @@
                              Width="350"
                              HorizontalAlignment="Right"
                              Margin="0,0,10,0"/>
-
                     <Grid Grid.Row="2">
                         <!-- aqui va la lista -->
                         <ScrollViewer Margin="10">
@@ -85,18 +85,31 @@
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <DockPanel Height="150" Width="100">
-                                            <TextBlock Text="{Binding Nombre}"
+                                        <DockPanel Height="180" Width="180">
+
+                                            <StackPanel 
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                                <Image Source="{DynamicResource sound}"
+                                            
+                                            Height="100"
+                                            Width="100"
+                                                   Margin="10"/>
+                                                <TextBlock Text="{Binding Nombre}"
                                                        TextTrimming="CharacterEllipsis"
                                                        TextWrapping="Wrap"
                                                        Foreground="White"
                                                        FontSize="15"
                                                        FontFamily="arial"
                                                        FontWeight="SemiBold"
-                                                       TextAlignment="Center"/>
+                                                       TextAlignment="Center"
+                                                       VerticalAlignment="Bottom"/>
+                                            </StackPanel>
+
                                         </DockPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
+                                
                             </ListBox>
                         </ScrollViewer>
                     </Grid>

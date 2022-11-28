@@ -51,6 +51,18 @@ namespace WpfApp1.Pages.Pictogramas
         public WaveFileWriter waveFile = null;
         private void cancelar_Click(object sender, RoutedEventArgs e)
         {
+            
+            if (output != null)
+            {
+                output.Stop();
+                output.Dispose();
+                wave.Dispose();
+            }
+            else if (!record_btn.IsEnabled)
+            {
+                waveSource.Dispose();
+                waveSource.StopRecording();
+            }
             this.NavigationService.GoBack();
         }
 
@@ -75,6 +87,7 @@ namespace WpfApp1.Pages.Pictogramas
             }
             record_btn.IsEnabled = false;
             save.IsEnabled = true;
+            guardarbtn.IsEnabled = false;
             lbl_rec.Content = "Grabando...";
             lbl_rec.Foreground = Brushes.White;
             //-----------------------------------
@@ -164,6 +177,7 @@ namespace WpfApp1.Pages.Pictogramas
             output.Play();
             playbtn.Visibility = Visibility.Hidden;
             playbtn.IsEnabled = false;
+            guardarbtn.IsEnabled = false;
             stopbtn.IsEnabled = true;
             stopbtn.Visibility = Visibility.Visible;
             record_btn.IsEnabled = false;
@@ -180,15 +194,17 @@ namespace WpfApp1.Pages.Pictogramas
             playbtn.Visibility = Visibility.Visible;
             playbtn.IsEnabled = true;
             stopbtn.IsEnabled = false;
+            guardarbtn.IsEnabled=true;
             stopbtn.Visibility = Visibility.Hidden;
             record_btn.IsEnabled = true;
         }
-       
+
 
         private void guardarbtn_Click(object sender, RoutedEventArgs e)
         {
-            string nombreSonido ="voice_"+ Repository.Instance.getVoiceNumber();
-            Repository.Instance.CrearSonido(VOICEPATH, nombreSonido,true);
+            string nombreSonido = "voice_" + Repository.Instance.getVoiceNumber();
+            Repository.Instance.CrearSonido(VOICEPATH, nombreSonido, true);
+            SelectSound.Instance.runactualizarListaSonidos();
             this.NavigationService.GoBack();
         }
     }
