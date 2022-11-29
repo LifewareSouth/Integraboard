@@ -101,5 +101,10 @@ namespace WpfApp1.Pages.Pictogramas
             }
             ListViewImages.ItemsSource = filteredImages;
         }
+
+        private void volverPictos_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }
