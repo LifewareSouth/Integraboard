@@ -107,7 +107,8 @@
                                             >
                                         <StackPanel 
                                             HorizontalAlignment="Center"
-                                            Orientation="Vertical">
+                                            Orientation="Vertical"
+                                            Background="White">
                                             <Image Source="{Binding Imagen}"
                                                    Height="100"
                                                    Width="100"
