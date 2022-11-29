@@ -38,29 +38,29 @@
                         HorizontalAlignment="Right"
                         Margin="0,0,10,0">
                 <Label Content="Categoría:"
-                        FontSize="20"
+                        FontSize="30"
                         FontWeight="Regular"
                         FontFamily="arial"
                         Foreground="White"/>
                 <ComboBox x:Name="CategoriaPict" 
-                            Height="20"
+                            Height="35"
                             Width="250"
                             Text="Seleccione Categoría"
                             Foreground="Black"
-                            FontSize="15"
+                            FontSize="25"
                             FontFamily="Arial"
                             FontWeight="Regular"
                             SelectionChanged="CategoriaPict_SelectionChanged"/>
                 <Label Content="Buscador:"
-                    FontSize="20"
+                    FontSize="30"
                     FontWeight="Regular"
                     FontFamily="arial"
                     Foreground="White"/>
                 <TextBox x:Name="buscadorPict"
-                            Height="20"
+                            Height="35"
                             Width="250"
                             FontFamily="arial"
-                            FontSize="18"
+                            FontSize="25"
                             Margin="10,0,10,0" 
                             TextChanged="buscadorPict_TextChanged"/>
             </StackPanel>
@@ -75,7 +75,7 @@
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          Background="Transparent"
                          SelectionMode="Multiple"
-                         SelectionChanged="ListViewPictograms_SelectionChanged">
+                         SelectionChanged="ListViewPictograms_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
@@ -83,7 +83,8 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel Height="180" Width="180">
+                            <DockPanel Height="180" Width="180"
+                                       Background="White">
                                 <Border x:Name="pictoBorde"
                                     Height="180" 
                                     Width="180"
@@ -101,7 +102,7 @@
                                         <TextBlock Text="{Binding Texto}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                Foreground="White"
+                                                Foreground="Black"
                                                 FontSize="15"
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"

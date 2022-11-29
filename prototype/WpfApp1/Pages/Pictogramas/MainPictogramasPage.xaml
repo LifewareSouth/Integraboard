@@ -51,7 +51,7 @@
                         HorizontalAlignment="Right"
                         >
                     <Label Content="Categoría:"
-                           FontSize="20"
+                           FontSize="30"
                            FontWeight="Regular"
                            FontFamily="arial"
                            Foreground="White"/>
@@ -65,7 +65,7 @@
                               FontWeight="Regular"
                               SelectionChanged="CategoriaPict_SelectionChanged"/>
                     <Label Content="Buscador:"
-                       FontSize="25"
+                       FontSize="30"
                        FontWeight="Regular"
                        FontFamily="arial"
                        Foreground="White"/>
