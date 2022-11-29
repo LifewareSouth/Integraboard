@@ -613,45 +613,45 @@ namespace WpfApp1.Pages.Tableros
 
             if (sender is FrameworkElement element)
             {
-                TargetTodoItem = element.DataContext;
-                InsertedTodoItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+                TargetTodoSonidosItem = element.DataContext;
+                InsertedTodoSonidosItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
 
-                TodoItemInsertedCommand?.Execute(null);
+                TodoItemInsertedSonidosCommand?.Execute(null);
             }
 
         }
-        public static readonly DependencyProperty TodoItemInsertedCommandProperty =
-            DependencyProperty.Register("TodoItemInsertedCommand", typeof(ICommand), typeof(CrearTableros),
+        public static readonly DependencyProperty TodoItemInsertedSonidosCommandProperty =
+            DependencyProperty.Register("TodoItemInsertedSonidosCommand", typeof(ICommand), typeof(CrearTableros),
                 new PropertyMetadata(null));
 
-        public ICommand TodoItemInsertedCommand
+        public ICommand TodoItemInsertedSonidosCommand
         {
-            get { return (ICommand)GetValue(TodoItemInsertedCommandProperty); }
-            set { SetValue(TodoItemInsertedCommandProperty, value); }
+            get { return (ICommand)GetValue(TodoItemInsertedSonidosCommandProperty); }
+            set { SetValue(TodoItemInsertedSonidosCommandProperty, value); }
         }
-        public static readonly DependencyProperty TargetTodoItemProperty =
-            DependencyProperty.Register("TargetTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty TargetTodoSonidosItemProperty =
+            DependencyProperty.Register("TargetTodoSonidosItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object TargetTodoItem
+        public object TargetTodoSonidosItem
         {
-            get { return (object)GetValue(TargetTodoItemProperty); }
-            set { SetValue(TargetTodoItemProperty, value); }
+            get { return (object)GetValue(TargetTodoSonidosItemProperty); }
+            set { SetValue(TargetTodoSonidosItemProperty, value); }
         }
-        public static readonly DependencyProperty InsertedTodoItemProperty =
-            DependencyProperty.Register("InsertedTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty InsertedTodoSonidosItemProperty =
+            DependencyProperty.Register("InsertedTodoSonidosItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object InsertedTodoItem
+        public object InsertedTodoSonidosItem
         {
-            get { return (object)GetValue(InsertedTodoItemProperty); }
-            set { SetValue(InsertedTodoItemProperty, value); }
+            get { return (object)GetValue(InsertedTodoSonidosItemProperty); }
+            set { SetValue(InsertedTodoSonidosItemProperty, value); }
         }
 
         private void intercambiarPos()
         {
-            pictTablero target = (pictTablero)TargetTodoItem;
-            pictTablero pictToMove = (pictTablero)InsertedTodoItem;
+            pictTablero target = (pictTablero)TargetTodoSonidosItem;
+            pictTablero pictToMove = (pictTablero)InsertedTodoSonidosItem;
             if (pictToMove.idPictograma != 0)
             {
                 if (target.idPictograma == 0)

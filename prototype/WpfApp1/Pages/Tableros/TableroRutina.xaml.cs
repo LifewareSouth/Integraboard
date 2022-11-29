@@ -543,45 +543,45 @@ namespace WpfApp1.Pages.Tableros
 
             if (sender is FrameworkElement element)
             {
-                TargetTodoItem = element.DataContext;
-                InsertedTodoItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+                TargetTodoRutinaItem = element.DataContext;
+                InsertedTodoRutinaItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
 
-                TodoItemInsertedCommand?.Execute(null);
+                TodoItemInsertedRutinaCommand?.Execute(null);
             }
 
         }
-        public static readonly DependencyProperty TodoItemInsertedCommandProperty =
-            DependencyProperty.Register("TodoItemInsertedCommand", typeof(ICommand), typeof(CrearTableros),
+        public static readonly DependencyProperty TodoItemInsertedRutinaCommandProperty =
+            DependencyProperty.Register("TodoItemInsertedRutinaCommand", typeof(ICommand), typeof(CrearTableros),
                 new PropertyMetadata(null));
 
-        public ICommand TodoItemInsertedCommand
+        public ICommand TodoItemInsertedRutinaCommand
         {
-            get { return (ICommand)GetValue(TodoItemInsertedCommandProperty); }
-            set { SetValue(TodoItemInsertedCommandProperty, value); }
+            get { return (ICommand)GetValue(TodoItemInsertedRutinaCommandProperty); }
+            set { SetValue(TodoItemInsertedRutinaCommandProperty, value); }
         }
-        public static readonly DependencyProperty TargetTodoItemProperty =
-            DependencyProperty.Register("TargetTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty TargetTodoRutinaItemProperty =
+            DependencyProperty.Register("TargetTodoRutinaItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object TargetTodoItem
+        public object TargetTodoRutinaItem
         {
-            get { return (object)GetValue(TargetTodoItemProperty); }
-            set { SetValue(TargetTodoItemProperty, value); }
+            get { return (object)GetValue(TargetTodoRutinaItemProperty); }
+            set { SetValue(TargetTodoRutinaItemProperty, value); }
         }
-        public static readonly DependencyProperty InsertedTodoItemProperty =
-            DependencyProperty.Register("InsertedTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty InsertedTodoRutinaItemProperty =
+            DependencyProperty.Register("InsertedTodoRutinaItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object InsertedTodoItem
+        public object InsertedTodoRutinaItem
         {
-            get { return (object)GetValue(InsertedTodoItemProperty); }
-            set { SetValue(InsertedTodoItemProperty, value); }
+            get { return (object)GetValue(InsertedTodoRutinaItemProperty); }
+            set { SetValue(InsertedTodoRutinaItemProperty, value); }
         }
 
         private void intercambiarPos()
         {
-            pictTablero target = (pictTablero)TargetTodoItem;
-            pictTablero pictToMove = (pictTablero)InsertedTodoItem;
+            pictTablero target = (pictTablero)TargetTodoRutinaItem;
+            pictTablero pictToMove = (pictTablero)InsertedTodoRutinaItem;
             if (pictToMove.idPictograma != 0)
             {
                 if (target.idPictograma == 0)

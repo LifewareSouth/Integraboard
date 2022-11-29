@@ -563,45 +563,45 @@ namespace WpfApp1.Pages.Tableros
 
             if (sender is FrameworkElement element)
             {
-                TargetTodoItem = element.DataContext;
-                InsertedTodoItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+                TargetTodoEmocionesItem = element.DataContext;
+                InsertedTodoEmocionesItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
 
-                TodoItemInsertedCommand?.Execute(null);
+                TodoItemInsertedEmocionesCommand?.Execute(null);
             }
 
         }
-        public static readonly DependencyProperty TodoItemInsertedCommandProperty =
-            DependencyProperty.Register("TodoItemInsertedCommand", typeof(ICommand), typeof(CrearTableros),
+        public static readonly DependencyProperty TodoItemInsertedEmocionesCommandProperty =
+            DependencyProperty.Register("TodoItemInsertedEmocionesCommand", typeof(ICommand), typeof(CrearTableros),
                 new PropertyMetadata(null));
 
-        public ICommand TodoItemInsertedCommand
+        public ICommand TodoItemInsertedEmocionesCommand
         {
-            get { return (ICommand)GetValue(TodoItemInsertedCommandProperty); }
-            set { SetValue(TodoItemInsertedCommandProperty, value); }
+            get { return (ICommand)GetValue(TodoItemInsertedEmocionesCommandProperty); }
+            set { SetValue(TodoItemInsertedEmocionesCommandProperty, value); }
         }
-        public static readonly DependencyProperty TargetTodoItemProperty =
-            DependencyProperty.Register("TargetTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty TargetTodoEmocionesItemProperty =
+            DependencyProperty.Register("TargetTodoEmocionesItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object TargetTodoItem
+        public object TargetTodoEmocionesItem
         {
-            get { return (object)GetValue(TargetTodoItemProperty); }
-            set { SetValue(TargetTodoItemProperty, value); }
+            get { return (object)GetValue(TargetTodoEmocionesItemProperty); }
+            set { SetValue(TargetTodoEmocionesItemProperty, value); }
         }
-        public static readonly DependencyProperty InsertedTodoItemProperty =
-            DependencyProperty.Register("InsertedTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty InsertedTodoEmocionesItemProperty =
+            DependencyProperty.Register("InsertedTodoEmocionesItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object InsertedTodoItem
+        public object InsertedTodoEmocionesItem
         {
-            get { return (object)GetValue(InsertedTodoItemProperty); }
-            set { SetValue(InsertedTodoItemProperty, value); }
+            get { return (object)GetValue(InsertedTodoEmocionesItemProperty); }
+            set { SetValue(InsertedTodoEmocionesItemProperty, value); }
         }
 
         private void intercambiarPos()
         {
-            pictTablero target = (pictTablero)TargetTodoItem;
-            pictTablero pictToMove = (pictTablero)InsertedTodoItem;
+            pictTablero target = (pictTablero)TargetTodoEmocionesItem;
+            pictTablero pictToMove = (pictTablero)InsertedTodoEmocionesItem;
             if (pictToMove.idPictograma != 0)
             {
                 if (target.idPictograma == 0)

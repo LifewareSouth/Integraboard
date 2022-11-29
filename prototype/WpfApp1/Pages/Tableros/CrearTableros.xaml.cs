@@ -563,45 +563,45 @@ namespace WpfApp1.Pages.Tableros
             
                 if (sender is FrameworkElement element)
                 {
-                    TargetTodoItem = element.DataContext;
-                    InsertedTodoItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+                    TargetTodoComunicacionItem = element.DataContext;
+                    InsertedTodoComunicacionItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
 
-                    TodoItemInsertedCommand?.Execute(null);
+                    TodoItemInsertedComunicacionCommand?.Execute(null);
                 }
             
         }
-        public static readonly DependencyProperty TodoItemInsertedCommandProperty =
-            DependencyProperty.Register("TodoItemInsertedCommand", typeof(ICommand), typeof(CrearTableros),
+        public static readonly DependencyProperty TodoItemInsertedComunicacionCommandProperty =
+            DependencyProperty.Register("TodoItemInsertedComunicacionCommand", typeof(ICommand), typeof(CrearTableros),
                 new PropertyMetadata(null));
 
-        public ICommand TodoItemInsertedCommand
+        public ICommand TodoItemInsertedComunicacionCommand
         {
-            get { return (ICommand)GetValue(TodoItemInsertedCommandProperty); }
-            set { SetValue(TodoItemInsertedCommandProperty, value); }
+            get { return (ICommand)GetValue(TodoItemInsertedComunicacionCommandProperty); }
+            set { SetValue(TodoItemInsertedComunicacionCommandProperty, value); }
         }
-        public static readonly DependencyProperty TargetTodoItemProperty =
-            DependencyProperty.Register("TargetTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty TargetTodoComunicacionItemProperty =
+            DependencyProperty.Register("TargetTodoComunicacionItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object TargetTodoItem
+        public object TargetTodoComunicacionItem
         {
-            get { return (object)GetValue(TargetTodoItemProperty); }
-            set { SetValue(TargetTodoItemProperty, value); }
+            get { return (object)GetValue(TargetTodoComunicacionItemProperty); }
+            set { SetValue(TargetTodoComunicacionItemProperty, value); }
         }
-        public static readonly DependencyProperty InsertedTodoItemProperty =
-            DependencyProperty.Register("InsertedTodoItem", typeof(object), typeof(CrearTableros),
+        public static readonly DependencyProperty InsertedTodoComunicacionItemProperty =
+            DependencyProperty.Register("InsertedTodoComunicacionItem", typeof(object), typeof(CrearTableros),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public object InsertedTodoItem
+        public object InsertedTodoComunicacionItem
         {
-            get { return (object)GetValue(InsertedTodoItemProperty); }
-            set { SetValue(InsertedTodoItemProperty, value); }
+            get { return (object)GetValue(InsertedTodoComunicacionItemProperty); }
+            set { SetValue(InsertedTodoComunicacionItemProperty, value); }
         }
 
         private void intercambiarPos()
         {
-            pictTablero target = (pictTablero)TargetTodoItem;
-            pictTablero pictToMove = (pictTablero)InsertedTodoItem;
+            pictTablero target = (pictTablero)TargetTodoComunicacionItem;
+            pictTablero pictToMove = (pictTablero)InsertedTodoComunicacionItem;
             if (pictToMove.idPictograma != 0)
             {
                 if (target.idPictograma == 0)
