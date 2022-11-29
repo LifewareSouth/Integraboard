@@ -77,7 +77,7 @@
                                      Grid.Column="2"
                                      ItemsSource="{Binding SoundModel}"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     Background="Transparent">
+                                     Background="Transparent" d:ItemsSource="{d:SampleData ItemCount=5}">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
@@ -85,7 +85,7 @@
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <DockPanel Height="180" Width="180">
+                                        <DockPanel Height="150" Width="150">
 
                                             <StackPanel 
                                             HorizontalAlignment="Center"
