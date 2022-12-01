@@ -100,7 +100,7 @@ namespace WpfApp1.Pages.Tableros
 
         private void goToMenu(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new MainTablerosPage());
+            this.NavigationService.Navigate(new MenuPage());
         }
 
         private void DoubleClick_Tablero(object sender, RoutedEventArgs e)

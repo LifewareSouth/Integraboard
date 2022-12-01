@@ -24,6 +24,7 @@ namespace WpfApp1
     public partial class MenuPage : Page
     {
         static List<Board> ListaAsignados = new List<Board>();
+        private static Board boardSelected = new Board();
         private static readonly MenuPage instance = new MenuPage();
         public static MenuPage Instance
         {
@@ -40,6 +41,15 @@ namespace WpfApp1
         private void actualizarLista()
         {
             ListaAsignados = Repository.Instance.getAllAsignBoards();
+            ListViewTableros.ItemsSource = ListaAsignados;
+        }
+
+        private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListViewTableros.SelectedItem != null)
+            {
+                boardSelected = (Board)ListViewTableros.SelectedItem;
+            }
         }
     }
 }
