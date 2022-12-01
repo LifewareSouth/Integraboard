@@ -1202,5 +1202,63 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
+        public List<Board> getAllAsignBoards()
+        {
+            List<Board> listaTableros = new List<Board>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idTablero, idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,asignacion from tableros where asignacion = 'Asignado';";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        List<etiquetaT> listaEtiquetas = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString()));
+                        string etiquetasJuntas = "";
+                        foreach (etiquetaT etiquetaT in listaEtiquetas)
+                        {
+                            if (etiquetaT == listaEtiquetas.First())
+                            {
+                                etiquetasJuntas = etiquetaT.NombreEtiqueta;
+                            }
+                            else
+                            {
+                                etiquetasJuntas = etiquetasJuntas + ", " + etiquetaT.NombreEtiqueta;
+                            }
+
+                        }
+                        Pictogram pPortada = new Pictogram();
+                        if (int.Parse(dr["pictPortada"].ToString()) != 0)
+                        {
+                            pPortada = getOnePictogram(int.Parse(dr["pictPortada"].ToString()));
+                        }
+                        else
+                        {
+                            pPortada = defaultPict();
+                        }
+                        listaTableros.Add(new Board
+                        {
+                            ID = int.Parse(dr["idTablero"].ToString()),
+                            idAlfaTablero = dr["idAlfaTablero"].ToString(),
+                            nombreTablero = dr["nombreTablero"].ToString(),
+                            tipo = dr["tipo"].ToString(),
+                            filas = int.Parse(dr["filas"].ToString()),
+                            columnas = int.Parse(dr["columnas"].ToString()),
+                            idPictPortada = int.Parse(dr["pictPortada"].ToString()),
+                            pictPortada = pPortada,
+                            pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
+                            ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString())),
+                            EtiquetasJuntas = etiquetasJuntas,
+                            asignacion = dr["asignacion"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaTableros;
+        }
     }
 }
