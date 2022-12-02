@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Player.TSonidos;
 using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1
@@ -49,6 +50,10 @@ namespace WpfApp1
             if (ListViewTableros.SelectedItem != null)
             {
                 boardSelected = (Board)ListViewTableros.SelectedItem;
+                if (boardSelected.tipo == "Sonidos")
+                {
+                    this.NavigationService.Navigate(new TSonidos(boardSelected));
+                }
             }
         }
     }
