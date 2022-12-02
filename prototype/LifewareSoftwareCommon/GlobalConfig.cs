@@ -18,7 +18,7 @@ namespace Lifeware.SoftwareCommon
         //TODO: Establecer GUID de la aplicación.
         private const string APPGUID = "c914f1b1-d3be-4266-9730-ed6942f3cea9";
         //TODO: Establecer URL de descargas y actualizaciones de la aplicación
-        private const string UPDATE_URL = "http://updates.lifeware.cl/integraboardStandAlone/debug/";
+        private const string UPDATE_URL = "http://updates.lifeware.cl/integraboardStandAlone/testing/";
         
         //no tocar desde este punto
 
