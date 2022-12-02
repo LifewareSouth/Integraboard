@@ -29,7 +29,7 @@
         <Grid Background="#003b49"
                    Margin="50,130,50,50" 
                    >
-            <ScrollViewer Margin="20">
+            <ScrollViewer Margin="20" VerticalScrollBarVisibility="Disabled">
                 <ListBox x:Name="ListViewTableros"
                          ItemsSource="{Binding Board}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -64,7 +64,7 @@
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
                                                 Foreground="Black"
-                                                FontSize="15"
+                                                FontSize="20"
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"
                                                 TextAlignment="Center"
@@ -73,7 +73,7 @@
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
                                                 Foreground="Black"
-                                                FontSize="10"
+                                                FontSize="15"
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"
                                                 TextAlignment="Center"

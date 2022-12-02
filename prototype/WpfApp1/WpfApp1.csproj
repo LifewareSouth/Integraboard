@@ -40,4 +40,11 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Player\TRutina\" />
+    <Folder Include="Pages\Player\TRutinaTiempo\" />
+    <Folder Include="Pages\Player\TEmociones\" />
+    <Folder Include="Pages\Player\TComunicacion\" />
+  </ItemGroup>
+
 </Project>
