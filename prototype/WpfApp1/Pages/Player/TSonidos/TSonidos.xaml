@@ -49,17 +49,17 @@
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid
-                  Grid.Column="1" Margin="0,217,0,28">
-                <Rectangle Fill="#003b49"/>
-                <Grid x:Name="testTablero2"   >
-                    <Viewbox >
+            <Grid Grid.Column="1" 
+                  Margin="0,217,0,28">
+                <Grid x:Name="testTablero2"
+                      Width="1200">
+                    <Viewbox>
                         <ListView x:Name="Tablero"
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              SelectionChanged="Tablero_SelectionChanged"
+                              SelectionChanged="Tablero_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"
                               
                               >
                             
