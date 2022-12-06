@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Player.TEmociones;
 using WpfApp1.Pages.Player.TSonidos;
 using WpfApp1.Pages.Tableros;
 
@@ -53,6 +54,10 @@ namespace WpfApp1
                 if (boardSelected.tipo == "Sonidos")
                 {
                     this.NavigationService.Navigate(new TSonidos(boardSelected));
+                }
+                if (boardSelected.tipo == "Emociones")
+                {
+                    this.NavigationService.Navigate(new TEmociones(boardSelected));
                 }
             }
         }

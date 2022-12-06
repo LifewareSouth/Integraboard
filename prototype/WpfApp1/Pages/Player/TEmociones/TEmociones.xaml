@@ -51,59 +51,67 @@
                             BorderBrush="Yellow"
                             BorderThickness="10"
                             Margin="10"/>
-                    <Viewbox>
-                        <ListView x:Name="Tablero"
-                                  Background="Transparent"
-                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                  ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                                  Height="216" 
-                                  d:ItemsSource="{d:SampleData ItemCount=5}">
-                            <!-- SelectionChanged="Tablero_SelectionChanged"-->
+                    <Grid Grid.Column="1" 
+                        Margin="0,0,0,28" Height="436">
+                        <Grid x:Name="testTablero2"
+                            Width="400">
+                            <Viewbox>
+                                <ListView x:Name="Tablero"
+                              Background="Transparent"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                               d:ItemsSource="{d:SampleData ItemCount=5}"
+                              
+                              >
 
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate x:Name="panelTest">
-                                    <UniformGrid Rows="{Binding rowCounter}" 
+                                    <ItemsControl.ItemsPanel >
+                                        <ItemsPanelTemplate x:Name="panelTest">
+                                            <UniformGrid Rows="{Binding rowCounter}" 
                                              Columns="{Binding columnsCounter}"
                                              Grid.IsSharedSizeScope="True" 
                                              Height="auto"  
                                              Width="auto"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             x:Name="testTablero"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Background="White" 
-                                          Height="50"
-                                          Width="50">
-                                        <Border Width="80" Height="80"
+                                             x:Name="testTablero"
+                                             
+                                             />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate >
+                                            <Grid Background="White" >
+                                                <Border 
+                                                Width="200" Height="200"
                                                 BorderBrush="{Binding pictograma.colorBorde}"
                                                 BorderThickness="10">
-                                            <StackPanel HorizontalAlignment="Center"
-                                                        Orientation="Vertical">
-                                                <Image Source="{Binding pictograma.Imagen}"
-                                                       Height="30"
-                                                       Width="30"
-                                                       Margin="10"/>
-                                                <TextBlock Text="{Binding pictograma.Texto}"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           TextWrapping="Wrap"
-                                                           Foreground="black"
-                                                           FontSize="5"
-                                                           FontFamily="arial"
-                                                           FontWeight="SemiBold"
-                                                           TextAlignment="Center"
-                                                           VerticalAlignment="Bottom"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </Grid>
+                                                    <StackPanel 
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                                        <Image Source="{Binding pictograma.Imagen}"
+                                               Height="120"
+                                               Width="120"
+                                               Margin="10"/>
+                                                        <TextBlock Text="{Binding pictograma.Texto}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                Foreground="black"
+                                                FontSize="25"
+                                                FontFamily="arial"
+                                                FontWeight="SemiBold"
+                                                TextAlignment="Center"
+                                                VerticalAlignment="Bottom"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
 
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Viewbox>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </Grid>
