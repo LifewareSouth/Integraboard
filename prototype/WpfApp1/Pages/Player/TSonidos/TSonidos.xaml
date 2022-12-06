@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.Player.TSonidos"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="TSonidos">
+      Title="TSonidos"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
         <Frame x:Name="TSonidosPlayer"/>
