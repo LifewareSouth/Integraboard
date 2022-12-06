@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.Player.TEmociones"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="TEmociones">
-
+      Title="TEmociones"
+      Loaded="page_Loaded">
     <Grid Background="#04293a">
         <Frame x:Name="TEmocionesPlayer"/>
 
@@ -29,7 +29,7 @@
                         Foreground="white"
                         Background="#1597e5"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top"/>
+                        VerticalAlignment="Top" Click="volverMenu_Click"/>
                         <!-- Click="goToMenu" -->
                 <!--
                 <Label x:Name="TituloTEmociones"

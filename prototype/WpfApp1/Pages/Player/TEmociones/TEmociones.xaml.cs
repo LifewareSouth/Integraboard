@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -39,6 +40,35 @@ namespace WpfApp1.Pages.Player.TEmociones
             ListaPict = board.pictTableros;
             AjustarTablero();
         }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ajustarTamano();
+        }
+        private void ajustarTamano()
+        {
+            UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
+            foundUniformGrid.Columns = columnsCounter;
+            foundUniformGrid.Rows = rowCounter;
+        }
+        private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is T)
+                    return (T)child;
+                var childOfChild = FindVisualChild<T>(child);
+                if (childOfChild != null)
+                    return childOfChild;
+            }
+            return null;
+        }
+
+        private void volverMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MenuPage());
+        }
+
         private void AjustarTablero()
         {
             int totalCuadros = rowCounter * columnsCounter;
