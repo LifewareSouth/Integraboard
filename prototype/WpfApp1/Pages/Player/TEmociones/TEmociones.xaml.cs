@@ -69,6 +69,21 @@ namespace WpfApp1.Pages.Player.TEmociones
             this.NavigationService.Navigate(new MenuPage());
         }
 
+        private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(Tablero.SelectedItem!= null)
+            {
+                pictTablero ptSeleccionado =  ((pictTablero)Tablero.SelectedItem);
+                if (ptSeleccionado.ID!=0)
+                {
+                    Pictogram pictSeleccionado = ptSeleccionado.pictograma;
+                    pictoBorde.BorderBrush = pictSeleccionado.colorBorde;
+                    TextoPict.Text = pictSeleccionado.Texto;
+                    imagenPict.Source = pictSeleccionado.Imagen;
+                }    
+            }
+        }
+
         private void AjustarTablero()
         {
             int totalCuadros = rowCounter * columnsCounter;
