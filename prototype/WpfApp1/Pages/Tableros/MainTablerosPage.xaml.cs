@@ -113,7 +113,7 @@ namespace WpfApp1.Pages.Tableros
                 }
                 else if (boardSelected.tipo == "Emociones")
                 {
-                    //this.NavigationService.Navigate(new TableroEmociones(boardSelected));
+                    this.NavigationService.Navigate(new TableroEmociones(boardSelected));
                 }
                 else if (boardSelected.tipo == "Rutina")
                 {
@@ -216,7 +216,7 @@ namespace WpfApp1.Pages.Tableros
                 }
                 else if (boardSelected.tipo == "Emociones")
                 {
-                    //this.NavigationService.Navigate(new TableroEmociones(boardSelected));
+                    this.NavigationService.Navigate(new TableroEmociones(boardSelected));
                 }
                 else if (boardSelected.tipo == "Rutina")
                 {
