@@ -21,7 +21,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http.Headers;
 using System.Configuration;
-using System.Diagnostics;
 
 namespace LifewareSoftwareLauncher
 {
@@ -80,7 +79,7 @@ namespace LifewareSoftwareLauncher
                     computerSid = SerialFileManager.GetComputerSid();
                 });
                 HttpClient client = new HttpClient();
-
+                
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer" , ConfigurationManager.AppSettings["access_token"].ToString());
 
                 var jsonUser = new Dictionary<string, string>
