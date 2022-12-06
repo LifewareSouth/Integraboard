@@ -64,7 +64,7 @@
                                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                                          d:ItemsSource="{d:SampleData ItemCount=5}">
+                                          d:ItemsSource="{d:SampleData ItemCount=4}">
 
                                     <ItemsControl.ItemsPanel >
                                         <ItemsPanelTemplate x:Name="panelTest">
