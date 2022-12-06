@@ -52,18 +52,19 @@
                             BorderThickness="10"
                             Margin="10"/>
                     <Grid Grid.Column="1" 
-                        Margin="0,0,0,28" Height="436">
+                          Margin="0,0,0,28" 
+                          Height="436" 
+                          Width="1150">
                         <Grid x:Name="testTablero2"
-                            Width="400">
-                            <Viewbox>
+                              Width="1150">
+                            <Viewbox Width="1150">
                                 <ListView x:Name="Tablero"
-                              Background="Transparent"
-                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                               d:ItemsSource="{d:SampleData ItemCount=5}"
-                              
-                              >
+                                          Width="1628"
+                                          Background="Transparent"
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                          ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                                          d:ItemsSource="{d:SampleData ItemCount=5}">
 
                                     <ItemsControl.ItemsPanel >
                                         <ItemsPanelTemplate x:Name="panelTest">
