@@ -51,14 +51,13 @@
                                     Width="180"
                                     BorderBrush="#1597e5"
                                     DockPanel.Dock="Top"
-                                    BorderThickness="5"
-                                            >
+                                    BorderThickness="5">
                                     <StackPanel 
                                             HorizontalAlignment="Center"
                                             Orientation="Vertical">
                                         <Image Source="{Binding pictPortada.Imagen}"
-                                               Height="100"
-                                               Width="100"
+                                               Height="80"
+                                               Width="80"
                                                Margin="10"/>
                                         <TextBlock Text="{Binding nombreTablero}"
                                                 TextTrimming="CharacterEllipsis"

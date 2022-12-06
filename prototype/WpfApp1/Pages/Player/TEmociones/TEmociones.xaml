@@ -29,8 +29,8 @@
                         Foreground="white"
                         Background="#1597e5"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top" Click="volverMenu_Click"/>
-                        <!-- Click="goToMenu" -->
+                        VerticalAlignment="Top" 
+                        Click="volverMenu_Click"/>
                 <!--
                 <Label x:Name="TituloTEmociones"
                        Content="Tablero de Emociones"
@@ -49,8 +49,8 @@
                             Height="300"
                             Width="300"
                             BorderBrush="Yellow"
-                            BorderThickness="10"
-                            Margin="10"/>
+                            BorderThickness="12"
+                            Margin="20"/>
                     <Grid Grid.Column="1" 
                           Margin="0,0,0,28" 
                           Height="436" 
@@ -64,7 +64,7 @@
                                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                                          d:ItemsSource="{d:SampleData ItemCount=4}">
+                                          d:ItemsSource="{d:SampleData ItemCount=4}" BorderBrush="{x:Null}">
 
                                     <ItemsControl.ItemsPanel >
                                         <ItemsPanelTemplate x:Name="panelTest">
