@@ -34,5 +34,10 @@ namespace WpfApp1.Pages.Player.TRutina
             InitializeComponent();
             this.Resources["check"] = imagenBoton;
         }
+
+        private void playButton_Click(object sender, RoutedEventArgs e)
+        {
+            playButton.Visibility = Visibility.Collapsed;
+        }
     }
 }
