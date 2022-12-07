@@ -98,7 +98,7 @@
                                             <StackPanel 
                                             HorizontalAlignment="Center"
                                             Orientation="Vertical">
-                                                <Image Source="{DynamicResource sound}"
+                                                <Image Source="{DynamicResource check}"
                                             
                                             Height="100"
                                             Width="100"

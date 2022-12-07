@@ -131,13 +131,13 @@
                             Width="110"
                             Visibility="Hidden"/>
                 </StackPanel>
-                <Button 
-                    FontSize="20"
-                    Foreground="black" 
-                    >
+                <Button FontSize="20"
+                        Foreground="black"
+                        Visibility="Hidden">
                     <Image Source="{DynamicResource check}"
-                           Height="200"
-                           Width="200"/>
+                           Margin="30,0,0,0"
+                           Height="250"
+                           Width="250"/>
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border CornerRadius="200"

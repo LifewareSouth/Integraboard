@@ -22,11 +22,11 @@ namespace WpfApp1.Pages.Player.TRutina
     /// </summary>
     public partial class TRutina : Page
     {
-        private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.checkMark);
+        private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
         public TRutina()
         {
             InitializeComponent();
-            this.Resources["check"] = imagenBoton;
+            //this.Resources["check"] = imagenBoton;
         }
 
         public TRutina(Board board)
