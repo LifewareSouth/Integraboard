@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <BitmapImage x:Key="sound" UriSource="Resources\sound.png"/>
+            <BitmapImage x:Key="check" UriSource="Resources\checkMark.png"/>
             
         </ResourceDictionary>
     </Application.Resources>

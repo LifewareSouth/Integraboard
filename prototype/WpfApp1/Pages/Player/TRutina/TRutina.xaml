@@ -10,6 +10,165 @@
 
     <Grid Background="#04293a">
         <Frame x:Name="TRutinaPlayer"/>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              Background="#003b49">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Button x:Name="volverMenu"
+                        Width="150"
+                        Height="150"
+                        Content="Menú"
+                        FontFamily="arial"
+                        FontSize="30"
+                        FontWeight="SemiBold"
+                        Foreground="white"
+                        Background="#1597e5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"/>
+                
+                <Label x:Name="TituloTRutina"
+                       Content="Tablero de Rutina"
+                       Foreground="White"
+                       FontSize="45"
+                       FontWeight="SemiBold"
+                       FontFamily="arial"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="130"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="1" 
+                        Margin="0,0,0,28" 
+                        Height="350" 
+                        Width="1150">
+                    <Grid x:Name="testTablero2"
+                          Width="1150">
+                        <Viewbox Width="1150"
+                                     Height="350">
+                            <ListView x:Name="Tablero"
+                                        Width="1628"
+                                        Background="Transparent"
+                                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                        ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                                        d:ItemsSource="{d:SampleData ItemCount=4}" BorderBrush="{x:Null}"
+                                        >
+
+                                <ItemsControl.ItemsPanel >
+                                    <ItemsPanelTemplate x:Name="panelTest">
+                                        <UniformGrid Rows="{Binding rowCounter}" 
+                                                     Columns="{Binding columnsCounter}"
+                                                     Grid.IsSharedSizeScope="True" 
+                                                     Height="auto"  
+                                                     Width="auto"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"
+                                                     x:Name="testTablero"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate >
+                                        <Grid Background="White" >
+                                            <Border Width="200" 
+                                                    Height="200"
+                                                    BorderBrush="{Binding pictograma.colorBorde}"
+                                                    BorderThickness="10">
+                                                <StackPanel HorizontalAlignment="Center"
+                                                            Orientation="Vertical">
+                                                    <Image Source="{Binding pictograma.Imagen}"
+                                                           Height="120"
+                                                           Width="120"
+                                                           Margin="10"/>
+                                                    <TextBlock Text="{Binding pictograma.Texto}"
+                                                                TextTrimming="CharacterEllipsis"
+                                                                TextWrapping="Wrap"
+                                                                Foreground="black"
+                                                                FontSize="25"
+                                                                FontFamily="arial"
+                                                                FontWeight="SemiBold"
+                                                                TextAlignment="Center"
+                                                                VerticalAlignment="Bottom"/>    
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Viewbox>
+                    </Grid>
+                    
+                </Grid>
+                <!-- botones para temrinar o saltar tarea -->
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center">
+                    <Button x:Name="saltarTarea"
+                            Content="Saltar" 
+                            FontSize="15"
+                            Foreground="White"
+                            Background="#1597e5"
+                            FontFamily="arial"
+                            Height="110"
+                            Width="110"
+                            Margin="0,0,50,0"
+                            Visibility="Hidden"/>
+
+                    <Button x:Name="terminarTarea"
+                            Content="Terminar Tarea" 
+                            FontSize="15"
+                            Foreground="White"
+                            Background="#1597e5"
+                            FontFamily="arial"
+                            Height="110"
+                            Width="110"
+                            Visibility="Hidden"/>
+                </StackPanel>
+                <Button 
+                    FontSize="20"
+                    Foreground="black" 
+                    >
+                    <Image Source="{DynamicResource check}"
+                           Height="200"
+                           Width="200"/>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="200"
+                                    Height="400"
+                                    Width="400"
+                                    Background="#9EDE73"
+                                    BorderThickness="4">
+                                
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+            </Grid>
+            
+        </Grid>
         
+        <Grid.RowDefinitions>
+        <RowDefinition Height="25"/>
+        <RowDefinition/>
+        <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
     </Grid>
 </Page>
