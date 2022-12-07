@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
+using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Player.TRutina
 {
@@ -23,6 +24,12 @@ namespace WpfApp1.Pages.Player.TRutina
     {
         private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.checkMark);
         public TRutina()
+        {
+            InitializeComponent();
+            this.Resources["check"] = imagenBoton;
+        }
+
+        public TRutina(Board board)
         {
             InitializeComponent();
             this.Resources["check"] = imagenBoton;
