@@ -132,8 +132,12 @@
                             Visibility="Hidden"/>
                 </StackPanel>
                 <Button FontSize="20"
-                        Foreground="black"
-                        Visibility="Hidden">
+                        >
+                <Button x:Name="playButton" 
+                        FontSize="20"
+                        Visibility="Hidden"
+                        Foreground="black" Click="playButton_Click" 
+                    >
                     <Image Source="{DynamicResource check}"
                            Margin="30,0,0,0"
                            Height="250"
