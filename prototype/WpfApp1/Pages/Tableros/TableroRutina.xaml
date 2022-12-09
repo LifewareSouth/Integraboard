@@ -114,8 +114,9 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Viewbox>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="20,50,0,0">
+                            <StackPanel x:Name="panelTiempo" Orientation="Horizontal"
+                                        Margin="20,50,0,0"
+                                        Visibility="Hidden">
                                 <TextBlock Text="El tiempo asociado a este pictograma es:"
                                            FontFamily="arial"
                                            FontSize="28"
@@ -126,11 +127,17 @@
                                           Width="100"
                                           Height="50"
                                           Margin="10"
+                                          IsEnabled="False"
                                           VerticalAlignment="Center"
                                           FontFamily="arial"
                                           FontSize="30"
                                           VerticalContentAlignment="Center"
-                                          HorizontalContentAlignment="Center">
+                                          HorizontalContentAlignment="Center" 
+                                          SelectionChanged="time_SelectionChanged"
+                                          SelectedIndex="0"
+                                          
+                                          >
+                                    <ComboBoxItem Content="_" Visibility="Hidden"/>
                                     <ComboBoxItem Content="30"/>
                                     <ComboBoxItem Content="60"/>
                                     <ComboBoxItem Content="90"/>
@@ -224,7 +231,9 @@
                            FontSize="25"/>
                         <CheckBox x:Name="checkTiempo"
                                   Height="16"
-                                  Width="15">
+                                  Width="15" 
+                                  Checked="checkTiempo_Checked"
+                                  Unchecked="checkTiempo_Unchecked">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="3" ScaleY="3" />
                             </CheckBox.LayoutTransform>

@@ -395,6 +395,7 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
+                newBoard.conTiempo = "";
 
                 if (!isEditing)
                 {
@@ -482,11 +483,11 @@ namespace WpfApp1.Pages.Tableros
                         //EN EL CASO DE SER UN PICTOGRAMA NO AÑADIDO ANTERIORMENTE AL TABLERO
                         if (!boardEditable.pictTableros.Any(x => x.idPictograma == pt.idPictograma))
                         {
-                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y,"");
                         }
                         else
                         {
-                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y,"");
                         }
                     }
                 }
@@ -505,7 +506,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     if (pt.x < columnsCounter && pt.y < rowCounter)
                     {
-                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y,"");
                     }
                 }
             }
@@ -602,24 +603,31 @@ namespace WpfApp1.Pages.Tableros
         {
             pictTablero target = (pictTablero)TargetTodoComunicacionItem;
             pictTablero pictToMove = (pictTablero)InsertedTodoComunicacionItem;
-            if (pictToMove.idPictograma != 0)
+            if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
             {
-                if (target.idPictograma == 0)
+                if (pictToMove != null)
                 {
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+
+                    if (pictToMove.idPictograma != 0)
+                    {
+                        if (target.idPictograma == 0)
+                        {
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                        }
+                        else
+                        {
+                            int tempx = pictToMove.x;
+                            int tempy = pictToMove.y;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                        }
+
+                        AjustarTablero();
+                    }
                 }
-                else
-                {
-                    int tempx = pictToMove.x;
-                    int tempy = pictToMove.y;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
-                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
-                }
-            
-            AjustarTablero();
             }
         }
     }

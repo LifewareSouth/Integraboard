@@ -25,6 +25,7 @@ namespace WpfApp1.Model
         public List<etiquetaT> ListaEtiquetasTableros { get; set; }
         public string EtiquetasJuntas { get; set; }
         public string asignacion { get; set; }
+        public string conTiempo { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

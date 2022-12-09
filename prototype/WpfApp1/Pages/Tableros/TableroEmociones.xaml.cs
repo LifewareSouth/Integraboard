@@ -223,7 +223,7 @@ namespace WpfApp1.Pages.Tableros
 
         private void MoreRows_Click(object sender, RoutedEventArgs e)
         {
-            if (_rows < 7)
+            if (_rows < 3)
             {
                 rowCounter++;
                 UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Tablero);
@@ -396,7 +396,7 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
-
+                newBoard.conTiempo = "";
                 if (!isEditing)
                 {
                     idBoard = Repository.Instance.crearTablero(newBoard);
@@ -483,11 +483,11 @@ namespace WpfApp1.Pages.Tableros
                         //EN EL CASO DE SER UN PICTOGRAMA NO AÑADIDO ANTERIORMENTE AL TABLERO
                         if (!boardEditable.pictTableros.Any(x => x.idPictograma == pt.idPictograma))
                         {
-                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y, "");
                         }
                         else
                         {
-                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y, "");
                         }
                     }
                 }
@@ -506,7 +506,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     if (pt.x < columnsCounter && pt.y < rowCounter)
                     {
-                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y, "");
                     }
                 }
             }
@@ -602,24 +602,31 @@ namespace WpfApp1.Pages.Tableros
         {
             pictTablero target = (pictTablero)TargetTodoEmocionesItem;
             pictTablero pictToMove = (pictTablero)InsertedTodoEmocionesItem;
-            if (pictToMove.idPictograma != 0)
+            if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
             {
-                if (target.idPictograma == 0)
+                if (pictToMove != null)
                 {
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                }
-                else
-                {
-                    int tempx = pictToMove.x;
-                    int tempy = pictToMove.y;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
-                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
-                }
 
-                AjustarTablero();
+                    if (pictToMove.idPictograma != 0)
+                    {
+                        if (target.idPictograma == 0)
+                        {
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                        }
+                        else
+                        {
+                            int tempx = pictToMove.x;
+                            int tempy = pictToMove.y;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                        }
+
+                        AjustarTablero();
+                    }
+                }
             }
         }
     }

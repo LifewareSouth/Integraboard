@@ -16,9 +16,8 @@ namespace WpfApp1
             InitializeComponent();
             btnshow.Click += Btnshow_Click;
             btnclose.Click += Btnclose_Click;
-            Main.NavigationService.Navigate(new MenuPage());
             Repository.Instance.CreacionDeTablas();
-            
+            Main.NavigationService.Navigate(new MenuPage());
         }
         private void Btnclose_Click(object sender, RoutedEventArgs e)
         {

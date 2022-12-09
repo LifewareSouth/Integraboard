@@ -19,6 +19,7 @@ using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Pictogramas;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace WpfApp1.Pages.Tableros
 {
@@ -35,6 +36,7 @@ namespace WpfApp1.Pages.Tableros
         static bool addingPortada = false;
         static bool isEditing = false;
         static bool pictogramaEditado = false;
+        static bool timeManual = true;
         private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
         static Pictogram pictPortada = new Pictogram();
         private static readonly TableroRutina instance = new TableroRutina();
@@ -262,7 +264,38 @@ namespace WpfApp1.Pages.Tableros
         {
             if (Tablero.SelectedItem != null)
             {
-                CuadroSeleccionado = (pictTablero)Tablero.SelectedValue;
+                if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                {
+                    time.IsEnabled = IsEnabled;
+                    CuadroSeleccionado = (pictTablero)Tablero.SelectedItem;
+                    timeManual = false;
+                    if (CuadroSeleccionado.tiempo == "30")
+                    {
+                        time.SelectedIndex = 1;
+                    }
+                    else if (CuadroSeleccionado.tiempo == "90")
+                    {
+                        time.SelectedIndex = 2;
+                    }
+                    else if (CuadroSeleccionado.tiempo == "120")
+                    {
+                        time.SelectedIndex = 3;
+                    }
+                    else if (CuadroSeleccionado.tiempo == "180")
+                    {
+                        time.SelectedIndex = 4;
+                    }
+                    else if (CuadroSeleccionado.tiempo == "240")
+                    {
+                        time.SelectedIndex = 5;
+                    }
+                }
+                else
+                {
+                    time.IsEnabled = false;
+                }
+                timeManual = true;
+
             }
         }
 
@@ -309,6 +342,7 @@ namespace WpfApp1.Pages.Tableros
                     pictTab.pictograma = p;
                     pictTab.x = CuadroSeleccionado.x;
                     pictTab.y = CuadroSeleccionado.y;
+                    pictTab.tiempo = "30";
                     listaPictTablero.Add(pictTab);
                 }
                 else
@@ -326,6 +360,7 @@ namespace WpfApp1.Pages.Tableros
                                     pictTab.pictograma = p;
                                     pictTab.x = j;
                                     pictTab.y = i;
+                                    pictTab.tiempo = "30";
                                     listaPictTablero.Add(pictTab);
                                     siguiente = true;
                                 }
@@ -356,6 +391,10 @@ namespace WpfApp1.Pages.Tableros
             {
                 valido = false;
             }
+            if (listaPictTablero.Count < columnsCounter)
+            {
+                valido = false;
+            }
             return valido;
         }
         private void PictoRepresent_DoubleClick(object sender, RoutedEventArgs e)
@@ -375,7 +414,14 @@ namespace WpfApp1.Pages.Tableros
                 newBoard.filas = rowCounter;
                 newBoard.columnas = columnsCounter;
                 newBoard.idPictPortada = pictPortada.ID;
-
+                if (checkTiempo.IsChecked==true)
+                {
+                    newBoard.conTiempo = "Si";
+                }
+                else
+                {
+                    newBoard.conTiempo = "No";
+                }
                 if (!isEditing)
                 {
                     idBoard = Repository.Instance.crearTablero(newBoard);
@@ -462,11 +508,11 @@ namespace WpfApp1.Pages.Tableros
                         //EN EL CASO DE SER UN PICTOGRAMA NO AÑADIDO ANTERIORMENTE AL TABLERO
                         if (!boardEditable.pictTableros.Any(x => x.idPictograma == pt.idPictograma))
                         {
-                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                            Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y, pt.tiempo);
                         }
                         else
                         {
-                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                            Repository.Instance.updatePictTablero(idTablero, pt.pictograma.ID, pt.x, pt.y,pt.tiempo);
                         }
                     }
                 }
@@ -485,7 +531,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     if (pt.x < columnsCounter && pt.y < rowCounter)
                     {
-                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y);
+                        Repository.Instance.EnlazarPictBoard(idTablero, pt.pictograma.ID, pt.x, pt.y,pt.tiempo);
                     }
                 }
             }
@@ -578,28 +624,64 @@ namespace WpfApp1.Pages.Tableros
             set { SetValue(InsertedTodoRutinaItemProperty, value); }
         }
 
+        private void checkTiempo_Checked(object sender, RoutedEventArgs e)
+        {
+            if(checkTiempo.IsChecked == true)
+            {
+                panelTiempo.Visibility = Visibility.Visible;
+            }
+        }
+        private void checkTiempo_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (checkTiempo.IsChecked == false)
+            {
+                panelTiempo.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void time_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (timeManual != false)
+            {
+                if (Tablero.SelectedItem != null)
+                {
+                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                    {
+                        listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().tiempo = time.Text;
+                    }
+                }
+            }     
+        }
+
         private void intercambiarPos()
         {
             pictTablero target = (pictTablero)TargetTodoRutinaItem;
             pictTablero pictToMove = (pictTablero)InsertedTodoRutinaItem;
-            if (pictToMove.idPictograma != 0)
+            if(((pictTablero)Tablero.SelectedItem).idPictograma!=0)
             {
-                if (target.idPictograma == 0)
+                if (pictToMove != null)
                 {
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                }
-                else
-                {
-                    int tempx = pictToMove.x;
-                    int tempy = pictToMove.y;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
-                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
-                }
 
-                AjustarTablero();
+                    if (pictToMove.idPictograma != 0)
+                    {
+                        if (target.idPictograma == 0)
+                        {
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                        }
+                        else
+                        {
+                            int tempx = pictToMove.x;
+                            int tempy = pictToMove.y;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                        }
+
+                        AjustarTablero();
+                    }
+                }
             }
         }
     }

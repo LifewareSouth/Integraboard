@@ -16,5 +16,6 @@ namespace WpfApp1.Model
         public int x { get; set; }
         public int y { get; set; } 
         public Pictogram pictograma { get; set; }
+        public string tiempo { get; set; } //
     }
 }
