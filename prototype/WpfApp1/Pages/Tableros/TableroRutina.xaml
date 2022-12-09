@@ -51,8 +51,10 @@
                 <Grid Grid.Row="1"
                   Grid.Column="1">
                     <Rectangle Fill="#003b49"/>
-                    <Grid x:Name="testTablero2"   >
-                        <Viewbox >
+                    <Grid x:Name="testTablero2">
+                        <StackPanel Orientation="Vertical">
+                        <Viewbox Height="300"
+                                 Margin="0,80,0,10">
                             <ListView x:Name="Tablero"
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -62,8 +64,7 @@
                               MouseDoubleClick="doubleclick_addpictogram"
                               AllowDrop="True"
                               DragLeave="Tablero_DragLeave"
-                              DragOver="Tablero_DragOver"
-                              >
+                              DragOver="Tablero_DragOver">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <EventSetter Event="MouseMove" Handler="TodoItem_MouseMove" />
@@ -79,9 +80,7 @@
                                              Width="auto"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             x:Name="testTablero"
-                                             
-                                             />
+                                             x:Name="testTablero"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
@@ -115,6 +114,37 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Viewbox>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="20,50,0,0">
+                                <TextBlock Text="El tiempo asociado a este pictograma es:"
+                                           FontFamily="arial"
+                                           FontSize="28"
+                                           Foreground="White"
+                                           TextWrapping="NoWrap"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox x:Name="time"
+                                          Width="100"
+                                          Height="50"
+                                          Margin="10"
+                                          VerticalAlignment="Center"
+                                          FontFamily="arial"
+                                          FontSize="30"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center">
+                                    <ComboBoxItem Content="30"/>
+                                    <ComboBoxItem Content="60"/>
+                                    <ComboBoxItem Content="90"/>
+                                    <ComboBoxItem Content="120"/>
+                                    <ComboBoxItem Content="180"/>
+                                    <ComboBoxItem Content="240"/>
+                                </ComboBox>
+                                <Label Content="segundos"
+                                       FontFamily="arial"
+                                       FontSize="28"
+                                       VerticalAlignment="Center"
+                                       Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </Grid>
@@ -187,6 +217,20 @@
                              FontSize="30"
                          HorizontalAlignment="Left"
                          Margin="20,0,0,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="15,30,0,20">
+                        <Label Content="Tablero de rutina con tiempo:"
+                           Foreground="White"
+                           FontSize="25"/>
+                        <CheckBox x:Name="checkTiempo"
+                                  Height="16"
+                                  Width="15">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="3" ScaleY="3" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+                    </StackPanel>
+                    
                     <TextBlock Text="Seleccione el pictograma que representará al tablero:"
                            FontSize="20"
                            Foreground="white"

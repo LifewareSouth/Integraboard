@@ -133,32 +133,32 @@
                 </StackPanel>
                 <Button FontSize="20"
                         >
-                <Button x:Name="playButton" 
+                    <Button x:Name="playButton" 
                         FontSize="20"
                         Visibility="Hidden"
                         Foreground="black" Click="playButton_Click" 
                     >
-                    <Image Source="{DynamicResource check}"
+                        <Image Source="{DynamicResource check}"
                            Margin="30,0,0,0"
                            Height="250"
                            Width="250"/>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="200"
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="200"
                                     Height="400"
                                     Width="400"
                                     Background="#9EDE73"
                                     BorderThickness="4">
-                                
-                                <ContentPresenter VerticalAlignment="Center"
+
+                                    <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="center"/>
 
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                 </Button>
-
-
             </Grid>
             
         </Grid>
