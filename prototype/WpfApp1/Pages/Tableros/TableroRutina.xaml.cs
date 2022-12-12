@@ -70,6 +70,14 @@ namespace WpfApp1.Pages.Tableros
             //tiposTablero();
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
             boardEditable = boardEdit;
+            if(boardEdit.conTiempo == "Si")
+            {
+                checkTiempo.IsChecked = true;
+            }
+            else if(boardEdit.conTiempo == "No")
+            {
+                checkTiempo.IsChecked = false;
+            }
             //comboBoxTipo.Text = boardEdit.tipo;
             nombreTablero.Text = boardEdit.nombreTablero;
             pictPortada = boardEdit.pictPortada;
@@ -660,6 +668,7 @@ namespace WpfApp1.Pages.Tableros
                 {
                     listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().tiempo = time.Text;
                 }
+                aplicarTiempo.IsEnabled = false;
             }
         }
 
