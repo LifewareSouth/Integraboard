@@ -114,16 +114,20 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Viewbox>
-                            <StackPanel x:Name="panelTiempo" Orientation="Horizontal"
+                            <Grid  x:Name="panelTiempo"
+                                   Visibility="Hidden"
+                                   Grid.Column="1" 
+                                   Grid.Row="2">
+                            <StackPanel Orientation="Horizontal"
                                         Margin="20,50,0,0"
-                                        Visibility="Hidden">
+                                        >
                                 <TextBlock Text="El tiempo asociado a este pictograma es:"
                                            FontFamily="arial"
                                            FontSize="28"
                                            Foreground="White"
                                            TextWrapping="NoWrap"
                                            VerticalAlignment="Center"/>
-                                <ComboBox x:Name="time"
+                                    <ComboBox x:Name="time"
                                           Width="100"
                                           Height="50"
                                           Margin="10"
@@ -134,10 +138,8 @@
                                           VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center" 
                                           SelectionChanged="time_SelectionChanged"
-                                          SelectedIndex="0"
                                           
                                           >
-                                    <ComboBoxItem Content="_" Visibility="Hidden"/>
                                     <ComboBoxItem Content="30"/>
                                     <ComboBoxItem Content="60"/>
                                     <ComboBoxItem Content="90"/>
@@ -150,7 +152,18 @@
                                        FontSize="28"
                                        VerticalAlignment="Center"
                                        Foreground="White"/>
-                            </StackPanel>
+                                
+                                </StackPanel>
+                                <Button x:Name="aplicarTiempo"
+                                        IsEnabled="False"
+                                        Content="Aplicar"
+                                        Foreground="White"
+                                        FontSize="25"
+                                        Height="50"
+                                        Width="150"
+                                        Margin="328,120,327,-50"
+                                        Background="#1597e5" Click="aplicarTiempo_Click" />
+                            </Grid>
                         </StackPanel>
                     </Grid>
                 </Grid>

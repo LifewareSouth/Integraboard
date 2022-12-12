@@ -36,7 +36,6 @@ namespace WpfApp1.Pages.Tableros
         static bool addingPortada = false;
         static bool isEditing = false;
         static bool pictogramaEditado = false;
-        static bool timeManual = true;
         private static List<etiquetaT> ListaEtiquetasTableros = new List<etiquetaT>();
         static Pictogram pictPortada = new Pictogram();
         private static readonly TableroRutina instance = new TableroRutina();
@@ -268,8 +267,11 @@ namespace WpfApp1.Pages.Tableros
                 {
                     time.IsEnabled = IsEnabled;
                     CuadroSeleccionado = (pictTablero)Tablero.SelectedItem;
-                    timeManual = false;
                     if (CuadroSeleccionado.tiempo == "30")
+                    {
+                        time.SelectedIndex = 0;
+                    }
+                    else if (CuadroSeleccionado.tiempo == "60")
                     {
                         time.SelectedIndex = 1;
                     }
@@ -289,12 +291,12 @@ namespace WpfApp1.Pages.Tableros
                     {
                         time.SelectedIndex = 5;
                     }
+                    aplicarTiempo.IsEnabled = false;
                 }
                 else
                 {
                     time.IsEnabled = false;
                 }
-                timeManual = true;
 
             }
         }
@@ -391,9 +393,12 @@ namespace WpfApp1.Pages.Tableros
             {
                 valido = false;
             }
-            if (listaPictTablero.Count < columnsCounter)
+            for(int i = 0; i < columnsCounter; i++)
             {
-                valido = false;
+                if(listaPictTablero.Where(x=>x.x == i).Count() == 0)
+                {
+                    valido = false;
+                }
             }
             return valido;
         }
@@ -641,16 +646,21 @@ namespace WpfApp1.Pages.Tableros
 
         private void time_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (timeManual != false)
+            if (Tablero.SelectedItem != null)
             {
-                if (Tablero.SelectedItem != null)
+                aplicarTiempo.IsEnabled = true;
+            }
+        }
+
+        private void aplicarTiempo_Click(object sender, RoutedEventArgs e)
+        {
+            if (Tablero.SelectedItem != null)
+            {
+                if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                 {
-                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
-                    {
-                        listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().tiempo = time.Text;
-                    }
+                    listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().tiempo = time.Text;
                 }
-            }     
+            }
         }
 
         private void intercambiarPos()
