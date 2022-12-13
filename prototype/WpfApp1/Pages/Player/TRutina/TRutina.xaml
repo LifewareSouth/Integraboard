@@ -74,9 +74,10 @@
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
-                                    <DataTemplate >
-                                        <Grid Background="White" >
-                                            <Border Width="200" 
+                                    <DataTemplate>
+                                        <Grid Background="White">
+                                            <Border x:Name="BorderHolder" 
+                                                    Width="200" 
                                                     Height="200"
                                                     BorderBrush="{Binding pictograma.colorBorde}"
                                                     BorderThickness="10">
@@ -98,7 +99,12 @@
                                                 </StackPanel>
                                             </Border>
                                         </Grid>
-
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
+                                                <Setter TargetName="BorderHolder" Property="Height" Value="250"/>
+                                                <Setter TargetName="BorderHolder" Property="Width" Value="250"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -131,13 +137,11 @@
                             Width="110"
                             Visibility="Hidden"/>
                 </StackPanel>
-                <Button FontSize="20"
-                        >
-                    <Button x:Name="playButton" 
+                <!--boton de play-->
+                <Button x:Name="playButton" 
                         FontSize="20"
                         Visibility="Hidden"
-                        Foreground="black" Click="playButton_Click" 
-                    >
+                        Foreground="black" Click="playButton_Click">
                         <Image Source="{DynamicResource check}"
                            Margin="30,0,0,0"
                            Height="250"
@@ -151,14 +155,14 @@
                                     BorderThickness="4">
 
                                     <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="center"/>
+                                                      HorizontalAlignment="center"/>
 
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                </Button>
+                <Grid/>
             </Grid>
             
         </Grid>

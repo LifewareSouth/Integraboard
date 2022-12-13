@@ -64,7 +64,7 @@
                               MouseDoubleClick="doubleclick_addpictogram"
                               AllowDrop="True"
                               DragLeave="Tablero_DragLeave"
-                              DragOver="Tablero_DragOver">
+                              DragOver="Tablero_DragOver" d:ItemsSource="{d:SampleData ItemCount=5}">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <EventSetter Event="MouseMove" Handler="TodoItem_MouseMove" />
@@ -73,15 +73,15 @@
                                 </ListView.ItemContainerStyle>
                                 <ItemsControl.ItemsPanel >
                                     <ItemsPanelTemplate x:Name="panelTest">
-                                        <UniformGrid Rows="{Binding rowCounter}" 
-                                             Columns="{Binding columnsCounter}"
-                                             Grid.IsSharedSizeScope="True" 
-                                             Height="auto"  
-                                             Width="auto"
-                                             HorizontalAlignment="Center"
-                                             VerticalAlignment="Center"
-                                             x:Name="testTablero"/>
-                                    </ItemsPanelTemplate>
+                                            <UniformGrid Rows="{Binding rowCounter}" 
+                                                         Columns="{Binding columnsCounter}"
+                                                         Grid.IsSharedSizeScope="True" 
+                                                         Height="auto"  
+                                                         Width="auto"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center"
+                                                         x:Name="testTablero"/>
+                                        </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate >
@@ -91,31 +91,29 @@
                                                 BorderBrush="{Binding pictograma.colorBorde}"
                                                 BorderThickness="10"
                                                 x:Name="BorderHolder">
-                                                <StackPanel 
-                                            HorizontalAlignment="Center"
-                                            Orientation="Vertical"
-                                                    >
-                                                    <Image Source="{Binding pictograma.Imagen}"
-                                               Height="120"
-                                               Width="120"
-                                               Margin="10"/>
-                                                <TextBlock Text="{Binding pictograma.Texto}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                Foreground="Black"
-                                                FontSize="25"
-                                                FontFamily="arial"
-                                                FontWeight="SemiBold"
-                                                TextAlignment="Center"
-                                                VerticalAlignment="Bottom"
-                                                x:Name="TextHolder"/>
+                                                <StackPanel HorizontalAlignment="Center"
+                                                            Orientation="Vertical">
+                                                        <Image Source="{Binding pictograma.Imagen}"
+                                                               Height="120"
+                                                               Width="120"
+                                                               Margin="10"/>
+                                                        <TextBlock Text="{Binding pictograma.Texto}"
+                                                                    TextTrimming="CharacterEllipsis"
+                                                                    TextWrapping="Wrap"
+                                                                    Foreground="Black"
+                                                                    FontSize="25"
+                                                                    FontFamily="arial"
+                                                                    FontWeight="SemiBold"
+                                                                    TextAlignment="Center"
+                                                                    VerticalAlignment="Bottom"
+                                                                    x:Name="TextHolder"/>
                                                 </StackPanel>
                                             </Border>
                                         </Grid>
                                             <DataTemplate.Triggers>
                                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                    <Setter TargetName="BorderHolder" Property="Height" Value="225"/>
-                                                    <Setter TargetName="BorderHolder" Property="Width" Value="225"/>
+                                                    <Setter TargetName="BorderHolder" Property="Height" Value="250"/>
+                                                    <Setter TargetName="BorderHolder" Property="Width" Value="250"/>
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>
