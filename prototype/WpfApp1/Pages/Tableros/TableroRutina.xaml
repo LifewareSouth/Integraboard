@@ -89,15 +89,17 @@
                                             <Border 
                                                 Width="200" Height="200"
                                                 BorderBrush="{Binding pictograma.colorBorde}"
-                                                BorderThickness="10">
+                                                BorderThickness="10"
+                                                x:Name="BorderHolder">
                                                 <StackPanel 
                                             HorizontalAlignment="Center"
-                                            Orientation="Vertical">
+                                            Orientation="Vertical"
+                                                    >
                                                     <Image Source="{Binding pictograma.Imagen}"
                                                Height="120"
                                                Width="120"
                                                Margin="10"/>
-                                                    <TextBlock Text="{Binding pictograma.Texto}"
+                                                <TextBlock Text="{Binding pictograma.Texto}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
                                                 Foreground="Black"
@@ -105,12 +107,18 @@
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"
                                                 TextAlignment="Center"
-                                                VerticalAlignment="Bottom"/>
+                                                VerticalAlignment="Bottom"
+                                                x:Name="TextHolder"/>
                                                 </StackPanel>
                                             </Border>
                                         </Grid>
-
-                                    </DataTemplate>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
+                                                    <Setter TargetName="BorderHolder" Property="Height" Value="225"/>
+                                                    <Setter TargetName="BorderHolder" Property="Width" Value="225"/>
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Viewbox>
