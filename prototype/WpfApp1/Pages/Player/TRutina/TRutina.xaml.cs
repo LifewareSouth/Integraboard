@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace WpfApp1.Pages.Player.TRutina
     public partial class TRutina : Page
     {
         private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
+        List<pictTablero> ListaPict = new List<pictTablero>();
         public TRutina()
         {
             InitializeComponent();
@@ -32,6 +34,8 @@ namespace WpfApp1.Pages.Player.TRutina
         public TRutina(Board board)
         {
             InitializeComponent();
+            ListaPict = board.pictTableros;
+            //bind aqui con Tablero.source = ListaPict
             this.Resources["check"] = imagenBoton;
         }
 
