@@ -129,7 +129,7 @@
                             FontFamily="arial"
                             Height="110"
                             Width="110"
-                            Visibility="Visible"/>
+                            Visibility="Visible" Click="saltarTarea_Click"/>
 
                     <Button x:Name="terminarTarea"
                             Content="Terminar Tarea" 
@@ -149,12 +149,12 @@
                             FontFamily="arial"
                             Height="110"
                             Width="110"
-                            Visibility="Visible"/>
+                            Visibility="Visible" Click="agregarTiempo_Click"/>
                 </StackPanel>
                 <!--boton de play-->
                 <Button x:Name="playButton" 
                         FontSize="20"
-                        Visibility="Hidden"
+                        Visibility="Visible"
                         Foreground="black" Click="playButton_Click">
                         <Image Source="{DynamicResource check}"
                            Margin="30,0,0,0"

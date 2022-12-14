@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1.Pages.Player.TRutina
 {
@@ -128,19 +129,48 @@ namespace WpfApp1.Pages.Player.TRutina
             }
             else
             {
-                if(Tablero.SelectedIndex < pictTablerosCount-1)
+                timer.Stop();
+                WarningTiempo wT = new WarningTiempo();
+                wT.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                var result = wT.ShowDialog();
+                if (result==true)
                 {
-                    Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
-                    segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                    segundosPict = 20;
                     lblTime.Content = segundosPict;
+                    timer.Start();
                 }
-                else
-                {
-                    timer.Stop();
-                }
-                
             }
             
+        }
+
+        private void agregarTiempo_Click(object sender, RoutedEventArgs e)
+        {
+            segundosPict = segundosPict + 20;
+            lblTime.Content = segundosPict;
+        }
+
+        private void saltarTarea_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            if (Tablero.SelectedIndex < pictTablerosCount - 1)
+            {
+                Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                lblTime.Content = segundosPict;
+                timer.Start();
+            }
+        }
+
+        private void terminarTarea_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            if (Tablero.SelectedIndex < pictTablerosCount - 1)
+            {
+                Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                lblTime.Content = segundosPict;
+                timer.Start();
+            }
         }
     }
 }

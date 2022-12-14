@@ -61,7 +61,7 @@
                         Foreground="white"
                         FontSize="20"
                         FontWeight="SemiBold"
-                        IsDefault="True"
+                        IsDefault="True" Click="btnAceptar_Click"
                         />
                 <Button x:Name="btnCancelar"
                         Content="Cancelar"
@@ -72,7 +72,7 @@
                         FontSize="20"
                         FontWeight="SemiBold"
                         Margin="80,0,0,0"
-                        IsCancel="True"/>
+                        IsCancel="True" Click="btnCancelar_Click"/>
 
 
             </StackPanel>
