@@ -125,8 +125,7 @@
                             FontFamily="arial"
                             Height="110"
                             Width="110"
-                            Margin="0,0,50,0"
-                            Visibility="Hidden"/>
+                            Margin="0,0,50,0"/>
 
                     <Button x:Name="terminarTarea"
                             Content="Terminar Tarea" 
@@ -135,8 +134,7 @@
                             Background="#1597e5"
                             FontFamily="arial"
                             Height="110"
-                            Width="110"
-                            Visibility="Hidden"/>
+                            Width="110"/>
                 </StackPanel>
                 <!--boton de play-->
                 <Button x:Name="playButton" 

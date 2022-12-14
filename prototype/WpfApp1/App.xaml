@@ -7,6 +7,8 @@
         <ResourceDictionary>
             <BitmapImage x:Key="sound" UriSource="Resources\sound.png"/>
             <BitmapImage x:Key="check" UriSource="Resources\playButtonBlanco.png"/>
+            <BitmapImage x:Key="botonSiguiente" UriSource="Resources\terminar.png"/>
+            <BitmapImage x:Key="botonSaltar" UriSource="Resources\siguiente.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

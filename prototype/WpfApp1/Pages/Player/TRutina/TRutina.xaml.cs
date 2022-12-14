@@ -25,6 +25,8 @@ namespace WpfApp1.Pages.Player.TRutina
     public partial class TRutina : Page
     {
         private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
+        //private static BitmapImage botonSiguiente = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
+        //private static BitmapImage botonSaltar = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         int rowCounter, columnsCounter;
@@ -32,6 +34,8 @@ namespace WpfApp1.Pages.Player.TRutina
         {
             InitializeComponent();
             //this.Resources["check"] = imagenBoton;
+            this.Resources["botonSiguiente"] = botonSiguiente;
+            this.Resources["botonSaltar"] = botonSaltar;
         }
 
         public TRutina(Board board)
