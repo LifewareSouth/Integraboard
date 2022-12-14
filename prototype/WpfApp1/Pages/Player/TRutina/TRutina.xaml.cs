@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 
@@ -27,7 +28,10 @@ namespace WpfApp1.Pages.Player.TRutina
         private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
+        static int segundosPict = 0;
         int rowCounter, columnsCounter;
+        int pictTablerosCount = 0;
+        DispatcherTimer timer = new DispatcherTimer();
         public TRutina()
         {
             InitializeComponent();
@@ -42,6 +46,12 @@ namespace WpfApp1.Pages.Player.TRutina
             ListaPict = board.pictTableros;
             Tablero.ItemsSource = board.pictTableros;
             this.Resources["check"] = imagenBoton;
+            pictTablerosCount = board.pictTableros.Count();
+            segundosPict = int.Parse(board.pictTableros.First().tiempo);
+            lblTime.Content = segundosPict;
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -101,6 +111,32 @@ namespace WpfApp1.Pages.Player.TRutina
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
             playButton.Visibility = Visibility.Collapsed;
+            Tablero.SelectedIndex = 0;
+            botonesInferiores.Visibility = Visibility.Visible;
+            timer.Start();
+        }
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if (segundosPict > 0)
+            {
+                segundosPict--;
+                lblTime.Content = segundosPict;
+            }
+            else
+            {
+                if(Tablero.SelectedIndex < pictTablerosCount-1)
+                {
+                    Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                    segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                    lblTime.Content = segundosPict;
+                }
+                else
+                {
+                    timer.Stop();
+                }
+                
+            }
+            
         }
     }
 }

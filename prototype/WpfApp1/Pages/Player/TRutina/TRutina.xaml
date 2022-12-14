@@ -39,6 +39,9 @@
                        FontFamily="arial"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
+
+                <Label  HorizontalAlignment="Right" Name="lblTime" FontSize="48" VerticalAlignment="Center" />
+
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -54,6 +57,7 @@
                         <Viewbox Width="1150"
                                      Height="350">
                             <ListView x:Name="Tablero"
+                                        Width="1628"
                                         Background="Transparent"
                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -75,8 +79,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Background="White"
-                                              Margin="30">
+                                        <Grid Background="White">
                                             <Border x:Name="BorderHolder" 
                                                     Width="200" 
                                                     Height="200"
@@ -114,9 +117,10 @@
                     
                 </Grid>
                 <!-- botones para temrinar o saltar tarea -->
-                <StackPanel Orientation="Horizontal"
+                <StackPanel x:Name="botonesInferiores" Orientation="Horizontal"
                             Grid.Row="1"
-                            HorizontalAlignment="Center">
+                            HorizontalAlignment="Center"
+                            Visibility="Hidden">
                     <Button x:Name="saltarTarea"
                             Content="Saltar" 
                             FontSize="15"
@@ -126,7 +130,7 @@
                             Height="110"
                             Width="110"
                             Margin="0,0,50,0"
-                            Visibility="Hidden"/>
+                            Visibility="Visible"/>
 
                     <Button x:Name="terminarTarea"
                             Content="Terminar Tarea" 
@@ -136,12 +140,12 @@
                             FontFamily="arial"
                             Height="110"
                             Width="110"
-                            Visibility="Hidden"/>
+                            Visibility="Visible"/>
                 </StackPanel>
                 <!--boton de play-->
                 <Button x:Name="playButton" 
                         FontSize="20"
-                        Visibility="Hidden"
+                        Visibility="Visible"
                         Foreground="black" Click="playButton_Click">
                         <Image Source="{DynamicResource check}"
                            Margin="30,0,0,0"
