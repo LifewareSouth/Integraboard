@@ -54,7 +54,6 @@
                         <Viewbox Width="1150"
                                      Height="350">
                             <ListView x:Name="Tablero"
-                                        Width="1628"
                                         Background="Transparent"
                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -76,7 +75,8 @@
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Background="White">
+                                        <Grid Background="White"
+                                              Margin="30">
                                             <Border x:Name="BorderHolder" 
                                                     Width="200" 
                                                     Height="200"
