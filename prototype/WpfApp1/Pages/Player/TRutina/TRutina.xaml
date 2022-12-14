@@ -120,7 +120,7 @@
                 <StackPanel x:Name="botonesInferiores" Orientation="Horizontal"
                             Grid.Row="1"
                             HorizontalAlignment="Center"
-                            Visibility="Hidden">
+                            Visibility="Visible">
                     <Button x:Name="saltarTarea"
                             Content="Saltar" 
                             FontSize="15"
@@ -129,11 +129,20 @@
                             FontFamily="arial"
                             Height="110"
                             Width="110"
-                            Margin="0,0,50,0"
                             Visibility="Visible"/>
 
                     <Button x:Name="terminarTarea"
                             Content="Terminar Tarea" 
+                            FontSize="15"
+                            Foreground="White"
+                            Background="#1597e5"
+                            FontFamily="arial"
+                            Height="110"
+                            Width="110"
+                            Margin="50,0,50,0"
+                            Visibility="Visible"/>
+                    <Button x:Name="agregarTiempo"
+                            Content="Agregar Tiempo" 
                             FontSize="15"
                             Foreground="White"
                             Background="#1597e5"
@@ -145,7 +154,7 @@
                 <!--boton de play-->
                 <Button x:Name="playButton" 
                         FontSize="20"
-                        Visibility="Visible"
+                        Visibility="Hidden"
                         Foreground="black" Click="playButton_Click">
                         <Image Source="{DynamicResource check}"
                            Margin="30,0,0,0"

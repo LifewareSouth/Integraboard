@@ -1,12 +1,11 @@
-﻿<Window x:Class="WpfApp1.Pages.Dialogs.WarningTableroSinPortada"
+﻿<Window x:Class="WpfApp1.Pages.Dialogs.WarningTiempo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs"
         mc:Ignorable="d"
-        Title="WarningTableroSinPortada" 
-        Height="300" Width="600"
+        Title="WarningTiempo" Height="300" Width="600"
         WindowStyle = "None"
         ResizeMode = "NoResize">
     <Grid Background="White">
@@ -36,7 +35,7 @@
                     BorderBrush="{x:Null}" 
                     Foreground="White" 
                     FontSize="30"
-                    FontWeight="Bold" Click="closebtn_Click"
+                    FontWeight="Bold"
                     />
         </Grid>
         <Grid Grid.Row="1">
@@ -47,8 +46,8 @@
                        FontFamily="Arial"
                        Width="550"
                        TextAlignment="Center">
-                El tablero seleccionado no tiene portada, 
-                por favor agregue una en la sección de Editar Tablero.
+                            ¡Acabó el tiempo! <LineBreak/> 
+                            ¿Quieres agregar más?
             </TextBlock>
         </Grid>
         <Grid Grid.Row="2">
@@ -61,9 +60,21 @@
                         Width="150"
                         Foreground="white"
                         FontSize="20"
-                        FontWeight="SemiBold" 
-                        Click="btnAceptar_Click"
-                        IsDefault="True"/>
+                        FontWeight="SemiBold"
+                        IsDefault="True"
+                        />
+                <Button x:Name="btnCancelar"
+                        Content="Cancelar"
+                        Background="#ff6464"
+                        Height="40"
+                        Width="150"
+                        Foreground="white"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Margin="80,0,0,0"
+                        IsCancel="True"/>
+
+
             </StackPanel>
         </Grid>
     </Grid>

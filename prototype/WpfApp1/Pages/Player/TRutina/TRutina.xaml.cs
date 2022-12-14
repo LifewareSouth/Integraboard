@@ -38,8 +38,8 @@ namespace WpfApp1.Pages.Player.TRutina
         {
             InitializeComponent();
             //this.Resources["check"] = imagenBoton;
-            this.Resources["botonSiguiente"] = botonSiguiente;
-            this.Resources["botonSaltar"] = botonSaltar;
+            //this.Resources["botonSiguiente"] = botonSiguiente;
+            //this.Resources["botonSaltar"] = botonSaltar;
         }
 
         public TRutina(Board board)
