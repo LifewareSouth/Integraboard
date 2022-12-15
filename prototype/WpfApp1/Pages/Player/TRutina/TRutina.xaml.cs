@@ -57,7 +57,7 @@ namespace WpfApp1.Pages.Player.TRutina
             {
                 conTiempo = true;
                 segundosPict = int.Parse(board.pictTableros.First().tiempo);
-                lblTime.Content = segundosPict;
+                ajustar_tiempo();
                 timer.Interval = TimeSpan.FromSeconds(1);
                 timer.Tick += timer_Tick;
             }
@@ -137,7 +137,7 @@ namespace WpfApp1.Pages.Player.TRutina
             if (segundosPict > 0)
             {
                 segundosPict--;
-                lblTime.Content = segundosPict;
+                ajustar_tiempo();
             }
             else
             {
@@ -148,17 +148,55 @@ namespace WpfApp1.Pages.Player.TRutina
                 if (result==true)
                 {
                     segundosPict = 20;
-                    lblTime.Content = segundosPict;
+                    ajustar_tiempo();
                     timer.Start();
                 }
             }
             
         }
+        void ajustar_tiempo()
+        {
+            if (segundosPict < 60)
+            {
+                if (segundosPict < 10)
+                {
+                    lblTime.Content = "00:0" + segundosPict;
+                }
+                else
+                {
+                    lblTime.Content = "00:" + segundosPict;
+                }
+            }
+            else
+            {
+                int minutos = segundosPict / 60;
+                int segundos = segundosPict - (minutos * 60);
+                string textoSegundos = "";
+                string textoMinutos = "";
+                if (minutos < 10)
+                {
+                    textoMinutos = "0" + minutos;
+                }
+                else
+                {
+                    textoMinutos = minutos.ToString();
+                }
+                if (segundos < 10)
+                {
+                    textoSegundos = "0" + segundos;
+                }
+                else
+                {
+                    textoSegundos = segundos.ToString();
+                }
+                lblTime.Content = textoMinutos + ":" + textoSegundos;
+            }
+        }
 
         private void agregarTiempo_Click(object sender, RoutedEventArgs e)
         {
             segundosPict = segundosPict + 20;
-            lblTime.Content = segundosPict;
+            ajustar_tiempo();
         }
 
         private void saltarTarea_Click(object sender, RoutedEventArgs e)
@@ -170,7 +208,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
                     segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
-                    lblTime.Content = segundosPict;
+                    ajustar_tiempo();
                     timer.Start();
                 }
             }
@@ -199,7 +237,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
                     segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
-                    lblTime.Content = segundosPict;
+                    ajustar_tiempo();
                     timer.Start();
                 }
             }
