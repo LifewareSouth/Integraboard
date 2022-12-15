@@ -29,7 +29,7 @@
                         Foreground="white"
                         Background="#1597e5"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top"/>
+                        VerticalAlignment="Top" Click="volverMenu_Click"/>
                 
                 <Label x:Name="TituloTRutina"
                        Content="Tablero de Rutina"
@@ -61,6 +61,8 @@
                                         Background="Transparent"
                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                        IsEnabled="False"
+                                        SelectedIndex="0"
                                         ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                                         d:ItemsSource="{d:SampleData ItemCount=4}" BorderBrush="{x:Null}"
                                         >

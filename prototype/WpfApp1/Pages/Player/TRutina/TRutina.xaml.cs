@@ -33,7 +33,8 @@ namespace WpfApp1.Pages.Player.TRutina
         List<pictTablero> ListaPict = new List<pictTablero>();
         static int segundosPict = 0;
         int rowCounter, columnsCounter;
-        int pictTablerosCount = 0;
+        int pictTablerosCount = 0; 
+        bool conTiempo = false;
         DispatcherTimer timer = new DispatcherTimer();
         public TRutina()
         {
@@ -52,10 +53,20 @@ namespace WpfApp1.Pages.Player.TRutina
             Tablero.ItemsSource = board.pictTableros;
             this.Resources["check"] = imagenBoton;
             pictTablerosCount = board.pictTableros.Count();
-            segundosPict = int.Parse(board.pictTableros.First().tiempo);
-            lblTime.Content = segundosPict;
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
+            if(board.conTiempo == "Si")
+            {
+                conTiempo = true;
+                segundosPict = int.Parse(board.pictTableros.First().tiempo);
+                lblTime.Content = segundosPict;
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += timer_Tick;
+            }
+            else if(board.conTiempo == "No")
+            {
+                conTiempo = false;
+                playButton.Visibility = Visibility.Collapsed;
+                lblTime.Visibility = Visibility.Collapsed;
+            }
             
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
@@ -151,25 +162,52 @@ namespace WpfApp1.Pages.Player.TRutina
 
         private void saltarTarea_Click(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
-            if (Tablero.SelectedIndex < pictTablerosCount - 1)
+            if (conTiempo)
             {
-                Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
-                segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
-                lblTime.Content = segundosPict;
-                timer.Start();
+                timer.Stop();
+                if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                {
+                    Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                    segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                    lblTime.Content = segundosPict;
+                    timer.Start();
+                }
             }
+            else
+            {
+                if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                {
+                    Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                }
+            }
+            
+            
+        }
+
+        private void volverMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MenuPage());
         }
 
         private void terminarTarea_Click(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
-            if (Tablero.SelectedIndex < pictTablerosCount - 1)
+            if (conTiempo)
             {
-                Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
-                segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
-                lblTime.Content = segundosPict;
-                timer.Start();
+                timer.Stop();
+                if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                {
+                    Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                    segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                    lblTime.Content = segundosPict;
+                    timer.Start();
+                }
+            }
+            else
+            {
+                if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                {
+                    Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                }
             }
         }
     }
