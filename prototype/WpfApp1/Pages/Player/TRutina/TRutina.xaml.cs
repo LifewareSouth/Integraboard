@@ -66,6 +66,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 conTiempo = false;
                 playButton.Visibility = Visibility.Collapsed;
                 lblTime.Visibility = Visibility.Collapsed;
+                agregarTiempo.Visibility = Visibility.Collapsed;
             }
             
         }
