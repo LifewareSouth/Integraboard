@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,7 @@ using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Pictogramas;
+using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace WpfApp1.Pages.Tableros
@@ -267,44 +269,32 @@ namespace WpfApp1.Pages.Tableros
             }
             return null;
         }
-
-        private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+    private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Tablero.SelectedItem != null)
             {
                 if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                 {
-                    time.IsEnabled = IsEnabled;
+                    timeMinutos.IsEnabled = IsEnabled;
+                    timeSegundos.IsEnabled = IsEnabled;
                     CuadroSeleccionado = (pictTablero)Tablero.SelectedItem;
-                    if (CuadroSeleccionado.tiempo == "30")
-                    {
-                        time.SelectedIndex = 0;
-                    }
-                    else if (CuadroSeleccionado.tiempo == "60")
-                    {
-                        time.SelectedIndex = 1;
-                    }
-                    else if (CuadroSeleccionado.tiempo == "90")
-                    {
-                        time.SelectedIndex = 2;
-                    }
-                    else if (CuadroSeleccionado.tiempo == "120")
-                    {
-                        time.SelectedIndex = 3;
-                    }
-                    else if (CuadroSeleccionado.tiempo == "180")
-                    {
-                        time.SelectedIndex = 4;
-                    }
-                    else if (CuadroSeleccionado.tiempo == "240")
-                    {
-                        time.SelectedIndex = 5;
-                    }
+                    int tiempoTotal = int.Parse(CuadroSeleccionado.tiempo);
+                    int minutos = tiempoTotal / 60;
+                    int segundos =tiempoTotal -(minutos * 60);
+                    timeMinutos.Text = minutos.ToString();
+                    timeSegundos.Text = segundos.ToString();
                     aplicarTiempo.IsEnabled = false;
                 }
                 else
                 {
-                    time.IsEnabled = false;
+                    timeSegundos.IsEnabled = false;
+                    timeMinutos.IsEnabled = false;
                 }
 
             }
@@ -407,6 +397,13 @@ namespace WpfApp1.Pages.Tableros
                 if(listaPictTablero.Where(x=>x.x == i).Count() == 0)
                 {
                     valido = false;
+                }
+                else
+                {
+                    if((listaPictTablero.Where(x => x.x == i).First()).tiempo == "0")
+                    {
+                        valido = false;
+                    }
                 }
             }
             return valido;
@@ -652,27 +649,58 @@ namespace WpfApp1.Pages.Tableros
                 panelTiempo.Visibility = Visibility.Hidden;
             }
         }
-
-        private void time_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void timeMinutos_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Tablero.SelectedItem != null)
             {
                 aplicarTiempo.IsEnabled = true;
             }
         }
-
+        private void timeSegundos_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Tablero.SelectedItem != null)
+            {
+                aplicarTiempo.IsEnabled = true;
+            }
+        }
         private void aplicarTiempo_Click(object sender, RoutedEventArgs e)
         {
             if (Tablero.SelectedItem != null)
             {
                 if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                 {
-                    listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().tiempo = time.Text;
+                    int segundos, minutos;
+                    if (timeSegundos.Text=="")
+                    {
+                        segundos = 0;
+                    }
+                    else
+                    {
+                        segundos = int.Parse(timeSegundos.Text);
+                    }
+
+                    if (timeMinutos.Text == "")
+                    {
+                        minutos = 0;
+                    }
+                    else
+                    {
+                        minutos = int.Parse(timeMinutos.Text);
+                    }
+                    int tiempoTotal;
+                    if (minutos != 0)
+                    {
+                        tiempoTotal = segundos + (minutos * 60);
+                    }
+                    else
+                    {
+                        tiempoTotal = segundos;
+                    }
+                    listaPictTablero.Where(x => x.idPictograma == CuadroSeleccionado.idPictograma).First().tiempo = tiempoTotal.ToString();
                 }
                 aplicarTiempo.IsEnabled = false;
             }
         }
-
         private void intercambiarPos()
         {
             pictTablero target = (pictTablero)TargetTodoRutinaItem;

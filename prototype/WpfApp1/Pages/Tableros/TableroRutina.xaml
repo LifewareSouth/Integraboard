@@ -121,44 +121,59 @@
                             </ListView>
                         </Viewbox>
                             <Grid  x:Name="panelTiempo"
-                                   Visibility="Hidden"
+                                   Visibility="Visible"
                                    Grid.Column="1" 
                                    Grid.Row="2">
                             <StackPanel Orientation="Horizontal"
                                         Margin="20,50,0,0"
                                         >
-                                <TextBlock Text="El tiempo asociado a este pictograma es:"
+                                <TextBlock Text="El:"
                                            FontFamily="arial"
                                            FontSize="28"
                                            Foreground="White"
                                            TextWrapping="NoWrap"
                                            VerticalAlignment="Center"/>
-                                    <ComboBox x:Name="time"
-                                          Width="100"
-                                          Height="50"
-                                          Margin="10"
-                                          IsEnabled="False"
-                                          VerticalAlignment="Center"
-                                          FontFamily="arial"
-                                          FontSize="30"
-                                          VerticalContentAlignment="Center"
-                                          HorizontalContentAlignment="Center" 
-                                          SelectionChanged="time_SelectionChanged"
+                                <TextBox x:Name="timeMinutos"
+                                        Width="100"
+                                        Height="50"
+                                        Margin="10"
+                                        IsEnabled="False"
+                                        VerticalAlignment="Center"
+                                        FontFamily="arial"
+                                        FontSize="30"
+                                        VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Center" 
+                                        TextChanged="timeMinutos_TextChanged"
+                                        PreviewTextInput="NumberValidationTextBox"
                                           
                                           >
-                                    <ComboBoxItem Content="30"/>
-                                    <ComboBoxItem Content="60"/>
-                                    <ComboBoxItem Content="90"/>
-                                    <ComboBoxItem Content="120"/>
-                                    <ComboBoxItem Content="180"/>
-                                    <ComboBoxItem Content="240"/>
-                                </ComboBox>
-                                <Label Content="segundos"
+                                </TextBox>
+                                <Label Content="minutos"
                                        FontFamily="arial"
                                        FontSize="28"
                                        VerticalAlignment="Center"
                                        Foreground="White"/>
-                                
+                                    <TextBox x:Name="timeSegundos"
+                                        Width="100"
+                                        Height="50"
+                                        Margin="10"
+                                        IsEnabled="False"
+                                        VerticalAlignment="Center"
+                                        FontFamily="arial"
+                                        FontSize="30"
+                                        VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Center" 
+                                        TextChanged="timeSegundos_TextChanged"
+                                        PreviewTextInput="NumberValidationTextBox"
+                                          
+                                          >
+                                    </TextBox>
+                                    <Label Content="segundos"
+                                       FontFamily="arial"
+                                       FontSize="28"
+                                       VerticalAlignment="Center"
+                                       Foreground="White"/>
+
                                 </StackPanel>
                                 <Button x:Name="aplicarTiempo"
                                         IsEnabled="False"
