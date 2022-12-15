@@ -39,7 +39,11 @@
                     />
         </Grid>
         <Grid Grid.Row="1">
-            <TextBlock FontSize="30"
+            <StackPanel Orientation="Vertical">
+                <Image Source="{DynamicResource cronometro}"
+                       Height="80"
+                       Width="80"/>
+                <TextBlock FontSize="30"
                        TextWrapping="Wrap"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
@@ -48,13 +52,15 @@
                        TextAlignment="Center">
                             ¡Acabó el tiempo! <LineBreak/> 
                             ¿Quieres agregar más?
-            </TextBlock>
+            </TextBlock> 
+            </StackPanel>
+            
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <Button x:Name="btnAceptar"
-                        Content="Aceptar"
+                        Content="Agregar tiempo"
                         Background="#9ede73"
                         Height="40"
                         Width="150"
@@ -64,7 +70,7 @@
                         IsDefault="True" Click="btnAceptar_Click"
                         />
                 <Button x:Name="btnCancelar"
-                        Content="Cancelar"
+                        Content="Saltar tarea"
                         Background="#ff6464"
                         Height="40"
                         Width="150"

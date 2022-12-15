@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.Dialogs
 {
@@ -19,9 +20,11 @@ namespace WpfApp1.Pages.Dialogs
     /// </summary>
     public partial class WarningTiempo : Window
     {
+        private static BitmapImage cronometro = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.stopwatch);
         public WarningTiempo()
         {
             InitializeComponent();
+            this.Resources["cronometro"] = cronometro;
         }
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {

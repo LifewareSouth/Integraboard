@@ -113,6 +113,16 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap stopwatch {
+            get {
+                object obj = ResourceManager.GetObject("stopwatch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap terminar {
             get {
                 object obj = ResourceManager.GetObject("terminar", resourceCulture);
