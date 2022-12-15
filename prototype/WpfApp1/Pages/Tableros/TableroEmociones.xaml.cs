@@ -50,6 +50,7 @@ namespace WpfApp1.Pages.Tableros
         {
             InitializeComponent();
             rowCounter = 4;
+            isEditing = false;
             columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
             //tiposTablero();

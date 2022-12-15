@@ -53,6 +53,7 @@ namespace WpfApp1.Pages.Tableros
         {
             InitializeComponent();
             columnsCounter = 4;
+            isEditing = false;
             listaPictTablero = new Collection<pictTablero>();
             //tiposTablero();
             pictPortada = Repository.Instance.defaultPict();

@@ -140,7 +140,7 @@
                             Height="110"
                             Width="110"
                             Margin="50,0,50,0"
-                            Visibility="Visible"/>
+                            Visibility="Visible" Click="terminarTarea_Click"/>
                     <Button x:Name="agregarTiempo"
                             Content="Agregar Tiempo" 
                             FontSize="15"
