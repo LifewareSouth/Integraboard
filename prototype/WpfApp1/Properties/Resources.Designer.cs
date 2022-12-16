@@ -83,6 +83,26 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap correctoEsquinado {
+            get {
+                object obj = ResourceManager.GetObject("correctoEsquinado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap incorrectoEsquinado {
+            get {
+                object obj = ResourceManager.GetObject("incorrectoEsquinado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap playButtonBlanco {
             get {
                 object obj = ResourceManager.GetObject("playButtonBlanco", resourceCulture);

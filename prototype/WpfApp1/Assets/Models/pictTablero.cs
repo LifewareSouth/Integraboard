@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using WpfApp1.UserControls;
 
 namespace WpfApp1.Model
@@ -17,5 +18,6 @@ namespace WpfApp1.Model
         public int y { get; set; } 
         public Pictogram pictograma { get; set; }
         public string tiempo { get; set; } //
+        public BitmapImage imagenEstado { get; set; }
     }
 }

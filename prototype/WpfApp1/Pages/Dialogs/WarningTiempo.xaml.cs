@@ -32,6 +32,13 @@ namespace WpfApp1.Pages.Dialogs
         }
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false;
+            Close();
+        }
+
+        private void closebtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
             Close();
         }
     }

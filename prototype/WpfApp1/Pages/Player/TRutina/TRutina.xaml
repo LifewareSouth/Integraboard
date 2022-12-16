@@ -106,6 +106,10 @@
                                                                 VerticalAlignment="Bottom"/>    
                                                 </StackPanel>
                                             </Border>
+                                            <Image Width="200" 
+                                                   Height="200"
+                                                   Source="{Binding imagenEstado}"
+                                                   />
                                         </Grid>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">

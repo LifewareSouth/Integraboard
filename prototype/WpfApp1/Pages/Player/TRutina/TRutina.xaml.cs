@@ -27,6 +27,8 @@ namespace WpfApp1.Pages.Player.TRutina
     public partial class TRutina : Page
     {
         private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
+        private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.correctoEsquinado);
+        private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
         //private static BitmapImage botonSiguiente = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
         //private static BitmapImage botonSaltar = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
@@ -68,7 +70,8 @@ namespace WpfApp1.Pages.Player.TRutina
                 lblTime.Visibility = Visibility.Collapsed;
                 agregarTiempo.Visibility = Visibility.Collapsed;
             }
-            
+            AjustarTablero();
+
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -108,12 +111,10 @@ namespace WpfApp1.Pages.Player.TRutina
                     }
                     else
                     {
-
                         Pictogram tempPictograma = new Pictogram();
                         tempPictograma.colorBorde = new SolidColorBrush(Colors.White);
                         tempPictograma.Texto = "";
                         pictTab.pictograma = tempPictograma;
-
                     }
                     pictTab.x = j;
                     pictTab.y = i;
@@ -150,6 +151,21 @@ namespace WpfApp1.Pages.Player.TRutina
                     segundosPict = 20;
                     ajustar_tiempo();
                     timer.Start();
+                }
+                else
+                {
+                    ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = incorrectoEsquinado;
+                    int index = Tablero.SelectedIndex;
+                    AjustarTablero();
+                    Tablero.SelectedIndex = index;
+                    timer.Stop();
+                    if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                    {
+                        Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                        segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                        ajustar_tiempo();
+                        timer.Start();
+                    }
                 }
             }
             
@@ -203,6 +219,10 @@ namespace WpfApp1.Pages.Player.TRutina
         {
             if (conTiempo)
             {
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = correctoEsquinado;
+                int index = Tablero.SelectedIndex;
+                AjustarTablero();
+                Tablero.SelectedIndex= index;
                 timer.Stop();
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
@@ -225,6 +245,10 @@ namespace WpfApp1.Pages.Player.TRutina
 
         private void volverMenu_Click(object sender, RoutedEventArgs e)
         {
+            if (timer.IsEnabled)
+            {
+                timer.Stop();
+            }
             this.NavigationService.Navigate(new MenuPage());
         }
 
@@ -232,6 +256,10 @@ namespace WpfApp1.Pages.Player.TRutina
         {
             if (conTiempo)
             {
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = incorrectoEsquinado;
+                int index = Tablero.SelectedIndex;
+                AjustarTablero();
+                Tablero.SelectedIndex = index;
                 timer.Stop();
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {

@@ -49,7 +49,7 @@ namespace WpfApp1.Pages.Tableros
         public TableroEmociones()
         {
             InitializeComponent();
-            rowCounter = 4;
+            rowCounter = 3;
             isEditing = false;
             columnsCounter = 4;
             listaPictTablero = new Collection<pictTablero>();
@@ -151,7 +151,7 @@ namespace WpfApp1.Pages.Tableros
             }
         }*/
 
-        int _rows = 4, _columns = 4;
+        int _rows = 3, _columns = 4;
         public int rowCounter
         {
             set
