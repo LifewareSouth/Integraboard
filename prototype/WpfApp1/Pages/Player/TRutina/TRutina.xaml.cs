@@ -143,28 +143,31 @@ namespace WpfApp1.Pages.Player.TRutina
             else
             {
                 timer.Stop();
-                WarningTiempo wT = new WarningTiempo();
-                wT.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                var result = wT.ShowDialog();
-                if (result==true)
+                if (this.NavigationService != null)
                 {
-                    segundosPict = 20;
-                    ajustar_tiempo();
-                    timer.Start();
-                }
-                else
-                {
-                    ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = incorrectoEsquinado;
-                    int index = Tablero.SelectedIndex;
-                    AjustarTablero();
-                    Tablero.SelectedIndex = index;
-                    timer.Stop();
-                    if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                    WarningTiempo wT = new WarningTiempo();
+                    wT.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    var result = wT.ShowDialog();
+                    if (result==true)
                     {
-                        Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
-                        segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                        segundosPict = 20;
                         ajustar_tiempo();
                         timer.Start();
+                    }
+                    else
+                    {
+                        ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = incorrectoEsquinado;
+                        int index = Tablero.SelectedIndex;
+                        AjustarTablero();
+                        Tablero.SelectedIndex = index;
+                        timer.Stop();
+                        if (Tablero.SelectedIndex < pictTablerosCount - 1)
+                        {
+                            Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
+                            segundosPict = int.Parse(((pictTablero)Tablero.SelectedItem).tiempo);
+                            ajustar_tiempo();
+                            timer.Start();
+                        }
                     }
                 }
             }
