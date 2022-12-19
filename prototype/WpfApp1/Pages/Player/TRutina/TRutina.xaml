@@ -43,7 +43,7 @@
                            FontWeight="SemiBold"
                            FontFamily="arial"
                            Margin="0,30,0,30"/>
-                    <StackPanel Orientation="Horizontal"
+                    <StackPanel x:Name="SeccionTiempo" Orientation="Horizontal"
                                 Width="300"
                                 Background="White">
                         <Image Source="{DynamicResource temp}"
