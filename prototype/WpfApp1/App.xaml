@@ -10,6 +10,7 @@
             <BitmapImage x:Key="botonSiguiente" UriSource="Resources\terminar.png"/>
             <BitmapImage x:Key="botonSaltar" UriSource="Resources\siguiente.png"/>
             <BitmapImage x:Key="cronometro" UriSource="Resources\stopwatch.png"/>
+            <BitmapImage x:Key="temp" UriSource="Resources\timer.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

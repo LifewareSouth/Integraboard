@@ -126,6 +126,7 @@
                                    Grid.Row="2">
                             <StackPanel Orientation="Horizontal"
                                         Margin="20,50,0,0"
+                                        HorizontalAlignment="Center"
                                         >
                                 <TextBlock Text="El:"
                                            FontFamily="arial"

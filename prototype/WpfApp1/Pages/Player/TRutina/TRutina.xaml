@@ -20,7 +20,8 @@
                 <RowDefinition Height="150"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0"
+                  Grid.RowSpan="2">
                 <Button x:Name="volverMenu"
                         Width="150"
                         Height="150"
@@ -31,19 +32,35 @@
                         Foreground="white"
                         Background="#1597e5"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top" Click="volverMenu_Click"/>
-                
-                <Label x:Name="TituloTRutina"
-                       Content="Tablero de Rutina"
-                       Foreground="White"
-                       FontSize="45"
-                       FontWeight="SemiBold"
-                       FontFamily="arial"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-
-                <Label  HorizontalAlignment="Right" Name="lblTime" FontSize="48" VerticalAlignment="Center" />
-
+                        VerticalAlignment="Top" 
+                        Click="volverMenu_Click"/>
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <Label x:Name="TituloTRutina"
+                           Content="Tablero de Rutina"
+                           Foreground="White"
+                           FontSize="45"
+                           FontWeight="SemiBold"
+                           FontFamily="arial"
+                           Margin="0,30,0,30"/>
+                    <StackPanel Orientation="Horizontal"
+                                Width="300"
+                                Background="White">
+                        <Image Source="{DynamicResource temp}"
+                               Height="80"
+                               Width="80"/>
+                        <TextBlock x:Name="lblTime"
+                                   Height="100"
+                                   Width="180"
+                                   Margin="0,20,0,0"
+                                   TextAlignment="Center"
+                                   Grid.RowSpan="2"
+                                   FontSize="55"
+                                   Background="White"
+                                   Foreground="Black"/>
+                    </StackPanel>
+                    
+                </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -51,9 +68,10 @@
                     <RowDefinition/>
                     <RowDefinition Height="130"/>
                 </Grid.RowDefinitions>
+
                 <Grid Grid.Column="1" 
                         Margin="0,0,0,28" 
-                        Height="350" 
+                        Height="300" 
                         Width="1150">
                     <Grid x:Name="testTablero2"
                           Width="1150">
@@ -64,7 +82,6 @@
                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                         IsEnabled="False"
                                         SelectedIndex="0"
-                                        
                                         ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                                         d:ItemsSource="{d:SampleData ItemCount=4}" BorderBrush="{x:Null}">
                                 <ItemsControl.ItemsPanel >
@@ -78,7 +95,7 @@
                                                      HorizontalAlignment="Center"
                                                      VerticalAlignment="Center"
                                                      x:Name="testTablero"/>
-                                        
+
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ListView.ItemTemplate>
@@ -103,13 +120,12 @@
                                                                 FontFamily="arial"
                                                                 FontWeight="SemiBold"
                                                                 TextAlignment="Center"
-                                                                VerticalAlignment="Bottom"/>    
+                                                                VerticalAlignment="Bottom"/>
                                                 </StackPanel>
                                             </Border>
                                             <Image Width="200" 
                                                    Height="200"
-                                                   Source="{Binding imagenEstado}"
-                                                   />
+                                                   Source="{Binding imagenEstado}"/>
                                         </Grid>
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
@@ -122,8 +138,8 @@
                             </ListView>
                         </Viewbox>
                     </Grid>
-                    
                 </Grid>
+                
                 <!-- botones para temrinar o saltar tarea -->
                 <StackPanel x:Name="botonesInferiores" Orientation="Horizontal"
                             Grid.Row="1"
