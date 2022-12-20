@@ -19,7 +19,7 @@
                    FontWeight="SemiBold"
                    FontFamily="arial"
                    Foreground="White"
-                   Margin="20,0,0,0"/>
+                   Margin="20,10,0,0"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -34,11 +34,39 @@
                 <RowDefinition/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
+            <TextBlock Text="Nombre:"
+                       FontSize="50"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
             <TextBox x:Name="NombreAlumno"
                      Grid.Row="0"
                      Grid.Column="1"
                      Height="80"
                      Width="350"/>
+
+            <TextBlock Text="Edad:"
+                       FontSize="50"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+            <TextBlock Text="Tamaño de Texto:"
+                       FontSize="50"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+            
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
                         Grid.Column="1"
@@ -63,23 +91,35 @@
                         Grid.Column="1"
                         >
                 <Button x:Name="largeFont"
+                        Background="White"
                         Height="55"
                         Width="350"
                         Content="Grande"
                         FontSize="45"/>
                 <Button x:Name="mediumFont"
+                        Background="White"
                         Height="55"
                         Width="350"
                         Content="Mediano"
                         FontSize="35"
                         Margin="0,10,0,10"/>
                 <Button x:Name="smallFont"
+                        Background="White"
                         Height="55"
                         Width="350"
                         Content="Pequeño"
                         FontSize="25"/>
             </StackPanel>
 
+            <TextBlock Text="Voz:"
+                       FontSize="50"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
+            
             <Grid Grid.Row="1"
                   Grid.Column="3">
                 <ComboBox x:Name="seleccionVoz"
@@ -87,22 +127,7 @@
                           Width="350"/>
             </Grid>
 
-            <Grid Grid.Column="3"
-                  Grid.Row="2">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                    <ComboBox x:Name="pictonivel"
-                          Height="80"
-                          Width="250"
-                          Text="Picto-Nivel"
-                          FontSize="50"/>
-                    <Button x:Name="evaluarPictonivel"
-                            Height="100"
-                            Width="100"
-                            Margin="10"/>
-                </StackPanel>
-
-            </Grid>
+            
         </Grid>
     </Grid>
 </Page>

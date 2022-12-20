@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.Perfil
 {
@@ -20,9 +21,11 @@ namespace WpfApp1.Pages.Perfil
     /// </summary>
     public partial class PerfilAlumno : Page
     {
+        private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.camera);
         public PerfilAlumno()
         {
             InitializeComponent();
+            this.Resources["cam"] = cameraButton;
         }
     }
 }

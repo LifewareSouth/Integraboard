@@ -11,6 +11,7 @@
             <BitmapImage x:Key="botonSaltar" UriSource="Resources\siguiente.png"/>
             <BitmapImage x:Key="cronometro" UriSource="Resources\stopwatch.png"/>
             <BitmapImage x:Key="temp" UriSource="Resources\timer.png"/>
+            <BitmapImage x:Key="cam" UriSource="Resources\camera.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -79,7 +79,7 @@
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              SelectionChanged="Tablero_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"
+                              d:ItemsSource="{d:SampleData ItemCount=5}"
                               
                               >
 
@@ -100,13 +100,11 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate >
                                     <Grid Background="White" >
-                                        <Border 
-                                                Width="200" Height="200"
+                                        <Border Width="200" Height="200"
                                                 BorderBrush="{Binding pictograma.colorBorde}"
                                                 BorderThickness="10">
-                                            <StackPanel 
-                                            HorizontalAlignment="Center"
-                                            Orientation="Vertical">
+                                            <StackPanel HorizontalAlignment="Center"
+                                                        Orientation="Vertical">
                                                 <Image Source="{Binding pictograma.Imagen}"
                                                Height="120"
                                                Width="120"
