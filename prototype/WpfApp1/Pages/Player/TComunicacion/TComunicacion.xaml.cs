@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Player.TComunicacion
@@ -27,6 +28,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         private BindingList<pictTablero> vistasListado = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         List<pictTablero> ListaPictListado = new List<pictTablero>();
+        private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
         int rowCounter, columnsCounter,columnsListado;
         public TComunicacion()
         {
@@ -67,23 +69,54 @@ namespace WpfApp1.Pages.Player.TComunicacion
 
         private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Tablero.SelectedItem!=null)
+           
+            
+        }
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Tablero.SelectedItem != null)
             {
-                if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                if (ListaPictListado.Count() < 7)
                 {
-                    añadirAlListado((pictTablero)Tablero.SelectedItem);
-                    columnsListado++;
+                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                    {
+                        pictTablero pictTablero = (pictTablero)Tablero.SelectedItem;
+                        pictTablero.imagenEstado = incorrectoEsquinado;
+                        ListaPictListado.Add(pictTablero);
+                        columnsListado++;
+                        AjustarListado();
+
+                        ajustarTamanoListado();
+                    }
+                }
+            }
+        }
+        private void listado_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Listado.SelectedItem != null)
+            {
+                if (((pictTablero)Listado.SelectedItem).idPictograma != 0)
+                {
+                    ListaPictListado.Remove((pictTablero)Listado.SelectedItem);
+                    columnsListado--;
                     AjustarListado();
-                    
+
                     ajustarTamanoListado();
                 }
             }
-            
         }
         private void ajustarTamanoListado()
         {
             UniformGrid foundUniformGrid = FindVisualChild<UniformGrid>(Listado);
             foundUniformGrid.Columns = columnsListado; 
+        }
+
+        private void eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            ListaPictListado.Clear();
+            columnsListado = 0;
+            AjustarListado();
+            ajustarTamanoListado();
         }
 
         private void AjustarTablero()
@@ -117,29 +150,23 @@ namespace WpfApp1.Pages.Player.TComunicacion
             vistas = tempVistas;
             Tablero.ItemsSource = vistas;
         }
-        private void añadirAlListado(pictTablero pictSeleccionado)
-        {
-            pictSeleccionado.y = 0;
-            pictSeleccionado.x = ListaPictListado.Count();
-            ListaPictListado.Add(pictSeleccionado);
-        }
         private void AjustarListado()
         {
+            Listado.ItemsSource=null;
             BindingList<pictTablero> tempVistas = new BindingList<pictTablero>();
             for (int j = 0; j < columnsListado; j++)
             {
                 pictTablero pictTab = new pictTablero();
-                if (ListaPict.Any(x => (x.x == j)))
+                /*if (ListaPict.Any(x => (x.x == j)))
                 {
                     pictTab = ListaPictListado.Where(x => (x.x == j)).First();
-                }
-                pictTab.x = j;
-                pictTab.y = 0;
+                }*/
+                pictTab = ListaPictListado[j];
                 tempVistas.Add(pictTab);
             }
             
             vistasListado = tempVistas;
-            Listado.ItemsSource = vistasListado;
+            Listado.ItemsSource = ListaPictListado;
         }
     }
 }

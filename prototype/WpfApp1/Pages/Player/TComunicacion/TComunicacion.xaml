@@ -49,14 +49,15 @@
                                 Margin="0,0,25,0">
                             <Viewbox>
                                 <ListView x:Name="Listado"
-                              Background="Transparent"
-                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistasListado, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              SelectionChanged="Tablero_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          Background="Transparent"
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                          ItemsSource="{Binding Path=vistasListado, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                                          d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          
                               
                               >
-
+                                    
                                     <ItemsControl.ItemsPanel >
                                         <ItemsPanelTemplate>
                                             <UniformGrid Rows="1" 
@@ -67,7 +68,7 @@
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
                                              x:Name="testTablero"
-                                             
+                                             PreviewMouseLeftButtonUp ="listado_MouseLeftButtonUp"
                                              />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
@@ -96,6 +97,11 @@
                                                 VerticalAlignment="Bottom"/>
                                                     </StackPanel>
                                                 </Border>
+                                                <Image HorizontalAlignment="Right"
+                                                       VerticalAlignment="Bottom"
+                                                    Width="100" 
+                                                   Height="100"
+                                                   Source="{Binding imagenEstado}"/>
                                             </Grid>
 
                                         </DataTemplate>
@@ -122,7 +128,7 @@
                                 FontSize="30"
                                 FontWeight="SemiBold"
                                 Foreground="white"
-                                Background="#1597e5"/>
+                                Background="#1597e5" Click="eliminar_Click"/>
                     </StackPanel>
                 </StackPanel>
                 
@@ -135,11 +141,11 @@
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              PreviewMouseLeftButtonUp ="ListViewItem_PreviewMouseLeftButtonDown"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                               SelectionChanged="Tablero_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"
                               
                               >
-
                             <ItemsControl.ItemsPanel >
                                 <ItemsPanelTemplate x:Name="panelTest">
                                     <UniformGrid Rows="{Binding rowCounter}" 
