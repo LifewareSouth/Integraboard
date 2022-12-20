@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Player.TComunicacion;
 using WpfApp1.Pages.Player.TEmociones;
 using WpfApp1.Pages.Player.TRutina;
 using WpfApp1.Pages.Player.TSonidos;
@@ -56,13 +57,18 @@ namespace WpfApp1
                 {
                     this.NavigationService.Navigate(new TSonidos(boardSelected));
                 }
-                if (boardSelected.tipo == "Emociones")
+                else if (boardSelected.tipo == "Emociones")
                 {
                     this.NavigationService.Navigate(new TEmociones(boardSelected));
                 }
-                if (boardSelected.tipo == "Rutina")
+                else if (boardSelected.tipo == "Rutina")
                 {
                     this.NavigationService.Navigate(new TRutina(boardSelected));
+                }
+                else if (boardSelected.tipo == "Comunicación")
+                {
+                    this.NavigationService.Navigate(new TComunicacion(boardSelected));
+
                 }
             }
         }

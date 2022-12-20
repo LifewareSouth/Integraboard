@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.Player.TComunicacion"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="TComunicacion">
+      Title="TComunicacion"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
         <Frame x:Name="TComunicacionPlayer"/>
@@ -45,7 +46,69 @@
                         <Border Width="700"
                                 Height="150"
                                 Background="White"
-                                Margin="0,0,25,0"/>
+                                Margin="0,0,25,0">
+                            <Viewbox>
+                                <ListView x:Name="Listado"
+                                          Background="Transparent"
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                          ItemsSource="{Binding Path=vistasListado, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                                          d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          
+                              
+                              >
+                                    
+                                    <ItemsControl.ItemsPanel >
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Rows="1" 
+                                             Columns="1"
+                                             Grid.IsSharedSizeScope="True" 
+                                             Height="auto"  
+                                             Width="auto"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             x:Name="testTablero"
+                                             PreviewMouseLeftButtonUp ="listado_MouseLeftButtonUp"
+                                             />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate >
+                                            <Grid Background="White" >
+                                                <Border 
+                                                Width="200" Height="200"
+                                                BorderBrush="{Binding pictograma.colorBorde}"
+                                                BorderThickness="10">
+                                                    <StackPanel 
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                                        <Image Source="{Binding pictograma.Imagen}"
+                                               Height="120"
+                                               Width="120"
+                                               Margin="10"/>
+                                                        <TextBlock Text="{Binding pictograma.Texto}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                Foreground="black"
+                                                FontSize="25"
+                                                FontFamily="arial"
+                                                FontWeight="SemiBold"
+                                                TextAlignment="Center"
+                                                VerticalAlignment="Bottom"/>
+                                                    </StackPanel>
+                                                </Border>
+                                                <Image HorizontalAlignment="Right"
+                                                       VerticalAlignment="Bottom"
+                                                    Width="100" 
+                                                   Height="100"
+                                                   Source="{Binding imagenEstado}"/>
+                                            </Grid>
+
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Viewbox>
+                        </Border>
                         <Button x:Name="escuchar"
                                 Width="150"
                                 Height="150"
@@ -65,7 +128,7 @@
                                 FontSize="30"
                                 FontWeight="SemiBold"
                                 Foreground="white"
-                                Background="#1597e5"/>
+                                Background="#1597e5" Click="eliminar_Click"/>
                     </StackPanel>
                 </StackPanel>
                 
@@ -78,11 +141,11 @@
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              PreviewMouseLeftButtonUp ="ListViewItem_PreviewMouseLeftButtonDown"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                               d:ItemsSource="{d:SampleData ItemCount=5}"
                               
                               >
-
                             <ItemsControl.ItemsPanel >
                                 <ItemsPanelTemplate x:Name="panelTest">
                                     <UniformGrid Rows="{Binding rowCounter}" 
