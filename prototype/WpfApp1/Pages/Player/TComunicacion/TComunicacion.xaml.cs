@@ -16,6 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using System.Speech.Synthesis;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using WpfApp1.UserControls;
 
 namespace WpfApp1.Pages.Player.TComunicacion
 {
@@ -24,6 +27,8 @@ namespace WpfApp1.Pages.Player.TComunicacion
     /// </summary>
     public partial class TComunicacion : Page
     {
+        SpeechSynthesizer synth = new SpeechSynthesizer();
+
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         private BindingList<pictTablero> vistasListado = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
@@ -37,11 +42,17 @@ namespace WpfApp1.Pages.Player.TComunicacion
         public TComunicacion(Board board)
         {
             InitializeComponent();
+            synth.SpeakCompleted += Reader_SpeakCompleted;
             rowCounter = board.filas;
             columnsCounter = board.columnas;
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
+            synth.SelectVoice("Microsoft Helena Desktop");
             AjustarTablero();
+        }
+        void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
+        {
+            escuchar.Content = "Escuchar";
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -117,6 +128,43 @@ namespace WpfApp1.Pages.Player.TComunicacion
             columnsListado = 0;
             AjustarListado();
             ajustarTamanoListado();
+        }
+
+        private void escuchar_Click(object sender, RoutedEventArgs e)
+        {
+            if (escuchar.Content.ToString() == "Escuchar")
+            {
+                if (ListaPictListado.Count() > 0)
+                {
+                    escuchar.Content = "Parar";
+                    string oracion = "";
+                    foreach (pictTablero pt in ListaPictListado)
+                    {
+
+                        oracion = oracion + " " + pt.pictograma.Texto;
+                    }
+                    synth.SpeakAsyncCancelAll();
+                    synth.SetOutputToDefaultAudioDevice();
+                    synth.Rate = -1;
+                    synth.SpeakAsync(oracion);
+                }
+            }
+            else if(escuchar.Content == "Parar")
+            {
+                escuchar.Content = "Escuchar";
+                synth.SpeakAsyncCancelAll();
+            }
+            
+
+        }
+
+        private void volverMenu_Click(object sender, RoutedEventArgs e)
+        {
+            if (escuchar.Content == "Parar")
+            {
+                synth.SpeakAsyncCancelAll();
+            }
+            this.NavigationService.Navigate(new MenuPage());
         }
 
         private void AjustarTablero()

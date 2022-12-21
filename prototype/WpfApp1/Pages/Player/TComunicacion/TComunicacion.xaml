@@ -42,7 +42,7 @@
                             FontWeight="SemiBold"
                             Foreground="white"
                             Background="#1597e5"
-                            Margin="0,0,25,0"/>
+                            Margin="0,0,25,0" Click="volverMenu_Click"/>
                         <Border Width="700"
                                 Height="150"
                                 Background="White"
@@ -118,7 +118,7 @@
                                 FontWeight="SemiBold"
                                 Foreground="white"
                                 Background="#1597e5"
-                                Margin="0,0,25,0"
+                                Margin="0,0,25,0" Click="escuchar_Click"
                             />
                         <Button x:Name="eliminar"
                                 Width="150"
