@@ -28,7 +28,7 @@ namespace WpfApp1.Pages.Player.TRutina
     {
         private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
         private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.correctoEsquinado);
-        private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
+        private static BitmapImage saltarEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.saltarEsquinado);
         private static BitmapImage tiempo = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.timer);
         
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
@@ -156,7 +156,7 @@ namespace WpfApp1.Pages.Player.TRutina
                     }
                     else
                     {
-                        ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = incorrectoEsquinado;
+                        ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = saltarEsquinado;
                         int index = Tablero.SelectedIndex;
                         AjustarTablero();
                         Tablero.SelectedIndex = index;
@@ -222,7 +222,7 @@ namespace WpfApp1.Pages.Player.TRutina
         {
             if (conTiempo)
             {
-                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = incorrectoEsquinado;
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = saltarEsquinado;
                 int index = Tablero.SelectedIndex;
                 AjustarTablero();
                 Tablero.SelectedIndex= index;

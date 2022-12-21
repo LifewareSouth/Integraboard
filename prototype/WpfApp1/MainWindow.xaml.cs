@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using WpfApp1.Assets;
+using WpfApp1.Pages.Perfil;
 using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1
@@ -63,6 +64,11 @@ namespace WpfApp1
         private void Tableros_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new MainTablerosPage();
+        }
+
+        private void perfil_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new PerfilAlumno();
         }
     }
 }

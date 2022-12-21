@@ -119,7 +119,7 @@
                                 Background="#9ede73"
                                 FontSize="20"
                                 FontFamily="Arial"
-                                FontWeight="Bold"/>
+                                FontWeight="Bold" Click="perfil_Click"/>
 
                     </StackPanel>
 

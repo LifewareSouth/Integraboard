@@ -22,10 +22,23 @@ namespace WpfApp1.Pages.Perfil
     public partial class PerfilAlumno : Page
     {
         private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.camera);
+        private static BitmapImage nombre = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.nombreConTexto);
+        private static BitmapImage edad = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.edadConTexto);
+        private static BitmapImage tomarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tomarFotoConTexto);
+        private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.seleccionarFotoConTexto);
+        private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tamanoConTexto);
+        private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
+
         public PerfilAlumno()
         {
             InitializeComponent();
             this.Resources["cam"] = cameraButton;
+            this.Resources["nombre"] = nombre;
+            this.Resources["edad"] = edad;
+            this.Resources["tamanoLetra"] = tamanoTexto;
+            this.Resources["voz"] = voz;
+            this.Resources["tomarFoto"] = tomarFoto;
+            this.Resources["subirFoto"] = seleccionarFoto;
         }
     }
 }

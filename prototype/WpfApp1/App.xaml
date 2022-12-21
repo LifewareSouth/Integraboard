@@ -11,7 +11,14 @@
             <BitmapImage x:Key="botonSaltar" UriSource="Resources\siguiente.png"/>
             <BitmapImage x:Key="cronometro" UriSource="Resources\stopwatch.png"/>
             <BitmapImage x:Key="temp" UriSource="Resources\timer.png"/>
+            <!-- estas van en el perfil -->
             <BitmapImage x:Key="cam" UriSource="Resources\camera.png"/>
+            <BitmapImage x:Key="nombre" UriSource="Resources\nombreConTexto.png"/>
+            <BitmapImage x:Key="edad" UriSource="Resources\edadConTexto.png"/>
+            <BitmapImage x:Key="tamanoLetra" UriSource="Resources\tamanoConTexto.png"/>
+            <BitmapImage x:Key="tomarFoto" UriSource="Resources\tomarFotoConTexto.png"/>
+            <BitmapImage x:Key="subirFoto" UriSource="Resources\seleccionarFotoConTexto.png"/>
+            <BitmapImage x:Key="voz" UriSource="Resources\vozConTexto.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

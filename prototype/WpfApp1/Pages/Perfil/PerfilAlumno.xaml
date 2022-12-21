@@ -9,6 +9,7 @@
       Title="PerfilAlumno">
 
     <Grid Background="#04293a">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition/>
@@ -34,6 +35,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
+            <!--
             <TextBlock Text="Nombre:"
                        FontSize="50"
                        Grid.Row="0"
@@ -42,12 +44,21 @@
                        FontWeight="SemiBold"
                        TextAlignment="Center"
                        VerticalAlignment="Center"/>
+            -->
+            <Border Height="180"
+                    Width="180"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource nombre}"/>
+            </Border>
             <TextBox x:Name="NombreAlumno"
                      Grid.Row="0"
                      Grid.Column="1"
+                     FontSize="50"
+                     FontFamily="arial"
                      Height="80"
                      Width="350"/>
-
+            <!--
             <TextBlock Text="Edad:"
                        FontSize="50"
                        Grid.Row="1"
@@ -56,7 +67,16 @@
                        FontWeight="SemiBold"
                        TextAlignment="Center"
                        VerticalAlignment="Center"/>
-
+            -->
+            <Border Height="180"
+                    Width="180"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource edad}"/>
+            </Border>
+            <!--
             <TextBlock Text="Tamaño de Texto:"
                        FontSize="50"
                        Grid.Row="2"
@@ -66,7 +86,15 @@
                        TextAlignment="Center"
                        TextWrapping="Wrap"
                        VerticalAlignment="Center"/>
-            
+            -->
+            <Border Height="180"
+                    Width="180"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource tamanoLetra}"/>
+            </Border>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
                         Grid.Column="1"
@@ -110,16 +138,36 @@
                         Content="Pequeño"
                         FontSize="25"/>
             </StackPanel>
-
-            <TextBlock Text="Voz:"
-                       FontSize="50"
-                       Grid.Row="1"
-                       Grid.Column="2"
-                       Foreground="White"
-                       FontWeight="SemiBold"
-                       TextAlignment="Center"
-                       VerticalAlignment="Center"/>
+            <Image Grid.Row="0"
+                   Grid.Column="2"
+                   Source="{DynamicResource cam}"
+                   Height="180"
+                   Width="180"/>
             
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Grid.Column="3">
+                <Button Height="160"
+                        Width="160"
+                        Margin="20,0,30,0"
+                        Background="Transparent">
+                    <Image Source="{DynamicResource tomarFoto}"/>
+                </Button>
+                <Button Height="160"
+                        Width="160"
+                        Background="Transparent">
+                    <Image Source="{DynamicResource subirFoto}"/>
+                </Button>
+            </StackPanel>
+         
+            <Border Height="180"
+                    Width="180"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource voz}"/>
+            </Border>
             <Grid Grid.Row="1"
                   Grid.Column="3">
                 <ComboBox x:Name="seleccionVoz"
@@ -129,6 +177,7 @@
 
             
         </Grid>
+        <Frame x:Name="PerfilPage" NavigationUIVisibility="hidden"/>
     </Grid>
 </Page>
         
