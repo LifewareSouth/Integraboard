@@ -19,6 +19,8 @@ using WpfApp1.Model;
 using System.Speech.Synthesis;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using WpfApp1.UserControls;
+using NAudio.Wave;
+using System.Media;
 
 namespace WpfApp1.Pages.Player.TComunicacion
 {
@@ -28,11 +30,15 @@ namespace WpfApp1.Pages.Player.TComunicacion
     public partial class TComunicacion : Page
     {
         SpeechSynthesizer synth = new SpeechSynthesizer();
-
+        Mp3FileReader reader;
+        IWavePlayer waveOut;
+        SoundModel sonidoReproducible = new SoundModel();
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         private BindingList<pictTablero> vistasListado = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         List<pictTablero> ListaPictListado = new List<pictTablero>();
+        bool speaking = false;
+        bool usarSonidoAsociado = false;
         private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
         int rowCounter, columnsCounter,columnsListado;
         public TComunicacion()
@@ -43,6 +49,8 @@ namespace WpfApp1.Pages.Player.TComunicacion
         {
             InitializeComponent();
             synth.SpeakCompleted += Reader_SpeakCompleted;
+            synth.SetOutputToDefaultAudioDevice();
+            synth.Rate = -1;
             rowCounter = board.filas;
             columnsCounter = board.columnas;
             Tablero.ItemsSource = board.pictTableros;
@@ -52,7 +60,11 @@ namespace WpfApp1.Pages.Player.TComunicacion
         }
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
-            escuchar.Content = "Escuchar";
+            if (usarSonidoAsociado == false)
+            {
+                speaking = false;
+                escuchar.Content = "Escuchar";
+            }
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -87,19 +99,55 @@ namespace WpfApp1.Pages.Player.TComunicacion
         {
             if (Tablero.SelectedItem != null)
             {
-                if (ListaPictListado.Count() < 7)
+                if (!usarSonidoAsociado)
                 {
-                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                    if (ListaPictListado.Count() < 7)
                     {
-                        pictTablero pictTablero = (pictTablero)Tablero.SelectedItem;
-                        pictTablero.imagenEstado = incorrectoEsquinado;
-                        ListaPictListado.Add(pictTablero);
-                        columnsListado++;
-                        AjustarListado();
+                        if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                        {
+                            pictTablero pictTablero = (pictTablero)Tablero.SelectedItem;
+                            pictTablero.imagenEstado = incorrectoEsquinado;
+                            ListaPictListado.Add(pictTablero);
+                            columnsListado++;
+                            AjustarListado();
 
-                        ajustarTamanoListado();
+                            ajustarTamanoListado();
+                        }
                     }
                 }
+                //-------------------------------------------------------------------
+                else
+                {
+                    pictTablero pictTablero = (pictTablero)Tablero.SelectedItem;
+                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+                    {
+                        synth.SpeakAsyncCancelAll();
+                        if (waveOut != null)
+                        {
+                            if (waveOut.PlaybackState == PlaybackState.Playing)
+                            {
+                                StopSound();
+                            }
+                        }
+                        if (pictTablero.pictograma.idSonido != 0)
+                        {
+                            //while (speaking == true) ;
+
+                            PlaySound(pictTablero.pictograma.pathSonido);
+
+                            
+
+                        }
+                        else
+                        {
+                            escuchar.Content = "Parar";
+                            speaking = true;
+                            synth.SpeakAsync(pictTablero.pictograma.Texto);
+                        }
+                    }
+                }
+                //-----------------------------------------------------------------
+                
             }
         }
         private void listado_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -132,30 +180,96 @@ namespace WpfApp1.Pages.Player.TComunicacion
 
         private void escuchar_Click(object sender, RoutedEventArgs e)
         {
-            if (escuchar.Content.ToString() == "Escuchar")
+            
+            if (usarSonidoAsociado == false)
             {
-                if (ListaPictListado.Count() > 0)
+                if (escuchar.Content.ToString() == "Escuchar")
+                {
+                    if (ListaPictListado.Count() > 0)
+                    {
+                        escuchar.Content = "Parar";
+                        string oracion = "";
+                        foreach (pictTablero pt in ListaPictListado)
+                        {
+
+                            oracion = oracion + " " + pt.pictograma.Texto;
+                        }
+                        synth.SpeakAsyncCancelAll();
+                        synth.SetOutputToDefaultAudioDevice();
+                        synth.Rate = -1;
+                        synth.SpeakAsync(oracion);
+                    }
+                }
+                else if (escuchar.Content == "Parar")
+                {
+                    escuchar.Content = "Escuchar";
+                    synth.SpeakAsyncCancelAll();
+                }
+            }
+            /*else
+            {
+                if (escuchar.Content.ToString() == "Escuchar")
                 {
                     escuchar.Content = "Parar";
-                    string oracion = "";
-                    foreach (pictTablero pt in ListaPictListado)
-                    {
-
-                        oracion = oracion + " " + pt.pictograma.Texto;
-                    }
                     synth.SpeakAsyncCancelAll();
                     synth.SetOutputToDefaultAudioDevice();
                     synth.Rate = -1;
-                    synth.SpeakAsync(oracion);
-                }
-            }
-            else if(escuchar.Content == "Parar")
-            {
-                escuchar.Content = "Escuchar";
-                synth.SpeakAsyncCancelAll();
-            }
-            
+                    
+                    foreach (pictTablero pt in ListaPictListado)
+                    {
+                        if (pt.pictograma.idSonido!=0)
+                        {
+                            //while (speaking == true) ;
 
+                            reader = new Mp3FileReader(pt.pictograma.pathSonido);
+                            waveOut = new WaveOutEvent();
+
+                            waveOut.Init(reader);
+                            waveOut.Play();
+                            while (waveOut.PlaybackState != PlaybackState.Stopped) ;
+
+                        }
+                        else
+                        {
+                            escuchar.Content = "Parar";
+                            speaking = true;
+                            synth.Speak(pt.pictograma.Texto);
+                       
+                        }
+                    }
+                }
+                else if(escuchar.Content == "Parar")
+                {
+                    if (waveOut != null)
+                    {
+                        if (waveOut.PlaybackState == PlaybackState.Playing)
+                        {
+                            StopSound();
+                        }
+                    }
+                    escuchar.Content = "Escuchar";
+                    synth.SpeakAsyncCancelAll();
+                }
+            }*/
+        }
+        public void sonido_termina(object sender, WaveOutEvent e)
+        {
+
+        }
+        public void PlaySound(string audioPath)
+        {
+
+            reader = new Mp3FileReader(audioPath);
+            waveOut = new WaveOutEvent();
+
+            waveOut.Init(reader);
+            waveOut.Play();
+        }
+
+        public void StopSound()
+        {
+            waveOut.Stop();
+            this.waveOut.Dispose();
         }
 
         private void volverMenu_Click(object sender, RoutedEventArgs e)
@@ -165,6 +279,19 @@ namespace WpfApp1.Pages.Player.TComunicacion
                 synth.SpeakAsyncCancelAll();
             }
             this.NavigationService.Navigate(new MenuPage());
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            usarSonidoAsociado = true;
+            panelSuperior.Visibility = Visibility.Collapsed;
+            viewboxTablero.Margin = new Thickness(0, -107, 0, 0);
+        }
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            usarSonidoAsociado = false;
+            panelSuperior.Visibility = Visibility.Visible;
+            viewboxTablero.Margin = new Thickness(0, 10, 0, 0);
         }
 
         private void AjustarTablero()
