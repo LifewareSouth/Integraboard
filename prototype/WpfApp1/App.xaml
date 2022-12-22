@@ -19,6 +19,8 @@
             <BitmapImage x:Key="tomarFoto" UriSource="Resources\tomarFotoConTexto.png"/>
             <BitmapImage x:Key="subirFoto" UriSource="Resources\seleccionarFotoConTexto.png"/>
             <BitmapImage x:Key="voz" UriSource="Resources\vozConTexto.png"/>
+            <BitmapImage x:Key="menosEdad" UriSource="Resources\menos.png"/>
+            <BitmapImage x:Key="masEdad" UriSource="Resources\mas.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

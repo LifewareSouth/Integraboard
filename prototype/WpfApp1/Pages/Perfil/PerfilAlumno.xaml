@@ -11,7 +11,7 @@
     <Grid Background="#04293a">
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="105"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -101,7 +101,10 @@
                         HorizontalAlignment="Center">
                 <Button x:Name="masEdad"
                         Height="100"
-                        Width="100"/>
+                        Width="100"
+                        Background="Transparent">
+                    <Image Source="{DynamicResource menosEdad}"/>
+                </Button>
                 <TextBlock x:Name="Edad"
                        Width="150"
                        Foreground="White"
@@ -112,37 +115,48 @@
                        TextAlignment="Center"/>
                 <Button x:Name="menosEdad"
                         Height="100"
-                        Width="100"/>
+                        Width="100"
+                        Background="Transparent">
+                    <Image Source="{DynamicResource masEdad}"/>
+                </Button>
             </StackPanel>
             <StackPanel Orientation="Vertical"
                         Grid.Row="2"
                         Grid.Column="1"
                         >
                 <Button x:Name="largeFont"
-                        Background="White"
+                        Foreground="White"
+                        Background="#1597e5"
                         Height="55"
                         Width="350"
                         Content="Grande"
                         FontSize="45"/>
                 <Button x:Name="mediumFont"
-                        Background="White"
+                        Foreground="White"
+                        Background="#1597e5"
                         Height="55"
                         Width="350"
                         Content="Mediano"
                         FontSize="35"
                         Margin="0,10,0,10"/>
                 <Button x:Name="smallFont"
-                        Background="White"
+                        Foreground="White"
+                        Background="#1597e5"
                         Height="55"
                         Width="350"
                         Content="Pequeño"
                         FontSize="25"/>
             </StackPanel>
-            <Image Grid.Row="0"
-                   Grid.Column="2"
-                   Source="{DynamicResource cam}"
-                   Height="180"
-                   Width="180"/>
+            <Border Grid.Row="0"
+                    Grid.Column="2"
+                    Height="180"
+                    Width="180"
+                    Background="White">
+                <Image Source="{DynamicResource cam}"
+                       Height="150"
+                       Width="150"/>
+            </Border>
+            
             
             <StackPanel Orientation="Horizontal"
                         Grid.Row="0"
@@ -164,17 +178,44 @@
                     Width="180"
                     Grid.Row="1"
                     Grid.Column="2"
+                    Grid.RowSpan="2"
                     BorderThickness="2"
                     BorderBrush="Yellow">
                 <Image Source="{DynamicResource voz}"/>
             </Border>
             <Grid Grid.Row="1"
-                  Grid.Column="3">
+                  Grid.Column="3"
+                  Grid.RowSpan="2">
                 <ComboBox x:Name="seleccionVoz"
                           Height="80"
-                          Width="350"/>
+                          Width="350"
+                          FontSize="30">
+                    <ComboBoxItem Content="voz 1"/>
+                </ComboBox>
             </Grid>
-
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center">
+                <Button x:Name="GuardarPict" Content="Guardar"
+                        Height="60"
+                        Width="220"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="35"
+                        Foreground="White"
+                        Background="#1597e5"/>
+                <Button x:Name="Cancelar" Content="Cancelar"
+                        Height="60"
+                        Width="220"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="35"
+                        Margin="10,0,0,0"
+                        Foreground="White"
+                        Background="#ff6464"/>
+            </StackPanel>
             
         </Grid>
         <Frame x:Name="PerfilPage" NavigationUIVisibility="hidden"/>
