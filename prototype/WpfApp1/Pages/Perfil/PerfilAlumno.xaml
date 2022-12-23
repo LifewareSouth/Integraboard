@@ -113,10 +113,10 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         HorizontalAlignment="Center">
-                <Button x:Name="masEdad"
+                <Button x:Name="menosEdad"
                         Height="100"
                         Width="100"
-                        Background="Transparent">
+                        Background="Transparent" Click="menosEdad_Click">
                     <Image Source="{DynamicResource menosEdad}"/>
                 </Button>
                 <TextBlock x:Name="Edad"
@@ -127,10 +127,10 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextAlignment="Center"/>
-                <Button x:Name="menosEdad"
+                <Button x:Name="masEdad"
                         Height="100"
                         Width="100"
-                        Background="Transparent">
+                        Background="Transparent" Click="masEdad_Click">
                     <Image Source="{DynamicResource masEdad}"/>
                 </Button>
             </StackPanel>
@@ -144,7 +144,7 @@
                         Height="55"
                         Width="350"
                         Content="Grande"
-                        FontSize="45"/>
+                        FontSize="45" Click="largeFont_Click"/>
                 <Button x:Name="mediumFont"
                         Foreground="White"
                         Background="#1597e5"
@@ -152,21 +152,21 @@
                         Width="350"
                         Content="Mediano"
                         FontSize="35"
-                        Margin="0,10,0,10"/>
+                        Margin="0,10,0,10" Click="mediumFont_Click"/>
                 <Button x:Name="smallFont"
                         Foreground="White"
                         Background="#1597e5"
                         Height="55"
                         Width="350"
                         Content="Pequeño"
-                        FontSize="25"/>
+                        FontSize="25" Click="smallFont_Click"/>
             </StackPanel>
             <Border Grid.Row="0"
                     Grid.Column="2"
                     Height="180"
                     Width="180"
                     Background="White">
-                <Image Source="{DynamicResource cam}"
+                <Image x:Name="imagenPerfil" Source="{DynamicResource cam}"
                        Height="150"
                        Width="150"/>
             </Border>
@@ -175,15 +175,15 @@
             <StackPanel Orientation="Horizontal"
                         Grid.Row="0"
                         Grid.Column="3">
-                <Button Height="160"
+                <Button x:Name="tomarFotoButton" Height="160"
                         Width="160"
                         Margin="20,0,30,0"
                         Background="Transparent">
                     <Image Source="{DynamicResource tomarFoto}"/>
                 </Button>
-                <Button Height="160"
+                <Button x:Name="subirFotoButton" Height="160"
                         Width="160"
-                        Background="Transparent">
+                        Background="Transparent" Click="subirFotoButton_Click">
                     <Image Source="{DynamicResource subirFoto}"/>
                 </Button>
             </StackPanel>
@@ -204,7 +204,6 @@
                           Height="80"
                           Width="350"
                           FontSize="30">
-                    <ComboBoxItem Content="voz 1"/>
                 </ComboBox>
             </Grid>
             <StackPanel Orientation="Horizontal"
@@ -212,14 +211,14 @@
                         Grid.Column="2"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Center">
-                <Button x:Name="GuardarPict" Content="Guardar"
+                <Button x:Name="GuardarPerfil" Content="Guardar"
                         Height="60"
                         Width="220"
                         FontFamily="arial"
                         FontWeight="SemiBold"
                         FontSize="35"
                         Foreground="White"
-                        Background="#1597e5"/>
+                        Background="#1597e5" Click="GuardarPerfil_Click"/>
                 <Button x:Name="Cancelar" Content="Cancelar"
                         Height="60"
                         Width="220"

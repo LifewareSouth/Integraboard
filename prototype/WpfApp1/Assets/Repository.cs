@@ -173,7 +173,8 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS etiquetasT (idEtiqueta INTEGER NOT NULL, idAlfaEtiqueta TEXT, nombreEtiqueta TEXT, PRIMARY KEY(idEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tableroEtiqueta(IdTableroEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idTablero INTEGER,PRIMARY KEY(IdTableroEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,asignacion TEXT,conTiempo TEXT,PRIMARY KEY(idTablero AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
+                    "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS PerfilModel(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1266,6 +1267,74 @@ namespace WpfApp1.Assets
             }
 
             return listaTableros;
+        }
+        public PerfilModel ObtenerPerfil()
+        {
+            PerfilModel perfil = new PerfilModel();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select * from perfil where idPerfil = @idPerfil; ";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPerfil", 1));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        perfil.idPerfil = 1;
+                        perfil.idAlfaPerfil = dr["idAlfaPerfil"].ToString();
+                        perfil.tipoPerfil = dr["tipoPerfil"].ToString();
+                        perfil.nombrePerfil = dr["nombrePerfil"].ToString();
+                        perfil.edad = int.Parse(dr["edad"].ToString());
+                        perfil.tamaño = dr["tamaño"].ToString();
+                        perfil.fotoPerfil = ImageFromBuffer((System.Byte[])dr["fotoPerfil"]);
+                        perfil.voz = dr["voz"].ToString();
+                    }
+                }
+                conexion.Close();
+            }
+
+            return perfil;
+        }
+        public void updatePerfilSinFoto(PerfilModel perfil)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "UPDATE perfil set nombrePerfil = @nombrePerfil , edad = @edad , tamaño = @tamaño, voz=@voz   where idPerfil= @idPerfil;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPerfil", 1));
+                cmd.Parameters.Add(new SQLiteParameter("@nombrePerfil", perfil.nombrePerfil));
+                cmd.Parameters.Add(new SQLiteParameter("@edad", perfil.edad));
+                cmd.Parameters.Add(new SQLiteParameter("@tamaño", perfil.tamaño));
+                cmd.Parameters.Add(new SQLiteParameter("@voz", perfil.voz));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+        public void updatePerfilConFoto(PerfilModel perfil,string pathImagen)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                byte[] pic = File.ReadAllBytes(pathImagen);
+                
+                conexion.Open();
+                string query = "UPDATE perfil set nombrePerfil = @nombrePerfil , edad = @edad , tamaño = @tamaño,fotoPerfil = @fotoPerfil, voz=@voz   where idPerfil= @idPerfil;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPerfil", 1));
+                cmd.Parameters.Add(new SQLiteParameter("@nombrePerfil", perfil.nombrePerfil));
+                cmd.Parameters.Add(new SQLiteParameter("@edad", perfil.edad));
+                cmd.Parameters.Add(new SQLiteParameter("@tamaño", perfil.tamaño));
+                SQLiteParameter parametro = new SQLiteParameter("@fotoPerfil", System.Data.DbType.Binary);
+                cmd.Parameters.Add(new SQLiteParameter("@voz", perfil.voz));
+                parametro.Value = pic;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
         }
     }
 }
