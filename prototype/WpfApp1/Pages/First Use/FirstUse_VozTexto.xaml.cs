@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.First_Use
 {
@@ -20,9 +21,13 @@ namespace WpfApp1.Pages.First_Use
     /// </summary>
     public partial class FirstUse_VozTexto : Page
     {
+        private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tamanoConTexto);
+        private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
         public FirstUse_VozTexto()
         {
             InitializeComponent();
+            this.Resources["tamanoLetra"] = tamanoTexto;
+            this.Resources["voz"] = voz;
         }
     }
 }

@@ -27,7 +27,89 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Horizontal"
+                            Margin="20,0,0,200">
+                    <Border Height="180"
+                            Width="180"
+                            BorderThickness="2"
+                            BorderBrush="Yellow">
+                        <Image Source="{DynamicResource tamanoLetra}"/>
+                    </Border>
+                
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                Margin="50,0,0,0">
+                        <Button x:Name="largeFont"
+                            Foreground="White"
+                            Background="#1597e5"
+                            Height="55"
+                            Width="350"
+                            Content="Grande"
+                            FontSize="45"/>
+                        <Button x:Name="mediumFont"
+                            Foreground="White"
+                            Background="#1597e5"
+                            Height="55"
+                            Width="350"
+                            Content="Mediano"
+                            FontSize="35"
+                            Margin="0,10,0,10"/>
+                        <Button x:Name="smallFont"
+                            Foreground="White"
+                            Background="#1597e5"
+                            Height="55"
+                            Width="350"
+                            Content="Pequeño"
+                            FontSize="25"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal"
+                            Margin="20,0,0,200">
+                    <Border Height="180"
+                            Width="180"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Grid.RowSpan="2"
+                            BorderThickness="2"
+                            BorderBrush="Yellow">
+                        <Image Source="{DynamicResource voz}"/>
+                    </Border>
+                    <ComboBox x:Name="seleccionVoz"
+                                Height="80"
+                                Width="350"
+                                Margin="50,0,0,0"
+                                FontSize="30">
+                        <ComboBoxItem Content="voz 1"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Bottom"
+                            Margin="170,0,0,40">
+                    <Button x:Name="GuardarPict" 
+                            Content="Siguiente"
+                            Height="60"
+                            Width="220"
+                            FontFamily="arial"
+                            FontWeight="SemiBold"
+                            FontSize="35"
+                            Foreground="White"
+                            Background="#1597e5"/>
+                    <Button x:Name="Cancelar" Content="Cancelar"
+                            Height="60"
+                            Width="220"
+                            FontFamily="arial"
+                            FontWeight="SemiBold"
+                            FontSize="35"
+                            Margin="10,0,0,0"
+                            Foreground="White"
+                            Background="#ff6464"/>
+                </StackPanel>
+            </Grid>
         </Grid>
+        
         <Frame x:Name="FirstUse_step2"/>
     </Grid>
 </Page>
