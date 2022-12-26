@@ -45,4 +45,10 @@
     <Folder Include="Ambiente Profesional\Perfil\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Interop.SpeechLib">
+      <HintPath>packages\Interop.SpeechLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

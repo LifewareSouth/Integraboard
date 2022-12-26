@@ -23,6 +23,8 @@ using Microsoft.Win32;
 using System.Drawing;
 using WpfApp1.Pages.Dialogs;
 using System.Windows.Forms;
+using SpeechLib;
+using System.Runtime.InteropServices;
 
 namespace WpfApp1.Pages.Perfil
 {
@@ -41,6 +43,7 @@ namespace WpfApp1.Pages.Perfil
         private static BitmapImage menos = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menos);
         private static BitmapImage mas = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.mas);
         private static PerfilModel datosPerfil = new PerfilModel();
+        SpVoice voice = new SpVoice();
         bool imagenNueva = false;
         string tamañoSeleccionado = "";
         string pathImagen = "";
@@ -86,7 +89,11 @@ namespace WpfApp1.Pages.Perfil
         }
         private void getVoices()
         {
-            SpeechSynthesizer synth = new SpeechSynthesizer();
+            SpObjectTokenCategory otc = new SpObjectTokenCategory();
+            otc.SetId("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices");
+            ISpeechObjectTokens tokenEnum = otc.EnumerateTokens();
+            string genderVoice = "";
+            int nTockenCount = tokenEnum.Count;
             string vozSeleccionada = datosPerfil.voz;
             vozSeleccionada = vozSeleccionada.Replace("AhoTTS_", "");
             vozSeleccionada = vozSeleccionada.Replace("Microsoft ", "");
@@ -94,37 +101,53 @@ namespace WpfApp1.Pages.Perfil
             vozSeleccionada = vozSeleccionada.Replace("_es", "");
             vozSeleccionada = vozSeleccionada.Replace("_eus", "");
             int index = 0;
-            int i=0;
-            foreach (InstalledVoice voice in synth.GetInstalledVoices())
+            int i = 0;
+            foreach (ISpeechObjectToken sot in tokenEnum)
             {
-                String auxName = voice.VoiceInfo.Name;
+                String auxName = sot.GetAttribute("name");
                 auxName = auxName.Replace("AhoTTS_", "");
                 auxName = auxName.Replace("Microsoft ", "");
                 auxName = auxName.Replace(" Desktop", "");
                 auxName = auxName.Replace("_es", "");
                 auxName = auxName.Replace("_eus", "");
-                if (auxName == vozSeleccionada)
-                {
-                    index = i;
-                }
-                string gender = voice.VoiceInfo.Gender.ToString();
-                string genero = "";
-                if (gender == "Female")
+                String AuxGender = sot.GetAttribute("gender");
+
+                String genero;
+                if (AuxGender == "Female")
                 {
                     genero = "Mujer";
+                    AuxGender = genero;
+                    genderVoice = genero;
+                    if (auxName == vozSeleccionada)
+                    {
+                        index = i;
+                    }
                 }
-                else if (gender == "Male")
+                else if (AuxGender == "Male")
                 {
                     genero = "Hombre";
+                    AuxGender = genero;
+                    genderVoice = genero;
+                    if (auxName == vozSeleccionada)
+                    {
+                        index = i;
+                    }
                 }
                 else
                 {
                     genero = "Niño/a";
+                    AuxGender = genero;
+                    genderVoice = genero;
+                    if (auxName == vozSeleccionada)
+                    {
+                        index = i;
+                    }
                 }
+                seleccionVoz.Items.Add(auxName + " - " + AuxGender);
                 i++;
-                seleccionVoz.Items.Add(auxName+" - "+genero);
             }
             seleccionVoz.SelectedIndex = index;
+
         }
 
         private void menosEdad_Click(object sender, RoutedEventArgs e)
