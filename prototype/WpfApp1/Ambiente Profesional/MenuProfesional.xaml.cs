@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AForge.Math.Geometry;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Ambiente_Profesional.Perfil;
+using WpfApp1.Pages.Perfil;
+using WpfApp1.Pages.Pictogramas;
+using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1.Ambiente_Profesional
 {
@@ -23,6 +28,27 @@ namespace WpfApp1.Ambiente_Profesional
         public MenuProfesional()
         {
             InitializeComponent();
+        }
+        private void Salir_Click(object sender, RoutedEventArgs e)
+        {
+            //Close();
+        }
+
+        private void Pictogramas_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPicrogramasPage());
+
+        }
+
+        private void Tableros_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainTablerosPage());
+        }
+
+        private void perfil_Click(object sender, RoutedEventArgs e)
+        {
+            //perfilprofesional
+            this.NavigationService.Navigate(new PerfilProfesional());
         }
     }
 }

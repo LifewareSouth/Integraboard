@@ -1,0 +1,43 @@
+﻿<Page x:Class="WpfApp1.Ambiente_Profesional.Perfil.PerfilProfesional"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Ambiente_Profesional.Perfil"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      Title="PerfilProfesional">
+
+    <Grid>
+        <Frame x:Name="perfilProfesionalPage" NavigationUIVisibility="Hidden"/>
+        <Grid Background="#04293a">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="105"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <!--Botón para volver al menú-->
+                    <Button x:Name="volverMenu"
+                    Width="180"
+                    Height="70"
+                    Margin="20,0,20,0"
+                    Content="Menú"
+                    FontFamily="arial"
+                    FontSize="30"
+                    FontWeight="SemiBold"
+                    Foreground="white"
+                    Background="#1597e5"/>
+                    <!---->
+                    <Label Content="Perfil" 
+                   FontFamily="Arial"
+                   FontWeight="Bold"
+                   FontSize="60" 
+                   Foreground="White"
+                   VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
