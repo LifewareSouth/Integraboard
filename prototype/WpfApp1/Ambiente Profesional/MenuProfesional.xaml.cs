@@ -47,7 +47,6 @@ namespace WpfApp1.Ambiente_Profesional
 
         private void perfil_Click(object sender, RoutedEventArgs e)
         {
-            //perfilprofesional
             this.NavigationService.Navigate(new PerfilProfesional());
         }
     }
