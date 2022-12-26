@@ -68,10 +68,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Ambiente Profesional\Perfil\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="bin\Debug\net6.0-windows\AForge.Controls.dll" />
     <None Include="bin\Debug\net6.0-windows\AForge.dll" />
     <None Include="bin\Debug\net6.0-windows\AForge.Imaging.dll" />

@@ -30,7 +30,7 @@
                     Margin="50,30,50,0"/>
         
         <Grid Background="#003b49"
-              Margin="50,130,50,90">
+              Margin="50,130,50,100">
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">

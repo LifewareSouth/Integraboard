@@ -9,7 +9,7 @@
       Title="PerfilProfesional">
 
     <Grid>
-        <Frame x:Name="perfilProfesionalPage" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="editarPerfilProfesional" NavigationUIVisibility="Hidden"/>
         <Grid Background="#04293a">
 
             <Grid.RowDefinitions>
@@ -30,12 +30,195 @@
                     Foreground="white"
                     Background="#1597e5"/>
                     <!---->
-                    <Label Content="Perfil" 
+                    <Label Content="Editar Perfil" 
                    FontFamily="Arial"
                    FontWeight="Bold"
                    FontSize="60" 
                    Foreground="White"
                    VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Ingrese su nombre:"
+                        FontSize="30"
+                        Foreground="White"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <TextBox Width="350"
+                        Height="50"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontSize="30"
+                        Foreground="Black"/>
+                <Label Content="Ingrese su ocupación:"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="30"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <TextBox Width="350"
+                        Height="50"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        FontSize="30"
+                        Foreground="Black"/>
+                <Label Content="Ingrese su institución:"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontSize="30"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2">
+                    <ComboBox Width="250"
+                            Height="50"
+                            Margin="20,0,20,0"/>
+                    <TextBox Width="300"
+                            Height="50"/>
+                </StackPanel>
+                <Label Content="Ingrese su comuna:"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        FontSize="30"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <TextBox Width="350"
+                        Height="50"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        FontSize="30"
+                        Foreground="Black"/>
+                <Label Content="Ingrese su región:"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        FontSize="30"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <TextBox Width="350"
+                        Height="50"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        FontSize="30"
+                        Foreground="Black"/>
+                <Label Content="Nueva contraseña:"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        FontSize="30"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <PasswordBox Width="350"
+                            Height="50"
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            FontSize="30"
+                            Foreground="Black"/>
+                <Label Content="Nueva contraseña:"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        FontSize="30"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"/>
+                <PasswordBox Width="350"
+                            Height="50"
+                            Grid.Row="6"
+                            Grid.Column="2"
+                            FontSize="30"
+                            Foreground="Black"/>
+                <Grid Grid.Column="3"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="1"
+                                HorizontalAlignment="Center">
+                        <Border x:Name="fotoProfesional"
+                                Width="165"
+                                Height="165"
+                                BorderBrush="White"
+                                BorderThickness="5"/>
+                        <StackPanel Orientation="Vertical"
+                                    Margin="20,0,0,0">
+                            <Button x:Name="tomarFoto"
+                                    Height="78"
+                                    Width="220"
+                                    Background="#1597e5"
+                                    Margin="0,0,0,10">
+                                <TextBlock Text="Tomar Fotografía"
+                                            Foreground="White"
+                                            Width="200"
+                                            FontSize="25"
+                                            FontFamily="arial"
+                                            FontWeight="SemiBold"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Center"/>
+                            </Button>
+                            <Button x:Name="selectFoto"
+                                    Height="78"
+                                    Width="220"
+                                    Foreground="White"
+                                    Background="#1597e5">
+                                <TextBlock Text="Seleccionar Imagen"
+                                            Foreground="White"
+                                            FontSize="25"
+                                            FontFamily="arial"
+                                            FontWeight="SemiBold"
+                                            TextWrapping="Wrap"
+                                            TextAlignment="Center"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+                <StackPanel Orientation="Horizontal"
+                        Grid.Row="7"
+                        Grid.Column="4"
+                        HorizontalAlignment="Center">
+                    <Button x:Name="guardarPerfil" 
+                        Content="Guardar"
+                        Height="40"
+                        Width="150"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="20"
+                        Foreground="White"
+                        Background="#1597e5"
+                        Click="GuardarPict_Click"
+                        />
+                    <Button x:Name="Cancelar" Content="Cancelar"
+                        Height="40"
+                        Width="150"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="20"
+                        Foreground="White"
+                        Background="#ff6464"
+                        Margin="20,0,0,0" Click="Cancelar_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>
