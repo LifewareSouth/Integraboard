@@ -174,7 +174,7 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS tableroEtiqueta(IdTableroEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idTablero INTEGER,PRIMARY KEY(IdTableroEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,asignacion TEXT,conTiempo TEXT,PRIMARY KEY(idTablero AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS PerfilModel(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));";
+                    "CREATE TABLE IF NOT EXISTS perfil(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
