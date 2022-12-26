@@ -232,9 +232,21 @@ namespace WpfApp1.Pages.Perfil
                 updatePerfil.nombrePerfil = NombreAlumno.Text;
                 updatePerfil.edad = edadPerfil;
                 updatePerfil.tamaño = tamañoSeleccionado;
-                SpeechSynthesizer synth = new SpeechSynthesizer();
-                var vocesInstaladas = synth.GetInstalledVoices();
-                updatePerfil.voz = vocesInstaladas[seleccionVoz.SelectedIndex].VoiceInfo.Name;
+
+                SpObjectTokenCategory otc = new SpObjectTokenCategory();
+                otc.SetId("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices");
+                ISpeechObjectTokens tokenEnum = otc.EnumerateTokens();
+                int nTockenCount = tokenEnum.Count;
+                int i = 0;
+                foreach (ISpeechObjectToken sot in tokenEnum)
+                {
+                    if (seleccionVoz.SelectedIndex == i)
+                    {
+                        updatePerfil.voz = sot.GetAttribute("name");
+                    }
+                    i++;
+
+                }
                 if (imagenNueva == false)
                 {
                     Repository.Instance.updatePerfilSinFoto(updatePerfil);
