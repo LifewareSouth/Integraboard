@@ -26,11 +26,13 @@ namespace WpfApp1.Pages.First_Use
         private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
         private static PerfilModel datosPerfil = new PerfilModel();
         string pathImagen = "";
+        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
         public FirstUse_VozTexto()
         {
             InitializeComponent();
             this.Resources["tamanoLetra"] = tamanoTexto;
             this.Resources["voz"] = voz;
+            this.Resources["sound"] = sound;
         }
         public FirstUse_VozTexto(string nombre, int edad, string path )
         {

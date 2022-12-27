@@ -178,7 +178,7 @@
                 <Button x:Name="tomarFotoButton" Height="160"
                         Width="160"
                         Margin="20,0,30,0"
-                        Background="Transparent">
+                        Background="Transparent" Click="tomarFotoButton_Click">
                     <Image Source="{DynamicResource tomarFoto}"/>
                 </Button>
                 <Button x:Name="subirFotoButton" Height="160"
@@ -199,12 +199,38 @@
             </Border>
             <Grid Grid.Row="1"
                   Grid.Column="3"
-                  Grid.RowSpan="2">
-                <ComboBox x:Name="seleccionVoz"
+                  Grid.RowSpan="2"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="probarVoz"
+                                Height="80"
+                                Width="300"
+                                Foreground="White"
+                                Background="#1597e5"
+                                FontSize="35"
+                                Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource sound}"
+                                   Height="75"
+                                   Width="75"
+                                   Margin="0,0,20,0"
+                                   HorizontalAlignment="Left"
+                                   />
+                            <TextBlock Text="Escuchar"
+                                       FontSize="35"
+                                       FontFamily="arial"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <ComboBox x:Name="seleccionVoz"
                           Height="80"
                           Width="350"
                           FontSize="30">
                 </ComboBox>
+                </StackPanel>
+                
             </Grid>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="3"

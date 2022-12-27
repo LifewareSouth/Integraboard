@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Pages.Perfil;
 
 namespace WpfApp1.Ambiente_Profesional.Perfil
 {
@@ -33,6 +34,11 @@ namespace WpfApp1.Ambiente_Profesional.Perfil
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void tomarFoto_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate( new TomarFoto());
         }
     }
 }

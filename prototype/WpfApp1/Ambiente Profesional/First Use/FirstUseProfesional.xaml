@@ -199,7 +199,7 @@
                         FontSize="20"
                         Foreground="White"
                         Background="#ff6464"
-                        Margin="20,0,0,0" Click="Cancelar_Click"/>
+                        Margin="20,0,0,0"/>
             </StackPanel>
 
         </Grid>

@@ -77,13 +77,41 @@
                             BorderBrush="Yellow">
                         <Image Source="{DynamicResource voz}"/>
                     </Border>
-                    <ComboBox x:Name="seleccionVoz"
+                    <StackPanel Orientation="Vertical"
+                                Height="200"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="50,0,0,0">
+                        <Button x:Name="probarVoz"
+                                Height="80"
+                                Width="300"
+                                Foreground="White"
+                                Background="#1597e5"
+                                FontSize="35"
+                                Margin="0,0,0,20">
+                            <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource sound}"
+                                   Height="75"
+                                   Width="75"
+                                   Margin="0,0,20,0"
+                                   HorizontalAlignment="Left"
+                                   />
+                            <TextBlock Text="Escuchar"
+                                       FontSize="35"
+                                       FontFamily="arial"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                    </StackPanel>
+                        </Button>
+                      <ComboBox x:Name="seleccionVoz"
                                 Height="80"
                                 Width="350"
-                                Margin="50,0,0,0"
                                 FontSize="30">
                         <ComboBoxItem Content="voz 1"/>
                     </ComboBox>
+                        
+                    </StackPanel>
+                    
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Bottom"
