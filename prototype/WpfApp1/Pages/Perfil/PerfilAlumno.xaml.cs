@@ -263,5 +263,11 @@ namespace WpfApp1.Pages.Perfil
                 this.NavigationService.GoBack();
             }
         }
+
+        private void tomarFotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new TomarFoto());
+
+        }
     }
 }

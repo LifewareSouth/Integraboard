@@ -178,7 +178,7 @@
                 <Button x:Name="tomarFotoButton" Height="160"
                         Width="160"
                         Margin="20,0,30,0"
-                        Background="Transparent">
+                        Background="Transparent" Click="tomarFotoButton_Click">
                     <Image Source="{DynamicResource tomarFoto}"/>
                 </Button>
                 <Button x:Name="subirFotoButton" Height="160"

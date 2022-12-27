@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp1.Pages.Perfil;
 
-namespace WpfApp1.Ambiente_Profesional.Perfil
+namespace WpfApp1.Pages.Perfil
 {
     /// <summary>
-    /// Lógica de interacción para PerfilProfesional.xaml
+    /// Lógica de interacción para TomarFoto.xaml
     /// </summary>
-    public partial class PerfilProfesional : Page
+    public partial class TomarFoto : Page
     {
-        public PerfilProfesional()
+        public TomarFoto()
         {
             InitializeComponent();
-        }
-
-        private void tomarFoto_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate( new TomarFoto());
         }
     }
 }
