@@ -189,7 +189,7 @@
                         FontSize="20"
                         Foreground="White"
                         Background="#1597e5"
-                        Click="GuardarPict_Click"
+                        Click="GuardarPerfil_Click"
                         />
                 <Button x:Name="Cancelar" Content="Cancelar"
                         Height="40"

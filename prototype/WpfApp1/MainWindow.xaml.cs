@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using WpfApp1.Assets;
+using WpfApp1.Pages.First_Use;
 using WpfApp1.Pages.Perfil;
 using WpfApp1.Pages.Tableros;
 
@@ -18,7 +19,17 @@ namespace WpfApp1
             btnshow.Click += Btnshow_Click;
             btnclose.Click += Btnclose_Click;
             Repository.Instance.CreacionDeTablas();
-            Main.NavigationService.Navigate(new MenuPage());
+            bool perfilExiste = Repository.Instance.verificarPerfil();
+            if (perfilExiste)
+            {
+                Main.NavigationService.Navigate(new MenuPage());
+            }
+            else
+            {
+                LeftMenu.Visibility = Visibility.Collapsed;
+                Main.NavigationService.Navigate(new FirstUse_NombreEdadFoto());
+            }
+            
         }
         private void Btnclose_Click(object sender, RoutedEventArgs e)
         {

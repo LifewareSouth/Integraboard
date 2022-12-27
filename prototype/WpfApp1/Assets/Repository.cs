@@ -181,6 +181,31 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
+        public bool verificarPerfil()
+        {
+            bool existe = true;
+            string currentDirectory = Directory.GetCurrentDirectory();
+
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT EXISTS(SELECT 1 FROM perfil ) as existe;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["existe"].ToString()) == 0)
+                        {
+                            existe = false;
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return existe;
+        }
         public void GuardarImagen(string pathImagen)
         {
             byte[] pic = File.ReadAllBytes(pathImagen);

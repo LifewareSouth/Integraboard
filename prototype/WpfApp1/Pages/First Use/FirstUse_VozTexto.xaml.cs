@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Model;
 using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.First_Use
@@ -23,11 +24,28 @@ namespace WpfApp1.Pages.First_Use
     {
         private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tamanoConTexto);
         private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
+        private static PerfilModel datosPerfil = new PerfilModel();
+        string pathImagen = "";
         public FirstUse_VozTexto()
         {
             InitializeComponent();
             this.Resources["tamanoLetra"] = tamanoTexto;
             this.Resources["voz"] = voz;
+        }
+        public FirstUse_VozTexto(string nombre, int edad, string path )
+        {
+            InitializeComponent();
+            datosPerfil.nombrePerfil = nombre;
+            datosPerfil.edad = edad;
+            pathImagen = path;
+            this.Resources["tamanoLetra"] = tamanoTexto;
+            this.Resources["voz"] = voz;
+
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

@@ -24,5 +24,15 @@ namespace WpfApp1.Ambiente_Profesional.First_Use
         {
             InitializeComponent();
         }
+
+        private void GuardarPerfil_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

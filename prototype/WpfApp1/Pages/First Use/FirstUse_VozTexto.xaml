@@ -105,7 +105,7 @@
                             FontSize="35"
                             Margin="10,0,0,0"
                             Foreground="White"
-                            Background="#ff6464"/>
+                            Background="#ff6464" Click="Cancelar_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>

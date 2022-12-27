@@ -67,10 +67,10 @@
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center">
-                            <Button x:Name="masEdad"
+                            <Button x:Name="menosEdad"
                                     Height="100"
                                     Width="100"
-                                    Background="Transparent">
+                                    Background="Transparent" Click="menosEdad_Click">
                                 <Image Source="{DynamicResource menosEdad}"/>
                             </Button>
                             <TextBlock x:Name="Edad"
@@ -81,10 +81,10 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        TextAlignment="Center"/>
-                            <Button x:Name="menosEdad"
+                            <Button x:Name="masEdad"
                                     Height="100"
                                     Width="100"
-                                    Background="Transparent">
+                                    Background="Transparent" Click="masEdad_Click">
                                 <Image Source="{DynamicResource masEdad}"/>
                             </Button>
                         </StackPanel>
@@ -99,7 +99,7 @@
                         Height="180"
                         Width="180"
                         Background="White">
-                        <Image Source="{DynamicResource cam}"
+                        <Image x:Name="imagenPerfil" Source="{DynamicResource cam}"
                            Height="150"
                            Width="150"/>
                     </Border>
@@ -108,14 +108,16 @@
                             Grid.Column="3"
                                 Margin="50,0,0,0">
                         <Button Height="160"
+                                x:Name="tomarFotoButton"
                             Width="160"
                             Margin="20,0,30,0"
                             Background="Transparent">
                             <Image Source="{DynamicResource tomarFoto}"/>
                         </Button>
                         <Button Height="160"
+                            x:Name="subirFotoButton"
                             Width="160"
-                            Background="Transparent">
+                            Background="Transparent" Click="subirFotoButton_Click">
                             <Image Source="{DynamicResource subirFoto}"/>
                         </Button>
                     </StackPanel>
@@ -131,7 +133,7 @@
                             FontWeight="SemiBold"
                             FontSize="35"
                             Foreground="White"
-                            Background="#1597e5"/>
+                            Background="#1597e5" Click="GuardarPict_Click"/>
                     <Button x:Name="Cancelar" Content="Cancelar"
                             Height="60"
                             Width="220"
