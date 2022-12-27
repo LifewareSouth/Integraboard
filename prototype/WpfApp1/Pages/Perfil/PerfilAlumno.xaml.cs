@@ -42,6 +42,7 @@ namespace WpfApp1.Pages.Perfil
         private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
         private static BitmapImage menos = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menos);
         private static BitmapImage mas = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.mas);
+        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
         private static PerfilModel datosPerfil = new PerfilModel();
         SpVoice voice = new SpVoice();
         bool imagenNueva = false;
@@ -86,6 +87,7 @@ namespace WpfApp1.Pages.Perfil
             this.Resources["subirFoto"] = seleccionarFoto;
             this.Resources["menosEdad"] = menos;
             this.Resources["masEdad"] = mas;
+            this.Resources["sound"] = sound;
         }
         private void getVoices()
         {

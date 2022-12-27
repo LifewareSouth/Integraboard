@@ -23,11 +23,13 @@ namespace WpfApp1.Pages.First_Use
     {
         private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tamanoConTexto);
         private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
+        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
         public FirstUse_VozTexto()
         {
             InitializeComponent();
             this.Resources["tamanoLetra"] = tamanoTexto;
             this.Resources["voz"] = voz;
+            this.Resources["sound"] = sound;
         }
     }
 }
