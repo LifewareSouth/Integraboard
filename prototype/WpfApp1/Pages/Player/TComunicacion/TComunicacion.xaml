@@ -15,105 +15,109 @@
         <Grid Grid.Row="1"
               Grid.Column="1"
               Background="#003b49">
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="52*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="305"/>
+                <RowDefinition Height="125"/>
+                <RowDefinition Height="180"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0"
-                  Grid.RowSpan="2">
-                <StackPanel Orientation="Vertical">
-                    <Label x:Name="TituloTCom"
-                            Content="Tablero de Comunicación"
-                            Foreground="White"
-                            FontSize="45"
-                            FontWeight="SemiBold"
-                            FontFamily="arial"
-                            Margin="0,30,0,30"
-                            HorizontalAlignment="Center"/>
+            <Label x:Name="TituloTCom"
+                    Content="Tablero de Comunicación"
+                    Foreground="White"
+                    FontSize="45"
+                    FontWeight="SemiBold"
+                    FontFamily="arial"
+                    HorizontalAlignment="Center"
+                   VerticalAlignment="Center" 
+                   Height="66" 
+                   Width="556" Grid.Column="1"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="volverMenu"
+                        Width="120"
+                        Height="120"
+                        Grid.Column="0"
+                        Content="Menú"
+                        FontFamily="arial"
+                        FontSize="30"
+                        FontWeight="SemiBold"
+                        Foreground="white"
+                        Background="#1597e5"
+                        VerticalAlignment="Top"
+                        Click="volverMenu_Click"/>
+                <Grid Grid.Column="1">
                     <StackPanel Orientation="Vertical">
-                        
-                    
-                    <StackPanel Orientation="Horizontal"
-                                x:Name="panelSuperior"
-                                HorizontalAlignment="Center">
-                        <Button x:Name="volverMenu"
-                            Width="120"
-                            Height="120"
-                            Content="Menú"
-                            FontFamily="arial"
-                            FontSize="30"
-                            FontWeight="SemiBold"
-                            Foreground="white"
-                            Background="#1597e5"
-                            Margin="0,0,25,0" Click="volverMenu_Click"/>
-                        <Border Width="700"
-                                Height="120"
-                                Background="White"
-                                Margin="0,0,25,0">
-                            <Viewbox>
-                                <ListView x:Name="Listado"
+                        <StackPanel Orientation="Horizontal"
+                                    x:Name="panelSuperior"
+                                    HorizontalAlignment="Center">
+                            <Border Width="700"
+                                    Height="120"
+                                    Background="White"
+                                    Margin="0,0,25,0">
+                                <Viewbox>
+                                    <ListView x:Name="Listado"
                                           Background="Transparent"
                                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ItemsSource="{Binding Path=vistasListado, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                                          d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          
-                              
-                              >
-                                    
-                                    <ItemsControl.ItemsPanel >
-                                        <ItemsPanelTemplate>
-                                            <UniformGrid Rows="1" 
-                                             Columns="1"
-                                             Grid.IsSharedSizeScope="True" 
-                                             Height="auto"  
-                                             Width="auto"
-                                             HorizontalAlignment="Center"
-                                             VerticalAlignment="Center"
-                                             x:Name="testTablero"
-                                             PreviewMouseLeftButtonUp ="listado_MouseLeftButtonUp"
-                                             />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate >
-                                            <Grid Background="White" >
-                                                <Border 
-                                                Width="200" Height="200"
-                                                BorderBrush="{Binding pictograma.colorBorde}"
-                                                BorderThickness="10">
-                                                    <StackPanel 
-                                            HorizontalAlignment="Center"
-                                            Orientation="Vertical">
-                                                        <Image Source="{Binding pictograma.Imagen}"
-                                               Height="120"
-                                               Width="120"
-                                               Margin="10"/>
-                                                        <TextBlock Text="{Binding pictograma.Texto}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                Foreground="black"
-                                                FontSize="25"
-                                                FontFamily="arial"
-                                                FontWeight="SemiBold"
-                                                TextAlignment="Center"
-                                                VerticalAlignment="Bottom"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <Image HorizontalAlignment="Right"
-                                                       VerticalAlignment="Bottom"
-                                                    Width="100" 
-                                                   Height="100"
-                                                   Source="{Binding imagenEstado}"/>
-                                            </Grid>
+                                          d:ItemsSource="{d:SampleData ItemCount=5}">
 
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Viewbox>
-                        </Border>
-                        <Button x:Name="escuchar"
+                                        <ItemsControl.ItemsPanel >
+                                            <ItemsPanelTemplate>
+                                                <UniformGrid Rows="1" 
+                                                             Columns="1"
+                                                             Grid.IsSharedSizeScope="True" 
+                                                             Height="auto"  
+                                                             Width="auto"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             x:Name="testTablero"
+                                                             PreviewMouseLeftButtonUp ="listado_MouseLeftButtonUp"
+                                                             />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate >
+                                                <Grid Background="White" >
+                                                    <Border Width="200" Height="200"
+                                                            BorderBrush="{Binding pictograma.colorBorde}"
+                                                            BorderThickness="10">
+                                                        <StackPanel HorizontalAlignment="Center"
+                                                                    Orientation="Vertical">
+                                                            <Image Source="{Binding pictograma.Imagen}"
+                                                                   Height="120"
+                                                                   Width="120"
+                                                                   Margin="10"/>
+                                                            <TextBlock Text="{Binding pictograma.Texto}"
+                                                                        TextTrimming="CharacterEllipsis"
+                                                                        TextWrapping="Wrap"
+                                                                        Foreground="black"
+                                                                        FontSize="25"
+                                                                        FontFamily="arial"
+                                                                        FontWeight="SemiBold"
+                                                                        TextAlignment="Center"
+                                                                        VerticalAlignment="Bottom"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                    <Image HorizontalAlignment="Right"
+                                                           VerticalAlignment="Bottom"
+                                                           Width="100" 
+                                                           Height="100"
+                                                           Source="{Binding imagenEstado}"/>
+                                                </Grid>
+
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Viewbox>
+                            </Border>
+                            <Button x:Name="escuchar"
                                 Width="120"
                                 Height="120"
                                 Content="Escuchar"
@@ -124,7 +128,7 @@
                                 Background="#1597e5"
                                 Margin="0,0,25,0" Click="escuchar_Click"
                             />
-                        <Button x:Name="eliminar"
+                            <Button x:Name="eliminar"
                                 Width="120"
                                 Height="120"
                                 Content="Borrar"
@@ -133,7 +137,7 @@
                                 FontWeight="SemiBold"
                                 Foreground="white"
                                 Background="#1597e5" Click="eliminar_Click"/>
-                    </StackPanel>
+                        </StackPanel>
                         <CheckBox Content="Escuchar directamente"
                                   Foreground="White"
                                   FontSize="10"
@@ -147,10 +151,9 @@
                             </CheckBox.LayoutTransform>
                         </CheckBox>
                     </StackPanel>
-                </StackPanel>
-                
+                </Grid>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid x:Name="testTablero2"
                       Width="1200">
                     <Viewbox x:Name="viewboxTablero" Margin="0,10,0,0">
@@ -160,9 +163,7 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               PreviewMouseLeftButtonUp ="ListViewItem_PreviewMouseLeftButtonDown"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              d:ItemsSource="{d:SampleData ItemCount=5}"
-                              
-                              >
+                              d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ItemsControl.ItemsPanel >
                                 <ItemsPanelTemplate x:Name="panelTest">
                                     <UniformGrid Rows="{Binding rowCounter}" 
