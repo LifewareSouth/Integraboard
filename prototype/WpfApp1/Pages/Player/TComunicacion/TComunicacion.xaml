@@ -134,7 +134,7 @@
                                 Foreground="white"
                                 Background="#1597e5" Click="eliminar_Click"/>
                     </StackPanel>
-                        <CheckBox Content="Seleccionar sonidos asociados"
+                        <CheckBox Content="Escuchar directamente"
                                   Foreground="White"
                                   FontSize="10"
                                   Margin="0,10,0,0"

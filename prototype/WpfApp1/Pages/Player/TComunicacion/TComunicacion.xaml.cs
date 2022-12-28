@@ -38,7 +38,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         List<pictTablero> ListaPict = new List<pictTablero>();
         List<pictTablero> ListaPictListado = new List<pictTablero>();
         bool speaking = false;
-        bool usarSonidoAsociado = false;
+        bool escucharDirectamente = false;
         private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
         int rowCounter, columnsCounter,columnsListado;
         public TComunicacion()
@@ -55,16 +55,13 @@ namespace WpfApp1.Pages.Player.TComunicacion
             columnsCounter = board.columnas;
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
-            synth.SelectVoice("Microsoft Helena Desktop");
+            synth.SelectVoice(Repository.Instance.getProfileVoice());
             AjustarTablero();
         }
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
-            if (usarSonidoAsociado == false)
-            {
-                speaking = false;
-                escuchar.Content = "Escuchar";
-            }
+            speaking = false;
+            escuchar.Content = "Escuchar";            
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -99,7 +96,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         {
             if (Tablero.SelectedItem != null)
             {
-                if (!usarSonidoAsociado)
+                if (!escucharDirectamente)
                 {
                     if (ListaPictListado.Count() < 7)
                     {
@@ -122,28 +119,9 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                     {
                         synth.SpeakAsyncCancelAll();
-                        if (waveOut != null)
-                        {
-                            if (waveOut.PlaybackState == PlaybackState.Playing)
-                            {
-                                StopSound();
-                            }
-                        }
-                        if (pictTablero.pictograma.idSonido != 0)
-                        {
-                            //while (speaking == true) ;
+                        speaking = true;
+                        synth.SpeakAsync(pictTablero.pictograma.Texto);
 
-                            PlaySound(pictTablero.pictograma.pathSonido);
-
-                            
-
-                        }
-                        else
-                        {
-                            escuchar.Content = "Parar";
-                            speaking = true;
-                            synth.SpeakAsync(pictTablero.pictograma.Texto);
-                        }
                     }
                 }
                 //-----------------------------------------------------------------
@@ -181,7 +159,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         private void escuchar_Click(object sender, RoutedEventArgs e)
         {
             
-            if (usarSonidoAsociado == false)
+            if (escucharDirectamente == false)
             {
                 if (escuchar.Content.ToString() == "Escuchar")
                 {
@@ -206,51 +184,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     synth.SpeakAsyncCancelAll();
                 }
             }
-            /*else
-            {
-                if (escuchar.Content.ToString() == "Escuchar")
-                {
-                    escuchar.Content = "Parar";
-                    synth.SpeakAsyncCancelAll();
-                    synth.SetOutputToDefaultAudioDevice();
-                    synth.Rate = -1;
-                    
-                    foreach (pictTablero pt in ListaPictListado)
-                    {
-                        if (pt.pictograma.idSonido!=0)
-                        {
-                            //while (speaking == true) ;
-
-                            reader = new Mp3FileReader(pt.pictograma.pathSonido);
-                            waveOut = new WaveOutEvent();
-
-                            waveOut.Init(reader);
-                            waveOut.Play();
-                            while (waveOut.PlaybackState != PlaybackState.Stopped) ;
-
-                        }
-                        else
-                        {
-                            escuchar.Content = "Parar";
-                            speaking = true;
-                            synth.Speak(pt.pictograma.Texto);
-                       
-                        }
-                    }
-                }
-                else if(escuchar.Content == "Parar")
-                {
-                    if (waveOut != null)
-                    {
-                        if (waveOut.PlaybackState == PlaybackState.Playing)
-                        {
-                            StopSound();
-                        }
-                    }
-                    escuchar.Content = "Escuchar";
-                    synth.SpeakAsyncCancelAll();
-                }
-            }*/
+            
         }
         public void sonido_termina(object sender, WaveOutEvent e)
         {
@@ -283,13 +217,13 @@ namespace WpfApp1.Pages.Player.TComunicacion
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            usarSonidoAsociado = true;
+            escucharDirectamente = true;
             panelSuperior.Visibility = Visibility.Collapsed;
             viewboxTablero.Margin = new Thickness(0, -107, 0, 0);
         }
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            usarSonidoAsociado = false;
+            escucharDirectamente = false;
             panelSuperior.Visibility = Visibility.Visible;
             viewboxTablero.Margin = new Thickness(0, 10, 0, 0);
         }

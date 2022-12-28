@@ -1361,5 +1361,54 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
+        public void crearPerfilAlumno(PerfilModel datosPerfil,string pathImagen)
+        {
+            string alfaIdPerfil = Guid.NewGuid().ToString();
+            byte[] pic = File.ReadAllBytes(pathImagen);
+            int idBoard = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //AÑADE EL TABLERO A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                string query = "insert into perfil( idPerfil, idAlfaPerfil, tipoPerfil,nombrePerfil,edad,tamaño,fotoPerfil,voz) " +
+                    "values (@idPerfil, @idAlfaPerfil, @tipoPerfil,@nombrePerfil,@edad,@tamaño,@fotoPerfil,@voz)";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPerfil", 1));
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaPerfil", alfaIdPerfil));
+                cmd.Parameters.Add(new SQLiteParameter("@tipoPerfil", "Alumno"));
+                cmd.Parameters.Add(new SQLiteParameter("@nombrePerfil", datosPerfil.nombrePerfil));
+                cmd.Parameters.Add(new SQLiteParameter("@edad", datosPerfil.edad));
+                cmd.Parameters.Add(new SQLiteParameter("@tamaño", datosPerfil.tamaño)); 
+                SQLiteParameter parametro = new SQLiteParameter("@fotoPerfil", System.Data.DbType.Binary);
+                cmd.Parameters.Add(new SQLiteParameter("@voz", datosPerfil.voz));
+                parametro.Value = pic;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+
+            }
+        }
+        public string getProfileVoice()
+        {
+            string vozPerfil = "";
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select voz from perfil where idPerfil = 1; ";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        vozPerfil = dr["voz"].ToString();
+                    }
+                }
+                conexion.Close();
+            }
+            return vozPerfil;
+        }
     }
 }

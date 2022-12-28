@@ -44,6 +44,8 @@ namespace WpfApp1.Pages.Perfil
         private static BitmapImage mas = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.mas);
         private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
         private static PerfilModel datosPerfil = new PerfilModel();
+        SpeechSynthesizer synth = new SpeechSynthesizer();
+        List<string> nombresVoces = new List<string>();
         SpVoice voice = new SpVoice();
         bool imagenNueva = false;
         string tamañoSeleccionado = "";
@@ -75,6 +77,9 @@ namespace WpfApp1.Pages.Perfil
             }
             imagenPerfil.Source = datosPerfil.fotoPerfil;
             //--------- VOCES
+            synth.SpeakCompleted += Reader_SpeakCompleted;
+            synth.SetOutputToDefaultAudioDevice();
+            synth.Rate = -1;
             getVoices();
     
             //--------- Imagenes
@@ -107,6 +112,7 @@ namespace WpfApp1.Pages.Perfil
             foreach (ISpeechObjectToken sot in tokenEnum)
             {
                 String auxName = sot.GetAttribute("name");
+                nombresVoces.Add(auxName);
                 auxName = auxName.Replace("AhoTTS_", "");
                 auxName = auxName.Replace("Microsoft ", "");
                 auxName = auxName.Replace(" Desktop", "");
@@ -260,7 +266,7 @@ namespace WpfApp1.Pages.Perfil
                 SuccessDialog success = new SuccessDialog("Perfil Actualizado");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
-                this.NavigationService.GoBack();
+                this.NavigationService.Navigate(new MenuPage());
             }
         }
 
@@ -268,6 +274,27 @@ namespace WpfApp1.Pages.Perfil
         {
             this.NavigationService.Navigate(new TomarFoto());
 
+        }
+
+        private void probarVoz_Click(object sender, RoutedEventArgs e)
+        {
+            if (textoProbarVoz.Text == "Escuchar")
+            {
+                textoProbarVoz.Text = "Pausar";
+                synth.SelectVoice(nombresVoces[seleccionVoz.SelectedIndex]);
+                synth.SpeakAsync("Prueba para conocer como se escucha esta voz");
+            }
+            else if (textoProbarVoz.Text == "Pausar")
+            {
+                textoProbarVoz.Text = "Escuchar";
+                synth.SpeakAsyncCancelAll();
+            }
+
+        }
+
+        void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
+        {
+            textoProbarVoz.Text = "Escuchar";
         }
     }
 }

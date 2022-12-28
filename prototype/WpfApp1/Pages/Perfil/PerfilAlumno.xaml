@@ -209,7 +209,8 @@
                                 Foreground="White"
                                 Background="#1597e5"
                                 FontSize="35"
-                                Margin="0,0,0,20">
+                                Margin="0,0,0,20"
+                            Click="probarVoz_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{DynamicResource sound}"
                                    Height="75"
@@ -217,7 +218,7 @@
                                    Margin="0,0,20,0"
                                    HorizontalAlignment="Left"
                                    />
-                            <TextBlock Text="Escuchar"
+                            <TextBlock x:Name="textoProbarVoz" Text="Escuchar"
                                        FontSize="35"
                                        FontFamily="arial"
                                        FontWeight="SemiBold"

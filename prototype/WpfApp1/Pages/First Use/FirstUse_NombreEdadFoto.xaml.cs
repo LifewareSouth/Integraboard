@@ -30,6 +30,7 @@ namespace WpfApp1.Pages.First_Use
         private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.seleccionarFotoConTexto);
         static int edadPerfil = 0;
         static string pathImagen = "";
+        StackPanel LeftMenu;
         public FirstUse_NombreEdadFoto()
         {
             InitializeComponent();
@@ -41,6 +42,22 @@ namespace WpfApp1.Pages.First_Use
             this.Resources["subirFoto"] = seleccionarFoto;
             this.Resources["menosEdad"] = menos;
             this.Resources["masEdad"] = mas;
+            
+        }
+        public FirstUse_NombreEdadFoto(StackPanel Menu)
+        {
+            InitializeComponent();
+            edadPerfil = int.Parse(Edad.Text);
+            this.Resources["cam"] = cameraButton;
+            this.Resources["nombre"] = nombre;
+            this.Resources["edad"] = edad;
+            this.Resources["tomarFoto"] = tomarFoto;
+            this.Resources["subirFoto"] = seleccionarFoto;
+            this.Resources["menosEdad"] = menos;
+            this.Resources["masEdad"] = mas;
+            LeftMenu = Menu;
+
+
         }
 
         private void menosEdad_Click(object sender, RoutedEventArgs e)
@@ -92,7 +109,7 @@ namespace WpfApp1.Pages.First_Use
         {
             if (verificarCampos() == true)
             {
-                this.NavigationService.Navigate(new FirstUse_VozTexto(NombreAlumno.Text, edadPerfil, pathImagen));
+                this.NavigationService.Navigate(new FirstUse_VozTexto(NombreAlumno.Text, edadPerfil, pathImagen, LeftMenu));
             }
         }
 
