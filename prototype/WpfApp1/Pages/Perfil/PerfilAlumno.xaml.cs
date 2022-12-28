@@ -25,6 +25,7 @@ using WpfApp1.Pages.Dialogs;
 using System.Windows.Forms;
 using SpeechLib;
 using System.Runtime.InteropServices;
+using WpfApp1.Pages.Pictogramas;
 
 namespace WpfApp1.Pages.Perfil
 {
@@ -44,13 +45,24 @@ namespace WpfApp1.Pages.Perfil
         private static BitmapImage mas = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.mas);
         private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
         private static PerfilModel datosPerfil = new PerfilModel();
+        bool _navigationServiceAssigned = false;
         SpeechSynthesizer synth = new SpeechSynthesizer();
-        List<string> nombresVoces = new List<string>();
+        static List<string> nombresVoces = new List<string>();
         SpVoice voice = new SpVoice();
-        bool imagenNueva = false;
-        string tamañoSeleccionado = "";
-        string pathImagen = "";
-        int edadPerfil; 
+        static bool imagenNueva = false;
+        static string tamañoSeleccionado = "";
+        static string pathImagen = "";
+        static int edadPerfil;
+        static bool imagefromCamera = false;
+
+        private static readonly PerfilAlumno instance = new PerfilAlumno();
+        public static PerfilAlumno Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public PerfilAlumno()
         {
             datosPerfil = Repository.Instance.ObtenerPerfil();
@@ -93,6 +105,25 @@ namespace WpfApp1.Pages.Perfil
             this.Resources["menosEdad"] = menos;
             this.Resources["masEdad"] = mas;
             this.Resources["sound"] = sound;
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (imagefromCamera == true)
+                {
+                    imagenPerfil.Source = new BitmapImage(new Uri(pathImagen));
+                    imagefromCamera = false;
+                }
+            }
         }
         private void getVoices()
         {
@@ -272,7 +303,7 @@ namespace WpfApp1.Pages.Perfil
 
         private void tomarFotoButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new TomarFoto());
+            this.NavigationService.Navigate(new TomarFoto("Editar Perfil"));
 
         }
 
@@ -295,6 +326,11 @@ namespace WpfApp1.Pages.Perfil
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             textoProbarVoz.Text = "Escuchar";
+        }
+        public void ImagenFromCamera(string path)
+        {
+            pathImagen = path;
+            imagefromCamera = true;
         }
     }
 }

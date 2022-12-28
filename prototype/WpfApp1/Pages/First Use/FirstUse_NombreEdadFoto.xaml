@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:WpfApp1.Pages.First_Use"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="FirstUse_NombreEdadFoto">
+      Title="FirstUse_NombreEdadFoto"
+      Loaded="page_Loaded">
 
     <Grid Background="#04293a">
         
@@ -111,7 +112,7 @@
                                 x:Name="tomarFotoButton"
                             Width="160"
                             Margin="20,0,30,0"
-                            Background="Transparent">
+                            Background="Transparent" Click="tomarFotoButton_Click">
                             <Image Source="{DynamicResource tomarFoto}"/>
                         </Button>
                         <Button Height="160"
@@ -142,7 +143,7 @@
                             FontSize="35"
                             Margin="10,0,0,0"
                             Foreground="White"
-                            Background="#ff6464"/>
+                            Background="#ff6464" Click="Cancelar_Click"/>
                 </StackPanel>
                 
             </Grid>

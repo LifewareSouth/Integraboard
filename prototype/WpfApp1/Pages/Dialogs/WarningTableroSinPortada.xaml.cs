@@ -23,7 +23,11 @@ namespace WpfApp1.Pages.Dialogs
         {
             InitializeComponent();
         }
-
+        public WarningTableroSinPortada(string mensaje)
+        {
+            InitializeComponent();
+            mensajeAdvertencia.Text= mensaje;
+        }
         private void closebtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
