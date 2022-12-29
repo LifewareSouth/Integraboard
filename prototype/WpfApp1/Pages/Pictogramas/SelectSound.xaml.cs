@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -27,16 +28,51 @@ namespace WpfApp1.Pages.Pictogramas
         Mp3FileReader reader;
         IWavePlayer waveOut;
         SoundModel sonidoReproducible = new SoundModel();
+        bool _navigationServiceAssigned = false;
+        private static readonly SelectSound instance = new SelectSound();
+        static bool actualizandoListaSonidos = false;
+        private static BitmapImage imagenSonido= Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
+        public static SelectSound Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public SelectSound()
         {
             InitializeComponent();
+            actualizarListaSonidos();
+        }
+        private void actualizarListaSonidos()
+        {
             List<SoundModel> listSonidos = Repository.Instance.GetAllSounds();
-            if (listSonidos.Count > 0)
+            ListViewSounds.ItemsSource = listSonidos;
+            this.Resources["sound"] = imagenSonido;
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
             {
-                ListViewSounds.ItemsSource = listSonidos;
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
             }
         }
-
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (actualizandoListaSonidos)
+                {
+                    actualizarListaSonidos();
+                    actualizandoListaSonidos = false;
+                }
+            }
+        }
+        public void runactualizarListaSonidos()
+        {
+            actualizandoListaSonidos = true;
+        }
         private void AddSounds_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog ofdSound = new OpenFileDialog();
@@ -106,7 +142,7 @@ namespace WpfApp1.Pages.Pictogramas
                         StopSound();
                     }
                 }                
-                CrearPictograma.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
+                CrearPictos.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
                 this.NavigationService.GoBack();
             }
         }

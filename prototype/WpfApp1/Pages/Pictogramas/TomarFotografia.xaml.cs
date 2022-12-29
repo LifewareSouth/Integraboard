@@ -107,7 +107,7 @@ namespace WpfApp1.Pages.Pictogramas
                 encoder.Save(stream);
             }
             StopCamera();
-            CrearPictograma.Instance.ImagenFromCamera();
+            CrearPictos.Instance.ImagenFromCamera();
             this.NavigationService.GoBack();
         }
 
@@ -176,7 +176,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void GoToCrearPictos(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CrearPictograma());
+            this.NavigationService.Navigate(new CrearPictos());
         }
 
         private void btnTomarOtra_Click(object sender, RoutedEventArgs e)

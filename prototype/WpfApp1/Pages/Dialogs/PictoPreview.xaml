@@ -9,14 +9,35 @@
         WindowStyle = "None"
         ResizeMode = "NoResize">
     <Grid Background="#04293a">
-        
-        <Border Height="380"
+
+        <Grid Grid.Row="1"
+              Height="380"
+              Width="380"
+              Background="White">
+           <Border x:Name="bordePict"
+                Height="380"
                 Width="380"
-                BorderBrush="white"
-                BorderThickness="2"
+                BorderBrush="DeepPink"
+                BorderThickness="10"
                 Grid.Row="1">
-            <Image x:Name="pictoPreview"/>
-        </Border>
+            <StackPanel>
+                <Image x:Name="pictoPreview"
+                   Height="300"
+                   Width="300"/>
+                <TextBlock x:Name="pictoTexto"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap"
+                           Foreground="Black"
+                           FontSize="35"
+                           FontFamily="arial"
+                           FontWeight="SemiBold"
+                           TextAlignment="Center"
+                           VerticalAlignment="Bottom"/>
+            </StackPanel>
+            
+        </Border> 
+        </Grid>
+        
         <Button x:Name="closePreview"
                 Content="X"
                 Grid.Row="0" 

@@ -79,7 +79,7 @@ namespace WpfApp1.Pages.Pictogramas
         {
             if (ListViewImages.SelectedValue != null)
             {
-                CrearPictograma.Instance.ImagenFromDB(ImagenSeleccionada);
+                CrearPictos.Instance.ImagenFromDB(ImagenSeleccionada);
                 this.NavigationService.GoBack();
             }
         }
@@ -100,6 +100,11 @@ namespace WpfApp1.Pages.Pictogramas
                 filteredImages = filtro;
             }
             ListViewImages.ItemsSource = filteredImages;
+        }
+
+        private void volverPictos_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

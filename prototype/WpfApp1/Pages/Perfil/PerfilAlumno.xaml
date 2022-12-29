@@ -1,0 +1,265 @@
+﻿<Page x:Class="WpfApp1.Pages.Perfil.PerfilAlumno"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages.Perfil"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      Title="PerfilAlumno"
+      Loaded="page_Loaded">
+
+    <Grid Background="#04293a">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="105"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <!--Botón para volver al menú-->
+                <Button x:Name="volverMenu"
+                    Width="180"
+                    Height="70"
+                    Margin="20,0,20,0"
+                    Content="Menú"
+                    FontFamily="arial"
+                    FontSize="30"
+                    FontWeight="SemiBold"
+                    Foreground="white"
+                    Background="#1597e5"/>
+                <!---->
+                <Label Content="Perfil" 
+                   FontFamily="Arial"
+                   FontWeight="Bold"
+                   FontSize="60" 
+                   Foreground="White"
+                   VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <!--
+            <TextBlock Text="Nombre:"
+                       FontSize="50"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
+            -->
+            <Border Height="180"
+                    Width="180"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource nombre}"/>
+            </Border>
+            <TextBox x:Name="NombreAlumno"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     FontSize="50"
+                     FontFamily="arial"
+                     Height="80"
+                     Width="350"/>
+            <!--
+            <TextBlock Text="Edad:"
+                       FontSize="50"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
+            -->
+            <Border Height="180"
+                    Width="180"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource edad}"/>
+            </Border>
+            <!--
+            <TextBlock Text="Tamaño de Texto:"
+                       FontSize="50"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Foreground="White"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+            -->
+            <Border Height="180"
+                    Width="180"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource tamanoLetra}"/>
+            </Border>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center">
+                <Button x:Name="menosEdad"
+                        Height="100"
+                        Width="100"
+                        Background="Transparent" Click="menosEdad_Click">
+                    <Image Source="{DynamicResource menosEdad}"/>
+                </Button>
+                <TextBlock x:Name="Edad"
+                       Width="150"
+                       Foreground="White"
+                       Text="4"
+                       FontSize="60"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"/>
+                <Button x:Name="masEdad"
+                        Height="100"
+                        Width="100"
+                        Background="Transparent" Click="masEdad_Click">
+                    <Image Source="{DynamicResource masEdad}"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        >
+                <Button x:Name="largeFont"
+                        Foreground="White"
+                        Background="#1597e5"
+                        Height="55"
+                        Width="350"
+                        Content="Grande"
+                        FontSize="45" Click="largeFont_Click"/>
+                <Button x:Name="mediumFont"
+                        Foreground="White"
+                        Background="#1597e5"
+                        Height="55"
+                        Width="350"
+                        Content="Mediano"
+                        FontSize="35"
+                        Margin="0,10,0,10" Click="mediumFont_Click"/>
+                <Button x:Name="smallFont"
+                        Foreground="White"
+                        Background="#1597e5"
+                        Height="55"
+                        Width="350"
+                        Content="Pequeño"
+                        FontSize="25" Click="smallFont_Click"/>
+            </StackPanel>
+            <Border Grid.Row="0"
+                    Grid.Column="2"
+                    Height="180"
+                    Width="180"
+                    Background="White">
+                <Image x:Name="imagenPerfil" Source="{DynamicResource cam}"
+                       Height="150"
+                       Width="150"/>
+            </Border>
+            
+            
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Grid.Column="3">
+                <Button x:Name="tomarFotoButton" Height="160"
+                        Width="160"
+                        Margin="20,0,30,0"
+                        Background="Transparent" Click="tomarFotoButton_Click">
+                    <Image Source="{DynamicResource tomarFoto}"/>
+                </Button>
+                <Button x:Name="subirFotoButton" Height="160"
+                        Width="160"
+                        Background="Transparent" Click="subirFotoButton_Click">
+                    <Image Source="{DynamicResource subirFoto}"/>
+                </Button>
+            </StackPanel>
+         
+            <Border Height="180"
+                    Width="180"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Grid.RowSpan="2"
+                    BorderThickness="2"
+                    BorderBrush="Yellow">
+                <Image Source="{DynamicResource voz}"/>
+            </Border>
+            <Grid Grid.Row="1"
+                  Grid.Column="3"
+                  Grid.RowSpan="2"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="probarVoz"
+                                Height="80"
+                                Width="300"
+                                Foreground="White"
+                                Background="#1597e5"
+                                FontSize="35"
+                                Margin="0,0,0,20"
+                            Click="probarVoz_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource sound}"
+                                   Height="75"
+                                   Width="75"
+                                   Margin="0,0,20,0"
+                                   HorizontalAlignment="Left"
+                                   />
+                            <TextBlock x:Name="textoProbarVoz" Text="Escuchar"
+                                       FontSize="35"
+                                       FontFamily="arial"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <ComboBox x:Name="seleccionVoz"
+                          Height="80"
+                          Width="350"
+                          FontSize="30">
+                </ComboBox>
+                </StackPanel>
+                
+            </Grid>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center">
+                <Button x:Name="GuardarPerfil" Content="Guardar"
+                        Height="60"
+                        Width="220"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="35"
+                        Foreground="White"
+                        Background="#1597e5" Click="GuardarPerfil_Click"/>
+                <Button x:Name="Cancelar" Content="Cancelar"
+                        Height="60"
+                        Width="220"
+                        FontFamily="arial"
+                        FontWeight="SemiBold"
+                        FontSize="35"
+                        Margin="10,0,0,0"
+                        Foreground="White"
+                        Background="#ff6464"/>
+            </StackPanel>
+            
+        </Grid>
+        <Frame x:Name="PerfilPage" NavigationUIVisibility="hidden"/>
+    </Grid>
+</Page>
+        

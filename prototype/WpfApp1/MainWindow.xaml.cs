@@ -3,7 +3,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using WpfApp1.Assets;
+using WpfApp1.Model;
+using WpfApp1.Pages.First_Use;
+using WpfApp1.Pages.Perfil;
+using WpfApp1.Pages.Tableros;
 using Lifeware.SoftwareCommon;
 
 
@@ -30,8 +35,17 @@ namespace WpfApp1
             InitializeComponent();
             btnshow.Click += Btnshow_Click;
             btnclose.Click += Btnclose_Click;
-            Main.NavigationService.Navigate(new MenuPage());
             Repository.Instance.CreacionDeTablas();
+            bool perfilExiste = Repository.Instance.verificarPerfil();
+            if (perfilExiste)
+            {
+                Main.NavigationService.Navigate(new MenuPage());
+            }
+            else
+            {
+                LeftMenu.Visibility = Visibility.Collapsed;
+                Main.NavigationService.Navigate(new FirstUse_NombreEdadFoto(LeftMenu));
+            }
             
         }
         private void Btnclose_Click(object sender, RoutedEventArgs e)
@@ -77,7 +91,12 @@ namespace WpfApp1
 
         private void Tableros_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Tableros();
+            Main.Content = new MainTablerosPage();
+        }
+
+        private void perfil_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new PerfilAlumno();
         }
     }
 }

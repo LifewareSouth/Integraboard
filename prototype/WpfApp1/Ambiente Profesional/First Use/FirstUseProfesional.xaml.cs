@@ -13,21 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp1
+namespace WpfApp1.Ambiente_Profesional.First_Use
 {
     /// <summary>
-    /// Lógica de interacción para Tableros.xaml
+    /// Lógica de interacción para FirstUseProfesional.xaml
     /// </summary>
-    public partial class Tableros : Page
+    public partial class FirstUseProfesional : Page
     {
-        public Tableros()
+        public FirstUseProfesional()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void GuardarPerfil_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new MainPicrogramasPage());
+
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

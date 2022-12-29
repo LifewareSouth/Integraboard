@@ -23,7 +23,11 @@ namespace WpfApp1.Pages.Dialogs
         {
             InitializeComponent();
         }
-
+        public SuccessDialog(string msj)
+        {
+            InitializeComponent();
+            Mensaje.Content = msj;
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();

@@ -26,9 +26,67 @@
                         FontSize="35"
                         Foreground="White"/>
 
-            <Rectangle Fill="#003b49"
+        <Grid Background="#003b49"
                    Margin="50,130,50,50" 
-                   Stroke="#707070"/>
+                   >
+            <ScrollViewer Margin="20" VerticalScrollBarVisibility="Disabled">
+                <ListBox x:Name="ListViewTableros"
+                         ItemsSource="{Binding Board}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Background="Transparent"
+                         SelectionMode="Multiple"
+                         SelectionChanged="ListViewPictograms_SelectionChanged"
+                         d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" HorizontalAlignment="Left"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Height="180" Width="180"
+                                       Background="White">
+                                <Border x:Name="pictoBorde"
+                                    Height="180" 
+                                    Width="180"
+                                    BorderBrush="#1597e5"
+                                    DockPanel.Dock="Top"
+                                    BorderThickness="5">
+                                    <StackPanel 
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                        <Image Source="{Binding pictPortada.Imagen}"
+                                               Height="80"
+                                               Width="80"
+                                               Margin="10"/>
+                                        <TextBlock Text="{Binding nombreTablero}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                Foreground="Black"
+                                                FontSize="20"
+                                                FontFamily="arial"
+                                                FontWeight="SemiBold"
+                                                TextAlignment="Center"
+                                                VerticalAlignment="Bottom"/>
+                                        <TextBlock Text="{Binding tipo}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                Foreground="Black"
+                                                FontSize="15"
+                                                FontFamily="arial"
+                                                FontWeight="SemiBold"
+                                                TextAlignment="Center"
+                                                VerticalAlignment="Bottom"/>
+                                    </StackPanel>
+
+                                </Border>
+
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
         <Frame x:Name="MenuPageFrame"/>
     </Grid>
 </Page>

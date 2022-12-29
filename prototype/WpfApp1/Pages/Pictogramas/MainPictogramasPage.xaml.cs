@@ -56,10 +56,8 @@ namespace WpfApp1
                                      new MouseButtonEventHandler(Row_DoubleClick)));
             
             listaPict = Repository.Instance.getAllPict();
-            if (listaPict.Count > 0)
-            {
-                ListViewPictograms.ItemsSource = listaPict;
-            }
+            ListViewPictograms.ItemsSource = listaPict;
+            
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -69,12 +67,8 @@ namespace WpfApp1
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
-            this.NavigationService.Navigate(new CrearPictograma(pictEdit));
+            this.NavigationService.Navigate(new CrearPictos(pictEdit,false,null));
         }
-        /*private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Pictos.Content = new Tableros();
-        }*/
 
         private void VolverMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -83,7 +77,7 @@ namespace WpfApp1
 
         private void CrearPictos(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CrearPictograma());
+            this.NavigationService.Navigate(new CrearPictos());
         }
 
         private async void btnEliminar_Click(object sender, RoutedEventArgs e)
@@ -104,13 +98,19 @@ namespace WpfApp1
 
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
-            PictoPreview w = new PictoPreview();
-            w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            w.Show();
+            if (ListViewPictograms.SelectedValue != null)
+            {
+                Pictogram pictSeleccionado = ((Pictogram)ListViewPictograms.SelectedItem);
+                PictoPreview w = new PictoPreview(pictSeleccionado);
+                w.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                w.Show();
+            }
+                
         }
 
         public void runActualizarLista()
         {
+            //listaPict.Clear();
             actualizandoPictogramas = true;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
@@ -127,6 +127,7 @@ namespace WpfApp1
             {
                 if (actualizandoPictogramas == true)
                 {
+                    this.DataContext = null;
                     ActualizarLista();
                     actualizandoPictogramas = false;
                 }
@@ -138,7 +139,7 @@ namespace WpfApp1
             if (ListViewPictograms.SelectedValue != null)
             {
                 Pictogram pictEdit = ((Pictogram)ListViewPictograms.SelectedItem);
-                this.NavigationService.Navigate(new CrearPictograma(pictEdit));
+                this.NavigationService.Navigate(new CrearPictos(pictEdit,false,null));
             }
         }
 

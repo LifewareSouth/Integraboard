@@ -19,25 +19,30 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
+using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1.Pages.Pictogramas
 {
     /// <summary>
     /// Lógica de interacción para CrearPictograma.xaml
     /// </summary>
-    public partial class CrearPictograma : Page
+    public partial class CrearPictos : Page
     {
         bool _navigationServiceAssigned = false;
         string TipoImagen = null, pathImagen;
         private static bool IsImageFromCamera = false;
         private static bool IsImageFromDB = false;
+        private static bool IsSoundFromDB = false;
         private static ImagenModel imageDB = new ImagenModel();
         private bool isEdit = false;
         private static Pictogram pictogramEdit = new Pictogram();
-        private static readonly CrearPictograma instance = new CrearPictograma();
-        private static List<Etiqueta> ListaEtiquetas = new List<Etiqueta>();
+        private static readonly CrearPictos instance = new CrearPictos();
+        private static List<EtiquetaP> ListaEtiquetas = new List<EtiquetaP>();
         private static SoundModel sonidoSeleccionado = new SoundModel();
-        public static CrearPictograma Instance
+        private bool isFromBoard = false;
+        string tipoTablero;
+        public static CrearPictos Instance
         {
             get
             {
@@ -45,7 +50,7 @@ namespace WpfApp1.Pages.Pictogramas
             }
         }
 
-        public CrearPictograma()
+        public CrearPictos()
         {
             InitializeComponent();
             rellenarCategorias();
@@ -60,10 +65,12 @@ namespace WpfApp1.Pages.Pictogramas
                 object aux = CategoriaPict.Items.Add(Repository.PictogramCategoryToString(foo));
             }
         }
-        public CrearPictograma(Pictogram editPict)
+        public CrearPictos(Pictogram editPict,bool fromboard,string tipo)
         {
             InitializeComponent();
             rellenarCategorias();
+            isFromBoard = fromboard;
+            tipoTablero = tipo;
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
             NombrePict.Text = editPict.Nombre;
             TextPict.Text = editPict.Texto;
@@ -74,16 +81,30 @@ namespace WpfApp1.Pages.Pictogramas
             imageDB.Nombre = editPict.nombreImagen;
             imageDB.Imagen = editPict.Imagen;
             PictogramImage.Source = editPict.Imagen;
-            string etiquetas = "";
-            foreach(Etiqueta etiqueta in editPict.ListaEtiquetas)
+            if (editPict.idSonido != 0 && editPict.idSonido != null)
             {
-                if(editPict.ListaEtiquetas.First() == etiqueta)
+                sonidoSeleccionado.ID = editPict.idSonido;
+                sonidoSeleccionado.Nombre = editPict.nombreSonido;
+                sonidoSeleccionado.pathSonido = editPict.pathSonido;
+                selectedSound.Text = "el sonido seleccionado es: " + editPict.nombreSonido.ToUpper();
+                IsSoundFromDB = true;
+                quitarSonido.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                sonidoSeleccionado = new SoundModel();
+                IsSoundFromDB=false;
+            }
+            string etiquetas = "";
+            foreach (EtiquetaP etiqueta in editPict.ListaEtiquetas)
+            {
+                if (editPict.ListaEtiquetas.First() == etiqueta)
                 {
                     etiquetas = etiqueta.NombreEtiqueta;
                 }
                 else
                 {
-                    etiquetas = etiquetas+","+ etiqueta.NombreEtiqueta;
+                    etiquetas = etiquetas + "," + etiqueta.NombreEtiqueta;
                 }
             }
             EtiquetaPict.Text = etiquetas;
@@ -126,6 +147,7 @@ namespace WpfApp1.Pages.Pictogramas
         public void SoundFromDb(SoundModel soundModel)
         {
             sonidoSeleccionado = soundModel;
+            IsSoundFromDB = true;
         }
         public static BitmapImage LoadBitmapImage(string fileName)
         {
@@ -160,6 +182,7 @@ namespace WpfApp1.Pages.Pictogramas
                 List<string> etiquetasPict = new List<string>();
                 List<int> idsTags = new List<int>();
                 Pictogram pict = new Pictogram();
+                string Mensaje = "";
                 if(TipoImagen == "Camara")
                 {
                     pict.idImagen = Repository.Instance.GuardarImagenCamara(@"C:\IntegraBoard\repo\userProfile\images\cameraPhoto2.png");
@@ -184,6 +207,7 @@ namespace WpfApp1.Pages.Pictogramas
                         idsTags = idTags(EtiquetaPict.Text);
                         Repository.Instance.AsociarEtiquetasPict(idsTags, idNewPict,true);
                     }
+                    Mensaje = "Creado correctamente!";
                 }
                 else
                 {
@@ -194,9 +218,40 @@ namespace WpfApp1.Pages.Pictogramas
                         idsTags = idTags(EtiquetaPict.Text);
                         Repository.Instance.AsociarEtiquetasPict(idsTags,pictogramEdit.ID, false);
                     }
+                    Mensaje = "Actualizado correctamente!";
+                    
                 }
-                MainPicrogramasPage.Instance.runActualizarLista();
-                this.NavigationService.GoBack();
+                if (isFromBoard)//Cuando se edita desde un tablero
+                {
+                    SuccessDialog succes = new SuccessDialog(Mensaje);
+                    succes.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    succes.Show();
+                    if (tipoTablero == "Comunicación")
+                    {
+                        CrearTableros.Instance.actualizarPictogramaEditado();
+                    }
+                    else if (tipoTablero == "Emociones")
+                    {
+                        //
+                    }
+                    else if (tipoTablero == "Rutina")
+                    {
+                        TableroRutina.Instance.actualizarPictogramaEditado();
+                    }
+                    else if (tipoTablero == "Sonidos")
+                    {
+                        TableroSonidos.Instance.actualizarPictogramaEditado();
+                    }
+                    this.NavigationService.GoBack();
+                }
+                else
+                {
+                    SuccessDialog success = new SuccessDialog(Mensaje);
+                    success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    success.Show();
+                    MainPicrogramasPage.Instance.runActualizarLista();
+                    this.NavigationService.Navigate(new MainPicrogramasPage());
+                }
             }
         }
         private List<int> idTags(string textoEtiquetas)
@@ -260,6 +315,14 @@ namespace WpfApp1.Pages.Pictogramas
             pictoBorde.BorderBrush = Repository.Instance.categoryColor(CategoriaPict.SelectedItem.ToString());
         }
 
+        private void quitarSonido_Click(object sender, RoutedEventArgs e)
+        {
+            selectedSound.Text = "el sonido seleccionado es:";
+            sonidoSeleccionado = new SoundModel();
+            IsSoundFromDB = false;
+            quitarSonido.Visibility = Visibility.Hidden;
+        }
+
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             if (e.NavigationMode == NavigationMode.Back)
@@ -274,6 +337,11 @@ namespace WpfApp1.Pages.Pictogramas
                 {
                     PictogramImage.Source = imageDB.Imagen;
                     TipoImagen = "Database";
+                }
+                if (IsSoundFromDB == true)
+                {
+                    selectedSound.Text = "el sonido seleccionado es: " + sonidoSeleccionado.Nombre.ToUpper();
+                    quitarSonido.Visibility = Visibility.Visible;
                 }
             }
         }
