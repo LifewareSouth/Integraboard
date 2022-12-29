@@ -1411,5 +1411,56 @@ namespace WpfApp1.Assets
             }
             return vozPerfil;
         }
+        public string exportPictogramas(List<Pictogram> listaPictogramas, string pathExport)
+        {
+            string exportsql = "";
+            List<int> idsImagenes = new List<int>();
+            List<int?> idsSonidos = new List<int?>();
+            string queryExportPictogram = "insert into temppictogramas(idPict,idAlfaPict, nombrePict,textoPict,categoriaPict,idImagen,idSonido) values ";
+            foreach (Pictogram pictogram in listaPictogramas)
+            {
+                string row = "";
+                if (idsImagenes.Any(x => x == pictogram.idImagen) == false)
+                {
+                    idsImagenes.Add(pictogram.idImagen);
+                }
+                
+                if(listaPictogramas.First().ID != pictogram.ID)
+                {
+                    row = ",";
+                }
+                if (pictogram.idSonido != 0)
+                {
+                    row = row+ "(" +pictogram.ID+",'"+
+                        pictogram.idAlfaPict + "','"+
+                        pictogram.Nombre+"','"+
+                        pictogram.Texto+"','"+
+                        pictogram.Categoria+"',"+
+                        pictogram.idImagen+", "+
+                        pictogram.idSonido+")";
+
+                    if (idsSonidos.Any(x => x == pictogram.idSonido) == false)
+                    {
+                        idsSonidos.Add(pictogram.idSonido);
+                    }
+                }
+                else
+                {
+                    row = "(" + pictogram.ID + ",'" +
+                        pictogram.idAlfaPict + "','" +
+                        pictogram.Nombre + "','" +
+                        pictogram.Texto + "','" +
+                        pictogram.Categoria + "'," +
+                        pictogram.idImagen + ", " +
+                        "NULL)";
+                }
+                queryExportPictogram = queryExportPictogram + row;
+
+
+            }
+            queryExportPictogram = queryExportPictogram + ";";
+            exportsql = queryExportPictogram;
+            return exportsql;
+        }
     }
 }
