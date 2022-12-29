@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
+using WpfApp1.Pages.Dialogs;
+using WpfApp1.Pages.Perfil;
 
 namespace WpfApp1.Pages.First_Use
 {
@@ -30,7 +33,17 @@ namespace WpfApp1.Pages.First_Use
         private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.seleccionarFotoConTexto);
         static int edadPerfil = 0;
         static string pathImagen = "";
-        StackPanel LeftMenu;
+        static StackPanel LeftMenu;
+        static bool imagefromCamera = false;
+        bool _navigationServiceAssigned = false;
+        private static readonly FirstUse_NombreEdadFoto instance = new FirstUse_NombreEdadFoto();
+        public static FirstUse_NombreEdadFoto Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
         public FirstUse_NombreEdadFoto()
         {
             InitializeComponent();
@@ -58,6 +71,25 @@ namespace WpfApp1.Pages.First_Use
             LeftMenu = Menu;
 
 
+        }
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_navigationServiceAssigned == false)
+            {
+                NavigationService.Navigating += NavigationService_Navigating;
+                _navigationServiceAssigned = true;
+            }
+        }
+        void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                if (imagefromCamera == true)
+                {
+                    imagenPerfil.Source = new BitmapImage(new Uri(pathImagen));
+                    imagefromCamera = false;
+                }
+            }
         }
 
         private void menosEdad_Click(object sender, RoutedEventArgs e)
@@ -113,6 +145,26 @@ namespace WpfApp1.Pages.First_Use
             }
         }
 
+        private void tomarFotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new TomarFoto("First Use"));
+        }
+        public void ImagenFromCamera(string path)
+        {
+            pathImagen = path;
+            imagefromCamera = true;
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            WarningTableroSinPortada wt = new WarningTableroSinPortada("CUIDAO!");
+            wt.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var result = wt.ShowDialog();
+            if (result == true)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
+        }
     }
     
 }

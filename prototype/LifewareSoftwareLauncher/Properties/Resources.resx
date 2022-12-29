@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>ACEPTAR</value>
+  </data>
+  <data name="AuthenticationErrorTitle" xml:space="preserve">
+    <value>Error de autenticación</value>
+  </data>
+  <data name="CheckingSerialMessage" xml:space="preserve">
+    <value>Comprobando validez de datos de licencia</value>
+  </data>
+  <data name="CheckingSerialTitle" xml:space="preserve">
+    <value>Comprobando Serial</value>
+  </data>
+  <data name="CheckSerialErrorDetail" xml:space="preserve">
+    <value>Serial no válida.</value>
+  </data>
+  <data name="ErrorDetail" xml:space="preserve">
+    <value>Detalle del error</value>
+  </data>
+  <data name="GenericError" xml:space="preserve">
+    <value>Ocurrió un error inesperado. Por favor reintente.</value>
+  </data>
+  <data name="HintPassword" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="HintUser" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="IntroMessage" xml:space="preserve">
+    <value>Inicializando el cargador del sistema.</value>
+  </data>
+  <data name="IntroTitle" xml:space="preserve">
+    <value>Bienvenido a {0}</value>
+  </data>
+  <data name="LaunchErrorDetail" xml:space="preserve">
+    <value>No se pudo iniciar {0}</value>
+  </data>
+  <data name="LaunchMessage" xml:space="preserve">
+    <value>El sistema se iniciará en unos segundos</value>
+  </data>
+  <data name="LaunchTitle" xml:space="preserve">
+    <value>Iniciando {0}</value>
+  </data>
+  <data name="LoginMessage" xml:space="preserve">
+    <value>Para continuar, por favor ingrese los datos solicitados.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="SerialErrorTitle" xml:space="preserve">
+    <value>Error de serial</value>
+  </data>
+  <data name="StartMessage" xml:space="preserve">
+    <value>Inicializar {0}</value>
+  </data>
+  <data name="ValidatingSerialMessage" xml:space="preserve">
+    <value>Espere mientras se registran los datos de serial.</value>
+  </data>
+  <data name="ValidatingSerialTitle" xml:space="preserve">
+    <value>Registrando serial.</value>
+  </data>
+  <data name="ValidationConnectionError" xml:space="preserve">
+    <value>No se pudo conectar al servidor. Por favor reintente.</value>
+  </data>
+  <data name="ValidationIncorrectDataError" xml:space="preserve">
+    <value>Los datos provistos son incorrectos. Por favor reintente.</value>
+  </data>
+  <data name="ValidationSerialDisabled" xml:space="preserve">
+    <value>El serial asignado a su cuenta no está habilitado.</value>
+  </data>
+  <data name="ValidationSerialNotAssigned" xml:space="preserve">
+    <value>No hay seriales asignados a su cuenta.</value>
+  </data>
+  <data name="ValidationSerialUsageExceeded" xml:space="preserve">
+    <value>El serial asignado a su cuenta ha sobrepasado el límite de uso.</value>
+  </data>
+  <data name="RegisterKeyboardMessage" xml:space="preserve">
+    <value>Esta operación puede tardar unos segundos. Aparecerán diálogos, solicitando sus permisos.</value>
+  </data>
+  <data name="RegisterKeyboardTitle" xml:space="preserve">
+    <value>Registrando teclado</value>
+  </data>
+  <data name="MainWindowTitle" xml:space="preserve">
+    <value>{0} Launcher</value>
+  </data>
+</root>
