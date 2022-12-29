@@ -1459,8 +1459,52 @@ namespace WpfApp1.Assets
 
             }
             queryExportPictogram = queryExportPictogram + ";";
+            string queryExportImg = queryExportImagenes(idsImagenes);
             exportsql = queryExportPictogram;
             return exportsql;
+        }
+        public string queryExportImagenes(List<int> idsImagenes) 
+        {
+            string queryImagenes = "insert into tempimagenes (idImagen,idAlfaImagen,nombreImagen,blobImagen) values ";
+            string idImagen = null, nombreImagen = null, hexImage = null, idAlfaImagen = null;
+            byte[] imagenByte = null;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                foreach (int ID in idsImagenes)
+                {
+                    string rowquery = null;
+                    if (idsImagenes.First() != ID)
+                    {
+                        rowquery = rowquery + ",";
+                    }
+                    string query = "select idImagen,idAlfaImagen,nombreImagen, hex(blobImagen) as hexImage from imagenes where idImagen = @ID";
+
+                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                    cmd.Parameters.Add(new SQLiteParameter("@ID", ID));
+                    cmd.CommandType = System.Data.CommandType.Text;
+
+                    using (SQLiteDataReader dr = cmd.ExecuteReader())
+                    {
+
+
+                        while (dr.Read())
+                        {
+                            idImagen = dr["idImagen"].ToString();
+                            idAlfaImagen = dr["idAlfaImagen"].ToString();
+                            nombreImagen = dr["nombreImagen"].ToString();
+                            hexImage = dr["hexImage"].ToString();
+                        }
+                        dr.Close();
+                    }
+
+                    rowquery = rowquery + "(" + idImagen +",'"+ idAlfaImagen +"','"+ nombreImagen+ "',X'" + hexImage + "')";
+                    queryImagenes = queryImagenes + rowquery;
+                }
+                queryImagenes = queryImagenes + ";";
+                conexion.Close();
+            }
+            return queryImagenes;
         }
     }
 }
