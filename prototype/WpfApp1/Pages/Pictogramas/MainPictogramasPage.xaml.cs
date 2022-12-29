@@ -57,7 +57,7 @@ namespace WpfApp1
             
             listaPict = Repository.Instance.getAllPict();
             ListViewPictograms.ItemsSource = listaPict;
-            
+            Repository.Instance.exportPictogramas(listaPict, "");
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
