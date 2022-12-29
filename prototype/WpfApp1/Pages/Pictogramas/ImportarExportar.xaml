@@ -32,7 +32,7 @@
         <Grid Grid.Row="1">
             <TabControl Height="680"
                         Width="1250"
-                        >
+                        Background="Transparent">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Height" Value="50"/>
@@ -73,16 +73,16 @@
                 
                 <TabItem Header="Importar">
                     
-                    <Grid Background="#003b49">
-                        <ListView Height="590"
+                    <Grid Background="#003b49"
+                          HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <ListView Height="590"
                                   Width="790"
                                   Background="#003b49"
                                   Foreground="White"
                                   FontSize="18"
                                   ItemsSource="{Binding Pictogram}"
-                                  x:Name="listviewImportar" d:ItemsSource="{d:SampleData ItemCount=5}"
-                                  >
-
+                                  x:Name="listviewImportar" d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn Header="Imagen"
@@ -163,102 +163,190 @@
                                 </Style>
                             </ListView.ItemContainerStyle>
                         </ListView>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="50,0,0,0">
+                                <Button Height="90"
+                                        Width="250"
+                                        Background="#1597e5"
+                                        Margin="0,50,0,0">
+                                    <TextBlock Text="Seleccionar Carpeta"
+                                               FontFamily="Arial"
+                                               FontSize="30"
+                                               FontWeight="SemiBold"
+                                               Foreground="white"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"/>
+                                </Button>
 
+                                <Button Height="90"
+                                        Width="250"
+                                        Background="#1597e5"
+                                        Visibility="Visible"
+                                        Margin="50">
+                                    <TextBlock Text="Seleccionar Todos"
+                                               FontFamily="Arial"
+                                               FontSize="30"
+                                               FontWeight="SemiBold"
+                                               Foreground="white"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"/>
+                                </Button>
+
+                                <Button Height="90"
+                                        Width="250"
+                                        Background="#1597e5">
+                                    <TextBlock Text="Importar Seleccionados"
+                                               FontFamily="Arial"
+                                               FontSize="30"
+                                               FontWeight="SemiBold"
+                                               Foreground="white"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"/>
+                                </Button>
+
+                                <Button Content="Cancelar"
+                                        Height="50"
+                                        Width="200"
+                                        Margin="0,130,0,0"
+                                        Background="#ff6464"
+                                        FontFamily="NotoSans"
+                                        FontSize="25"
+                                        FontWeight="SemiBold"
+                                        Foreground="white"/>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
                 <TabItem Header="Exportar">
-                    <Grid Background="#003b49">
-                        <ListView Height="590"
-                                  Width="790"
-                                  Background="#003b49"
-                                  Foreground="White"
-                                  FontSize="18"
-                                  ItemsSource="{Binding Pictogram}"
-                                  x:Name="listviewExportar" d:ItemsSource="{d:SampleData ItemCount=5}"
-                                  >
+                    <Grid Background="#003b49"
+                          HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <ListView Height="590"
+                                      Width="790"
+                                      Background="#003b49"
+                                      Foreground="White"
+                                      FontSize="18"
+                                      ItemsSource="{Binding Pictogram}"
+                                      x:Name="listviewExportar" d:ItemsSource="{d:SampleData ItemCount=5}">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn Header="Imagen"
+                                                        Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel Height="100"
+                                                               Width="100"
+                                                               Background="White"
+                                                               >
+                                                        <Image Source="{Binding pictPortada.Imagen}"
+                                                               Height="100"
+                                                               Width="100"
+                                                               HorizontalAlignment="Center"/>
+                                                    </DockPanel>
 
-                            <ListView.View>
-                                <GridView AllowsColumnReorder="False">
-                                    <GridViewColumn Header="Imagen"
-                                                    Width="150">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <DockPanel Height="100"
-                                                           Width="100"
-                                                           Background="White"
-                                                           >
-                                                    <Image Source="{Binding pictPortada.Imagen}"
-                                                           Height="100"
-                                                           Width="100"
-                                                           HorizontalAlignment="Center"/>
-                                                </DockPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Nombre del Pictograma"
+                                                        Width="180"
+                                                        DisplayMemberBinding="{Binding Path=Nombre}"/>
+                                        <GridViewColumn Header="Categoría"
+                                                        Width="180"
+                                                        DisplayMemberBinding="{Binding Path=Categoria}"/>
+                                        <GridViewColumn Header="Sonido"
+                                                        Width="200">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=nombreSonido}" TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridView.ColumnHeaderContainerStyle>
 
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Nombre del Pictograma"
-                                                    Width="180"
-                                                    DisplayMemberBinding="{Binding Path=Nombre}"/>
-                                    <GridViewColumn Header="Categoría"
-                                                    Width="180"
-                                                    DisplayMemberBinding="{Binding Path=Categoria}"/>
-                                    <GridViewColumn Header="Sonido"
-                                                    Width="200">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Path=nombreSonido}" TextWrapping="Wrap"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridView.ColumnHeaderContainerStyle>
+                                            <Style TargetType="GridViewColumnHeader">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                            <Border BorderThickness="0,0,0,1" 
+                                                                    BorderBrush="White" 
+                                                                    Background="Transparent">
+                                                                <TextBlock x:Name="ContentHeader" 
+                                                                           Text="{TemplateBinding Content}" 
+                                                                           Padding="5,5,5,0" 
+                                                                           Width="{TemplateBinding Width}" 
+                                                                           TextAlignment="Center"
+                                                                           FontSize="20"
+                                                                           FontWeight="SemiBold"
+                                                                           TextWrapping="Wrap"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter Property="OverridesDefaultStyle" Value="True" />
+                                                <Setter Property="Foreground" Value="White" />
+                                            </Style>
+                                        </GridView.ColumnHeaderContainerStyle>
+                                    </GridView>
+                                </ListView.View>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#f4f6af" />
+                                                <Setter Property="BorderThickness" Value="1" />
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                <Setter Property="Foreground" Value="black"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#f4f6af" />
+                                                <Setter Property="BorderThickness" Value="1" />
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                <Setter Property="Foreground" Value="black"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="50,0,0,0">
+                                <Button Height="90"
+                                        Width="250"
+                                        Background="#1597e5"
+                                        Margin="50">
+                                    <TextBlock Text="Seleccionar Todos"
+                                               FontFamily="Arial"
+                                               FontSize="30"
+                                               FontWeight="SemiBold"
+                                               Foreground="white"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"/>
+                                </Button>
 
-                                        <Style TargetType="GridViewColumnHeader">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-                                                        <Border BorderThickness="0,0,0,1" 
-                                                                BorderBrush="White" 
-                                                                Background="Transparent">
-                                                            <TextBlock x:Name="ContentHeader" 
-                                                                       Text="{TemplateBinding Content}" 
-                                                                       Padding="5,5,5,0" 
-                                                                       Width="{TemplateBinding Width}" 
-                                                                       TextAlignment="Center"
-                                                                       FontSize="20"
-                                                                       FontWeight="SemiBold"
-                                                                       TextWrapping="Wrap"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Setter Property="OverridesDefaultStyle" Value="True" />
-                                            <Setter Property="Foreground" Value="White" />
-                                        </Style>
-                                    </GridView.ColumnHeaderContainerStyle>
-                                </GridView>
-                            </ListView.View>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="#f4f6af" />
-                                            <Setter Property="BorderThickness" Value="1" />
-                                            <Setter Property="FontWeight" Value="Bold"/>
-                                            <Setter Property="Foreground" Value="black"/>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#f4f6af" />
-                                            <Setter Property="BorderThickness" Value="1" />
-                                            <Setter Property="FontWeight" Value="Bold"/>
-                                            <Setter Property="Foreground" Value="black"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
+                                <Button Height="90"
+                                        Width="250"
+                                        Background="#1597e5">
+                                    <TextBlock Text="Exportar Seleccionados"
+                                               FontFamily="Arial"
+                                               FontSize="30"
+                                               FontWeight="SemiBold"
+                                               Foreground="white"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"/>
+                                </Button>
 
+                                <Button Content="Cancelar"
+                                        Height="50"
+                                        Width="200"
+                                        Margin="0,270,0,0"
+                                        Background="#ff6464"
+                                        FontFamily="NotoSans"
+                                        FontSize="25"
+                                        FontWeight="SemiBold"
+                                        Foreground="white"/>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
             </TabControl>
