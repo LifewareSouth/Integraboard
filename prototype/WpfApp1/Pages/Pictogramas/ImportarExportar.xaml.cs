@@ -20,11 +20,18 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class ImportarExportar : Page
     {
+        List<Pictogram> listaTotalPict = new List<Pictogram>();
         public ImportarExportar()
         {
             InitializeComponent();
         }
+        public ImportarExportar(List<Pictogram>exportPict)
+        {
+            InitializeComponent();
+            listaTotalPict = exportPict;
+            listviewImportar.ItemsSource = listaTotalPict;
+        }
 
-        
+
     }
 }
