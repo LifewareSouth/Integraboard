@@ -29,7 +29,7 @@ namespace WpfApp1.Pages.Pictogramas
         {
             InitializeComponent();
             listaTotalPict = exportPict;
-            listviewImportar.ItemsSource = listaTotalPict;
+            listviewExportar.ItemsSource = listaTotalPict;
         }
 
 

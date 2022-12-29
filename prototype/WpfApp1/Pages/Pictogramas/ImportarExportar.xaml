@@ -239,7 +239,7 @@
                                                                Width="100"
                                                                Background="White"
                                                                >
-                                                        <Image Source="{Binding pictPortada.Imagen}"
+                                                        <Image Source="{Binding Path=Imagen}"
                                                                Height="100"
                                                                Width="100"
                                                                HorizontalAlignment="Center"/>
