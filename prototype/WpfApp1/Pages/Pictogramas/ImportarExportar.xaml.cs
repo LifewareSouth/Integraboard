@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -23,5 +24,7 @@ namespace WpfApp1.Pages.Pictogramas
         {
             InitializeComponent();
         }
+
+        
     }
 }
