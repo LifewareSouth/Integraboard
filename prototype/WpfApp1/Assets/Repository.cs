@@ -1,4 +1,5 @@
 ﻿using AForge.Imaging.Filters;
+using Lifeware.SoftwareCommon;
 using NAudio.Lame;
 using NAudio.Wave;
 using System;
@@ -1363,7 +1364,7 @@ namespace WpfApp1.Assets
         }
         public void crearPerfilAlumno(PerfilModel datosPerfil,string pathImagen)
         {
-            string alfaIdPerfil = Guid.NewGuid().ToString();
+            string alfaIdPerfil = GlobalConfig.AppGuid;
             byte[] pic = File.ReadAllBytes(pathImagen);
             int idBoard = 0;
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
