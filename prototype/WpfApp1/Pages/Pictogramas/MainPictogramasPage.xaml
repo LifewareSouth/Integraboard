@@ -197,7 +197,7 @@
                     FontFamily="NotoSans"
                     FontSize="25"
                     FontWeight="SemiBold"
-                    Foreground="white">
+                    Foreground="white" Click="Button_Click">
                 <TextBlock Text="Importar/Exportar"
                            TextWrapping="Wrap"/>
             </Button>

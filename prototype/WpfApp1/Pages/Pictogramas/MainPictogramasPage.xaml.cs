@@ -174,5 +174,10 @@ namespace WpfApp1
             }
             ListViewPictograms.ItemsSource = filteredPict;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ImportarExportar());
+        }
     }
 }
