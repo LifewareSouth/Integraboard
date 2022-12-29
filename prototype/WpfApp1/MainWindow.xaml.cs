@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -7,6 +9,8 @@ using WpfApp1.Model;
 using WpfApp1.Pages.First_Use;
 using WpfApp1.Pages.Perfil;
 using WpfApp1.Pages.Tableros;
+using Lifeware.SoftwareCommon;
+
 
 namespace WpfApp1
 {
@@ -15,8 +19,19 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool SoftwareValido = false;
         public MainWindow()
         {
+            Task.Run(async () => {
+                SoftwareValido = await SerialFileManager.IsValidSerial();
+            }).GetAwaiter().GetResult();
+
+            if (!SoftwareValido)
+            {
+                Process.Start(System.IO.Directory.GetCurrentDirectory().ToString() + @"\LifewareSoftwareLauncher\LifewareSoftwareLauncher.exe");
+                Application.Current.Shutdown(); //En algunos casos usar return;
+                UpdateTools.UpdateApp();
+            }
             InitializeComponent();
             btnshow.Click += Btnshow_Click;
             btnclose.Click += Btnclose_Click;

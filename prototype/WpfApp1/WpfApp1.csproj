@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>   
   </PropertyGroup>
 
   <ItemGroup>
@@ -48,6 +49,7 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
     <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.116" />
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.116" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Speech" Version="7.0.0" />
   </ItemGroup>
@@ -125,5 +127,18 @@
       <HintPath>packages\Interop.SpeechLib.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Lifeware.SoftwareCommon">
+      <HintPath>..\LifewareSoftwareCommon\obj\Debug\Lifeware.SoftwareCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="LifewareSoftwareLogic">
+      <HintPath>..\resources\LifewareSoftwareLogic.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(SolutionDir)LifewareSoftwareLauncher\bin\$(ConfigurationName)&quot; &quot;$(SolutionDir)\WpfApp1\bin\$(ConfigurationName)\net6.0-windows\LifewareSoftwareLauncher\&quot; /E /Y" />
+  </Target>
 
 </Project>
