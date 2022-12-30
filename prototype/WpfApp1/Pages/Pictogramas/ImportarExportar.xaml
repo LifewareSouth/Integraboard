@@ -208,11 +208,11 @@
                                                    TextAlignment="Center"/>
                                     </Button>
 
-                                    <Button Height="90"
+                                    <Button x:Name="importSelectAll" Height="90"
                                             Width="250"
                                             Background="#1597e5"
-                                            Margin="0,50,0,50">
-                                        <TextBlock Text="Seleccionar Todos"
+                                            Margin="0,50,0,50" Click="importSelectAll_Click">
+                                        <TextBlock x:Name="importSelectAllText" Text="Seleccionar Todos"
                                                    FontFamily="Arial"
                                                    FontSize="30"
                                                    FontWeight="SemiBold"
@@ -374,10 +374,10 @@
                                 </ListView>
                                 <StackPanel Orientation="Vertical"
                                             Margin="50,0,0,0" Width="314">
-                                    <Button Height="90"
+                                    <Button x:Name="exportSelectAll" Height="90"
                                             Width="250"
-                                            Background="#1597e5">
-                                        <TextBlock Text="Seleccionar Todos"
+                                            Background="#1597e5" Click="exportSelectAll_Click">
+                                        <TextBlock x:Name="exportSelectAllText" Text="Seleccionar Todos"
                                                    FontFamily="Arial"
                                                    FontSize="30"
                                                    FontWeight="SemiBold"

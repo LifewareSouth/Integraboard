@@ -56,5 +56,33 @@ namespace WpfApp1.Pages.Pictogramas
                 Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave);
             }
         }
+
+        private void exportSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (exportSelectAllText.Text == "Seleccionar Todos")
+            {
+                exportSelectAllText.Text = "Deseleccionar Todos";
+                listviewExportar.SelectAll();
+            }
+            else if (exportSelectAllText.Text == "Deseleccionar Todos")
+            {
+                exportSelectAllText.Text = "Seleccionar Todos";
+                listviewExportar.UnselectAll();
+            }
+        }
+
+        private void importSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (importSelectAllText.Text == "Seleccionar Todos")
+            {
+                importSelectAllText.Text = "Deseleccionar Todos";
+                listviewExportar.SelectAll();
+            }
+            else if (importSelectAllText.Text == "Deseleccionar Todos")
+            {
+                importSelectAllText.Text = "Seleccionar Todos";
+                listviewExportar.UnselectAll();
+            }
+        }
     }
 }
