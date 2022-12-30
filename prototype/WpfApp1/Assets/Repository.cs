@@ -1572,5 +1572,78 @@ namespace WpfApp1.Assets
 
             return querysonidos;
         }
+        public void deleteTempData()
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //Limpia la informacion temporal
+                conexion.Open();
+                string query = "delete from temppictogramas;" +
+                    "delete from tempimagenes;" +
+                    "delete from tempsonidos";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+
+            }
+        }
+        public void importTempData(string query)
+        {
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                //Limpia la informacion temporal
+                conexion.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+
+            }
+        }
+        public List<Pictogram> getAllTempPict()
+        {
+            List<Pictogram> listaPict = new List<Pictogram>();
+            int sound_id;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
+                "from temppictogramas p " +
+                "JOIN tempimagenes i on p.idImagen = i.idImagen  " +
+                "LEFT join tempsonidos s on p.idSonido = s.idSonido order by idPict DESC;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int.TryParse(dr["idSonido"].ToString(), out sound_id);
+                        listaPict.Add(new Pictogram
+                        {
+                            ID = int.Parse(dr["idPict"].ToString()),
+                            idAlfaPict = dr["idAlfaPict"].ToString(),
+                            Nombre = dr["nombrePict"].ToString(),
+                            Texto = dr["textoPict"].ToString(),
+                            Categoria = dr["categoriaPict"].ToString(),
+                            idImagen = int.Parse(dr["idImagen"].ToString()),
+                            nombreImagen = dr["nombreImagen"].ToString(),
+                            Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]),
+                            idSonido = sound_id,
+                            nombreSonido = dr["nombreSonido"].ToString(),
+                            pathSonido = dr["pathSonido"].ToString(),
+                            ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString())),
+                            colorBorde = categoryColor(dr["categoriaPict"].ToString())
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+            return listaPict;
+
+        }
     }
 }

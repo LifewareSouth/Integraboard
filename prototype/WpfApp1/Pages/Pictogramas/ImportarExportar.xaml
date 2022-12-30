@@ -113,6 +113,7 @@
                                           FontSize="18"
                                           Margin="0,0,0,5"
                                           ItemsSource="{Binding Pictogram}"
+                                          SelectionMode="Multiple"
                                           x:Name="listviewImportar" d:ItemsSource="{d:SampleData ItemCount=5}">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
@@ -196,9 +197,9 @@
                                 </ListView>
                                 <StackPanel Orientation="Vertical"
                                             Margin="50,0,0,0" Width="314">
-                                    <Button Height="90"
+                                    <Button x:Name="importSleccionarCarpeta" Height="90"
                                             Width="250"
-                                            Background="#1597e5">
+                                            Background="#1597e5" Click="importSleccionarCarpeta_Click">
                                         <TextBlock Text="Seleccionar Carpeta"
                                                    FontFamily="Arial"
                                                    FontSize="30"

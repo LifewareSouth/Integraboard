@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace WpfApp1.Pages.Pictogramas
     public partial class ImportarExportar : Page
     {
         List<Pictogram> listaTotalPict = new List<Pictogram>();
+        string importpath="";
+        List<Pictogram> importTempData = new List<Pictogram>();
         public ImportarExportar()
         {
             InitializeComponent();
@@ -30,6 +33,7 @@ namespace WpfApp1.Pages.Pictogramas
         public ImportarExportar(List<Pictogram>exportPict)
         {
             InitializeComponent();
+            Repository.Instance.deleteTempData();
             listaTotalPict = exportPict;
             listviewExportar.ItemsSource = listaTotalPict;
         }
@@ -43,7 +47,7 @@ namespace WpfApp1.Pages.Pictogramas
                 System.Windows.Forms.DialogResult result = fbd.ShowDialog();
                 if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    pathtoSave = fbd.SelectedPath.ToString() + "\\";
+                    pathtoSave = fbd.SelectedPath.ToString();
                 }
                 List<Pictogram> pictogramasExportar = new List<Pictogram>();
                 foreach (Pictogram pict in listviewExportar.SelectedItems)
@@ -83,6 +87,27 @@ namespace WpfApp1.Pages.Pictogramas
                 importSelectAllText.Text = "Seleccionar Todos";
                 listviewExportar.UnselectAll();
             }
+        }
+
+        private void importSleccionarCarpeta_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = fbd.ShowDialog();
+            string query = "";
+            Repository.Instance.deleteTempData();
+            if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                importpath = fbd.SelectedPath.ToString();
+            }
+            if (File.Exists(importpath + "\\pictogramas.sql"))
+            {
+                query = System.IO.File.ReadAllText(importpath + "\\pictogramas.sql");
+                Repository.Instance.importTempData(query);
+            }
+            importTempData = Repository.Instance.getAllTempPict();
+            listviewImportar.ItemsSource = importTempData;
+
+
         }
     }
 }
