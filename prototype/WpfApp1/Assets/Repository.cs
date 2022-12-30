@@ -53,7 +53,7 @@ namespace WpfApp1.Assets
                 return bitmapImage;
             }
         }
-        
+
         public static string PictogramCategoryToString(Pictogram.PictogramCategory pCategory)
         {
             switch (pCategory)
@@ -105,7 +105,7 @@ namespace WpfApp1.Assets
             {
                 case "Educación":
                     {
-                        
+
                         col = (SolidColorBrush)new BrushConverter().ConvertFrom("#F44336");
                         return col;
                     }
@@ -175,7 +175,10 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS tableroEtiqueta(IdTableroEtiqueta INTEGER NOT NULL,idEtiqueta INTEGER,idTablero INTEGER,PRIMARY KEY(IdTableroEtiqueta AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,asignacion TEXT,conTiempo TEXT,PRIMARY KEY(idTablero AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS perfil(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));";
+                    "CREATE TABLE IF NOT EXISTS perfil(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS tempimagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS tempsonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS temppictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -302,7 +305,7 @@ namespace WpfApp1.Assets
                     }
                 }
                 conexion.Close();
-                
+
             }
             return idImagen;
         }
@@ -386,7 +389,7 @@ namespace WpfApp1.Assets
                         pict.pathSonido = dr["pathSonido"].ToString();
                         pict.ListaEtiquetas = GetEtiquetasFromPict(int.Parse(dr["idPict"].ToString()));
                         pict.colorBorde = categoryColor(dr["categoriaPict"].ToString());
-                        
+
                     }
                 }
                 conexion.Close();
@@ -420,7 +423,7 @@ namespace WpfApp1.Assets
                 conexion.Open();
                 string query = "select idImagen, idAlfaImagen, nombreImagen, blobImagen  from imagenes order by idImagen desc;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-                
+
                 cmd.CommandType = System.Data.CommandType.Text;
                 using (SQLiteDataReader dr = cmd.ExecuteReader())
                 {
@@ -433,8 +436,6 @@ namespace WpfApp1.Assets
                             Nombre = dr["nombreImagen"].ToString(),
                             Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"])
                         });
-
-                        
                     }
                 }
                 conexion.Close();
@@ -449,7 +450,7 @@ namespace WpfApp1.Assets
                 conexion.Open();
                 string query = "select idEtiqueta, idAlfaEtiqueta, nombreEtiqueta from etiquetas;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-                
+
                 cmd.CommandType = System.Data.CommandType.Text;
                 using (SQLiteDataReader dr = cmd.ExecuteReader())
                 {
@@ -510,7 +511,7 @@ namespace WpfApp1.Assets
             return IdEtiqueta;
         }
 
-        public void AsociarEtiquetasPict(List<int>ListaEtiquetas,int idPict, bool isNew)
+        public void AsociarEtiquetasPict(List<int> ListaEtiquetas, int idPict, bool isNew)
         {
 
             List<int> listaEtiquetasAsociadas = new List<int>();
@@ -522,7 +523,7 @@ namespace WpfApp1.Assets
             //ASOCIA LAS ETIQUETAS CON EL PICTOGRAMA
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
-                    foreach (int idEtiqueta in ListaEtiquetas)
+                foreach (int idEtiqueta in ListaEtiquetas)
                 {
                     bool existe = false;
                     if (!isNew)
@@ -546,18 +547,18 @@ namespace WpfApp1.Assets
                 }
             }
             if (!isNew)
+            {
+                foreach (int idTag in listaEtiquetasAsociadas)
                 {
-                    foreach(int idTag in listaEtiquetasAsociadas)
+                    if (!ListaEtiquetas.Contains(idTag))
                     {
-                        if (!ListaEtiquetas.Contains(idTag))
-                        {
-                            deleteAsociacionEtiquetasPict(idPict,idTag);
-                        }
+                        deleteAsociacionEtiquetasPict(idPict, idTag);
                     }
                 }
-                
+            }
 
-            
+
+
         }
         public List<int> getEtiquetasAsociadas(int idPict)
         {
@@ -580,7 +581,7 @@ namespace WpfApp1.Assets
             }
             return listaEtiquetasAsociadas;
         }
-        public void deleteAsociacionEtiquetasPict(int idPict,int idTag)
+        public void deleteAsociacionEtiquetasPict(int idPict, int idTag)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
@@ -595,10 +596,10 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
-        public void CrearSonido(string pathSonido,string nombreSonido,bool isVoice)
+        public void CrearSonido(string pathSonido, string nombreSonido, bool isVoice)
         {
 
-            if (!Directory.Exists(DIRECTORY_SONIDOS)){
+            if (!Directory.Exists(DIRECTORY_SONIDOS)) {
                 Directory.CreateDirectory(DIRECTORY_SONIDOS);
             }
 
@@ -797,7 +798,7 @@ namespace WpfApp1.Assets
         {
             //QUITA LA ASOCIACION DEL PICTOGRAMA CON LAS ETIQUETAS
             List<int> ListaEtiquetasAsociadas = getEtiquetasAsociadas(idPict);
-            foreach(int idTag in ListaEtiquetasAsociadas)
+            foreach (int idTag in ListaEtiquetasAsociadas)
             {
                 deleteAsociacionEtiquetasPict(idPict, idTag);
             }
@@ -862,10 +863,10 @@ namespace WpfApp1.Assets
                     while (dr.Read())
                     {
                         List<etiquetaT> listaEtiquetas = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString()));
-                        string etiquetasJuntas ="";
-                        foreach(etiquetaT etiquetaT in listaEtiquetas)
+                        string etiquetasJuntas = "";
+                        foreach (etiquetaT etiquetaT in listaEtiquetas)
                         {
-                            if(etiquetaT == listaEtiquetas.First())
+                            if (etiquetaT == listaEtiquetas.First())
                             {
                                 etiquetasJuntas = etiquetaT.NombreEtiqueta;
                             }
@@ -873,7 +874,7 @@ namespace WpfApp1.Assets
                             {
                                 etiquetasJuntas = etiquetasJuntas + ", " + etiquetaT.NombreEtiqueta;
                             }
-                            
+
                         }
                         Pictogram pPortada = new Pictogram();
                         if (int.Parse(dr["pictPortada"].ToString()) != 0)
@@ -896,7 +897,7 @@ namespace WpfApp1.Assets
                             pictPortada = pPortada,
                             pictTableros = getPictTableros(int.Parse(dr["idTablero"].ToString())),
                             ListaEtiquetasTableros = GetEtiquetasFromBoard(int.Parse(dr["idTablero"].ToString())),
-                            EtiquetasJuntas=etiquetasJuntas,
+                            EtiquetasJuntas = etiquetasJuntas,
                             asignacion = dr["asignacion"].ToString(),
                             conTiempo = dr["conTiempo"].ToString(),
                         });
@@ -951,7 +952,7 @@ namespace WpfApp1.Assets
             }
             return idBoard;
         }
-        public void EnlazarPictBoard(int idTablero, int idPict, int x, int y,string tiempo)
+        public void EnlazarPictBoard(int idTablero, int idPict, int x, int y, string tiempo)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
@@ -1058,7 +1059,7 @@ namespace WpfApp1.Assets
         }
         public void AsociarEtiquetasTablero(List<int> ListaEtiquetas, int idTablero, bool isNew)
         {
-            
+
             List<int> listaEtiquetasAsociadas = new List<int>();
             List<int> listaEtiquetasEliminadas = new List<int>();
             if (!isNew)//EN CASO DE EDITAR LAS ETIQUETAS DE UN TABLERO
@@ -1157,7 +1158,7 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
-        public void updatePictTablero(int idTablero, int idPictograma, int posX, int posY,string tiempo)
+        public void updatePictTablero(int idTablero, int idPictograma, int posX, int posY, string tiempo)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
@@ -1340,12 +1341,12 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
-        public void updatePerfilConFoto(PerfilModel perfil,string pathImagen)
+        public void updatePerfilConFoto(PerfilModel perfil, string pathImagen)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
                 byte[] pic = File.ReadAllBytes(pathImagen);
-                
+
                 conexion.Open();
                 string query = "UPDATE perfil set nombrePerfil = @nombrePerfil , edad = @edad , tamaño = @tamaño,fotoPerfil = @fotoPerfil, voz=@voz   where idPerfil= @idPerfil;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
@@ -1362,7 +1363,7 @@ namespace WpfApp1.Assets
                 conexion.Close();
             }
         }
-        public void crearPerfilAlumno(PerfilModel datosPerfil,string pathImagen)
+        public void crearPerfilAlumno(PerfilModel datosPerfil, string pathImagen)
         {
             string alfaIdPerfil = GlobalConfig.AppGuid;
             byte[] pic = File.ReadAllBytes(pathImagen);
@@ -1380,7 +1381,7 @@ namespace WpfApp1.Assets
                 cmd.Parameters.Add(new SQLiteParameter("@tipoPerfil", "Alumno"));
                 cmd.Parameters.Add(new SQLiteParameter("@nombrePerfil", datosPerfil.nombrePerfil));
                 cmd.Parameters.Add(new SQLiteParameter("@edad", datosPerfil.edad));
-                cmd.Parameters.Add(new SQLiteParameter("@tamaño", datosPerfil.tamaño)); 
+                cmd.Parameters.Add(new SQLiteParameter("@tamaño", datosPerfil.tamaño));
                 SQLiteParameter parametro = new SQLiteParameter("@fotoPerfil", System.Data.DbType.Binary);
                 cmd.Parameters.Add(new SQLiteParameter("@voz", datosPerfil.voz));
                 parametro.Value = pic;
@@ -1411,8 +1412,18 @@ namespace WpfApp1.Assets
             }
             return vozPerfil;
         }
-        public string exportPictogramas(List<Pictogram> listaPictogramas, string pathExport)
+        public void exportPictogramas(List<Pictogram> listaPictogramas, string pathExport)
         {
+            //pathExport = "C:\\Users\\Tomas\\Desktop\\test testing\\integraboar4";
+            if (!Directory.Exists(pathExport + "\\pictogramasGuardados"))
+            {
+                Directory.CreateDirectory(pathExport + "\\pictogramasGuardados");
+            }
+            if (!Directory.Exists(pathExport + "\\pictogramasGuardados\\sonidos"))
+            {
+                Directory.CreateDirectory(pathExport + "\\pictogramasGuardados\\sonidos");
+            }
+
             string exportsql = "";
             List<int> idsImagenes = new List<int>();
             List<int?> idsSonidos = new List<int?>();
@@ -1424,20 +1435,20 @@ namespace WpfApp1.Assets
                 {
                     idsImagenes.Add(pictogram.idImagen);
                 }
-                
-                if(listaPictogramas.First().ID != pictogram.ID)
+
+                if (listaPictogramas.First().ID != pictogram.ID)
                 {
                     row = ",";
                 }
                 if (pictogram.idSonido != 0)
                 {
-                    row = row+ "(" +pictogram.ID+",'"+
-                        pictogram.idAlfaPict + "','"+
-                        pictogram.Nombre+"','"+
-                        pictogram.Texto+"','"+
-                        pictogram.Categoria+"',"+
-                        pictogram.idImagen+", "+
-                        pictogram.idSonido+")";
+                    row = row + "(" + pictogram.ID + ",'" +
+                        pictogram.idAlfaPict + "','" +
+                        pictogram.Nombre + "','" +
+                        pictogram.Texto + "','" +
+                        pictogram.Categoria + "'," +
+                        pictogram.idImagen + ", " +
+                        pictogram.idSonido + ")";
 
                     if (idsSonidos.Any(x => x == pictogram.idSonido) == false)
                     {
@@ -1446,7 +1457,7 @@ namespace WpfApp1.Assets
                 }
                 else
                 {
-                    row = "(" + pictogram.ID + ",'" +
+                    row = row + "(" + pictogram.ID + ",'" +
                         pictogram.idAlfaPict + "','" +
                         pictogram.Nombre + "','" +
                         pictogram.Texto + "','" +
@@ -1460,10 +1471,18 @@ namespace WpfApp1.Assets
             }
             queryExportPictogram = queryExportPictogram + ";";
             string queryExportImg = queryExportImagenes(idsImagenes);
-            exportsql = queryExportPictogram;
-            return exportsql;
+            if (idsSonidos.Count > 0)
+            {
+                string queryExportSound = queryExportSonidos(idsSonidos, pathExport);
+                exportsql = queryExportImg+"\n"+queryExportSound + "\n" + queryExportPictogram;
+            }
+            else
+            {
+                exportsql = queryExportImg + "\n" + queryExportPictogram;
+            }
+            File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.sql", exportsql);
         }
-        public string queryExportImagenes(List<int> idsImagenes) 
+        public string queryExportImagenes(List<int> idsImagenes)
         {
             string queryImagenes = "insert into tempimagenes (idImagen,idAlfaImagen,nombreImagen,blobImagen) values ";
             string idImagen = null, nombreImagen = null, hexImage = null, idAlfaImagen = null;
@@ -1498,13 +1517,60 @@ namespace WpfApp1.Assets
                         dr.Close();
                     }
 
-                    rowquery = rowquery + "(" + idImagen +",'"+ idAlfaImagen +"','"+ nombreImagen+ "',X'" + hexImage + "')";
+                    rowquery = rowquery + "(" + idImagen + ",'" + idAlfaImagen + "','" + nombreImagen + "',X'" + hexImage + "')";
                     queryImagenes = queryImagenes + rowquery;
                 }
                 queryImagenes = queryImagenes + ";";
                 conexion.Close();
             }
             return queryImagenes;
+        }
+        public string queryExportSonidos(List<int?> idsSonidos,string pathExport)
+        {
+            string querysonidos = "insert into tempsonidos(idSonido,idAlfaSonido,nombreSonido,pathSonido) values ";
+            string pathSonidoMp3 = "";
+            foreach (int? idSonido in idsSonidos)
+            {
+                string row = "";
+                if (idsSonidos.First() != idSonido)
+                {
+                    row = ",";
+                }
+                int idSound;
+                string idAlfaSonido = "", nombreSonido = "", pathSonido = "";
+                using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+                {
+                    conexion.Open();
+                    string query = "select idSonido, idAlfaSonido,nombreSonido,pathSonido  from sonidos where idSonido = @idSonido ;";
+                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                    cmd.Parameters.Add(new SQLiteParameter("@idSonido", idSonido));
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    using (SQLiteDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+
+                            idSound = int.Parse(dr["idSonido"].ToString());
+                            idAlfaSonido = dr["idAlfaSonido"].ToString();
+                            nombreSonido = dr["nombreSonido"].ToString();
+                            pathSonido = dr["pathSonido"].ToString();
+
+
+                        }
+                    }
+                    conexion.Close();
+                }
+                pathSonidoMp3 = pathExport + "\\pictogramasGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                File.Copy(pathSonido, pathSonidoMp3, true);
+                row = row + "(" + idSonido + ",'" +
+                    idAlfaSonido + "','" +
+                    nombreSonido + "','" +
+                    pathSonido + "')";
+                querysonidos = querysonidos + row;
+            }
+            querysonidos = querysonidos + ";";
+
+            return querysonidos;
         }
     }
 }
