@@ -74,7 +74,7 @@
                 <TabItem Header="Importar">
 
                     <Grid Background="#003b49"
-                          HorizontalAlignment="Center">
+                          HorizontalAlignment="Center" Width="1242">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="left"
@@ -105,9 +105,9 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" 
-                                        Height="528">
-                                <ListView Height="534"
-                                          Width="804"
+                                        Height="528" Width="1171">
+                                <ListView Height="528"
+                                          Width="806"
                                           Background="#003b49"
                                           Foreground="White"
                                           FontSize="18"
@@ -195,7 +195,7 @@
                                     </ListView.ItemContainerStyle>
                                 </ListView>
                                 <StackPanel Orientation="Vertical"
-                                            Margin="50,0,0,0">
+                                            Margin="50,0,0,0" Width="314">
                                     <Button Height="90"
                                             Width="250"
                                             Background="#1597e5">
@@ -211,8 +211,7 @@
                                     <Button Height="90"
                                             Width="250"
                                             Background="#1597e5"
-                                            Visibility="Visible"
-                                            Margin="50">
+                                            Margin="0,50,0,50">
                                         <TextBlock Text="Seleccionar Todos"
                                                    FontFamily="Arial"
                                                    FontSize="30"
@@ -252,7 +251,7 @@
                 <TabItem Header="Exportar">
                     <Grid Background="#003b49"
                           HorizontalAlignment="Center">
-                        <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Vertical" Width="1242">
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="left"
                                         Margin="0,20,0,0">
@@ -282,8 +281,9 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" 
-                                        Height="528">
-                                <ListView Height="534"
+                                        Height="528"
+                                        Width="1171">
+                                <ListView Height="523"
                                           Width="806"
                                           Background="#003b49"
                                           Foreground="White"
@@ -373,17 +373,17 @@
                                     </ListView.ItemContainerStyle>
                                 </ListView>
                                 <StackPanel Orientation="Vertical"
-                                        Margin="50,0,0,0">
+                                            Margin="50,0,0,0" Width="314">
                                     <Button Height="90"
-                                        Width="250"
-                                        Background="#1597e5">
+                                            Width="250"
+                                            Background="#1597e5">
                                         <TextBlock Text="Seleccionar Todos"
-                                               FontFamily="Arial"
-                                               FontSize="30"
-                                               FontWeight="SemiBold"
-                                               Foreground="white"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"/>
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
                                     </Button>
 
                                     <Button x:Name="exportarSeleccionados" Height="90"
@@ -391,23 +391,23 @@
                                         Background="#1597e5"
                                             Margin="0,50,0,0" Click="exportarSeleccionados_Click">
                                         <TextBlock Text="Exportar Seleccionados"
-                                               FontFamily="Arial"
-                                               FontSize="30"
-                                               FontWeight="SemiBold"
-                                               Foreground="white"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"/>
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
                                     </Button>
 
                                     <Button Content="Cancelar"
-                                        Height="50"
-                                        Width="200"
-                                        Margin="0,240,0,0"
-                                        Background="#ff6464"
-                                        FontFamily="NotoSans"
-                                        FontSize="25"
-                                        FontWeight="SemiBold"
-                                        Foreground="white"/>
+                                            Height="50"
+                                            Width="200"
+                                            Margin="0,240,0,0"
+                                            Background="#ff6464"
+                                            FontFamily="NotoSans"
+                                            FontSize="25"
+                                            FontWeight="SemiBold"
+                                            Foreground="white"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
