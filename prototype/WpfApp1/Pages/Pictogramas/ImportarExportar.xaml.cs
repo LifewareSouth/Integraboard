@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -32,6 +34,27 @@ namespace WpfApp1.Pages.Pictogramas
             listviewExportar.ItemsSource = listaTotalPict;
         }
 
-
+        private void exportarSeleccionados_Click(object sender, RoutedEventArgs e)
+        {
+            if (listviewExportar.SelectedItems.Count > 0)
+            {
+                string pathtoSave = "";
+                System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+                System.Windows.Forms.DialogResult result = fbd.ShowDialog();
+                if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    pathtoSave = fbd.SelectedPath.ToString() + "\\";
+                }
+                List<Pictogram> pictogramasExportar = new List<Pictogram>();
+                foreach (Pictogram pict in listviewExportar.SelectedItems)
+                {
+                    pictogramasExportar.Add(pict);
+                }
+                SuccessDialog success = new SuccessDialog("Exportacion completa");
+                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                success.Show();
+                Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave);
+            }
+        }
     }
 }

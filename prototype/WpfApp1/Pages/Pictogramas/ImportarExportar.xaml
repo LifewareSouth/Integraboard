@@ -290,7 +290,8 @@
                                           FontSize="18"
                                           Margin="0,0,0,5"
                                           ItemsSource="{Binding Pictogram}"
-                                          x:Name="listviewExportar" d:ItemsSource="{d:SampleData ItemCount=5}">
+                                          x:Name="listviewExportar" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          SelectionMode="Multiple">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderContainerStyle>
@@ -385,10 +386,10 @@
                                                TextAlignment="Center"/>
                                     </Button>
 
-                                    <Button Height="90"
+                                    <Button x:Name="exportarSeleccionados" Height="90"
                                         Width="250"
                                         Background="#1597e5"
-                                            Margin="0,50,0,0">
+                                            Margin="0,50,0,0" Click="exportarSeleccionados_Click">
                                         <TextBlock Text="Exportar Seleccionados"
                                                FontFamily="Arial"
                                                FontSize="30"
