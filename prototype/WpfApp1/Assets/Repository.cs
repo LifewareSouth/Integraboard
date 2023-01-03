@@ -1737,14 +1737,14 @@ namespace WpfApp1.Assets
                         if (verifyAlfaImagen(pict.idImagen))
                         {
                             //cuando existe buscar la id asociada en la base de datos
-                            lIdImg.OldIdImage = getIdImagenForImport(pict.idImagen);
-                            pict.idImagen = lIdImg.OldIdImage;
+                            lIdImg.NewIdImage = getIdImagenForImport(pict.idImagen);
+                            pict.idImagen = lIdImg.NewIdImage;
                         }
                         else
                         {
                             //cuando no existe agregar a la base de datos y devolver la id asociada
-                            lIdImg.OldIdImage = insertImportImage(pict.idImagen);
-                            pict.idImagen = lIdImg.OldIdImage;
+                            lIdImg.NewIdImage = insertImportImage(pict.idImagen);
+                            pict.idImagen = lIdImg.NewIdImage;
                         }
                         ListIDimg.Add(lIdImg);
                     }
@@ -1763,14 +1763,14 @@ namespace WpfApp1.Assets
                             if (verifyAlfaSonido(pict.idSonido))
                             {
                                 //cuando existe buscar la id asociada en la base de datos
-                                lidSound.OldIdSound = getIdSonidoforImport(pict.idSonido);
-                                pict.idSonido = lidSound.OldIdSound;
+                                lidSound.NewIdSound = getIdSonidoforImport(pict.idSonido);
+                                pict.idSonido = lidSound.NewIdSound;
                             }
                             else
                             {
                                 //cuando no existe agregar a la base de datos y devolver la id asociada
-                                lidSound.OldIdSound = insertImportSound(path,pict.nombreImagen,pict.idSonido);
-                                pict.idSonido = lidSound.OldIdSound;
+                                lidSound.NewIdSound = insertImportSound(path,pict.nombreImagen,pict.idSonido);
+                                pict.idSonido = lidSound.NewIdSound;
                             }
                             ListIDsound.Add(lidSound);
                         }
