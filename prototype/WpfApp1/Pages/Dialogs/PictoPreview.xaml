@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs"
         mc:Ignorable="d"
-        Title="PictoPreview" Height="415" Width="415"
+        Title="PictoPreview" Height="450" Width="450"
         WindowStyle = "None"
         ResizeMode = "NoResize">
     <Grid Background="#04293a">
 
         <Grid Grid.Row="1"
+              Background="White"
               Height="380"
-              Width="380"
-              Background="White">
-           <Border x:Name="bordePict"
+              Width="380">
+            <Border x:Name="bordePict"
                 Height="380"
                 Width="380"
                 BorderBrush="DeepPink"
                 BorderThickness="10"
                 Grid.Row="1">
-            <StackPanel>
-                <Image x:Name="pictoPreview"
+                <StackPanel>
+                    <Image x:Name="pictoPreview"
                    Height="300"
                    Width="300"/>
-                <TextBlock x:Name="pictoTexto"
+                    <TextBlock x:Name="pictoTexto"
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="Wrap"
                            Foreground="Black"
@@ -33,29 +33,28 @@
                            FontWeight="SemiBold"
                            TextAlignment="Center"
                            VerticalAlignment="Bottom"/>
-            </StackPanel>
-            
-        </Border> 
+                </StackPanel>
+
+            </Border>
         </Grid>
-        
+
         <Button x:Name="closePreview"
-                Content="X"
-                Grid.Row="0" 
+                Content="X" 
                 Background="{x:Null}" 
                 BorderBrush="{x:Null}" 
                 Foreground="White" 
-                FontSize="18"
+                FontSize="20"
                 FontWeight="Bold"
                 HorizontalAlignment="Right"
-                Margin="0,0,10,0"
+                Margin="0,0,15,0"
                 VerticalAlignment="Center"
-                Click="closePreview_Click"
+                Click="closePreview_Click" Height="30" Width="17"
                     />
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-                
+
     </Grid>
 </Window>
