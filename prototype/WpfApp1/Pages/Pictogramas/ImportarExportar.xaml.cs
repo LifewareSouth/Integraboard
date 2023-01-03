@@ -48,16 +48,17 @@ namespace WpfApp1.Pages.Pictogramas
                 if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     pathtoSave = fbd.SelectedPath.ToString();
+               
+                    List<Pictogram> pictogramasExportar = new List<Pictogram>();
+                    foreach (Pictogram pict in listviewExportar.SelectedItems)
+                    {
+                        pictogramasExportar.Add(pict);
+                    }
+                    SuccessDialog success = new SuccessDialog("Exportacion completa");
+                    success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    success.Show();
+                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave);
                 }
-                List<Pictogram> pictogramasExportar = new List<Pictogram>();
-                foreach (Pictogram pict in listviewExportar.SelectedItems)
-                {
-                    pictogramasExportar.Add(pict);
-                }
-                SuccessDialog success = new SuccessDialog("Exportacion completa");
-                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                success.Show();
-                Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave);
             }
         }
 
@@ -80,16 +81,16 @@ namespace WpfApp1.Pages.Pictogramas
             if (importSelectAllText.Text == "Seleccionar Todos")
             {
                 importSelectAllText.Text = "Deseleccionar Todos";
-                listviewExportar.SelectAll();
+                listviewImportar.SelectAll();
             }
             else if (importSelectAllText.Text == "Deseleccionar Todos")
             {
                 importSelectAllText.Text = "Seleccionar Todos";
-                listviewExportar.UnselectAll();
+                listviewImportar.UnselectAll();
             }
         }
 
-        private void importSleccionarCarpeta_Click(object sender, RoutedEventArgs e)
+        private void importSeleccionarCarpeta_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = fbd.ShowDialog();
@@ -106,8 +107,22 @@ namespace WpfApp1.Pages.Pictogramas
             }
             importTempData = Repository.Instance.getAllTempPict();
             listviewImportar.ItemsSource = importTempData;
+        }
 
-
+        private void importarSeleccionados_Click(object sender, RoutedEventArgs e)
+        {
+            if (listviewImportar.SelectedItems.Count > 0)
+            {
+                List<Pictogram> pictSeleccionados = new List<Pictogram>();
+                foreach (Pictogram pict in listviewImportar.SelectedItems)
+                {
+                    pictSeleccionados.Add(pict);
+                }
+                Repository.Instance.importPictograms(pictSeleccionados, importpath);
+                SuccessDialog success = new SuccessDialog("Importación completa");
+                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                success.Show();
+            }
         }
     }
 }

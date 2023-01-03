@@ -1474,7 +1474,7 @@ namespace WpfApp1.Assets
             if (idsSonidos.Count > 0)
             {
                 string queryExportSound = queryExportSonidos(idsSonidos, pathExport);
-                exportsql = queryExportImg+"\n"+queryExportSound + "\n" + queryExportPictogram;
+                exportsql = queryExportImg + "\n" + queryExportSound + "\n" + queryExportPictogram;
             }
             else
             {
@@ -1525,7 +1525,7 @@ namespace WpfApp1.Assets
             }
             return queryImagenes;
         }
-        public string queryExportSonidos(List<int?> idsSonidos,string pathExport)
+        public string queryExportSonidos(List<int?> idsSonidos, string pathExport)
         {
             string querysonidos = "insert into tempsonidos(idSonido,idAlfaSonido,nombreSonido,pathSonido) values ";
             string pathSonidoMp3 = "";
@@ -1580,7 +1580,8 @@ namespace WpfApp1.Assets
                 conexion.Open();
                 string query = "delete from temppictogramas;" +
                     "delete from tempimagenes;" +
-                    "delete from tempsonidos";
+                    "delete from tempsonidos;" +
+                    "VACUUM;";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
@@ -1644,6 +1645,401 @@ namespace WpfApp1.Assets
             }
             return listaPict;
 
+        }
+        internal class ListIdImage
+        {
+            private int _oldidimage;
+            public int OldIdImage
+            {
+                get
+                {
+                    return _oldidimage;
+                }
+                set
+                {
+                    _oldidimage = value;
+                }
+            }
+            private int _newidimage;
+            public int NewIdImage
+            {
+                get
+                {
+                    return _newidimage;
+                }
+                set
+                {
+                    _newidimage = value;
+                }
+            }
+            public ListIdImage(int OldIdImage, int NewIdImage)
+            {
+                this.OldIdImage = OldIdImage;
+                this.NewIdImage = NewIdImage;
+            }
+            public ListIdImage()
+            {
+            }
+        }
+        internal class ListIdSound
+        {
+            private int? _oldidsound;
+            public int? OldIdSound
+            {
+                get
+                {
+                    return _oldidsound;
+                }
+                set
+                {
+                    _oldidsound = value;
+                }
+            }
+            private int? _newidsound;
+            public int? NewIdSound
+            {
+                get
+                {
+                    return _newidsound;
+                }
+                set
+                {
+                    _newidsound = value;
+                }
+            }
+            public ListIdSound(int? OldIdSound, int? NewIdSound)
+            {
+                this.OldIdSound = OldIdSound;
+                this.NewIdSound = NewIdSound;
+            }
+            public ListIdSound()
+            {
+            }
+        }
+        public void importPictograms(List<Pictogram> importedPict, string path)
+        {
+            List<ListIdImage> ListIDimg = new List<ListIdImage>();
+            List<ListIdSound> ListIDsound = new List<ListIdSound>();
+            foreach (Pictogram pict in importedPict)
+            {
+                if (verifyAlfaPict(pict.idAlfaPict) == false)
+                {
+                    //Imagen del pictograma
+                    if (ListIDimg.Any(x => x.OldIdImage == pict.idImagen))
+                    {
+                        pict.idImagen = ListIDimg.Where(x => x.OldIdImage == pict.idImagen).First().NewIdImage;
+                    }
+                    else
+                    {
+                        ListIdImage lIdImg = new ListIdImage();
+                        lIdImg.OldIdImage = pict.idImagen;
+                        //preguntar si existe en la bd la imagen para ser agregada
+                        if (verifyAlfaImagen(pict.idImagen))
+                        {
+                            //cuando existe buscar la id asociada en la base de datos
+                            lIdImg.OldIdImage = getIdImagenForImport(pict.idImagen);
+                            pict.idImagen = lIdImg.OldIdImage;
+                        }
+                        else
+                        {
+                            //cuando no existe agregar a la base de datos y devolver la id asociada
+                            lIdImg.OldIdImage = insertImportImage(pict.idImagen);
+                            pict.idImagen = lIdImg.OldIdImage;
+                        }
+                        ListIDimg.Add(lIdImg);
+                    }
+                    //Sonido del pictograma
+                    if (pict.idSonido != 0)
+                    {
+                        if (ListIDsound.Any(x => x.OldIdSound == pict.idSonido))
+                        {
+                            pict.idSonido = ListIDsound.Where(x => x.OldIdSound == pict.idImagen).First().NewIdSound;
+                        }
+                        else
+                        {
+                            ListIdSound lidSound = new ListIdSound();
+                            lidSound.OldIdSound = pict.idSonido;
+                            //preguntar si existe en la bd el sonido para ser agregado
+                            if (verifyAlfaSonido(pict.idSonido))
+                            {
+                                //cuando existe buscar la id asociada en la base de datos
+                                lidSound.OldIdSound = getIdSonidoforImport(pict.idSonido);
+                                pict.idSonido = lidSound.OldIdSound;
+                            }
+                            else
+                            {
+                                //cuando no existe agregar a la base de datos y devolver la id asociada
+                                lidSound.OldIdSound = insertImportSound(path,pict.nombreImagen,pict.idSonido);
+                                pict.idSonido = lidSound.OldIdSound;
+                            }
+                            ListIDsound.Add(lidSound);
+                        }
+                    }
+                    CrearPictograma(pict);
+                }
+            }
+        }
+        /// <summary>
+        /// Verifica si el pictograma a importar ya existe en la base de datos
+        /// </summary>
+        public bool verifyAlfaPict(string idAlfaPict)
+        {
+            bool existe = true;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT EXISTS(SELECT 1 FROM pictogramas where idAlfaPict = @idAlfaPict ) as existe;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", idAlfaPict));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["existe"].ToString()) == 0)
+                        {
+                            existe = false;
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return existe;
+        }
+        public bool verifyAlfaImagen(int idImagen)
+        {
+            bool existe = true;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT EXISTS(SELECT * FROM  tempimagenes t JOIN  imagenes i on t.idAlfaImagen = i.idAlfaImagen WHERE t.idImagen = @idImagen ) as existe;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idImagen", idImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["existe"].ToString()) == 0)
+                        {
+                            existe = false;
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return existe;
+        }
+        public int getIdImagenForImport(int idImagen)
+        {
+            int newidImagen = 0;
+            string idAlfaImagen = "";
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                string query = "select idAlfaImagen from tempimagenes where idImagen = @idImagen";
+                conexion.Open();
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idImagen", idImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idAlfaImagen = dr["idAlfaImagen"].ToString();
+                    }
+                }
+                conexion.Close();
+
+
+            }
+            newidImagen = getidImagenFromAlfa(idAlfaImagen);
+
+            return newidImagen;
+        }
+        public int getidImagenFromAlfa(string idAlfaImagen)
+        {
+            int idImagen = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+
+                string query = "select idImagen from imagenes where idAlfaImagen = @idAlfaImagen";
+                conexion.Open();
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", idAlfaImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idImagen = int.Parse(dr["idImagen"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return idImagen;
+        }
+        public int insertImportImage(int idImagen)
+        {
+            int newidImagen = 0;
+            string idAlfaImagen = "", Nombre = "";
+            Byte[] Imagen = null;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idAlfaImagen, nombreImagen, blobImagen  from tempimagenes where idImagen =@idImagen ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idImagen", idImagen));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        idAlfaImagen = dr["idAlfaImagen"].ToString();
+                        Nombre = dr["nombreImagen"].ToString();
+                        Imagen = (System.Byte[])dr["blobImagen"];
+                    }
+                }
+                conexion.Close();
+                conexion.Open();
+                query = "insert into imagenes(idAlfaImagen, nombreImagen, blobImagen) values (@idAlfaImagen, @nombreImagen, @blobImagen)";
+                cmd = new SQLiteCommand(query, conexion);
+                SQLiteParameter parametro = new SQLiteParameter("@blobImagen", System.Data.DbType.Binary);
+                cmd.Parameters.Add(new SQLiteParameter("@nombreImagen", Nombre));
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", idAlfaImagen));
+                parametro.Value = Imagen;
+                cmd.Parameters.Add(parametro);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+            newidImagen = getidImagenFromAlfa(idAlfaImagen);
+            return newidImagen;
+
+        }
+        public bool verifyAlfaSonido(int? idSonido)
+        {
+            bool existe = true;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT EXISTS(SELECT * FROM  tempsonidos t JOIN  sonidos s on t.idAlfaSonido = s.idAlfaSonido WHERE t.idSonido = @idSonido ) as existe;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idSonido", idSonido));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["existe"].ToString()) == 0)
+                        {
+                            existe = false;
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return existe;
+        }
+        public int? getIdSonidoforImport(int? idSonido)
+        {
+            int? newidSonido = 0;
+            string idAlfaSonido = "";
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                string query = "select idAlfaSonido from tempsonidos where idSonido = @idSonido";
+                conexion.Open();
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idSonido", idSonido));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idAlfaSonido = dr["idAlfaSonido"].ToString();
+                    }
+                }
+                conexion.Close();
+
+
+            }
+            newidSonido = getidSonidoFromAlfa(idAlfaSonido);
+
+            return newidSonido;
+        }
+        public int? getidSonidoFromAlfa(string idAlfaSonido)
+        {
+            int? idSonido = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+
+                string query = "select idSonido from sonidos where idAlfaSonido = @idAlfaSonido";
+                conexion.Open();
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaSonido", idAlfaSonido));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idSonido = int.Parse(dr["idSonido"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return idSonido;
+        }
+        public int? insertImportSound(string pathSonido, string nombreSonido,int? idSonido)
+        {
+            int? newidSound=0;
+            string idAlfaSonido = "";
+            string pathSonidoMp3 = "";
+            if (!Directory.Exists(DIRECTORY_SONIDOS))
+            {
+                Directory.CreateDirectory(DIRECTORY_SONIDOS);
+            }
+
+            
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                string query = "select idAlfaSonido from tempsonidos where idSonido = @idSonido";
+                conexion.Open();
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idSonido", idSonido));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        idAlfaSonido = dr["idAlfaSonido"].ToString();
+                    }
+                }
+                conexion.Close();
+                pathSonidoMp3 = DIRECTORY_SONIDOS + "\\" + idAlfaSonido + ".mp3";
+
+
+
+                //AÑADE EL SONIDO A LA BASE DE DATOS LOCAL
+                conexion.Open();
+                query = "insert into sonidos(idAlfaSonido,nombreSonido,pathSonido) values (@idAlfaSonido,@nombreSonido,@pathSonido)";
+
+                cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaSonido", idAlfaSonido));
+                cmd.Parameters.Add(new SQLiteParameter("@nombreSonido", nombreSonido));
+                cmd.Parameters.Add(new SQLiteParameter("@pathSonido", pathSonidoMp3));
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                conexion.Close();
+            }
+            File.Copy(pathSonido+"\\sonidos\\"+ idAlfaSonido+".mp3", pathSonidoMp3, true);
+            
+
+            newidSound = getidSonidoFromAlfa(idAlfaSonido);
+            return newidSound;
         }
     }
 }
