@@ -20,7 +20,7 @@
                     FontSize="28"
                     FontWeight="SemiBold"
                     Foreground="white"
-                    Background="#1597e5"/>
+                    Background="#1597e5" Click="volverMenu_Click"/>
             <!---->
             <Label Content="Importar/Exportar" 
                FontFamily="Arial"
@@ -234,7 +234,8 @@
                                                    TextAlignment="Center"/>
                                     </Button>
 
-                                    <Button Content="Cancelar"
+                                    <Button x:Name="cancelarImportar"
+                                            Content="Cancelar"
                                             Height="50"
                                             Width="200"
                                             Margin="0,100,0,0"
@@ -242,7 +243,7 @@
                                             FontFamily="NotoSans"
                                             FontSize="25"
                                             FontWeight="SemiBold"
-                                            Foreground="white"/>
+                                            Foreground="white" Click="cancelarImportar_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -400,7 +401,8 @@
                                                    TextAlignment="Center"/>
                                     </Button>
 
-                                    <Button Content="Cancelar"
+                                    <Button x:Name="cancelarExportar"
+                                            Content="Cancelar"
                                             Height="50"
                                             Width="200"
                                             Margin="0,240,0,0"
@@ -408,7 +410,7 @@
                                             FontFamily="NotoSans"
                                             FontSize="25"
                                             FontWeight="SemiBold"
-                                            Foreground="white"/>
+                                            Foreground="white" Click="cancelarExportar_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

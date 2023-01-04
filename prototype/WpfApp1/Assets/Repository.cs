@@ -1619,7 +1619,7 @@ namespace WpfApp1.Assets
                 string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
                 "from temppictogramas p " +
                 "JOIN tempimagenes i on p.idImagen = i.idImagen  " +
-                "LEFT join tempsonidos s on p.idSonido = s.idSonido order by idPict DESC;";
+                "LEFT join tempsonidos s on p.idSonido = s.idSonido;";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
 
                 cmd.CommandType = System.Data.CommandType.Text;
