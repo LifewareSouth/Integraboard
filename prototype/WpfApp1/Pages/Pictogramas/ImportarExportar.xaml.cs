@@ -100,9 +100,9 @@ namespace WpfApp1.Pages.Pictogramas
             {
                 importpath = fbd.SelectedPath.ToString();
             }
-            if (File.Exists(importpath + "\\pictogramas.sql"))
+            if (File.Exists(importpath + "\\pictogramas.inb4"))
             {
-                query = System.IO.File.ReadAllText(importpath + "\\pictogramas.sql");
+                query = System.IO.File.ReadAllText(importpath + "\\pictogramas.inb4");
                 Repository.Instance.importTempData(query);
             }
             importTempData = Repository.Instance.getAllTempPict();
@@ -123,6 +123,21 @@ namespace WpfApp1.Pages.Pictogramas
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
             }
+        }
+
+        private void volverMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPicrogramasPage());
+        }
+
+        private void cancelarImportar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPicrogramasPage());
+        }
+
+        private void cancelarExportar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPicrogramasPage());
         }
     }
 }

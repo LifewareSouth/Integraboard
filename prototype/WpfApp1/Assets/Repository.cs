@@ -318,7 +318,14 @@ namespace WpfApp1.Assets
                 string query = "insert into pictogramas(idAlfaPict, nombrePict,textoPict,categoriaPict,idImagen,idSonido) values (@idAlfaPict, @nombrePict,@textoPict,@categoriaPict,@idImagen,@idSonido)";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-                cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", Guid.NewGuid().ToString()));
+                if (pict.idAlfaPict != null)
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", pict.idAlfaPict));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", Guid.NewGuid().ToString()));
+                }
                 cmd.Parameters.Add(new SQLiteParameter("@nombrePict", pict.Nombre));
                 cmd.Parameters.Add(new SQLiteParameter("@textoPict", pict.Texto));
                 cmd.Parameters.Add(new SQLiteParameter("@categoriaPict", pict.Categoria));
@@ -1466,8 +1473,6 @@ namespace WpfApp1.Assets
                         "NULL)";
                 }
                 queryExportPictogram = queryExportPictogram + row;
-
-
             }
             queryExportPictogram = queryExportPictogram + ";";
             string queryExportImg = queryExportImagenes(idsImagenes);
@@ -1480,7 +1485,7 @@ namespace WpfApp1.Assets
             {
                 exportsql = queryExportImg + "\n" + queryExportPictogram;
             }
-            File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.sql", exportsql);
+            File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.inb4", exportsql);
         }
         public string queryExportImagenes(List<int> idsImagenes)
         {
