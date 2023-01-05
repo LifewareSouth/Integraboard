@@ -21,6 +21,8 @@ using System.Windows.Shapes;
 using WpfApp1.Assets.Models;
 using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace WpfApp1.Assets
 {
@@ -178,7 +180,9 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS perfil(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tempimagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tempsonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS temppictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));";
+                    "CREATE TABLE IF NOT EXISTS temppictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS temptableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,asignacion TEXT,conTiempo TEXT,PRIMARY KEY(idTablero AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS temppictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1419,17 +1423,10 @@ namespace WpfApp1.Assets
             }
             return vozPerfil;
         }
-        public void exportPictogramas(List<Pictogram> listaPictogramas, string pathExport)
+        public string exportPictogramas(List<Pictogram> listaPictogramas, string pathExport, string origen)
         {
             //pathExport = "C:\\Users\\Tomas\\Desktop\\test testing\\integraboar4";
-            if (!Directory.Exists(pathExport + "\\pictogramasGuardados"))
-            {
-                Directory.CreateDirectory(pathExport + "\\pictogramasGuardados");
-            }
-            if (!Directory.Exists(pathExport + "\\pictogramasGuardados\\sonidos"))
-            {
-                Directory.CreateDirectory(pathExport + "\\pictogramasGuardados\\sonidos");
-            }
+            
 
             string exportsql = "";
             List<int> idsImagenes = new List<int>();
@@ -1478,14 +1475,23 @@ namespace WpfApp1.Assets
             string queryExportImg = queryExportImagenes(idsImagenes);
             if (idsSonidos.Count > 0)
             {
-                string queryExportSound = queryExportSonidos(idsSonidos, pathExport);
+                string queryExportSound = queryExportSonidos(idsSonidos, pathExport,origen);
                 exportsql = queryExportImg + "\n" + queryExportSound + "\n" + queryExportPictogram;
             }
             else
             {
                 exportsql = queryExportImg + "\n" + queryExportPictogram;
             }
-            File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.inb4", exportsql);
+            if (origen == "pictogramas")
+            {
+                File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.inb4", exportsql);
+                return "Realizado";
+            }
+            else 
+            {
+                return exportsql;
+            }
+            
         }
         public string queryExportImagenes(List<int> idsImagenes)
         {
@@ -1530,7 +1536,7 @@ namespace WpfApp1.Assets
             }
             return queryImagenes;
         }
-        public string queryExportSonidos(List<int?> idsSonidos, string pathExport)
+        public string queryExportSonidos(List<int?> idsSonidos, string pathExport,string origen)
         {
             string querysonidos = "insert into tempsonidos(idSonido,idAlfaSonido,nombreSonido,pathSonido) values ";
             string pathSonidoMp3 = "";
@@ -1565,7 +1571,15 @@ namespace WpfApp1.Assets
                     }
                     conexion.Close();
                 }
-                pathSonidoMp3 = pathExport + "\\pictogramasGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                if (origen == "pictogramas")
+                {
+                    pathSonidoMp3 = pathExport + "\\pictogramasGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                }
+                else if (origen == "tableros")
+                {
+                    pathSonidoMp3 = pathExport + "\\tablerosGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                }
+                
                 File.Copy(pathSonido, pathSonidoMp3, true);
                 row = row + "(" + idSonido + ",'" +
                     idAlfaSonido + "','" +
@@ -1595,7 +1609,7 @@ namespace WpfApp1.Assets
 
             }
         }
-        public void importTempData(string query)
+        public void importPictTempData(string query)
         {
             using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
             {
@@ -2045,6 +2059,50 @@ namespace WpfApp1.Assets
 
             newidSound = getidSonidoFromAlfa(idAlfaSonido);
             return newidSound;
+        }
+        public void exportTableros(List<Board>tablerosExport, string pathImagen)
+        {
+            List<Pictogram>pictogramas = new List<Pictogram>();
+            List<int> idsPictogramas = new List<int>();
+            string queryPictBoard = "insert into temppictTableros (idPictTablero, idTablero , idPictograma ,x ,y ,tiempo ) values";
+            string queryBoard = "insert into temptableros(idTablero, idAlfaTablero, nombreTablero, tipo, filas, columnas, pictPortada, asignacion, conTiempo) values;";
+            foreach (Board board in tablerosExport)
+            {
+                foreach(pictTablero pt in board.pictTableros)
+                {
+                    string rowpt ;
+                    if ((tablerosExport.First().ID == board.ID)&&(board.pictTableros.First().ID == pt.ID))
+                    {
+                        rowpt = "";
+                    }
+                    else
+                    {
+                        rowpt = ",";
+                    }
+                    rowpt = rowpt + "(" + pt.ID + "," +
+                    pt.idTablero + "," +
+                    pt.idPictograma + "," +
+                    pt.x + "," +
+                    pt.y + ",'" +
+                    pt.tiempo + "')";
+                    queryPictBoard = queryPictBoard + rowpt;
+
+                    if (!idsPictogramas.Contains(pt.idPictograma))
+                    {
+                        idsPictogramas.Add(pt.idPictograma);
+                        pictogramas.Add(pt.pictograma);
+                    }
+                }
+                string row = "";
+                if (tablerosExport.First().ID!=board.ID)
+                {
+                    row = ",";
+                }
+
+
+
+            }
+            queryPictBoard = queryPictBoard + ";";
         }
     }
 }
