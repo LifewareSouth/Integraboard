@@ -21,6 +21,8 @@ using System.Windows.Shapes;
 using WpfApp1.Assets.Models;
 using WpfApp1.Model;
 using WpfApp1.Pages.Pictogramas;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace WpfApp1.Assets
 {
@@ -178,7 +180,9 @@ namespace WpfApp1.Assets
                     "CREATE TABLE IF NOT EXISTS perfil(idPerfil INTEGER NOT NULL, idAlfaPerfil TEXT, tipoPerfil TEXT, nombrePerfil TEXT, edad INTEGER,tamaño TEXT,fotoPerfil BLOB,voz TEXT, PRIMARY KEY(idPerfil AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tempimagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
                     "CREATE TABLE IF NOT EXISTS tempsonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
-                    "CREATE TABLE IF NOT EXISTS temppictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));";
+                    "CREATE TABLE IF NOT EXISTS temppictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS temptableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,asignacion TEXT,conTiempo TEXT,PRIMARY KEY(idTablero AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS temppictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
@@ -1419,17 +1423,10 @@ namespace WpfApp1.Assets
             }
             return vozPerfil;
         }
-        public void exportPictogramas(List<Pictogram> listaPictogramas, string pathExport)
+        public string exportPictogramas(List<Pictogram> listaPictogramas, string pathExport, string origen)
         {
             //pathExport = "C:\\Users\\Tomas\\Desktop\\test testing\\integraboar4";
-            if (!Directory.Exists(pathExport + "\\pictogramasGuardados"))
-            {
-                Directory.CreateDirectory(pathExport + "\\pictogramasGuardados");
-            }
-            if (!Directory.Exists(pathExport + "\\pictogramasGuardados\\sonidos"))
-            {
-                Directory.CreateDirectory(pathExport + "\\pictogramasGuardados\\sonidos");
-            }
+            
 
             string exportsql = "";
             List<int> idsImagenes = new List<int>();
@@ -1478,14 +1475,23 @@ namespace WpfApp1.Assets
             string queryExportImg = queryExportImagenes(idsImagenes);
             if (idsSonidos.Count > 0)
             {
-                string queryExportSound = queryExportSonidos(idsSonidos, pathExport);
+                string queryExportSound = queryExportSonidos(idsSonidos, pathExport,origen);
                 exportsql = queryExportImg + "\n" + queryExportSound + "\n" + queryExportPictogram;
             }
             else
             {
                 exportsql = queryExportImg + "\n" + queryExportPictogram;
             }
-            File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.inb4", exportsql);
+            if (origen == "pictogramas")
+            {
+                File.WriteAllText(pathExport + "\\pictogramasGuardados\\pictogramas.inb4", exportsql);
+                return "Realizado";
+            }
+            else 
+            {
+                return exportsql;
+            }
+            
         }
         public string queryExportImagenes(List<int> idsImagenes)
         {
@@ -1530,7 +1536,7 @@ namespace WpfApp1.Assets
             }
             return queryImagenes;
         }
-        public string queryExportSonidos(List<int?> idsSonidos, string pathExport)
+        public string queryExportSonidos(List<int?> idsSonidos, string pathExport,string origen)
         {
             string querysonidos = "insert into tempsonidos(idSonido,idAlfaSonido,nombreSonido,pathSonido) values ";
             string pathSonidoMp3 = "";
@@ -1565,7 +1571,15 @@ namespace WpfApp1.Assets
                     }
                     conexion.Close();
                 }
-                pathSonidoMp3 = pathExport + "\\pictogramasGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                if (origen == "pictogramas")
+                {
+                    pathSonidoMp3 = pathExport + "\\pictogramasGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                }
+                else if (origen == "tableros")
+                {
+                    pathSonidoMp3 = pathExport + "\\tablerosGuardados\\sonidos\\" + idAlfaSonido + ".mp3";
+                }
+                
                 File.Copy(pathSonido, pathSonidoMp3, true);
                 row = row + "(" + idSonido + ",'" +
                     idAlfaSonido + "','" +
@@ -1586,6 +1600,8 @@ namespace WpfApp1.Assets
                 string query = "delete from temppictogramas;" +
                     "delete from tempimagenes;" +
                     "delete from tempsonidos;" +
+                    "delete from temptableros;" +
+                    "delete from temppictTableros;" +
                     "VACUUM;";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
@@ -2045,6 +2061,191 @@ namespace WpfApp1.Assets
 
             newidSound = getidSonidoFromAlfa(idAlfaSonido);
             return newidSound;
+        }
+        public void exportTableros(List<Board>tablerosExport, string pathExport)
+        {
+            if (!Directory.Exists(pathExport + "\\tablerosGuardados"))
+            {
+                Directory.CreateDirectory(pathExport + "\\tablerosGuardados");
+            }
+            if (!Directory.Exists(pathExport + "\\tablerosGuardados\\sonidos"))
+            {
+                Directory.CreateDirectory(pathExport + "\\tablerosGuardados\\sonidos");
+            }
+            List<Pictogram>pictogramas = new List<Pictogram>();
+            List<int> idsPictogramas = new List<int>();
+            string queryPictBoard = "insert into temppictTableros (idPictTablero, idTablero , idPictograma ,x ,y ,tiempo ) values";
+            string queryBoard = "insert into temptableros(idTablero, idAlfaTablero, nombreTablero, tipo, filas, columnas, pictPortada, asignacion, conTiempo) values";
+            foreach (Board board in tablerosExport)
+            {
+                foreach (pictTablero pt in board.pictTableros)
+                {
+                    string rowpt;
+                    if ((tablerosExport.First().ID == board.ID) && (board.pictTableros.First().ID == pt.ID))
+                    {
+                        rowpt = "";
+                    }
+                    else
+                    {
+                        rowpt = ",";
+                    }
+                    rowpt = rowpt + "(" + pt.ID + "," +
+                    pt.idTablero + "," +
+                    pt.idPictograma + "," +
+                    pt.x + "," +
+                    pt.y + ",'" +
+                    pt.tiempo + "')";
+                    queryPictBoard = queryPictBoard + rowpt;
+
+                    if (!idsPictogramas.Contains(pt.idPictograma))
+                    {
+                        idsPictogramas.Add(pt.idPictograma);
+                        pictogramas.Add(pt.pictograma);
+                    }
+                }
+                string row = "";
+                if (tablerosExport.First().ID != board.ID)
+                {
+                    row = ",";
+                }
+                if (!idsPictogramas.Contains(board.idPictPortada))
+                {
+                    idsPictogramas.Add(board.idPictPortada);
+                    pictogramas.Add(board.pictPortada);
+                }
+                row = row + "(" + board.ID + ",'" +
+                    board.idAlfaTablero + "','" +
+                    board.nombreTablero + "','" +
+                    board.tipo + "'," +
+                    board.filas + "," +
+                    board.columnas + "," +
+                    board.idPictPortada + ",'" +
+                    board.asignacion + "','" +
+                    board.conTiempo + "')";
+                queryBoard = queryBoard + row;
+            }
+            queryBoard = queryBoard + ";";
+            queryPictBoard = queryPictBoard + ";";
+            string queryPictogramas = exportPictogramas(pictogramas, pathExport, "tableros");
+            string fullQuery = queryPictogramas+"\n"+
+                queryBoard+"\n"+
+                queryPictBoard;
+
+            File.WriteAllText(pathExport + "\\tablerosGuardados\\tableros.inb4", fullQuery);
+        }
+        public List<Board> getAllTempBoards()
+        {
+            List<Board> listaTableros = new List<Board>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idTablero, idAlfaTablero, nombreTablero, tipo,filas,columnas,pictPortada,asignacion, conTiempo from temptableros;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Pictogram pPortada = new Pictogram();
+                        if (int.Parse(dr["pictPortada"].ToString()) != 0)
+                        {
+                            pPortada = getOneTempPictogram(int.Parse(dr["pictPortada"].ToString()));
+                        }
+                        else
+                        {
+                            pPortada = defaultPict();
+                        }
+                        listaTableros.Add(new Board
+                        {
+                            ID = int.Parse(dr["idTablero"].ToString()),
+                            idAlfaTablero = dr["idAlfaTablero"].ToString(),
+                            nombreTablero = dr["nombreTablero"].ToString(),
+                            tipo = dr["tipo"].ToString(),
+                            filas = int.Parse(dr["filas"].ToString()),
+                            columnas = int.Parse(dr["columnas"].ToString()),
+                            idPictPortada = int.Parse(dr["pictPortada"].ToString()),
+                            pictPortada = pPortada,
+                            pictTableros = getTempPictTableros(int.Parse(dr["idTablero"].ToString())),
+                            asignacion = dr["asignacion"].ToString(),
+                            conTiempo = dr["conTiempo"].ToString(),
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaTableros;
+        }
+        public Pictogram getOneTempPictogram(int ID)
+        {
+            Pictogram pict = new Pictogram();
+            int sound_id;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                //OBTENER LA ULTIMA ID CREADA
+                string query = "SELECT idPict,idAlfaPict, nombrePict,textoPict,categoriaPict, p.idImagen,nombreImagen,blobImagen, p.idSonido,nombreSonido,pathSonido " +
+                    "from temppictogramas p " +
+                    "JOIN tempimagenes i on p.idImagen = i.idImagen  " +
+                    "LEFT join tempsonidos s on p.idSonido = s.idSonido " +
+                    "where idPict = @idPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idPict", ID));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int.TryParse(dr["idSonido"].ToString(), out sound_id);
+                        pict.ID = int.Parse(dr["idPict"].ToString());
+                        pict.idAlfaPict = dr["idAlfaPict"].ToString();
+                        pict.Nombre = dr["nombrePict"].ToString();
+                        pict.Texto = dr["textoPict"].ToString();
+                        pict.Categoria = dr["categoriaPict"].ToString();
+                        pict.idImagen = int.Parse(dr["idImagen"].ToString());
+                        pict.nombreImagen = dr["nombreImagen"].ToString();
+                        pict.Imagen = ImageFromBuffer((System.Byte[])dr["blobImagen"]);
+                        pict.idSonido = sound_id;
+                        pict.nombreSonido = dr["nombreSonido"].ToString();
+                        pict.pathSonido = dr["pathSonido"].ToString();
+                        pict.colorBorde = categoryColor(dr["categoriaPict"].ToString());
+
+                    }
+                }
+                conexion.Close();
+            }
+            return pict;
+        }
+        public List<pictTablero> getTempPictTableros(int idTablero)
+        {
+            List<pictTablero> listaPictTableros = new List<pictTablero>();
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select idPictTablero, idTablero, idPictograma, x, y,tiempo from temppictTableros where idTablero = @idTablero";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        listaPictTableros.Add(new pictTablero
+                        {
+                            ID = int.Parse(dr["idPictTablero"].ToString()),
+                            idTablero = int.Parse(dr["idTablero"].ToString()),
+                            idPictograma = int.Parse(dr["idPictograma"].ToString()),
+                            pictograma = getOnePictogram(int.Parse(dr["idPictograma"].ToString())),
+                            x = int.Parse(dr["x"].ToString()),
+                            y = int.Parse(dr["y"].ToString()),
+                            tiempo = dr["tiempo"].ToString()
+                        });
+                    }
+                }
+                conexion.Close();
+            }
+
+            return listaPictTableros;
         }
     }
 }

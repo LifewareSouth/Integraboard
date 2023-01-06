@@ -54,10 +54,18 @@ namespace WpfApp1.Pages.Pictogramas
                     {
                         pictogramasExportar.Add(pict);
                     }
+                    if (!Directory.Exists(pathtoSave + "\\pictogramasGuardados"))
+                    {
+                        Directory.CreateDirectory(pathtoSave + "\\pictogramasGuardados");
+                    }
+                    if (!Directory.Exists(pathtoSave + "\\pictogramasGuardados\\sonidos"))
+                    {
+                        Directory.CreateDirectory(pathtoSave + "\\pictogramasGuardados\\sonidos");
+                    }
                     SuccessDialog success = new SuccessDialog("Exportacion completa");
                     success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     success.Show();
-                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave);
+                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave,"pictogramas");
                 }
             }
         }
