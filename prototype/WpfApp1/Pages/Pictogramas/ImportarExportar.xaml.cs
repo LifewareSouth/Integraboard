@@ -128,7 +128,7 @@ namespace WpfApp1.Pages.Pictogramas
                 List<Pictogram> pictSeleccionados = new List<Pictogram>();
                 foreach (Pictogram pict in listviewImportar.SelectedItems)
                 {
-                    Repository.Instance.importPictograms(pict, importpath);
+                    pictSeleccionados.Add(pict);
                 }
                 cargando = new CargandoDialog();
                 cargando.WindowStartupLocation = WindowStartupLocation.CenterScreen;
