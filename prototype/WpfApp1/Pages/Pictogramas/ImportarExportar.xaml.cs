@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,8 @@ namespace WpfApp1.Pages.Pictogramas
         List<Pictogram> listaTotalPict = new List<Pictogram>();
         string importpath="";
         List<Pictogram> importTempData = new List<Pictogram>();
+        BackgroundWorker worker;
+        CargandoDialog cargando;
         public ImportarExportar()
         {
             InitializeComponent();
@@ -117,23 +120,56 @@ namespace WpfApp1.Pages.Pictogramas
             listviewImportar.ItemsSource = importTempData;
         }
 
-        private void importarSeleccionados_Click(object sender, RoutedEventArgs e)
+        private async void importarSeleccionados_Click(object sender, RoutedEventArgs e)
         {
             if (listviewImportar.SelectedItems.Count > 0)
             {
+                int total_elementos = listviewImportar.SelectedItems.Count;
                 List<Pictogram> pictSeleccionados = new List<Pictogram>();
                 foreach (Pictogram pict in listviewImportar.SelectedItems)
                 {
                     pictSeleccionados.Add(pict);
                 }
-                Repository.Instance.importPictograms(pictSeleccionados, importpath);
+                cargando = new CargandoDialog();
+
+                System.Windows.Threading.Dispatcher dispatcher = cargando.Dispatcher;
+
+                worker = new BackgroundWorker();
+                worker.WorkerReportsProgress = true;
+                worker.WorkerSupportsCancellation = true;
+
+                worker.DoWork += delegate (object s, DoWorkEventArgs args)
+                {
+                    for (int i = 0; i < total_elementos; i++)
+                    {
+
+                        if (worker.CancellationPending)
+                        {
+                            args.Cancel = true;
+                            return;
+                        }
+                        Repository.Instance.importPictograms(pictSeleccionados[i], importpath);
+                        System.Threading.Thread.Sleep(10);
+                        worker.ReportProgress(Convert.ToInt32(((decimal)i / (decimal)total_elementos) * 100));
+                    }
+
+                };
+                worker.RunWorkerCompleted += delegate (object s, RunWorkerCompletedEventArgs args)
+                {
+                    cargando.Close();
+                };
+                worker.RunWorkerAsync();
+                cargando.ShowDialog();
                 SuccessDialog success = new SuccessDialog("Importación completa");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
             }
-        }
 
-        private void volverMenu_Click(object sender, RoutedEventArgs e)
+
+
+        }
+                           
+private void volverMenu_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPicrogramasPage());
         }

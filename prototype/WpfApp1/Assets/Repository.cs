@@ -1735,12 +1735,11 @@ namespace WpfApp1.Assets
             {
             }
         }
-        public void importPictograms(List<Pictogram> importedPict, string path)
+        public void importPictograms(Pictogram pict, string path)
         {
             List<ListIdImage> ListIDimg = new List<ListIdImage>();
             List<ListIdSound> ListIDsound = new List<ListIdSound>();
-            foreach (Pictogram pict in importedPict)
-            {
+
                 if (verifyAlfaPict(pict.idAlfaPict) == false)
                 {
                     //Imagen del pictograma
@@ -1796,7 +1795,7 @@ namespace WpfApp1.Assets
                     }
                     CrearPictograma(pict);
                 }
-            }
+         
         }
         /// <summary>
         /// Verifica si el pictograma a importar ya existe en la base de datos
