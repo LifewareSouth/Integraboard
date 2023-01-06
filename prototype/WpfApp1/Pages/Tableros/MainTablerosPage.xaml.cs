@@ -83,9 +83,7 @@ namespace WpfApp1.Pages.Tableros
         private void actualizarListaTableros()
         {
             listaTableros = Repository.Instance.getAllBoards();
-            
             listViewTableros.ItemsSource = listaTableros;
-            
         }
         public void runActualizarLista()
         {

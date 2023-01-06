@@ -111,7 +111,7 @@ namespace WpfApp1.Pages.Pictogramas
             if (File.Exists(importpath + "\\pictogramas.inb4"))
             {
                 query = System.IO.File.ReadAllText(importpath + "\\pictogramas.inb4");
-                Repository.Instance.importPictTempData(query);
+                Repository.Instance.importTempData(query);
             }
             importTempData = Repository.Instance.getAllTempPict();
             listviewImportar.ItemsSource = importTempData;
