@@ -2247,5 +2247,91 @@ namespace WpfApp1.Assets
 
             return listaPictTableros;
         }
+        public int getPictogramIdFromAlfaId(string idAlfaPict)
+        {
+            int idPictogram = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idPict FROM pictogramas where idAlfaPict = @idAlfaPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", idAlfaPict));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        idPictogram = int.Parse(dr["idPict"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return idPictogram;
+        }
+        public int getBoardIdFromAlfaId(string idAlfaTablero)
+        {
+            int idTablero = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idTablero FROM tableros where idAlfaTablero = @idAlfaTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", idAlfaTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        idTablero = int.Parse(dr["idTablero"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return idTablero;
+        }
+        public bool verifyAlfaBoard(string idAlfaTablero)
+        {
+            bool existe = true;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT EXISTS(SELECT 1 FROM tableros where idAlfaTablero = @idAlfaTablero ) as existe;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", idAlfaTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["existe"].ToString()) == 0)
+                        {
+                            existe = false;
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return existe;
+        }
+        public void importTableros(List<Board> importedBoards, string path)
+        {
+            foreach(Board board in importedBoards)
+            {
+                if (verifyAlfaBoard(board.idAlfaTablero) == false)
+                {
+                    List<Pictogram> ListPictPortada = new List<Pictogram>();
+                    importPictograms(ListPictPortada, path);
+                    board.idPictPortada = getPictogramIdFromAlfaId(board.pictPortada.idAlfaPict);
+                    int idTablero = crearTablero(board);
+                    foreach (pictTablero pt in board.pictTableros)
+                    {
+                        List<Pictogram> listPt = new List<Pictogram>();
+                        importPictograms(listPt, path);
+                        int newIDpict = getPictogramIdFromAlfaId(pt.pictograma.idAlfaPict);
+                        EnlazarPictBoard(idTablero, newIDpict, pt.x, pt.y, pt.tiempo);
+                    }
+                }
+            }
+        }
     }
 }
