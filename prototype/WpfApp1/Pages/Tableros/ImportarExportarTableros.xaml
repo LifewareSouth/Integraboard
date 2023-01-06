@@ -267,7 +267,7 @@
 
                 <TabItem Header="Exportar">
                     <Grid Background="#003b49"
-                          HorizontalAlignment="Center">
+                          HorizontalAlignment="Center" Width="1242">
                         <StackPanel Orientation="Vertical" Width="1242">
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="left"
@@ -298,36 +298,79 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" 
-                                        Height="528"
-                                        Width="1171">
-                                <ListView Height="523"
-                                          Width="806"
+                                        Height="528">
+                                <ListView Grid.Column="0"
+                                          Grid.Row="1"
+                                          Grid.RowSpan="20"
+                                          Height="528"
+                                          Width="1000"
                                           Background="#003b49"
                                           Foreground="White"
                                           FontSize="18"
-                                          Margin="0,0,0,5"
-                                          ItemsSource="{Binding Pictogram}"
-                                          x:Name="listviewExportar" d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          SelectionMode="Multiple">
+                                          ItemsSource="{Binding Board}"
+                                          x:Name="listViewTablerosE" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          >
+
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Header="Pictograma"
+                                                            Width="120" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel Height="100"
+                                                                   Width="100"
+                                                                   Background="White"
+                                                                   >
+                                                            <Image Source="{Binding pictPortada.Imagen}"
+                                                                   Height="100"
+                                                                   Width="100"
+                                                                   HorizontalAlignment="Center"/>
+                                                        </DockPanel>
+
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Nombre de tablero"
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding Path=nombreTablero}"/>
+                                            <GridViewColumn Header="Tipo"
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding Path=tipo}"/>
+                                            <GridViewColumn Header="Etiquetas"
+                                                            Width="150">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=EtiquetasJuntas}" TextWrapping="Wrap"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Estado"
+                                                            Width="180"
+                                                            DisplayMemberBinding="{Binding asignacion}"/>
+                                            <GridViewColumn Header="Filas"
+                                                            Width="100"
+                                                            DisplayMemberBinding="{Binding filas}"/>
+                                            <GridViewColumn Header="Columnas"
+                                                            Width="110"
+                                                            DisplayMemberBinding="{Binding columnas}"/>
+
                                             <GridView.ColumnHeaderContainerStyle>
 
-                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                <Style TargetType="GridViewColumnHeader">
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
                                                                 <Border BorderThickness="0,0,0,1" 
-                                                                    BorderBrush="White" 
-                                                                    Background="Transparent">
+                                                                        BorderBrush="White" 
+                                                                        Background="Transparent">
                                                                     <TextBlock x:Name="ContentHeader" 
-                                                                           Text="{TemplateBinding Content}" 
-                                                                           Padding="5,5,5,0" 
-                                                                           Width="{TemplateBinding Width}" 
-                                                                           TextAlignment="Center"
-                                                                           FontSize="20"
-                                                                           FontWeight="SemiBold"
-                                                                           TextWrapping="Wrap"/>
+                                                                               Text="{TemplateBinding Content}" 
+                                                                               Padding="5,5,5,0" 
+                                                                               Width="{TemplateBinding Width}" 
+                                                                               TextAlignment="Center"
+                                                                               FontSize="20"
+                                                                               FontWeight="SemiBold"
+                                                                               TextWrapping="Wrap"/>
                                                                 </Border>
                                                             </ControlTemplate>
                                                         </Setter.Value>
@@ -336,37 +379,6 @@
                                                     <Setter Property="Foreground" Value="White" />
                                                 </Style>
                                             </GridView.ColumnHeaderContainerStyle>
-                                            <GridViewColumn Header="Imagen"
-                                                        Width="150">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <DockPanel Height="100"
-                                                               Width="100"
-                                                               Background="White"
-                                                               >
-                                                            <Image Source="{Binding Imagen}"
-                                                               Height="100"
-                                                               Width="100"
-                                                               HorizontalAlignment="Center"/>
-                                                        </DockPanel>
-
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="Nombre del Pictograma"
-                                                        Width="180"
-                                                        DisplayMemberBinding="{Binding Nombre}"/>
-                                            <GridViewColumn Header="Categoría"
-                                                        Width="180"
-                                                        DisplayMemberBinding="{Binding Categoria}"/>
-                                            <GridViewColumn Header="Sonido"
-                                                        Width="200">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding nombreSonido}" TextWrapping="Wrap"/>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                     <ListView.ItemContainerStyle>
@@ -389,8 +401,7 @@
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
-                                <StackPanel Orientation="Vertical"
-                                            Margin="50,0,0,0" Width="314">
+                                <StackPanel Orientation="Vertical">
                                     <Button x:Name="exportSelectAll" Height="90"
                                             Width="250"
                                             Background="#1597e5">
