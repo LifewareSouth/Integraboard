@@ -153,7 +153,8 @@
         <Rectangle Grid.Row="1"
                    Grid.Column="1"
                    Fill="#003b49"
-                   Height="480"
+                   Height="500"
+                   Margin="0,20,0,0"
                    Width="420"
                    Stroke="#FF707070"/>
 
@@ -170,7 +171,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition Height="55"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <ComboBox x:Name="cbCustom"
@@ -178,6 +180,7 @@
                       IsEditable="True"
                       IsReadOnly="True"
                       FontSize="25"
+                      FontFamily="Arial"
                       FontWeight="SemiBold"
                       Grid.ColumnSpan="3" 
                       Grid.Row="1" 
@@ -201,7 +204,7 @@
                     Height="90"
                     Width="180"
                     Background="#1597e5"
-                    FontFamily="NotoSans"
+                    FontFamily="Arial"
                     FontSize="25"
                     FontWeight="SemiBold"
                     Foreground="white" 
@@ -214,7 +217,7 @@
                     Height="90"
                     Width="180"
                     Background="#1597e5"
-                    FontFamily="NotoSans"
+                    FontFamily="Arial"
                     FontSize="25"
                     FontWeight="SemiBold"
                     Foreground="White" Click="botonAsignar_Click"
@@ -226,7 +229,7 @@
                     Height="90"
                     Width="180"
                     Background="#1597e5"
-                    FontFamily="NotoSans"
+                    FontFamily="Arial"
                     FontSize="25"
                     FontWeight="SemiBold"
                     Foreground="white" Click="Editar_Click"/>
@@ -238,12 +241,28 @@
                     Height="90"
                     Width="180"
                     Background="#1597e5"
-                    FontFamily="NotoSans"
+                    FontFamily="Arial"
                     FontSize="25"
                     FontWeight="SemiBold"
                     Foreground="white" 
                     Click="btnEliminar_Click"
                     />
+            <Button x:Name="btnExportarImportar"
+                    Grid.Column="1" 
+                    Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    Height="100"
+                    Width="280"
+                    Background="#1597e5"
+                    HorizontalAlignment="Center" Click="btnExportarImportar_Click"
+                    >
+                <TextBlock Text="Importar/Exportar"
+                           FontFamily="Arial"
+                           FontSize="25"
+                           FontWeight="SemiBold"
+                           Foreground="white"
+                           TextWrapping="Wrap"/>
+            </Button>
         </Grid>
 
         <Label Content="Acciones"

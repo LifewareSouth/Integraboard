@@ -261,6 +261,9 @@ namespace WpfApp1.Pages.Tableros
             listViewTableros.ItemsSource = filteredBoard;
         }
 
-        
+        private void btnExportarImportar_Click(object sender, RoutedEventArgs e)
+        {
+            //navigate a la page de I/E
+        }
     }
 }
