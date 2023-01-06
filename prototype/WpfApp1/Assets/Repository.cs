@@ -1741,7 +1741,6 @@ namespace WpfApp1.Assets
         {
             List<ListIdImage> ListIDimg = new List<ListIdImage>();
             List<ListIdSound> ListIDsound = new List<ListIdSound>();
-            
                 if (verifyAlfaPict(pict.idAlfaPict) == false)
                 {
                     //Imagen del pictograma
@@ -1797,7 +1796,7 @@ namespace WpfApp1.Assets
                     
                     CrearPictograma(pict);
                 }
-            }
+         
         }
         /// <summary>
         /// Verifica si el pictograma a importar ya existe en la base de datos
