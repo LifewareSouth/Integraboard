@@ -124,9 +124,8 @@ namespace WpfApp1.Pages.Pictogramas
                 List<Pictogram> pictSeleccionados = new List<Pictogram>();
                 foreach (Pictogram pict in listviewImportar.SelectedItems)
                 {
-                    pictSeleccionados.Add(pict);
+                    Repository.Instance.importPictograms(pict, importpath);
                 }
-                Repository.Instance.importPictograms(pictSeleccionados, importpath);
                 SuccessDialog success = new SuccessDialog("Importación completa");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();

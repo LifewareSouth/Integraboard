@@ -1737,12 +1737,11 @@ namespace WpfApp1.Assets
             {
             }
         }
-        public void importPictograms(List<Pictogram> importedPict, string path)
+        public void importPictograms(Pictogram pict, string path)
         {
             List<ListIdImage> ListIDimg = new List<ListIdImage>();
             List<ListIdSound> ListIDsound = new List<ListIdSound>();
-            foreach (Pictogram pict in importedPict)
-            {
+            
                 if (verifyAlfaPict(pict.idAlfaPict) == false)
                 {
                     //Imagen del pictograma
@@ -1795,7 +1794,7 @@ namespace WpfApp1.Assets
                             }
                             ListIDsound.Add(lidSound);
                         }
-                    }
+                    
                     CrearPictograma(pict);
                 }
             }
@@ -2319,14 +2318,13 @@ namespace WpfApp1.Assets
             {
                 if (verifyAlfaBoard(board.idAlfaTablero) == false)
                 {
-                    List<Pictogram> ListPictPortada = new List<Pictogram>();
-                    importPictograms(ListPictPortada, path);
+                    importPictograms(board.pictPortada, path);
                     board.idPictPortada = getPictogramIdFromAlfaId(board.pictPortada.idAlfaPict);
                     int idTablero = crearTablero(board);
                     foreach (pictTablero pt in board.pictTableros)
                     {
                         List<Pictogram> listPt = new List<Pictogram>();
-                        importPictograms(listPt, path);
+                        importPictograms(pt.pictograma, path);
                         int newIDpict = getPictogramIdFromAlfaId(pt.pictograma.idAlfaPict);
                         EnlazarPictBoard(idTablero, newIDpict, pt.x, pt.y, pt.tiempo);
                     }
