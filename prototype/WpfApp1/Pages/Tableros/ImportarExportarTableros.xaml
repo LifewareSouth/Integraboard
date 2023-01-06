@@ -1,0 +1,453 @@
+﻿<Page x:Class="WpfApp1.Pages.Tableros.ImportarExportarTableros"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages.Tableros"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      Title="ImportarExportarTableros">
+
+    <Grid Background="#04293a">
+        <Frame x:Name="exportarImportarTableros" NavigationUIVisibility="Hidden"/>
+
+        <StackPanel Orientation="Horizontal">
+            <!--Botón para volver al menú-->
+            <Button x:Name="volverMenu"
+                    Width="180"
+                    Height="70"
+                    Margin="20,0,20,0"
+                    Content="Tableros"
+                    FontFamily="arial"
+                    FontSize="28"
+                    FontWeight="SemiBold"
+                    Foreground="white"
+                    Background="#1597e5"/>
+            <!---->
+            <Label Content="Importar/Exportar" 
+               FontFamily="Arial"
+               FontWeight="Bold"
+               FontSize="60" 
+               Foreground="White"
+               VerticalAlignment="Center"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <TabControl Height="650"
+                        Width="1250"
+                        Background="Transparent">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Height" Value="50"/>
+                        <Setter Property="Width" Value="200"/>
+                        <Setter Property="FontSize" Value="25"/>
+                        <Setter Property="FontFamily" Value="Arial"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border Name="Border" 
+                                            BorderThickness="1" 
+                                            BorderBrush="Gainsboro" 
+                                            CornerRadius="4,4,0,0" 
+                                            Margin="2,0">
+                                        <ContentPresenter x:Name="ContentSite"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                            ContentSource="Header"
+                                                            Margin="10,2"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#1597e5" />
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Border" Property="Background" Value="#C4C4C4" />
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="FontWeight" Value="Regular"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem Header="Importar">
+
+                    <Grid Background="#003b49"
+                          HorizontalAlignment="Center" Width="1242">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="left"
+                                        Margin="0,20,0,0">
+                                <Label Content="Categoría:"
+                                       FontSize="30"
+                                       FontWeight="Regular"
+                                       FontFamily="arial"
+                                       Foreground="White"/>
+                                <ComboBox x:Name="CategoriaPict" 
+                                          Height="35"
+                                          Width="250"
+                                          Text="Seleccione Categoría"
+                                          Foreground="Black"
+                                          FontSize="25"
+                                          FontFamily="Arial"
+                                          FontWeight="Regular"/>
+                                <Label Content="Buscador:"
+                                       FontSize="30"
+                                       FontWeight="Regular"
+                                       FontFamily="arial"
+                                       Foreground="White"/>
+                                <TextBox Height="35"
+                                         Width="250"
+                                         FontFamily="arial"
+                                         FontSize="25"
+                                         Margin="10,0,10,0"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" >
+                                <ListView Grid.Column="0"
+                                          Grid.Row="1"
+                                          Grid.RowSpan="20"
+                                          Height="528"
+                                          Width="1000"
+                                          Background="#003b49"
+                                          Foreground="White"
+                                          FontSize="18"
+                                          ItemsSource="{Binding Board}"
+                                          x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          >
+
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Header="Pictograma"
+                                                            Width="120" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel Height="100"
+                                                                   Width="100"
+                                                                   Background="White"
+                                                                   >
+                                                            <Image Source="{Binding pictPortada.Imagen}"
+                                                                   Height="100"
+                                                                   Width="100"
+                                                                   HorizontalAlignment="Center"/>
+                                                        </DockPanel>
+
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Nombre de tablero"
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding Path=nombreTablero}"/>
+                                            <GridViewColumn Header="Tipo"
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding Path=tipo}"/>
+                                            <GridViewColumn Header="Etiquetas"
+                                                            Width="150">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=EtiquetasJuntas}" TextWrapping="Wrap"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Estado"
+                                                            Width="180"
+                                                            DisplayMemberBinding="{Binding asignacion}"/>
+                                            <GridViewColumn Header="Filas"
+                                                            Width="100"
+                                                            DisplayMemberBinding="{Binding filas}"/>
+                                            <GridViewColumn Header="Columnas"
+                                                            Width="110"
+                                                            DisplayMemberBinding="{Binding columnas}"/>
+
+                                            <GridView.ColumnHeaderContainerStyle>
+
+                                                <Style TargetType="GridViewColumnHeader">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                                <Border BorderThickness="0,0,0,1" 
+                                                                        BorderBrush="White" 
+                                                                        Background="Transparent">
+                                                                    <TextBlock x:Name="ContentHeader" 
+                                                                               Text="{TemplateBinding Content}" 
+                                                                               Padding="5,5,5,0" 
+                                                                               Width="{TemplateBinding Width}" 
+                                                                               TextAlignment="Center"
+                                                                               FontSize="20"
+                                                                               FontWeight="SemiBold"
+                                                                               TextWrapping="Wrap"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                        </GridView>
+                                    </ListView.View>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="#f4f6af" />
+                                                    <Setter Property="BorderThickness" Value="1" />
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                    <Setter Property="Foreground" Value="black"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#f4f6af" />
+                                                    <Setter Property="BorderThickness" Value="1" />
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                    <Setter Property="Foreground" Value="black"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <StackPanel Orientation="Vertical"
+                                            Margin="0,0,0,0">
+                                    <Button x:Name="importSeleccionarCarpeta" Height="90"
+                                            Width="250"
+                                            Background="#1597e5">
+                                        <TextBlock Text="Seleccionar Carpeta"
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
+                                    </Button>
+
+                                    <Button x:Name="importSelectAll" Height="90"
+                                            Width="250"
+                                            Background="#1597e5"
+                                            Margin="0,50,0,50">
+                                        <TextBlock x:Name="importSelectAllText" Text="Seleccionar Todos"
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
+                                    </Button>
+
+                                    <Button x:Name="importarSeleccionados" Height="90"
+                                            Width="250"
+                                            Background="#1597e5">
+                                        <TextBlock Text="Importar Seleccionados"
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
+                                    </Button>
+
+                                    <Button x:Name="cancelarImportar"
+                                            Content="Cancelar"
+                                            Height="50"
+                                            Width="200"
+                                            Margin="0,100,0,0"
+                                            Background="#ff6464"
+                                            FontFamily="NotoSans"
+                                            FontSize="25"
+                                            FontWeight="SemiBold"
+                                            Foreground="white" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Exportar">
+                    <Grid Background="#003b49"
+                          HorizontalAlignment="Center" Width="1242">
+                        <StackPanel Orientation="Vertical" Width="1242">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="left"
+                                        Margin="0,20,0,0">
+                                <Label Content="Categoría:"
+                                       FontSize="30"
+                                       FontWeight="Regular"
+                                       FontFamily="arial"
+                                       Foreground="White"/>
+                                <ComboBox x:Name="CategoriaPictExp" 
+                                          Height="35"
+                                          Width="250"
+                                          Text="Seleccione Categoría"
+                                          Foreground="Black"
+                                          FontSize="25"
+                                          FontFamily="Arial"
+                                          FontWeight="Regular"/>
+                                <Label Content="Buscador:"
+                                       FontSize="30"
+                                       FontWeight="Regular"
+                                       FontFamily="arial"
+                                       Foreground="White"/>
+                                <TextBox Height="35"
+                                         Width="250"
+                                         FontFamily="arial"
+                                         FontSize="25"
+                                         Margin="10,0,10,0"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" 
+                                        Height="528">
+                                <ListView Grid.Column="0"
+                                          Grid.Row="1"
+                                          Grid.RowSpan="20"
+                                          Height="528"
+                                          Width="1000"
+                                          Background="#003b49"
+                                          Foreground="White"
+                                          FontSize="18"
+                                          ItemsSource="{Binding Board}"
+                                          x:Name="listViewTablerosE" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                          >
+
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Header="Pictograma"
+                                                            Width="120" >
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel Height="100"
+                                                                   Width="100"
+                                                                   Background="White"
+                                                                   >
+                                                            <Image Source="{Binding pictPortada.Imagen}"
+                                                                   Height="100"
+                                                                   Width="100"
+                                                                   HorizontalAlignment="Center"/>
+                                                        </DockPanel>
+
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Nombre de tablero"
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding Path=nombreTablero}"/>
+                                            <GridViewColumn Header="Tipo"
+                                                            Width="150"
+                                                            DisplayMemberBinding="{Binding Path=tipo}"/>
+                                            <GridViewColumn Header="Etiquetas"
+                                                            Width="150">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Path=EtiquetasJuntas}" TextWrapping="Wrap"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="Estado"
+                                                            Width="180"
+                                                            DisplayMemberBinding="{Binding asignacion}"/>
+                                            <GridViewColumn Header="Filas"
+                                                            Width="100"
+                                                            DisplayMemberBinding="{Binding filas}"/>
+                                            <GridViewColumn Header="Columnas"
+                                                            Width="110"
+                                                            DisplayMemberBinding="{Binding columnas}"/>
+
+                                            <GridView.ColumnHeaderContainerStyle>
+
+                                                <Style TargetType="GridViewColumnHeader">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                                <Border BorderThickness="0,0,0,1" 
+                                                                        BorderBrush="White" 
+                                                                        Background="Transparent">
+                                                                    <TextBlock x:Name="ContentHeader" 
+                                                                               Text="{TemplateBinding Content}" 
+                                                                               Padding="5,5,5,0" 
+                                                                               Width="{TemplateBinding Width}" 
+                                                                               TextAlignment="Center"
+                                                                               FontSize="20"
+                                                                               FontWeight="SemiBold"
+                                                                               TextWrapping="Wrap"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                        </GridView>
+                                    </ListView.View>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="#f4f6af" />
+                                                    <Setter Property="BorderThickness" Value="1" />
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                    <Setter Property="Foreground" Value="black"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#f4f6af" />
+                                                    <Setter Property="BorderThickness" Value="1" />
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                    <Setter Property="Foreground" Value="black"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                                <StackPanel Orientation="Vertical">
+                                    <Button x:Name="exportSelectAll" Height="90"
+                                            Width="250"
+                                            Background="#1597e5">
+                                        <TextBlock x:Name="exportSelectAllText" Text="Seleccionar Todos"
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
+                                    </Button>
+
+                                    <Button x:Name="exportarSeleccionados" Height="90"
+                                        Width="250"
+                                        Background="#1597e5"
+                                            Margin="0,50,0,0">
+                                        <TextBlock Text="Exportar Seleccionados"
+                                                   FontFamily="Arial"
+                                                   FontSize="30"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="white"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"/>
+                                    </Button>
+
+                                    <Button x:Name="cancelarExportar"
+                                            Content="Cancelar"
+                                            Height="50"
+                                            Width="200"
+                                            Margin="0,240,0,0"
+                                            Background="#ff6464"
+                                            FontFamily="NotoSans"
+                                            FontSize="25"
+                                            FontWeight="SemiBold"
+                                            Foreground="white"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="105"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+    </Grid>
+</Page>

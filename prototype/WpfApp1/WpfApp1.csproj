@@ -135,6 +135,9 @@
     <Reference Include="LifewareSoftwareLogic">
       <HintPath>..\resources\LifewareSoftwareLogic.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\WindowsFormsIntegration.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

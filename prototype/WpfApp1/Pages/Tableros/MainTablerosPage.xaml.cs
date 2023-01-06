@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -83,9 +84,7 @@ namespace WpfApp1.Pages.Tableros
         private void actualizarListaTableros()
         {
             listaTableros = Repository.Instance.getAllBoards();
-            
             listViewTableros.ItemsSource = listaTableros;
-            
         }
         public void runActualizarLista()
         {
@@ -261,6 +260,10 @@ namespace WpfApp1.Pages.Tableros
             listViewTableros.ItemsSource = filteredBoard;
         }
 
-        
+        private void btnExportarImportar_Click(object sender, RoutedEventArgs e)
+        {
+            //navigate a la page de I/E
+            this.NavigationService.Navigate(new ImportarExportarTableros(listaTableros));
+        }
     }
 }
