@@ -23,15 +23,20 @@ namespace WpfApp1.Pages.Dialogs
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public string ProgressText
         {
-            Close();
+            set
+            {
+                this.lblProgress.Content = value;
+            }
+        }
+        public int ProgressValue
+        {
+            set
+            {
+                this.progress.Value = value;
+            }
         }
 
-        private void closebtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

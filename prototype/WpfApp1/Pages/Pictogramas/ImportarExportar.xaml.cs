@@ -120,7 +120,7 @@ namespace WpfApp1.Pages.Pictogramas
             listviewImportar.ItemsSource = importTempData;
         }
 
-        private async void importarSeleccionados_Click(object sender, RoutedEventArgs e)
+        private void importarSeleccionados_Click(object sender, RoutedEventArgs e)
         {
             if (listviewImportar.SelectedItems.Count > 0)
             {
@@ -131,7 +131,7 @@ namespace WpfApp1.Pages.Pictogramas
                     pictSeleccionados.Add(pict);
                 }
                 cargando = new CargandoDialog();
-
+                cargando.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 System.Windows.Threading.Dispatcher dispatcher = cargando.Dispatcher;
 
                 worker = new BackgroundWorker();
@@ -149,10 +149,14 @@ namespace WpfApp1.Pages.Pictogramas
                             return;
                         }
                         Repository.Instance.importPictograms(pictSeleccionados[i], importpath);
-                        System.Threading.Thread.Sleep(10);
+                        //System.Threading.Thread.Sleep(1);
                         worker.ReportProgress(Convert.ToInt32(((decimal)i / (decimal)total_elementos) * 100));
                     }
 
+                };
+                worker.ProgressChanged += delegate (object s, ProgressChangedEventArgs args)
+                {
+                    cargando.ProgressText = args.ProgressPercentage.ToString() + "%";
                 };
                 worker.RunWorkerCompleted += delegate (object s, RunWorkerCompletedEventArgs args)
                 {

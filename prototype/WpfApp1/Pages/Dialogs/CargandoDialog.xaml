@@ -16,49 +16,11 @@
 
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
-              Background="#9ede73">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="Mensaje" Content="¡Espere porfavor!"
-                   Foreground="White"
-                   FontSize="30"
-                   FontWeight="SemiBold"
-                   Margin="20,0,0,0"
-                   VerticalContentAlignment="Center"
-                   Grid.Column="0"/>
-            <Button x:Name="closebtn"
-                    Content="X"
-                    Grid.Column="1" 
-                    Background="{x:Null}" 
-                    BorderBrush="{x:Null}" 
-                    Foreground="White" 
-                    FontSize="30"
-                    FontWeight="Bold" 
-                    Click="closebtn_Click"
-                    />
-        </Grid>
+        
         <Grid Grid.Row="1">
-            <Button Content="Cargando"
-                    FontSize="20"
-                    Foreground="black" 
-                    Click="Button_Click">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="100"
-                                    Height="200"
-                                    Width="200"
-                                    BorderBrush="#707070"
-                                    BorderThickness="4">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="center"/>
-
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+            
+            <Label x:Name="lblProgress" Content="0%"/>
+            <ProgressBar x:Name="progress" Height="25" IsIndeterminate="False"></ProgressBar>
 
         </Grid>
         
