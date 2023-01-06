@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs"
         mc:Ignorable="d"
-        Title="update" Height="450" Width="800">
-    <Grid>
+        Title="update" Height="400" Width="800"
+        WindowStyle = "None"
+        ResizeMode = "NoResize">
+    <Grid x:Name="updateGrid">
         
     </Grid>
 </Window>
