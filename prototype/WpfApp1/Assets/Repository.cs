@@ -2117,8 +2117,8 @@ namespace WpfApp1.Assets
                     board.tipo + "'," +
                     board.filas + "," +
                     board.columnas + "," +
-                    board.idPictPortada + ",'" +
-                    board.asignacion + "','" +
+                    board.idPictPortada + "," +
+                    "'No Asignado','" +
                     board.conTiempo + "')";
                 queryBoard = queryBoard + row;
             }
@@ -2311,16 +2311,15 @@ namespace WpfApp1.Assets
             }
             return existe;
         }
-        public void importTableros(List<Board> importedBoards, string path)
+        public void importTableros(Board importedBoard, string path)
         {
-            foreach(Board board in importedBoards)
-            {
-                if (verifyAlfaBoard(board.idAlfaTablero) == false)
+
+                if (verifyAlfaBoard(importedBoard.idAlfaTablero) == false)
                 {
-                    importPictograms(board.pictPortada, path);
-                    board.idPictPortada = getPictogramIdFromAlfaId(board.pictPortada.idAlfaPict);
-                    int idTablero = crearTablero(board);
-                    foreach (pictTablero pt in board.pictTableros)
+                    importPictograms(importedBoard.pictPortada, path);
+                importedBoard.idPictPortada = getPictogramIdFromAlfaId(importedBoard.pictPortada.idAlfaPict);
+                    int idTablero = crearTablero(importedBoard);
+                    foreach (pictTablero pt in importedBoard.pictTableros)
                     {
                         List<Pictogram> listPt = new List<Pictogram>();
                         importPictograms(pt.pictograma, path);
@@ -2328,7 +2327,7 @@ namespace WpfApp1.Assets
                         EnlazarPictBoard(idTablero, newIDpict, pt.x, pt.y, pt.tiempo);
                     }
                 }
-            }
+            
         }
     }
 }

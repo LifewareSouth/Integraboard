@@ -65,11 +65,12 @@ namespace WpfApp1.Pages.Pictogramas
                     {
                         Directory.CreateDirectory(pathtoSave + "\\pictogramasGuardados\\sonidos");
                     }
+                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave,"pictogramas");
                     SuccessDialog success = new SuccessDialog("Exportacion completa");
                     success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     success.Show();
-                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave,"pictogramas");
                 }
+                this.NavigationService.GoBack();
             }
         }
 
@@ -167,10 +168,9 @@ namespace WpfApp1.Pages.Pictogramas
                 SuccessDialog success = new SuccessDialog("Importación completa");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
+                MainPicrogramasPage.Instance.runActualizarLista();
+                this.NavigationService.GoBack();
             }
-
-
-
         }
                            
 private void volverMenu_Click(object sender, RoutedEventArgs e)
