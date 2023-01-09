@@ -83,8 +83,8 @@ namespace WpfApp1.Pages.Tableros
         private void ActualizarLista()
         {
 
+            listaPict = MainPicrogramasPage.Instance.getPictograms();
 
-            listaPict = Repository.Instance.getAllPict();
             if (listaPict.Count > 0)
             {
                 ListViewPictograms.ItemsSource = listaPict;
