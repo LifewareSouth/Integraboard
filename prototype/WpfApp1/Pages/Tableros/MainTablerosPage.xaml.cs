@@ -263,7 +263,7 @@ namespace WpfApp1.Pages.Tableros
         private void btnExportarImportar_Click(object sender, RoutedEventArgs e)
         {
             //navigate a la page de I/E
-            this.NavigationService.Navigate(new ImportarExportarTableros());
+            this.NavigationService.Navigate(new ImportarExportarTableros(listaTableros));
         }
     }
 }

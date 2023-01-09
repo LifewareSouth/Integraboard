@@ -54,9 +54,11 @@ namespace WpfApp1
             Style rowStyle = new Style(typeof(DataGridRow));
             rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
                                      new MouseButtonEventHandler(Row_DoubleClick)));
-            
-            listaPict = Repository.Instance.getAllPict();
-            ListViewPictograms.ItemsSource = listaPict;
+            if((listaPict.Count == 0)||(actualizandoPictogramas==true))
+            {
+                listaPict = Repository.Instance.getAllPict();
+                ListViewPictograms.ItemsSource = listaPict;
+            }
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -177,6 +179,11 @@ namespace WpfApp1
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ImportarExportar(listaPict));
+        }
+
+        public List<Pictogram> getPictograms()
+        {
+            return listaPict;
         }
     }
 }

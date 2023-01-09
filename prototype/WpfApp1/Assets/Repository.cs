@@ -1737,68 +1737,66 @@ namespace WpfApp1.Assets
             {
             }
         }
-        public void importPictograms(List<Pictogram> importedPict, string path)
+        public void importPictograms(Pictogram pict, string path)
         {
             List<ListIdImage> ListIDimg = new List<ListIdImage>();
             List<ListIdSound> ListIDsound = new List<ListIdSound>();
-            foreach (Pictogram pict in importedPict)
+            if (verifyAlfaPict(pict.idAlfaPict) == false)
             {
-                if (verifyAlfaPict(pict.idAlfaPict) == false)
+                //Imagen del pictograma
+                if (ListIDimg.Any(x => x.OldIdImage == pict.idImagen))
                 {
-                    //Imagen del pictograma
-                    if (ListIDimg.Any(x => x.OldIdImage == pict.idImagen))
+                    pict.idImagen = ListIDimg.Where(x => x.OldIdImage == pict.idImagen).First().NewIdImage;
+                }
+                else
+                {
+                    ListIdImage lIdImg = new ListIdImage();
+                    lIdImg.OldIdImage = pict.idImagen;
+                    //preguntar si existe en la bd la imagen para ser agregada
+                    if (verifyAlfaImagen(pict.idImagen))
                     {
-                        pict.idImagen = ListIDimg.Where(x => x.OldIdImage == pict.idImagen).First().NewIdImage;
+                        //cuando existe buscar la id asociada en la base de datos
+                        lIdImg.NewIdImage = getIdImagenForImport(pict.idImagen);
+                        pict.idImagen = lIdImg.NewIdImage;
                     }
                     else
                     {
-                        ListIdImage lIdImg = new ListIdImage();
-                        lIdImg.OldIdImage = pict.idImagen;
-                        //preguntar si existe en la bd la imagen para ser agregada
-                        if (verifyAlfaImagen(pict.idImagen))
+                        //cuando no existe agregar a la base de datos y devolver la id asociada
+                        lIdImg.NewIdImage = insertImportImage(pict.idImagen);
+                        pict.idImagen = lIdImg.NewIdImage;
+                    }
+                    ListIDimg.Add(lIdImg);
+                }
+                //Sonido del pictograma
+                if (pict.idSonido != 0)
+                {
+                    if (ListIDsound.Any(x => x.OldIdSound == pict.idSonido))
+                    {
+                        pict.idSonido = ListIDsound.Where(x => x.OldIdSound == pict.idImagen).First().NewIdSound;
+                    }
+                    else
+                    {
+                        ListIdSound lidSound = new ListIdSound();
+                        lidSound.OldIdSound = pict.idSonido;
+                        //preguntar si existe en la bd el sonido para ser agregado
+                        if (verifyAlfaSonido(pict.idSonido))
                         {
                             //cuando existe buscar la id asociada en la base de datos
-                            lIdImg.NewIdImage = getIdImagenForImport(pict.idImagen);
-                            pict.idImagen = lIdImg.NewIdImage;
+                            lidSound.NewIdSound = getIdSonidoforImport(pict.idSonido);
+                            pict.idSonido = lidSound.NewIdSound;
                         }
                         else
                         {
                             //cuando no existe agregar a la base de datos y devolver la id asociada
-                            lIdImg.NewIdImage = insertImportImage(pict.idImagen);
-                            pict.idImagen = lIdImg.NewIdImage;
+                            lidSound.NewIdSound = insertImportSound(path, pict.nombreImagen, pict.idSonido);
+                            pict.idSonido = lidSound.NewIdSound;
                         }
-                        ListIDimg.Add(lIdImg);
+                        ListIDsound.Add(lidSound);
                     }
-                    //Sonido del pictograma
-                    if (pict.idSonido != 0)
-                    {
-                        if (ListIDsound.Any(x => x.OldIdSound == pict.idSonido))
-                        {
-                            pict.idSonido = ListIDsound.Where(x => x.OldIdSound == pict.idImagen).First().NewIdSound;
-                        }
-                        else
-                        {
-                            ListIdSound lidSound = new ListIdSound();
-                            lidSound.OldIdSound = pict.idSonido;
-                            //preguntar si existe en la bd el sonido para ser agregado
-                            if (verifyAlfaSonido(pict.idSonido))
-                            {
-                                //cuando existe buscar la id asociada en la base de datos
-                                lidSound.NewIdSound = getIdSonidoforImport(pict.idSonido);
-                                pict.idSonido = lidSound.NewIdSound;
-                            }
-                            else
-                            {
-                                //cuando no existe agregar a la base de datos y devolver la id asociada
-                                lidSound.NewIdSound = insertImportSound(path,pict.nombreImagen,pict.idSonido);
-                                pict.idSonido = lidSound.NewIdSound;
-                            }
-                            ListIDsound.Add(lidSound);
-                        }
-                    }
-                    CrearPictograma(pict);
                 }
+                CrearPictograma(pict);
             }
+         
         }
         /// <summary>
         /// Verifica si el pictograma a importar ya existe en la base de datos
@@ -2319,14 +2317,13 @@ namespace WpfApp1.Assets
             {
                 if (verifyAlfaBoard(board.idAlfaTablero) == false)
                 {
-                    List<Pictogram> ListPictPortada = new List<Pictogram>();
-                    importPictograms(ListPictPortada, path);
+                    importPictograms(board.pictPortada, path);
                     board.idPictPortada = getPictogramIdFromAlfaId(board.pictPortada.idAlfaPict);
                     int idTablero = crearTablero(board);
                     foreach (pictTablero pt in board.pictTableros)
                     {
                         List<Pictogram> listPt = new List<Pictogram>();
-                        importPictograms(listPt, path);
+                        importPictograms(pt.pictograma, path);
                         int newIDpict = getPictogramIdFromAlfaId(pt.pictograma.idAlfaPict);
                         EnlazarPictBoard(idTablero, newIDpict, pt.x, pt.y, pt.tiempo);
                     }
