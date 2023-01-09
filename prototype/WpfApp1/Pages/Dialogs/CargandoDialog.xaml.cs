@@ -30,13 +30,6 @@ namespace WpfApp1.Pages.Dialogs
                 this.lblProgress.Content = value;
             }
         }
-        public int ProgressValue
-        {
-            set
-            {
-                this.progress.Value = value;
-            }
-        }
 
     }
 }
