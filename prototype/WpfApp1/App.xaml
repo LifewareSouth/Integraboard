@@ -21,6 +21,10 @@
             <BitmapImage x:Key="voz" UriSource="Resources\vozConTexto.png"/>
             <BitmapImage x:Key="menosEdad" UriSource="Resources\menos.png"/>
             <BitmapImage x:Key="masEdad" UriSource="Resources\mas.png"/>
+            <!-- botones -->
+            <BitmapImage x:Key="closeButton" UriSource="Resources\close_cruz_invertida.png"/>
+            <!-- dialogs -->
+            <BitmapImage x:Key="success" UriSource="Resources\successCheck"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

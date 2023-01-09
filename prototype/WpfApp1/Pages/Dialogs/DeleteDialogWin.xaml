@@ -31,14 +31,16 @@
                    VerticalContentAlignment="Center"
                    Grid.Column="0"/>
             <Button x:Name="closebtn"
-                    Content="X"
                     Grid.Column="1" 
                     Background="{x:Null}" 
                     BorderBrush="{x:Null}" 
                     Foreground="White" 
                     FontSize="30"
-                    FontWeight="Bold" Click="closebtn_Click"
-                    />
+                    FontWeight="Bold" Click="closebtn_Click">
+                <Image Source="{DynamicResource closeButton}"
+                       Height="45"
+                       Width="40"/>
+            </Button>
         </Grid>
         <Grid Grid.Row="1">
             <TextBlock FontSize="30"
