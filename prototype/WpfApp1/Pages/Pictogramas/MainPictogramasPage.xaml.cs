@@ -60,6 +60,7 @@ namespace WpfApp1
             {
                 listaPict = Repository.Instance.getAllPict();
                 ListViewPictograms.ItemsSource = listaPict;
+                actualizandoPictogramas = false;
             }
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -94,6 +95,7 @@ namespace WpfApp1
                 {
                     Pictogram pictEliminar = ((Pictogram)ListViewPictograms.SelectedItem);
                     Repository.Instance.deletePictograma(pictEliminar.ID);
+                    actualizandoPictogramas = true;
                     ActualizarLista();
                 }
             }

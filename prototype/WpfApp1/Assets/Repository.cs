@@ -1788,7 +1788,7 @@ namespace WpfApp1.Assets
                         else
                         {
                             //cuando no existe agregar a la base de datos y devolver la id asociada
-                            lidSound.NewIdSound = insertImportSound(path, pict.nombreImagen, pict.idSonido);
+                            lidSound.NewIdSound = insertImportSound(path, pict.nombreSonido, pict.idSonido);
                             pict.idSonido = lidSound.NewIdSound;
                         }
                         ListIDsound.Add(lidSound);
@@ -2233,7 +2233,7 @@ namespace WpfApp1.Assets
                             ID = int.Parse(dr["idPictTablero"].ToString()),
                             idTablero = int.Parse(dr["idTablero"].ToString()),
                             idPictograma = int.Parse(dr["idPictograma"].ToString()),
-                            pictograma = getOnePictogram(int.Parse(dr["idPictograma"].ToString())),
+                            pictograma = getOneTempPictogram(int.Parse(dr["idPictograma"].ToString())),
                             x = int.Parse(dr["x"].ToString()),
                             y = int.Parse(dr["y"].ToString()),
                             tiempo = dr["tiempo"].ToString()
@@ -2317,11 +2317,10 @@ namespace WpfApp1.Assets
                 if (verifyAlfaBoard(importedBoard.idAlfaTablero) == false)
                 {
                     importPictograms(importedBoard.pictPortada, path);
-                importedBoard.idPictPortada = getPictogramIdFromAlfaId(importedBoard.pictPortada.idAlfaPict);
+                    importedBoard.idPictPortada = getPictogramIdFromAlfaId(importedBoard.pictPortada.idAlfaPict);
                     int idTablero = crearTablero(importedBoard);
                     foreach (pictTablero pt in importedBoard.pictTableros)
                     {
-                        List<Pictogram> listPt = new List<Pictogram>();
                         importPictograms(pt.pictograma, path);
                         int newIDpict = getPictogramIdFromAlfaId(pt.pictograma.idAlfaPict);
                         EnlazarPictBoard(idTablero, newIDpict, pt.x, pt.y, pt.tiempo);

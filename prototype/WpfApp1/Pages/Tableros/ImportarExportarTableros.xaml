@@ -125,6 +125,7 @@
                                           Foreground="White"
                                           FontSize="18"
                                           ItemsSource="{Binding Board}"
+                                          SelectionMode="Multiple"
                                           x:Name="listViewTableros" d:ItemsSource="{d:SampleData ItemCount=5}"
                                           >
 
@@ -318,6 +319,7 @@
                                           Foreground="White"
                                           FontSize="18"
                                           ItemsSource="{Binding Board}"
+                                          SelectionMode="Multiple"
                                           x:Name="listViewTablerosE" d:ItemsSource="{d:SampleData ItemCount=5}"
                                           >
 

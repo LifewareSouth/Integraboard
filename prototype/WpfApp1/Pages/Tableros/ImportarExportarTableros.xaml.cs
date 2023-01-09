@@ -169,8 +169,7 @@ namespace WpfApp1.Pages.Tableros
                 SuccessDialog success = new SuccessDialog("Importación completa");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
-                MainTablerosPage.Instance.runActualizarLista();
-                this.NavigationService.GoBack();
+                this.NavigationService.Navigate(new MainTablerosPage());
             }
         }
         
