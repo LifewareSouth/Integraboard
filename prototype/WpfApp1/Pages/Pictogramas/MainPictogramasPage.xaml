@@ -13,16 +13,28 @@
         <StackPanel Orientation="Horizontal">
             <!--Botón para volver al menú-->
             <Button x:Name="volverMenu"
-                    Width="180"
+                    Width="250"
                     Height="70"
                     Margin="20,0,20,0"
-                    Content="Menú"
                     FontFamily="arial"
                     FontSize="30"
                     FontWeight="SemiBold"
                     Foreground="white"
                     Background="#1597e5"
-                    Click="VolverMenu_Click"/>
+                    Click="VolverMenu_Click">
+                <Grid >
+                    <Image Source="{DynamicResource volver}"
+                           Height="45"
+                           Width="45"
+                           Margin="-71,0,0,0"
+                           HorizontalAlignment="Left" />
+                    <TextBlock Text="Menú"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                </Grid>
+
+            </Button>
+            
             <!---->
             <Label Content="Pictogramas" 
                FontFamily="Arial"

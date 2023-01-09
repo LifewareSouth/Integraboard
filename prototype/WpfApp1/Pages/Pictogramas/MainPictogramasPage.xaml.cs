@@ -26,6 +26,7 @@ namespace WpfApp1
     /// </summary>
     public partial class MainPicrogramasPage : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();
@@ -41,6 +42,7 @@ namespace WpfApp1
         public MainPicrogramasPage()
         {
             InitializeComponent();
+            this.Resources["volver"] = volver;
             CategoriaPict.Items.Add("Todas");
             foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
             {

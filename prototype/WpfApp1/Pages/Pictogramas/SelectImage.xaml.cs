@@ -23,12 +23,14 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class SelectImage : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         List<ImagenModel> ListaImagenes = new List<ImagenModel>();
         List<ImagenModel> filteredImages = new List<ImagenModel>();
         public SelectImage()
         {
             InitializeComponent();
             ActualizarLista();
+            this.Resources["volver"] = volver;
         }
         ImagenModel ImagenSeleccionada = new ImagenModel();
         private void AddImages_Click(object sender, RoutedEventArgs e)

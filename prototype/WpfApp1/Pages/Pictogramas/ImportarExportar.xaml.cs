@@ -24,6 +24,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class ImportarExportar : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         List<Pictogram> listaTotalPict = new List<Pictogram>();
         string importpath="";
         List<Pictogram> importTempData = new List<Pictogram>();
@@ -32,6 +33,7 @@ namespace WpfApp1.Pages.Pictogramas
         public ImportarExportar()
         {
             InitializeComponent();
+            
         }
         public ImportarExportar(List<Pictogram>exportPict)
         {
@@ -39,6 +41,7 @@ namespace WpfApp1.Pages.Pictogramas
             Repository.Instance.deleteTempData();
             listaTotalPict = exportPict;
             listviewExportar.ItemsSource = listaTotalPict;
+            this.Resources["volver"] = volver;
         }
 
         private void exportarSeleccionados_Click(object sender, RoutedEventArgs e)
@@ -186,6 +189,11 @@ private void volverMenu_Click(object sender, RoutedEventArgs e)
         private void cancelarExportar_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPicrogramasPage());
+        }
+
+        private void GoToPictogramas(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

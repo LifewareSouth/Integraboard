@@ -23,8 +23,9 @@
             <BitmapImage x:Key="masEdad" UriSource="Resources\mas.png"/>
             <!-- botones -->
             <BitmapImage x:Key="closeButton" UriSource="Resources\close_cruz_invertida.png"/>
+            <BitmapImage x:Key="volver" UriSource="Resources\arrowBlanca.png"/>
             <!-- dialogs -->
-            <BitmapImage x:Key="success" UriSource="Resources\successCheck"/>
+            <BitmapImage x:Key="success" UriSource="Resources\successCheck.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
