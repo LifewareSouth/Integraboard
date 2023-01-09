@@ -30,6 +30,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class TableroRutina : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static pictTablero CuadroSeleccionado = new pictTablero();
         static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
@@ -62,12 +63,14 @@ namespace WpfApp1.Pages.Tableros
             AjustarTablero();
             //comboBoxTipo.Text = "Comunicación";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+            this.Resources["volver"] = volver;
         }
 
         public TableroRutina(Board boardEdit)
         {
 
             InitializeComponent();
+            
             isEditing = true;
             listaPictTablero = new Collection<pictTablero>();
             //tiposTablero();

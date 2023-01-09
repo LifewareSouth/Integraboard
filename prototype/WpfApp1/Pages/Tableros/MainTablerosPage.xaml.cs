@@ -28,6 +28,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class MainTablerosPage : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoLista = false;
         static List<Board> listaTableros = new List<Board>();
@@ -47,6 +48,7 @@ namespace WpfApp1.Pages.Tableros
             InitializeComponent();
             tiposTablero();
             actualizarListaTableros();
+            this.Resources["volver"] = volver;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {

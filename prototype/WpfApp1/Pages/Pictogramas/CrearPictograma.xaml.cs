@@ -21,6 +21,7 @@ using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Tableros;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -29,6 +30,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class CrearPictos : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         string TipoImagen = null, pathImagen;
         private static bool IsImageFromCamera = false;
@@ -57,6 +59,7 @@ namespace WpfApp1.Pages.Pictogramas
             CategoriaPict.Text = (Repository.PictogramCategoryToString(Pictogram.PictogramCategory.Verbos)).ToString();
             pictoBorde.BorderBrush = Repository.Instance.categoryColor("Verbos");
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
+            this.Resources["volver"] = volver;
         }
         private void rellenarCategorias()
         {

@@ -22,6 +22,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Security;
 using System.Security.Permissions;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -30,6 +31,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class TomarFotografia : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         #region Public properties
 
         public ObservableCollection<FilterInfo> VideoDevices { get; set; }
@@ -53,10 +55,12 @@ namespace WpfApp1.Pages.Pictogramas
         System.Windows.Controls.Image photoCamera = new System.Windows.Controls.Image();
         public TomarFotografia()
         {
+
             InitializeComponent();
             this.DataContext = this;
             GetVideoDevices();
             this.Unloaded += TakeAPhotoDialog_Unloaded;
+            this.Resources["volver"] = volver;
         }
         private void TakeAPhotoDialog_Unloaded(object sender, RoutedEventArgs e)
         {

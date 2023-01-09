@@ -23,6 +23,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class ListadoPictogramas : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();
@@ -43,6 +44,7 @@ namespace WpfApp1.Pages.Tableros
             tipoTablero = fromBoard;
             categorias();
             
+            
             ActualizarLista();
             isAddingPictogram=false;
             ListViewPictograms.SelectionMode = SelectionMode.Single;
@@ -51,6 +53,7 @@ namespace WpfApp1.Pages.Tableros
         public ListadoPictogramas(List<Pictogram> PictAgregados, string fromBoard)
         {
             InitializeComponent();
+            this.Resources["volver"] = volver;
             tipoTablero = fromBoard;
             ActualizarLista();
             if(fromBoard == "Sonidos")

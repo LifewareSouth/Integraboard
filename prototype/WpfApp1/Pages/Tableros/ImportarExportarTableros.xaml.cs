@@ -25,6 +25,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class ImportarExportarTableros : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         List<Board> listaTablerosTotal = new List<Board>();
         string importpath = "";
         List<Board> importTempData = new List<Board>();
@@ -40,6 +41,7 @@ namespace WpfApp1.Pages.Tableros
             Repository.Instance.deleteTempData();
             listaTablerosTotal = exportTableros;
             listViewTablerosE.ItemsSource = listaTablerosTotal;
+            this.Resources["volver"] = volver;
         }
 
         private void importSeleccionarCarpeta_Click(object sender, RoutedEventArgs e)

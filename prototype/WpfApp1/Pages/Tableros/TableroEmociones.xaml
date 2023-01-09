@@ -14,16 +14,25 @@
         <StackPanel Orientation="Horizontal">
             <!--Botón para volver al menú-->
             <Button x:Name="volverTableros"
-                    Width="180"
+                    Width="250"
                     Height="70"
                     Margin="20,0,20,0"
-                    Content="Tableros"
                     FontFamily="arial"
                     FontSize="30"
                     FontWeight="SemiBold"
                     Foreground="white"
                     Background="#1597e5"
-                    Click="goToTableros"/>
+                    Click="goToTableros">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{DynamicResource volver}"
+                           Height="45"
+                           Width="45"
+                           Margin="-30,0,20,0"/>
+                    <TextBlock Text="Tableros"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </Button>
             <!---->
             <Label Content="Crear Tablero de Emociones" 
                    FontFamily="Arial"

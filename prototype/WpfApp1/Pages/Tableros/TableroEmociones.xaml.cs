@@ -25,6 +25,7 @@ namespace WpfApp1.Pages.Tableros
     
     public partial class TableroEmociones : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static pictTablero CuadroSeleccionado = new pictTablero();
         static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
@@ -63,6 +64,7 @@ namespace WpfApp1.Pages.Tableros
         {
 
             InitializeComponent();
+            this.Resources["volver"] = volver;
             isEditing = true;
             listaPictTablero = new Collection<pictTablero>();
             //tiposTablero();

@@ -15,16 +15,24 @@
                     Grid.Row="0">
             <!--Botón para volver al menú-->
             <Button x:Name="volverPictos"
-                    Width="200"
+                    Width="250"
                     Height="70"
                     Margin="20,0,20,0"
-                    Content="Pictogramas"
                     FontFamily="arial"
                     FontSize="30"
                     FontWeight="SemiBold"
                     Foreground="white"
-                    Background="#1597e5"
-                    />
+                    Background="#1597e5">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{DynamicResource volver}"
+                           Height="45"
+                           Width="45"
+                           Margin="0,0,10,0"/>
+                    <TextBlock Text="Pictogramas"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </Button>
             <!---->
             <Label Content="Grabadora de Sonido"
                    x:Name="lbl_rec"
@@ -102,9 +110,9 @@
 
                     <ComboBox x:Name="sourceList"
                               Width="400"
-                              Height="30"
+                              Height="40"
                               Margin="-20,20,0,0"
-                              FontSize="20"/>
+                              FontSize="30"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal"
