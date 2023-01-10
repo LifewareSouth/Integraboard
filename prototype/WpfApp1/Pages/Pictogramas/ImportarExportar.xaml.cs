@@ -172,11 +172,11 @@ namespace WpfApp1.Pages.Pictogramas
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
                 MainPicrogramasPage.Instance.runActualizarLista();
-                this.NavigationService.GoBack();
+                this.NavigationService.Navigate(new MainPicrogramasPage());
             }
         }
                            
-private void volverMenu_Click(object sender, RoutedEventArgs e)
+        private void volverMenu_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPicrogramasPage());
         }
@@ -193,7 +193,7 @@ private void volverMenu_Click(object sender, RoutedEventArgs e)
 
         private void GoToPictogramas(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new MainPicrogramasPage());
         }
     }
 }

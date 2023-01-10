@@ -956,7 +956,14 @@ namespace WpfApp1.Assets
                 query = "select idTablero from tableros where idAlfaTablero = @idAlfaTablero";
                 conexion.Open();
                 cmd = new SQLiteCommand(query, conexion);
-                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                if (string.IsNullOrWhiteSpace(board.idAlfaTablero))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", board.idAlfaTablero));
+                }
                 cmd.CommandType = System.Data.CommandType.Text;
                 using (SQLiteDataReader dr = cmd.ExecuteReader())
                 {
@@ -2324,7 +2331,7 @@ namespace WpfApp1.Assets
 
                 if (verifyAlfaBoard(importedBoard.idAlfaTablero) == false)
                 {
-                    importPictograms(importedBoard.pictPortada, path);
+                     importPictograms(importedBoard.pictPortada, path);
                     importedBoard.idPictPortada = getPictogramIdFromAlfaId(importedBoard.pictPortada.idAlfaPict);
                     int idTablero = crearTablero(importedBoard);
                     foreach (pictTablero pt in importedBoard.pictTableros)

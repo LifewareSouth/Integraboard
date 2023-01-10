@@ -59,6 +59,7 @@ namespace WpfApp1.Pages.Tableros
             AjustarTablero();
             //comboBoxTipo.Text = "Comunicación";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+            this.Resources["volver"] = volver;
         }
         public TableroEmociones(Board boardEdit)
         {
@@ -605,31 +606,41 @@ namespace WpfApp1.Pages.Tableros
         {
             pictTablero target = (pictTablero)TargetTodoEmocionesItem;
             pictTablero pictToMove = (pictTablero)InsertedTodoEmocionesItem;
-            if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+            try
             {
-                if (pictToMove != null)
+                if (Tablero.SelectedItem != null)
                 {
-
-                    if (pictToMove.idPictograma != 0)
+                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                     {
-                        if (target.idPictograma == 0)
+                        if (pictToMove != null)
                         {
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                        }
-                        else
-                        {
-                            int tempx = pictToMove.x;
-                            int tempy = pictToMove.y;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
-                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
-                        }
 
-                        AjustarTablero();
+                            if (pictToMove.idPictograma != 0)
+                            {
+                                if (target.idPictograma == 0)
+                                {
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                                }
+                                else
+                                {
+                                    int tempx = pictToMove.x;
+                                    int tempy = pictToMove.y;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                                }
+
+                                AjustarTablero();
+                            }
+                        }
                     }
                 }
+            }
+            catch
+            {
+                this.NavigationService.GoBack();
             }
         }
     }

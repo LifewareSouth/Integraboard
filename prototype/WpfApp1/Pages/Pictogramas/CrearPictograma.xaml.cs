@@ -71,6 +71,7 @@ namespace WpfApp1.Pages.Pictogramas
         public CrearPictos(Pictogram editPict,bool fromboard,string tipo)
         {
             InitializeComponent();
+            this.Resources["volver"] = volver;
             rellenarCategorias();
             isFromBoard = fromboard;
             tipoTablero = tipo;

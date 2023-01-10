@@ -172,6 +172,15 @@ namespace WpfApp1.Pages.Tableros
                 this.NavigationService.Navigate(new MainTablerosPage());
             }
         }
-        
+
+        private void volverTableros_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void cancelarImportar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }

@@ -21,7 +21,7 @@
                     FontSize="30"
                     FontWeight="SemiBold"
                     Foreground="white"
-                    Background="#1597e5">
+                    Background="#1597e5" Click="volverTableros_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
                            Height="45"
@@ -269,7 +269,7 @@
                                             FontFamily="NotoSans"
                                             FontSize="25"
                                             FontWeight="SemiBold"
-                                            Foreground="white" />
+                                            Foreground="white" Click="cancelarImportar_Click" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
