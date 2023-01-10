@@ -2,6 +2,7 @@
 using Lifeware.SoftwareCommon;
 using NAudio.Lame;
 using NAudio.Wave;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -931,7 +932,14 @@ namespace WpfApp1.Assets
                     "values (@idAlfaTablero, @nombreTablero, @tipo,@filas,@columnas,@pictPortada,@asignacion,@conTiempo)";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                if (string.IsNullOrWhiteSpace(board.idAlfaTablero))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", board.idAlfaTablero));
+                }
                 cmd.Parameters.Add(new SQLiteParameter("@nombreTablero", board.nombreTablero));
                 cmd.Parameters.Add(new SQLiteParameter("@tipo", board.tipo));
                 cmd.Parameters.Add(new SQLiteParameter("@filas", board.filas));
