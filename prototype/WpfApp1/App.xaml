@@ -4,7 +4,142 @@
              xmlns:local="clr-namespace:WpfApp1"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
+
+            <Style x:Key="btnstyle" TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid x:Name="grid">
+                                <Border x:Name="border" 
+                                        CornerRadius="10"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      TextElement.FontFamily="arial">
+                                    </ContentPresenter>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="lightblue"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="pictogramBtn" TargetType="{x:Type Button}" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Background" Value="#ffe162"/>
+            </Style>
+            <Style x:Key="tablerosBtn" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Control.Background" Value="#69dadb"/>
+            </Style>
+            <Style x:Key="perfilBtn" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Control.Background" Value="#9ede73"/>
+            </Style>
+            <Style x:Key="profeBtn" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Control.Background" Value="#ff75a0"/>
+            </Style>
+            <Style x:Key="notificaciones" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Background" Value="#1597e5"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+            <Style x:Key="closeProgram" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Background" Value="#ff6464"/>
+            </Style>
+            <Style x:Key="cancel" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#ff6464"/>
+            </Style>
+            <Style x:Key="guardar" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#1597e5"/>
+            </Style>
+            <Style x:Key="cerrarSesion" TargetType="Button" BasedOn="{StaticResource btnstyle}">
+                <Setter Property="Background" Value="#fff8cd"/>
+            </Style>
+            
+            <!-- estilo default de botón "volver" -->
+            <Style x:Key="btnVolver" TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="arial"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="30"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid x:Name="grid">
+                                <Border x:Name="border" 
+                                        CornerRadius="10"
+                                        Background="#1597e5"
+                                        Width="250"
+                                        Height="70">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center">
+                                    </ContentPresenter>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="lightblue"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- estilo default de botón color Lifeware -->
+            <Style x:Key="btnDefault" TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="arial"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid x:Name="grid">
+                                <Border x:Name="border" 
+                                        CornerRadius="10"
+                                        Background="#1597e5">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center">
+                                    </ContentPresenter>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="lightblue"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- imagenes -->
             <BitmapImage x:Key="sound" UriSource="Resources\sound.png"/>
             <BitmapImage x:Key="check" UriSource="Resources\playButtonBlanco.png"/>
             <BitmapImage x:Key="botonSiguiente" UriSource="Resources\terminar.png"/>
@@ -21,6 +156,13 @@
             <BitmapImage x:Key="voz" UriSource="Resources\vozConTexto.png"/>
             <BitmapImage x:Key="menosEdad" UriSource="Resources\menos.png"/>
             <BitmapImage x:Key="masEdad" UriSource="Resources\mas.png"/>
+            <!-- botones -->
+            <BitmapImage x:Key="closeButton" UriSource="Resources\close_cruz_invertida.png"/>
+            <BitmapImage x:Key="volver" UriSource="Resources\arrowBlanca.png"/>
+            <!-- dialogs -->
+            <!-- BitmapImage x:Key="success" UriSource="Resources\successCheck.png" -->
+            
         </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

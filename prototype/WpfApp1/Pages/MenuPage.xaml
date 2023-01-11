@@ -21,10 +21,8 @@
                         Height="65" 
                         Width="250"
                         Margin="930,-150,0,500"
-                        Background="#1597e5"
-                        FontFamily=" Arial"
-                        FontSize="35"
-                        Foreground="White"/>
+                        Style="{StaticResource btnDefault}"
+                        FontSize="35"/>
 
         <Grid Background="#003b49"
                    Margin="50,130,50,50" 

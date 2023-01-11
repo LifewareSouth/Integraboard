@@ -14,16 +14,19 @@
         <StackPanel Orientation="Horizontal">
             <!--Botón para volver al menú-->
             <Button x:Name="volverTableros"
-                    Width="180"
-                    Height="70"
                     Margin="20,0,20,0"
-                    Content="Tableros"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
-                    Click="goToTableros"/>
+                    Style="{StaticResource btnVolver}"
+                    Click="goToTableros">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{DynamicResource volver}"
+                           Height="45"
+                           Width="45"
+                           Margin="-30,0,20,0"/>
+                    <TextBlock Text="Tableros"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </Button>
             <!---->
             <Label Content="Crear Tablero de Emociones" 
                    FontFamily="Arial"
@@ -164,10 +167,10 @@
                         <Button x:Name="LessRows"
                             Content="-"
                             FontSize="30"
-                            Foreground="White"
-                            Height="40"
-                            Width="40"
-                            Background="#1597e5" Click="LessRows_Click"/>
+                            Style="{StaticResource btnDefault}"
+                            Height="45"
+                            Width="45"
+                            Click="LessRows_Click"/>
                         <Label x:Name="rows"
                            Content="4"
                            FontSize="30"
@@ -176,10 +179,10 @@
                         <Button x:Name="MoreRows"
                             Content="+"
                             FontSize="30"
-                            Foreground="White"
-                            Height="40"
-                            Width="40"
-                            Background="#1597e5" Click="MoreRows_Click"/>
+                            Style="{StaticResource btnDefault}"
+                            Height="45"
+                            Width="45"
+                            Click="MoreRows_Click"/>
                     </StackPanel>
                     <Label Content="Columnas:"
                        Foreground="white"
@@ -191,10 +194,10 @@
                         <Button x:Name="LessCols"
                             Content="-"
                             FontSize="30"
-                            Foreground="White"
-                            Height="40"
-                            Width="40"
-                            Background="#1597e5" Click="LessCols_Click"/>
+                            Style="{StaticResource btnDefault}"
+                            Height="45"
+                            Width="45"
+                            Click="LessCols_Click"/>
                         <Label x:Name="Cols"
                            Content="4"
                            FontSize="30"
@@ -203,10 +206,10 @@
                         <Button x:Name="MoreCols"
                             Content="+"
                             FontSize="30"
-                            Foreground="White"
-                            Height="40"
-                            Width="40"
-                            Background="#1597e5" Click="MoreCols_Click"/>
+                            Style="{StaticResource btnDefault}"
+                            Height="45"
+                            Width="45"
+                            Click="MoreCols_Click"/>
                     </StackPanel>
                     <Label Content="Etiquetas:"
                        FontSize="25"
@@ -241,12 +244,12 @@
 
                     <Button x:Name="guardarTablero"
                         Content="Guardar"
-                        Foreground="White"
+                        Style="{StaticResource btnDefault}"
                         FontSize="25"
                         Height="50"
-                        Width="150"
+                        Width="170"
                         Margin="0,10,0,0"
-                        Background="#1597e5" Click="guardarTablero_Click"/>
+                        Click="guardarTablero_Click"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
@@ -257,26 +260,21 @@
                         Width="200"
                         Content="Crear Pictogramas"
                         FontSize="20"
-                        Foreground="White"
-                        FontWeight="SemiBold"
-                        Background="#1597e5"
+                        Style="{StaticResource btnDefault}"
                         Click="goToCrearPictos"/>
                     <Button x:Name="EditarPictograma"
                         Height="50"
                         Width="200"
                         Content="Editar Pictogramas"
                         FontSize="20"
-                        Foreground="White"
-                        FontWeight="SemiBold"
-                        Background="#1597e5"
+                        Style="{StaticResource btnDefault}"
                         Margin="20" Click="EditarPictograma_Click"/>
                     <Button x:Name="QuitarPictograma"
                         Height="50"
                         Width="200"
                         Content="Quitar Pictogramas"
                         FontSize="20"
-                        Foreground="White"
-                        FontWeight="SemiBold"
+                        Style="{StaticResource btnDefault}"
                         Background="#1597e5" Click="QuitarPictograma_Click"/>
                 </StackPanel>
             </Grid>

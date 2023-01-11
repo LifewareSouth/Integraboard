@@ -26,6 +26,7 @@ namespace WpfApp1
     /// </summary>
     public partial class MainPicrogramasPage : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();
@@ -41,6 +42,7 @@ namespace WpfApp1
         public MainPicrogramasPage()
         {
             InitializeComponent();
+            this.Resources["volver"] = volver;
             CategoriaPict.Items.Add("Todas");
             foreach (Pictogram.PictogramCategory foo in Enum.GetValues(typeof(Pictogram.PictogramCategory)))
             {
@@ -54,9 +56,12 @@ namespace WpfApp1
             Style rowStyle = new Style(typeof(DataGridRow));
             rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
                                      new MouseButtonEventHandler(Row_DoubleClick)));
-            
-            listaPict = Repository.Instance.getAllPict();
-            ListViewPictograms.ItemsSource = listaPict;
+            if((listaPict.Count == 0)||(actualizandoPictogramas==true))
+            {
+                listaPict = Repository.Instance.getAllPict();
+                ListViewPictograms.ItemsSource = listaPict;
+                actualizandoPictogramas = false;
+            }
         }
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -90,6 +95,7 @@ namespace WpfApp1
                 {
                     Pictogram pictEliminar = ((Pictogram)ListViewPictograms.SelectedItem);
                     Repository.Instance.deletePictograma(pictEliminar.ID);
+                    actualizandoPictogramas = true;
                     ActualizarLista();
                 }
             }
@@ -177,6 +183,11 @@ namespace WpfApp1
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ImportarExportar(listaPict));
+        }
+
+        public List<Pictogram> getPictograms()
+        {
+            return listaPict;
         }
     }
 }

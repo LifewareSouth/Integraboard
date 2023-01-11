@@ -28,6 +28,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class TableroSonidos : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static pictTablero CuadroSeleccionado = new pictTablero();
         static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
@@ -63,11 +64,13 @@ namespace WpfApp1.Pages.Tableros
             AjustarTablero();
             //comboBoxTipo.Text = "Sonidos";
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+            this.Resources["volver"] = volver;
         }
         public TableroSonidos(Board boardEdit)
         {
 
             InitializeComponent();
+            this.Resources["volver"] = volver;
             isEditing = true;
             listaPictTablero = new Collection<pictTablero>();
             //tiposTablero();
@@ -653,31 +656,43 @@ namespace WpfApp1.Pages.Tableros
         {
             pictTablero target = (pictTablero)TargetTodoSonidosItem;
             pictTablero pictToMove = (pictTablero)InsertedTodoSonidosItem;
-            if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
+            try
             {
-                if (pictToMove != null)
+                if(Tablero.SelectedItems.Count > 0)
                 {
 
-                    if (pictToMove.idPictograma != 0)
+               
+                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                     {
-                        if (target.idPictograma == 0)
+                        if (pictToMove != null)
                         {
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                        }
-                        else
-                        {
-                            int tempx = pictToMove.x;
-                            int tempy = pictToMove.y;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
-                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
-                        }
 
-                        AjustarTablero();
+                            if (pictToMove.idPictograma != 0)
+                            {
+                                if (target.idPictograma == 0)
+                                {
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                                }
+                                else
+                                {
+                                    int tempx = pictToMove.x;
+                                    int tempy = pictToMove.y;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                                }
+
+                                AjustarTablero();
+                            }
+                        }
                     }
                 }
+            }
+            catch
+            {
+                this.NavigationService.GoBack();
             }
         }
     }

@@ -42,6 +42,7 @@
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="CSWebCam" Version="1.0.3" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="NAudio" Version="2.1.0" />
     <PackageReference Include="NAudio.Lame" Version="2.0.1" />
     <PackageReference Include="squirrel.windows" Version="1.5.1" />
@@ -140,6 +141,9 @@
     </Reference>
     <Reference Include="WindowsFormsIntegration">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\WindowsFormsIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\WindowsFormsIntegration.dll</HintPath>
     </Reference>
   </ItemGroup>
 

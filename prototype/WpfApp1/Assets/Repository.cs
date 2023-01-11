@@ -2,6 +2,7 @@
 using Lifeware.SoftwareCommon;
 using NAudio.Lame;
 using NAudio.Wave;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -931,7 +932,14 @@ namespace WpfApp1.Assets
                     "values (@idAlfaTablero, @nombreTablero, @tipo,@filas,@columnas,@pictPortada,@asignacion,@conTiempo)";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                if (string.IsNullOrWhiteSpace(board.idAlfaTablero))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", board.idAlfaTablero));
+                }
                 cmd.Parameters.Add(new SQLiteParameter("@nombreTablero", board.nombreTablero));
                 cmd.Parameters.Add(new SQLiteParameter("@tipo", board.tipo));
                 cmd.Parameters.Add(new SQLiteParameter("@filas", board.filas));
@@ -948,7 +956,14 @@ namespace WpfApp1.Assets
                 query = "select idTablero from tableros where idAlfaTablero = @idAlfaTablero";
                 conexion.Open();
                 cmd = new SQLiteCommand(query, conexion);
-                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                if (string.IsNullOrWhiteSpace(board.idAlfaTablero))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", alfaIdBoard));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", board.idAlfaTablero));
+                }
                 cmd.CommandType = System.Data.CommandType.Text;
                 using (SQLiteDataReader dr = cmd.ExecuteReader())
                 {
@@ -1737,68 +1752,66 @@ namespace WpfApp1.Assets
             {
             }
         }
-        public void importPictograms(List<Pictogram> importedPict, string path)
+        public void importPictograms(Pictogram pict, string path)
         {
             List<ListIdImage> ListIDimg = new List<ListIdImage>();
             List<ListIdSound> ListIDsound = new List<ListIdSound>();
-            foreach (Pictogram pict in importedPict)
+            if (verifyAlfaPict(pict.idAlfaPict) == false)
             {
-                if (verifyAlfaPict(pict.idAlfaPict) == false)
+                //Imagen del pictograma
+                if (ListIDimg.Any(x => x.OldIdImage == pict.idImagen))
                 {
-                    //Imagen del pictograma
-                    if (ListIDimg.Any(x => x.OldIdImage == pict.idImagen))
+                    pict.idImagen = ListIDimg.Where(x => x.OldIdImage == pict.idImagen).First().NewIdImage;
+                }
+                else
+                {
+                    ListIdImage lIdImg = new ListIdImage();
+                    lIdImg.OldIdImage = pict.idImagen;
+                    //preguntar si existe en la bd la imagen para ser agregada
+                    if (verifyAlfaImagen(pict.idImagen))
                     {
-                        pict.idImagen = ListIDimg.Where(x => x.OldIdImage == pict.idImagen).First().NewIdImage;
+                        //cuando existe buscar la id asociada en la base de datos
+                        lIdImg.NewIdImage = getIdImagenForImport(pict.idImagen);
+                        pict.idImagen = lIdImg.NewIdImage;
                     }
                     else
                     {
-                        ListIdImage lIdImg = new ListIdImage();
-                        lIdImg.OldIdImage = pict.idImagen;
-                        //preguntar si existe en la bd la imagen para ser agregada
-                        if (verifyAlfaImagen(pict.idImagen))
+                        //cuando no existe agregar a la base de datos y devolver la id asociada
+                        lIdImg.NewIdImage = insertImportImage(pict.idImagen);
+                        pict.idImagen = lIdImg.NewIdImage;
+                    }
+                    ListIDimg.Add(lIdImg);
+                }
+                //Sonido del pictograma
+                if (pict.idSonido != 0)
+                {
+                    if (ListIDsound.Any(x => x.OldIdSound == pict.idSonido))
+                    {
+                        pict.idSonido = ListIDsound.Where(x => x.OldIdSound == pict.idImagen).First().NewIdSound;
+                    }
+                    else
+                    {
+                        ListIdSound lidSound = new ListIdSound();
+                        lidSound.OldIdSound = pict.idSonido;
+                        //preguntar si existe en la bd el sonido para ser agregado
+                        if (verifyAlfaSonido(pict.idSonido))
                         {
                             //cuando existe buscar la id asociada en la base de datos
-                            lIdImg.NewIdImage = getIdImagenForImport(pict.idImagen);
-                            pict.idImagen = lIdImg.NewIdImage;
+                            lidSound.NewIdSound = getIdSonidoforImport(pict.idSonido);
+                            pict.idSonido = lidSound.NewIdSound;
                         }
                         else
                         {
                             //cuando no existe agregar a la base de datos y devolver la id asociada
-                            lIdImg.NewIdImage = insertImportImage(pict.idImagen);
-                            pict.idImagen = lIdImg.NewIdImage;
+                            lidSound.NewIdSound = insertImportSound(path, pict.nombreSonido, pict.idSonido);
+                            pict.idSonido = lidSound.NewIdSound;
                         }
-                        ListIDimg.Add(lIdImg);
+                        ListIDsound.Add(lidSound);
                     }
-                    //Sonido del pictograma
-                    if (pict.idSonido != 0)
-                    {
-                        if (ListIDsound.Any(x => x.OldIdSound == pict.idSonido))
-                        {
-                            pict.idSonido = ListIDsound.Where(x => x.OldIdSound == pict.idImagen).First().NewIdSound;
-                        }
-                        else
-                        {
-                            ListIdSound lidSound = new ListIdSound();
-                            lidSound.OldIdSound = pict.idSonido;
-                            //preguntar si existe en la bd el sonido para ser agregado
-                            if (verifyAlfaSonido(pict.idSonido))
-                            {
-                                //cuando existe buscar la id asociada en la base de datos
-                                lidSound.NewIdSound = getIdSonidoforImport(pict.idSonido);
-                                pict.idSonido = lidSound.NewIdSound;
-                            }
-                            else
-                            {
-                                //cuando no existe agregar a la base de datos y devolver la id asociada
-                                lidSound.NewIdSound = insertImportSound(path,pict.nombreImagen,pict.idSonido);
-                                pict.idSonido = lidSound.NewIdSound;
-                            }
-                            ListIDsound.Add(lidSound);
-                        }
-                    }
-                    CrearPictograma(pict);
                 }
+                CrearPictograma(pict);
             }
+         
         }
         /// <summary>
         /// Verifica si el pictograma a importar ya existe en la base de datos
@@ -2119,8 +2132,8 @@ namespace WpfApp1.Assets
                     board.tipo + "'," +
                     board.filas + "," +
                     board.columnas + "," +
-                    board.idPictPortada + ",'" +
-                    board.asignacion + "','" +
+                    board.idPictPortada + "," +
+                    "'No Asignado','" +
                     board.conTiempo + "')";
                 queryBoard = queryBoard + row;
             }
@@ -2235,7 +2248,7 @@ namespace WpfApp1.Assets
                             ID = int.Parse(dr["idPictTablero"].ToString()),
                             idTablero = int.Parse(dr["idTablero"].ToString()),
                             idPictograma = int.Parse(dr["idPictograma"].ToString()),
-                            pictograma = getOnePictogram(int.Parse(dr["idPictograma"].ToString())),
+                            pictograma = getOneTempPictogram(int.Parse(dr["idPictograma"].ToString())),
                             x = int.Parse(dr["x"].ToString()),
                             y = int.Parse(dr["y"].ToString()),
                             tiempo = dr["tiempo"].ToString()
@@ -2246,6 +2259,89 @@ namespace WpfApp1.Assets
             }
 
             return listaPictTableros;
+        }
+        public int getPictogramIdFromAlfaId(string idAlfaPict)
+        {
+            int idPictogram = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idPict FROM pictogramas where idAlfaPict = @idAlfaPict;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", idAlfaPict));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        idPictogram = int.Parse(dr["idPict"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return idPictogram;
+        }
+        public int getBoardIdFromAlfaId(string idAlfaTablero)
+        {
+            int idTablero = 0;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT idTablero FROM tableros where idAlfaTablero = @idAlfaTablero;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", idAlfaTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        idTablero = int.Parse(dr["idTablero"].ToString());
+                    }
+                }
+                conexion.Close();
+            }
+            return idTablero;
+        }
+        public bool verifyAlfaBoard(string idAlfaTablero)
+        {
+            bool existe = true;
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "SELECT EXISTS(SELECT 1 FROM tableros where idAlfaTablero = @idAlfaTablero ) as existe;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", idAlfaTablero));
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (int.Parse(dr["existe"].ToString()) == 0)
+                        {
+                            existe = false;
+                        }
+                    }
+                }
+                conexion.Close();
+            }
+            return existe;
+        }
+        public void importTableros(Board importedBoard, string path)
+        {
+
+                if (verifyAlfaBoard(importedBoard.idAlfaTablero) == false)
+                {
+                     importPictograms(importedBoard.pictPortada, path);
+                    importedBoard.idPictPortada = getPictogramIdFromAlfaId(importedBoard.pictPortada.idAlfaPict);
+                    int idTablero = crearTablero(importedBoard);
+                    foreach (pictTablero pt in importedBoard.pictTableros)
+                    {
+                        importPictograms(pt.pictograma, path);
+                        int newIDpict = getPictogramIdFromAlfaId(pt.pictograma.idAlfaPict);
+                        EnlazarPictBoard(idTablero, newIDpict, pt.x, pt.y, pt.tiempo);
+                    }
+                }
+            
         }
     }
 }

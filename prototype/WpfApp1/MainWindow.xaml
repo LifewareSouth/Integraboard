@@ -19,7 +19,6 @@
         <Storyboard x:Key="CloseMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-500,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
         </Storyboard>
-
         
     </Window.Resources>
 
@@ -72,10 +71,8 @@
                             Height="60"
                             Width="200"
                             Content="Notificaciones"
-                            Background="#1597e5"
-                            Foreground="White"
+                            Style="{StaticResource notificaciones}"
                             FontSize="20"
-                            FontFamily="Arial"
                             FontWeight="Bold"
                             />
 
@@ -104,9 +101,9 @@
                                 VerticalAlignment="Center">
 
                         <Button x:Name="pictogramas"
+                                Style="{StaticResource pictogramBtn}"
                                 Content="Pictogramas"
                                 Height="200" Width="200"
-                                Background="#ffe162"
                                 FontSize="20"
                                 FontFamily="Arial"
                                 FontWeight="Bold"
@@ -114,12 +111,13 @@
 
                         <Button x:Name="perfil"
                                 Content="Perfil"
+                                Style="{StaticResource perfilBtn}"
                                 Height="200" Width="200"
                                 Margin="0,40,0,0"
-                                Background="#9ede73"
                                 FontSize="20"
                                 FontFamily="Arial"
-                                FontWeight="Bold" Click="perfil_Click"/>
+                                FontWeight="Bold" 
+                                Click="perfil_Click"/>
 
                     </StackPanel>
 
@@ -129,8 +127,8 @@
 
                         <Button x:Name="tableros"
                                 Content="Tableros"
+                                Style="{StaticResource tablerosBtn}"
                                 Height="200" Width="200"
-                                Background="#69dadb"
                                 FontSize="20"
                                 FontFamily="Arial"
                                 FontWeight="Bold"
@@ -138,9 +136,9 @@
 
                         <Button x:Name="profesionales"
                                 Content="Profesionales"
+                                Style="{StaticResource profeBtn}"
                                 Height="200" Width="200"
                                 Margin="0,40,0,0"
-                                Background="#ff75a0"
                                 FontSize="20"
                                 FontFamily="Arial"
                                 FontWeight="Bold"/>
@@ -156,10 +154,8 @@
                                 Height="60"
                                 Width="200"
                                 Content="Cerrar Sesion"
-                                Background="#fff8cd"
-                                Foreground="Black"
+                                Style="{StaticResource cerrarSesion}"
                                 FontSize="20"
-                                FontFamily="Arial"
                                 FontWeight="Bold"
                                 Margin="0,5,0,0"/>
                         
@@ -168,10 +164,9 @@
                                 Height="60"
                                 Width="200"
                                 Content="Salir"
+                                Style="{StaticResource closeProgram}"
                                 Background="#ff6464"
-                                Foreground="Black"
                                 FontSize="20"
-                                FontFamily="Arial"
                                 FontWeight="Bold"
                                 Margin="0,10,0,0"
                                 Click="Salir_Click"
