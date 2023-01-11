@@ -30,32 +30,32 @@
                    VerticalContentAlignment="Center"
                    Grid.Column="0"/>
             <Button x:Name="closebtn"
-                    Content="X"
                     Grid.Column="1" 
                     Background="{x:Null}" 
                     BorderBrush="{x:Null}" 
                     Foreground="White" 
                     FontSize="30"
-                    FontWeight="Bold" 
-                    Click="closebtn_Click"
-                    />
+                    FontWeight="Bold" Click="closebtn_Click">
+                <Image Source="{DynamicResource closeButton}"
+                       Height="45"
+                       Width="40"/>
+            </Button>
         </Grid>
         <Grid Grid.Row="1">
-            <Button Content="OK"
+            <Button 
                     FontSize="20"
                     Foreground="black" 
                     Click="Button_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="100"
-                                    Height="200"
-                                    Width="200"
+                        <Border CornerRadius="100"
+                                    Height="180"
+                                    Width="180"
                                     BorderBrush="#707070"
-                                    BorderThickness="4">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="center"/>
+                                    BorderThickness="1">
+                            <Image Source="{DynamicResource success}"/>
 
-                            </Border>
+                        </Border>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>

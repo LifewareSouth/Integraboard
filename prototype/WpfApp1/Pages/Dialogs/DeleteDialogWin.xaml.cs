@@ -11,14 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 
 namespace WpfApp1.Pages.Dialogs
 {
     public partial class DeleteDialogWin : Window
     {
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
         public DeleteDialogWin()
         {
             InitializeComponent();
+            this.Resources["closeButton"] = closeButton;
         }
 
         private void closebtn_Click(object sender, RoutedEventArgs e)

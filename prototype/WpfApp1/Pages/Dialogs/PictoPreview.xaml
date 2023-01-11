@@ -9,7 +9,9 @@
         WindowStyle = "None"
         ResizeMode = "NoResize">
     <Grid Background="#04293a">
-
+        <Border BorderBrush="#707070"
+                BorderThickness="2"
+                Grid.RowSpan="2"/>
         <Grid Grid.Row="1"
               Background="White"
               Height="380"
@@ -18,7 +20,7 @@
                 Height="380"
                 Width="380"
                 BorderBrush="DeepPink"
-                BorderThickness="10"
+                BorderThickness="12"
                 Grid.Row="1">
                 <StackPanel>
                     <Image x:Name="pictoPreview"
@@ -37,20 +39,25 @@
 
             </Border>
         </Grid>
-
+        <Label Content="Previsualización"
+               Foreground="White"
+               FontSize="30"
+               FontFamily="arial"
+               FontWeight="SemiBold"
+               Margin="20,10,0,0"/>
         <Button x:Name="closePreview"
-                Content="X" 
                 Background="{x:Null}" 
                 BorderBrush="{x:Null}" 
-                Foreground="White" 
-                FontSize="20"
-                FontWeight="Bold"
                 HorizontalAlignment="Right"
-                Margin="0,0,15,0"
+                Margin="0,0,20,0"
                 VerticalAlignment="Center"
-                Click="closePreview_Click" Height="30" Width="17"
-                    />
-
+                Click="closePreview_Click"
+                Height="50"
+                Width="50">
+            <Image Source="{DynamicResource closeButton}"
+                   Height="45"
+                   Width="40"/>
+        </Button>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>

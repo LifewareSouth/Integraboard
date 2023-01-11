@@ -36,6 +36,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class CrearTableros : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static pictTablero CuadroSeleccionado = new pictTablero();
         static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
@@ -66,12 +67,14 @@ namespace WpfApp1.Pages.Tableros
             pictPortada = Repository.Instance.defaultPict();
             AjustarTablero();
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
+            this.Resources["volver"] = volver;
 
         }
         public CrearTableros(Board boardEdit)
         {
 
             InitializeComponent();
+            this.Resources["volver"] = volver;
             isEditing = true;
             listaPictTablero = new Collection<pictTablero>();
             ListaEtiquetasTableros = Repository.Instance.getAllEtiquetasTableros();
@@ -604,32 +607,42 @@ namespace WpfApp1.Pages.Tableros
         {
             pictTablero target = (pictTablero)TargetTodoComunicacionItem;
             pictTablero pictToMove = (pictTablero)InsertedTodoComunicacionItem;
-            if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
-            {
-                if (pictToMove != null)
+            try {
+                if (Tablero.SelectedItem != null)
                 {
-
-                    if (pictToMove.idPictograma != 0)
+                    if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                     {
-                        if (target.idPictograma == 0)
+                        if (pictToMove != null)
                         {
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                        }
-                        else
-                        {
-                            int tempx = pictToMove.x;
-                            int tempy = pictToMove.y;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
-                            listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
-                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
-                            listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
-                        }
 
-                        AjustarTablero();
+                            if (pictToMove.idPictograma != 0)
+                            {
+                                if (target.idPictograma == 0)
+                                {
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                                }
+                                else
+                                {
+                                    int tempx = pictToMove.x;
+                                    int tempy = pictToMove.y;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().x = target.x;
+                                    listaPictTablero.Where(x => x.idPictograma == pictToMove.idPictograma).First().y = target.y;
+                                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().x = tempx;
+                                    listaPictTablero.Where(x => x.idPictograma == target.idPictograma).First().y = tempy;
+                                }
+
+                                AjustarTablero();
+                            }
+                        }
                     }
                 }
             }
+            catch
+            {
+                this.NavigationService.GoBack();
+            }
+
         }
     }
 }

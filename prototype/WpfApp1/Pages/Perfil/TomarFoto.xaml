@@ -52,11 +52,9 @@
                 <Button x:Name="btnStart"
                         Height="80"
                         Width="200"
-                        Background="#1597e5"
                         Content="Tomar Foto"
-                        FontFamily="arial"
                         FontSize="25"
-                        Foreground="White"
+                        Style="{StaticResource btnDefault}"
                         Margin="0,150,0,0"
                         Click ="btnStart_Click"
                         Cursor="Hand"/>
@@ -84,20 +82,18 @@
                     <Button x:Name="btn_aceptar"
                             Height="50"
                             Width="150"
-                            Background="#1597e5"
                             IsEnabled="False"
                             Content="Guardar"
-                            Foreground="White"
                             FontSize="25"
+                            Style="{StaticResource btnDefault}"
                             Click="btnSave_Click"/>
 
                     <Button x:Name="Cancelar"
                             Height="50"
                             Width="150"
-                            Background="#ff6464"
                             Content="Cancelar"
-                            Foreground="White"
                             FontSize="25"
+                            Style="{StaticResource cancel}"
                             Margin="10,0,0,0"
                             Click="btn_cancelar_Click"/>
 

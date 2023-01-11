@@ -130,17 +130,21 @@
 
         <StackPanel Orientation="Horizontal">
             <!--Botón para volver al menú-->
+            
             <Button x:Name="volverMenu"
-                    Width="180"
-                    Height="70"
                     Margin="20,0,20,0"
-                    Content="Menú"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
-                    Click="goToMenu"/>
+                    Style="{StaticResource btnVolver}"
+                    Click="goToMenu">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{DynamicResource volver}"
+                           Height="45"
+                           Width="45"
+                           Margin="-71,0,10,0"/>
+                    <TextBlock Text="Menú"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </Button>
             <!---->
             <Label Content="Tableros" 
                    FontFamily="Arial"
@@ -203,11 +207,8 @@
                     Grid.Row="2" 
                     Height="90"
                     Width="180"
-                    Background="#1597e5"
-                    FontFamily="Arial"
-                    FontSize="25"
-                    FontWeight="SemiBold"
-                    Foreground="white" 
+                    Style="{StaticResource btnDefault}"
+                    FontSize="25" 
                     />
 
             <Button x:Name="botonAsignar"
@@ -216,11 +217,9 @@
                     Grid.Row="2" 
                     Height="90"
                     Width="180"
-                    Background="#1597e5"
-                    FontFamily="Arial"
+                    Style="{StaticResource btnDefault}"
                     FontSize="25"
-                    FontWeight="SemiBold"
-                    Foreground="White" Click="botonAsignar_Click"
+                    Click="botonAsignar_Click"
                     />
 
             <Button x:Name="Editar" Content="Editar"
@@ -228,11 +227,9 @@
                     Grid.Row="3" 
                     Height="90"
                     Width="180"
-                    Background="#1597e5"
-                    FontFamily="Arial"
+                    Style="{StaticResource btnDefault}"
                     FontSize="25"
-                    FontWeight="SemiBold"
-                    Foreground="white" Click="Editar_Click"/>
+                    Click="Editar_Click"/>
 
             <Button x:Name="btnEliminar"
                     Content="Eliminar"
@@ -240,11 +237,8 @@
                     Grid.Row="3" 
                     Height="90"
                     Width="180"
-                    Background="#1597e5"
-                    FontFamily="Arial"
-                    FontSize="25"
-                    FontWeight="SemiBold"
-                    Foreground="white" 
+                    Style="{StaticResource btnDefault}"
+                    FontSize="25" 
                     Click="btnEliminar_Click"
                     />
             <Button x:Name="btnExportarImportar"
@@ -253,8 +247,9 @@
                     Grid.ColumnSpan="2"
                     Height="100"
                     Width="280"
-                    Background="#1597e5"
-                    HorizontalAlignment="Center" Click="btnExportarImportar_Click"
+                    Style="{StaticResource btnDefault}"
+                    HorizontalAlignment="Center" 
+                    Click="btnExportarImportar_Click"
                     >
                 <TextBlock Text="Importar/Exportar"
                            FontFamily="Arial"

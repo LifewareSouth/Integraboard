@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,12 +24,16 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class ImportarExportar : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         List<Pictogram> listaTotalPict = new List<Pictogram>();
         string importpath="";
         List<Pictogram> importTempData = new List<Pictogram>();
+        BackgroundWorker worker;
+        CargandoDialog cargando;
         public ImportarExportar()
         {
             InitializeComponent();
+            
         }
         public ImportarExportar(List<Pictogram>exportPict)
         {
@@ -36,6 +41,7 @@ namespace WpfApp1.Pages.Pictogramas
             Repository.Instance.deleteTempData();
             listaTotalPict = exportPict;
             listviewExportar.ItemsSource = listaTotalPict;
+            this.Resources["volver"] = volver;
         }
 
         private void exportarSeleccionados_Click(object sender, RoutedEventArgs e)
@@ -62,11 +68,12 @@ namespace WpfApp1.Pages.Pictogramas
                     {
                         Directory.CreateDirectory(pathtoSave + "\\pictogramasGuardados\\sonidos");
                     }
+                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave,"pictogramas");
                     SuccessDialog success = new SuccessDialog("Exportacion completa");
                     success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     success.Show();
-                    Repository.Instance.exportPictogramas(pictogramasExportar,pathtoSave,"pictogramas");
                 }
+                this.NavigationService.GoBack();
             }
         }
 
@@ -121,18 +128,54 @@ namespace WpfApp1.Pages.Pictogramas
         {
             if (listviewImportar.SelectedItems.Count > 0)
             {
+                int total_elementos = listviewImportar.SelectedItems.Count;
                 List<Pictogram> pictSeleccionados = new List<Pictogram>();
                 foreach (Pictogram pict in listviewImportar.SelectedItems)
                 {
                     pictSeleccionados.Add(pict);
                 }
-                Repository.Instance.importPictograms(pictSeleccionados, importpath);
+                cargando = new CargandoDialog();
+                cargando.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                System.Windows.Threading.Dispatcher dispatcher = cargando.Dispatcher;
+
+                worker = new BackgroundWorker();
+                worker.WorkerReportsProgress = true;
+                worker.WorkerSupportsCancellation = true;
+
+                worker.DoWork += delegate (object s, DoWorkEventArgs args)
+                {
+                    for (int i = 0; i < total_elementos; i++)
+                    {
+
+                        if (worker.CancellationPending)
+                        {
+                            args.Cancel = true;
+                            return;
+                        }
+                        Repository.Instance.importPictograms(pictSeleccionados[i], importpath);
+                        //System.Threading.Thread.Sleep(1);
+                        worker.ReportProgress(Convert.ToInt32(((decimal)i / (decimal)total_elementos) * 100));
+                    }
+
+                };
+                worker.ProgressChanged += delegate (object s, ProgressChangedEventArgs args)
+                {
+                    cargando.ProgressText = args.ProgressPercentage.ToString() + "%";
+                };
+                worker.RunWorkerCompleted += delegate (object s, RunWorkerCompletedEventArgs args)
+                {
+                    cargando.Close();
+                };
+                worker.RunWorkerAsync();
+                cargando.ShowDialog();
                 SuccessDialog success = new SuccessDialog("Importación completa");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
+                MainPicrogramasPage.Instance.runActualizarLista();
+                this.NavigationService.Navigate(new MainPicrogramasPage());
             }
         }
-
+                           
         private void volverMenu_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPicrogramasPage());
@@ -144,6 +187,11 @@ namespace WpfApp1.Pages.Pictogramas
         }
 
         private void cancelarExportar_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPicrogramasPage());
+        }
+
+        private void GoToPictogramas(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPicrogramasPage());
         }

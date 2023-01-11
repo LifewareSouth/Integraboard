@@ -25,6 +25,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class SelectSound : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         Mp3FileReader reader;
         IWavePlayer waveOut;
         SoundModel sonidoReproducible = new SoundModel();
@@ -43,6 +44,7 @@ namespace WpfApp1.Pages.Pictogramas
         {
             InitializeComponent();
             actualizarListaSonidos();
+            this.Resources["volver"] = volver;
         }
         private void actualizarListaSonidos()
         {
@@ -145,6 +147,11 @@ namespace WpfApp1.Pages.Pictogramas
                 CrearPictos.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
                 this.NavigationService.GoBack();
             }
+        }
+
+        private void GoToPictogramas(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

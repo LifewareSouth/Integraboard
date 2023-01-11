@@ -34,6 +34,7 @@ namespace WpfApp1.Pages.Perfil
     /// </summary>
     public partial class PerfilAlumno : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.camera);
         private static BitmapImage nombre = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.nombreConTexto);
         private static BitmapImage edad = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.edadConTexto);
@@ -105,6 +106,7 @@ namespace WpfApp1.Pages.Perfil
             this.Resources["menosEdad"] = menos;
             this.Resources["masEdad"] = mas;
             this.Resources["sound"] = sound;
+            this.Resources["volver"] = volver;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {

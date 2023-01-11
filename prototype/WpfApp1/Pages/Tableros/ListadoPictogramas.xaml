@@ -13,17 +13,20 @@
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="0">
             <!--Botón para volver al menú-->
-            <Button x:Name="volverMenu"
-                    Width="180"
-                    Height="70"
-                    Margin="20,0,20,0"
-                    Content="Tableros"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
-                    />
+
+            <Button x:Name="volverTableros"
+                    Style="{StaticResource btnVolver}"
+                    Margin="20,0,20,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{DynamicResource volver}"
+                           Height="45"
+                           Width="45"
+                           Margin="-30,0,20,0"/>
+                    <TextBlock Text="Tableros"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </Button>
             <!---->
             <Label Content="Seleccionar Pictogramas" 
                    FontFamily="Arial"
@@ -127,17 +130,15 @@
                                 Content="Guardar"
                                 Height="50"
                                 Width="150"
-                                Background="#1597e5"
-                                Foreground="White"
+                                Style="{StaticResource guardar}"
                                 FontSize="25" Click="btn_aceptar_Click"
                                 />
 
                 <Button x:Name="Cancelar"
                             Height="50"
                             Width="150"
-                            Background="#ff6464"
+                            Style="{StaticResource cancel}"
                             Content="Cancelar"
-                            Foreground="White"
                             FontSize="25"
                             Margin="10,0,0,0" Click="Cancelar_Click"
                             />

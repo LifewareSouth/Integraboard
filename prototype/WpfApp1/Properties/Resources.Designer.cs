@@ -73,6 +73,16 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrowBlanca {
+            get {
+                object obj = ResourceManager.GetObject("arrowBlanca", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap camera {
             get {
                 object obj = ResourceManager.GetObject("camera", resourceCulture);
@@ -106,16 +116,6 @@ namespace WpfApp1.Properties {
         internal static System.Drawing.Bitmap close_cruz_invertida {
             get {
                 object obj = ResourceManager.GetObject("close_cruz_invertida", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap close_invertido {
-            get {
-                object obj = ResourceManager.GetObject("close_invertido", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -236,6 +236,16 @@ namespace WpfApp1.Properties {
         internal static System.Drawing.Bitmap stopwatch {
             get {
                 object obj = ResourceManager.GetObject("stopwatch", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap successCheck {
+            get {
+                object obj = ResourceManager.GetObject("successCheck", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

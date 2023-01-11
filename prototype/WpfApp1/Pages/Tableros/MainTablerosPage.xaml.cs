@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,6 +28,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class MainTablerosPage : Page
     {
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoLista = false;
         static List<Board> listaTableros = new List<Board>();
@@ -46,6 +48,7 @@ namespace WpfApp1.Pages.Tableros
             InitializeComponent();
             tiposTablero();
             actualizarListaTableros();
+            this.Resources["volver"] = volver;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -262,6 +265,7 @@ namespace WpfApp1.Pages.Tableros
         private void btnExportarImportar_Click(object sender, RoutedEventArgs e)
         {
             //navigate a la page de I/E
+            this.NavigationService.Navigate(new ImportarExportarTableros(listaTableros));
         }
     }
 }
