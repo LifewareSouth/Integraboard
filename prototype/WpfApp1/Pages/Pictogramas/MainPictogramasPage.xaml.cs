@@ -50,6 +50,7 @@ namespace WpfApp1
             }
             CategoriaPict.Text = "Todas";
             ActualizarLista();
+            
         }
         private void ActualizarLista()
         {
@@ -189,5 +190,6 @@ namespace WpfApp1
         {
             return listaPict;
         }
+
     }
 }

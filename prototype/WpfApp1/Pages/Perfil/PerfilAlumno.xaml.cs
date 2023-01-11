@@ -83,7 +83,7 @@ namespace WpfApp1.Pages.Perfil
                 mediumFont.Background = new SolidColorBrush(Colors.Cornsilk);
                 mediumFont.Foreground = new SolidColorBrush(Colors.Black);
             }
-            else if (datosPerfil.tamaño == "Grande")
+            else if (datosPerfil.tamaño == "Pequeño")
             {
                 smallFont.Background = new SolidColorBrush(Colors.Cornsilk);
                 smallFont.Foreground = new SolidColorBrush(Colors.Black);
@@ -299,6 +299,10 @@ namespace WpfApp1.Pages.Perfil
                 SuccessDialog success = new SuccessDialog("Perfil Actualizado");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
+
+                Repository.Instance.getProfileSize();
+                
+
                 this.NavigationService.Navigate(new MenuPage());
             }
         }

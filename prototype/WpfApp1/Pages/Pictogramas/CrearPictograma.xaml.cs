@@ -60,6 +60,7 @@ namespace WpfApp1.Pages.Pictogramas
             pictoBorde.BorderBrush = Repository.Instance.categoryColor("Verbos");
             ListaEtiquetas = Repository.Instance.getAllEtiquetas();
             this.Resources["volver"] = volver;
+            App.Current.Properties["TestProperty"] = 10;
         }
         private void rellenarCategorias()
         {
