@@ -18,14 +18,8 @@
                     Grid.Row="0">
             <!--Botón para volver al menú-->
             <Button x:Name="volverMenu"
-                    Width="250"
-                    Height="70"
                     Margin="20,0,20,0"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
+                    Style="{StaticResource btnVolver}"
                     Click="GoToPictogramas">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
@@ -69,21 +63,15 @@
                 <Button x:Name="GuardarPict" Content="Guardar"
                         Height="40"
                         Width="150"
-                        FontFamily="arial"
-                        FontWeight="SemiBold"
+                        Style="{StaticResource btnDefault}"
                         FontSize="20"
-                        Foreground="White"
-                        Background="#1597e5"
                         Click="GuardarPict_Click"
                         />
                 <Button x:Name="Cancelar" Content="Cancelar"
                         Height="40"
                         Width="150"
-                        FontFamily="arial"
-                        FontWeight="SemiBold"
+                        Style="{StaticResource cancel}"
                         FontSize="20"
-                        Foreground="White"
-                        Background="#ff6464"
                         Margin="20,0,0,0" Click="Cancelar_Click"/>
             </StackPanel>
 
@@ -115,10 +103,8 @@
                     <Button x:Name="SelectImage"
                             Height="80"
                             Width="200"
-                            Background="#1597e5"
                             Content="Seleccionar Imagen"
-                            Foreground="White"
-                            FontFamily="Arial"
+                            Style="{StaticResource btnDefault}"
                             FontSize="18"
                             FontWeight="SemiBold" 
                             Click="SelectImage_Click"
@@ -128,10 +114,8 @@
                             Height="80"
                             Width="200"
                             Margin="10"
-                            Background="#1597e5"
                             Content="Tomar Fotografía"
-                            Foreground="White"
-                            FontFamily="Arial"
+                            Style="{StaticResource btnDefault}"
                             FontSize="18"
                             FontWeight="SemiBold" Click="TakePicture_Click"/>
                 </StackPanel>
@@ -293,9 +277,7 @@
                             Height="55"
                             Width="150"
                             Content="Seleccionar Sonido"
-                            Background="#1597e5"
-                            Foreground="White"
-                            FontFamily="Arial"
+                            Style="{StaticResource btnDefault}"
                             FontSize="15"
                             Margin="15" 
                             Click="SelectSound_Click"/>

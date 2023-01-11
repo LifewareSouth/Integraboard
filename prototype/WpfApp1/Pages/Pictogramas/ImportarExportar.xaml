@@ -12,14 +12,8 @@
         <StackPanel Orientation="Horizontal">
             <!--Botón para volver al menú-->
             <Button x:Name="volverMenu"
-                    Width="250"
-                    Height="70"
                     Margin="20,0,20,0"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
+                    Style="{StaticResource btnVolver}"
                     Click="GoToPictogramas">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
@@ -209,7 +203,8 @@
                                             Margin="50,0,0,0" Width="314">
                                     <Button x:Name="importSeleccionarCarpeta" Height="90"
                                             Width="250"
-                                            Background="#1597e5" Click="importSeleccionarCarpeta_Click">
+                                            Style="{StaticResource btnDefault}" 
+                                            Click="importSeleccionarCarpeta_Click">
                                         <TextBlock Text="Seleccionar Carpeta"
                                                    FontFamily="Arial"
                                                    FontSize="30"
@@ -221,8 +216,9 @@
 
                                     <Button x:Name="importSelectAll" Height="90"
                                             Width="250"
-                                            Background="#1597e5"
-                                            Margin="0,50,0,50" Click="importSelectAll_Click">
+                                            Style="{StaticResource btnDefault}"
+                                            Margin="0,50,0,50" 
+                                            Click="importSelectAll_Click">
                                         <TextBlock x:Name="importSelectAllText" Text="Seleccionar Todos"
                                                    FontFamily="Arial"
                                                    FontSize="30"
@@ -234,7 +230,8 @@
 
                                     <Button x:Name="importarSeleccionados" Height="90"
                                             Width="250"
-                                            Background="#1597e5" Click="importarSeleccionados_Click">
+                                            Style="{StaticResource btnDefault}" 
+                                            Click="importarSeleccionados_Click">
                                         <TextBlock Text="Importar Seleccionados"
                                                    FontFamily="Arial"
                                                    FontSize="30"
@@ -249,8 +246,7 @@
                                             Height="50"
                                             Width="200"
                                             Margin="0,100,0,0"
-                                            Background="#ff6464"
-                                            FontFamily="NotoSans"
+                                            Style="{StaticResource cancel}"
                                             FontSize="25"
                                             FontWeight="SemiBold"
                                             Foreground="white" Click="cancelarImportar_Click"/>
@@ -388,7 +384,7 @@
                                             Margin="50,0,0,0" Width="314">
                                     <Button x:Name="exportSelectAll" Height="90"
                                             Width="250"
-                                            Background="#1597e5" Click="exportSelectAll_Click">
+                                            Style="{StaticResource btnDefault}" Click="exportSelectAll_Click">
                                         <TextBlock x:Name="exportSelectAllText" Text="Seleccionar Todos"
                                                    FontFamily="Arial"
                                                    FontSize="30"
@@ -400,7 +396,7 @@
 
                                     <Button x:Name="exportarSeleccionados" Height="90"
                                         Width="250"
-                                        Background="#1597e5"
+                                        Style="{StaticResource btnDefault}"
                                             Margin="0,50,0,0" Click="exportarSeleccionados_Click">
                                         <TextBlock Text="Exportar Seleccionados"
                                                    FontFamily="Arial"
@@ -416,11 +412,9 @@
                                             Height="50"
                                             Width="200"
                                             Margin="0,240,0,0"
-                                            Background="#ff6464"
-                                            FontFamily="NotoSans"
+                                            Style="{StaticResource cancel}"
                                             FontSize="25"
-                                            FontWeight="SemiBold"
-                                            Foreground="white" Click="cancelarExportar_Click"/>
+                                            Click="cancelarExportar_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

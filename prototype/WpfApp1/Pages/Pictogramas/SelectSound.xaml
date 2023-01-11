@@ -18,14 +18,8 @@
                     Grid.Row="0">
             <!--Botón para volver al menú-->
             <Button x:Name="volverMenu"
-                    Width="250"
-                    Height="70"
                     Margin="20,0,20,0"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
+                    Style="{StaticResource btnVolver}"
                     Click="GoToPictogramas">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
@@ -157,14 +151,12 @@
                                 Width="250"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Background="#1597e5"
+                                Style="{StaticResource btnDefault}"
                                 Margin="50"
                                 Click="AddSounds_Click">
                             <TextBlock Text="Agregar sonidos nuevos"
                                    TextWrapping="Wrap"
-                                   Foreground="White"
                                    FontSize="25"
-                                   FontWeight="SemiBold"
                                    TextAlignment="Center"/>
                         </Button>
                         <Button x:Name="RecordSound"
@@ -173,20 +165,17 @@
                                 Content="Grabar un Sonido"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Background="#1597e5"
-                                Foreground="White"
+                                Style="{StaticResource btnDefault}"
                                 FontSize="25"
-                                FontWeight="SemiBold" Click="RecordSound_Click"
+                                Click="RecordSound_Click"
                                 />
                         <Button x:Name="playbtn"
                                 Height="50"
                                 Width="200"
                                 Margin="0,30,0,0"
                                 Content="Reproducir"
-                                Background="#1597e5"
-                                Foreground="White"
+                                Style="{StaticResource btnDefault}"
                                 FontSize="25"
-                                FontWeight="SemiBold" 
                                 Click="playbtn_Click"
                                 />
                         <Button x:Name="pausebtn"
@@ -194,10 +183,8 @@
                                 Width="200"
                                 Margin="0,10,0,0"
                                 Content="Pausar"
-                                Background="#1597e5"
-                                Foreground="White"
                                 FontSize="25"
-                                FontWeight="SemiBold" 
+                                Style="{StaticResource btnDefault}"
                                 Click="pausebtn_Click"
                                 IsEnabled="False"
                                 />
@@ -212,20 +199,19 @@
                                 Grid.RowSpan="2">
 
                         <Button x:Name="btn_aceptar"
-                            Height="50"
-                            Width="150"
-                            Background="#1597e5"
-                            Content="Guardar"
-                            Foreground="White"
-                            FontSize="25" Click="btn_aceptar_Click"
+                                Height="50"
+                                Width="150"
+                                Content="Guardar"
+                                Style="{StaticResource btnDefault}"
+                                FontSize="25" 
+                                Click="btn_aceptar_Click"
                             />
 
                         <Button x:Name="Cancelar"
                             Height="50"
                             Width="150"
-                            Background="#ff6464"
                             Content="Cancelar"
-                            Foreground="White"
+                            Style="{StaticResource cancel}"
                             FontSize="25"
                             Margin="10,0,0,0" Click="Cancelar_Click"
                             />

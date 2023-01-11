@@ -17,14 +17,8 @@
             <!--Botón para volver al menú-->
             
             <Button x:Name="volverPictos"
-                    Width="250"
-                    Height="70"
                     Margin="20,0,20,0"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
+                    Style="{StaticResource btnVolver}"
                     Click="GoToCrearPictos">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
@@ -79,11 +73,9 @@
                 <Button x:Name="btnStart"
                         Height="80"
                         Width="200"
-                        Background="#1597e5"
+                        Style="{StaticResource btnDefault}"
                         Content="Tomar Foto"
-                        FontFamily="arial"
                         FontSize="25"
-                        Foreground="White"
                         Margin="0,150,0,0"
                         Click ="btnStart_Click"
                         Cursor="Hand"/>
@@ -91,13 +83,11 @@
                 <Button x:Name="btnTomarOtra"
                         Height="80"
                         Width="200"
-                        Background="#1597e5"
+                        Style="{StaticResource btnDefault}"
                         Visibility="Hidden"
                         Margin="0,20,0,0" Click="btnTomarOtra_Click">
                     <TextBlock Text="Volver a tomar fotografía"
-                               FontFamily="arial"
                                FontSize="25"
-                               Foreground="White"
                                TextWrapping="Wrap"
                                TextAlignment="Center"/>
                 </Button>
@@ -110,19 +100,17 @@
                     <Button x:Name="btn_aceptar"
                             Height="50"
                             Width="150"
-                            Background="#1597e5"
+                            Style="{StaticResource btnDefault}"
                             IsEnabled="False"
                             Content="Guardar"
-                            Foreground="White"
                             FontSize="25"
                             Click="btnSave_Click"/>
                     
                     <Button x:Name="Cancelar"
                             Height="50"
                             Width="150"
-                            Background="#ff6464"
                             Content="Cancelar"
-                            Foreground="White"
+                            Style="{StaticResource cancel}"
                             FontSize="25"
                             Margin="10,0,0,0"
                             Click="btn_cancelar_Click"/>

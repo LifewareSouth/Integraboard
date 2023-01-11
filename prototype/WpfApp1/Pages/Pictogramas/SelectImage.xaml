@@ -19,14 +19,8 @@
             <!--Botón para volver al menú-->
             
             <Button x:Name="volverPictos"
-                    Width="250"
-                    Height="70"
                     Margin="20,0,20,0"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5"
+                    Style="{StaticResource btnVolver}"
                     Click="volverPictos_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
@@ -149,13 +143,11 @@
                             Width="250"
                             Grid.Row="1"
                             Grid.Column="0"
-                            Background="#1597e5"
+                            Style="{StaticResource btnDefault}"
                             Click="AddImages_Click">
                         <TextBlock Text="Agregar imágenes nuevas"
                                    TextWrapping="Wrap"
-                                   Foreground="White"
                                    FontSize="25"
-                                   FontWeight="SemiBold"
                                    TextAlignment="Center"/>
                     </Button>
                     <StackPanel Orientation="Horizontal"
@@ -169,11 +161,10 @@
                                 Content="Guardar"
                                 Height="50"
                                 Width="150"
-                                Background="#1597e5"
-                                Foreground="White"
-
+                                Style="{StaticResource btnDefault}"
                                 FontSize="25"
-                                IsEnabled="False" Click="btn_aceptar_Click"
+                                IsEnabled="False" 
+                                Click="btn_aceptar_Click"
                                 
                             />
 
@@ -181,9 +172,9 @@
                         <Button x:Name="Cancelar"
                             Height="50"
                             Width="150"
-                            Background="#ff6464"
+                            Style="{StaticResource cancel}"
                             Content="Cancelar"
-                            Foreground="White"
+                            
                             FontSize="25"
                             Margin="10,0,0,0" Click="Cancelar_Click"
                             />

@@ -15,14 +15,8 @@
                     Grid.Row="0">
             <!--Botón para volver al menú-->
             <Button x:Name="volverPictos"
-                    Width="250"
-                    Height="70"
-                    Margin="20,0,20,0"
-                    FontFamily="arial"
-                    FontSize="30"
-                    FontWeight="SemiBold"
-                    Foreground="white"
-                    Background="#1597e5">
+                    Style="{StaticResource btnVolver}"
+                    Margin="20,0,20,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
                            Height="45"
@@ -75,10 +69,8 @@
                                 Height="80"
                                 Width="200"
                                 Margin="20"
-                                Background="#1597e5"
-                                Foreground="White"
                                 FontSize="25"
-                                FontWeight="SemiBold"
+                                Style="{StaticResource btnDefault}"
                                 Click="playbtn_Click"/>
 
                         <Border BorderBrush="White"
@@ -125,10 +117,8 @@
                             Width="200"
                             Height="100"
                             Margin="20"
-                            Background="#1597e5"
-                            Foreground="White"
                             FontSize="25"
-                            FontWeight="SemiBold" 
+                            Style="{StaticResource btnDefault}"
                         Click="record_btn_Click"/>
                     <!--boton de terminar grabación-->
 
@@ -137,10 +127,8 @@
                             Width="200"
                             Height="100"
                             Margin="20"
-                            Background="#1597e5"
-                            Foreground="White"
                             FontSize="25"
-                            FontWeight="SemiBold"
+                            Style="{StaticResource btnDefault}"
                         Click="save_Click">
                         <TextBlock Text="Terminar Grabacion"
                                    TextWrapping="Wrap"/>
@@ -160,8 +148,7 @@
                             IsEnabled="False"
                             Height="50"
                             Width="300"
-                            Background="#1597e5"
-                            Foreground="White"
+                            Style="{StaticResource btnDefault}"
                             FontSize="25"
                             Click="guardarbtn_Click"/>
 
@@ -169,9 +156,8 @@
                             Margin="10"
                             Height="50"
                             Width="150"
-                            Background="#ff6464"
                             Content="Cancelar"
-                            Foreground="White"
+                            Style="{StaticResource cancel}"
                             FontSize="25"
                             Click="cancelar_Click" 
                             RenderTransformOrigin="0.542,0.476"/>
