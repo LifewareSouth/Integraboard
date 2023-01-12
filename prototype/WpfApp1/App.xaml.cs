@@ -8,8 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
-
+using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1
 {
@@ -28,8 +27,6 @@ namespace WpfApp1
         {
 
             ReleaseEntry release = null;
-            IntegraBoard_Stand_Alone.Properties.Settings.Default.Actualizando = false;
-            IntegraBoard_Stand_Alone.Properties.Settings.Default.Save();
             try
             {
                 using (var mgr = new UpdateManager(GlobalConfig.UpdateUrl))
@@ -42,26 +39,21 @@ namespace WpfApp1
                     var updateinfo = await mgr.CheckForUpdate();
                     if (updateinfo.ReleasesToApply.Any())
                     {
-                        string mensaje = "Nueva versión disponible. ¿Quiere descargar ahora?";
-                        DialogResult dr = System.Windows.Forms.MessageBox.Show(mensaje, "Actualización disponible", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                        if (dr == DialogResult.Yes)
+                        update u = new update();
+                        u.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        var result = u.ShowDialog();
+
+                        if (result == true)
                         {
-                            IntegraBoard_Stand_Alone.Properties.Settings.Default.Actualizando = true;
-                            IntegraBoard_Stand_Alone.Properties.Settings.Default.Save();
-
 
                             release = await mgr.UpdateApp();
 
                             int pid = Process.GetCurrentProcess().Id;
-                            BackupDatabase();
-                            ;
-                            mensaje = "Descarga completa. ¿Desea reiniciar IntegraBoard ahora?";
-                            dr = System.Windows.Forms.MessageBox.Show(mensaje, "Descarga completa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (dr == DialogResult.Yes)
-                            {
-                                Restart(pid);
-                            }
+                            //BackupDatabase();
+                            string mensaje = "Descarga completa.\n ¿Desea reiniciar IntegraBoard ahora?";
+                            update up = new update(mensaje);
+                            //Restart(pid);
                         }
                     }
 
@@ -73,12 +65,6 @@ namespace WpfApp1
             {
                 Console.WriteLine(e.Message);
             }
-            finally
-            {
-                IntegraBoard_Stand_Alone.Properties.Settings.Default.Actualizando = false;
-                IntegraBoard_Stand_Alone.Properties.Settings.Default.Save();
-            }
-
 
         }
 
