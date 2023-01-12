@@ -45,6 +45,7 @@
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="NAudio" Version="2.1.0" />
     <PackageReference Include="NAudio.Lame" Version="2.0.1" />
+    <PackageReference Include="squirrel.windows" Version="1.5.1" />
     <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework" Version="1.0.116" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
@@ -129,12 +130,17 @@
     </Reference>
   </ItemGroup>
 
+
   <ItemGroup>
     <Reference Include="Lifeware.SoftwareCommon">
       <HintPath>..\LifewareSoftwareCommon\obj\Debug\Lifeware.SoftwareCommon.dll</HintPath>
     </Reference>
     <Reference Include="LifewareSoftwareLogic">
       <HintPath>..\resources\LifewareSoftwareLogic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\WindowsFormsIntegration.dll</HintPath>
     </Reference>
     <Reference Include="WindowsFormsIntegration">
       <HintPath>..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\WindowsFormsIntegration.dll</HintPath>
