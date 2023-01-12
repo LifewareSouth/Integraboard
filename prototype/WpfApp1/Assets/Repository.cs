@@ -1438,6 +1438,37 @@ namespace WpfApp1.Assets
             }
             return vozPerfil;
         }
+        public void getProfileSize()
+        {
+            string size = "";
+            using (SQLiteConnection conexion = new SQLiteConnection(SqliteConnection))
+            {
+                conexion.Open();
+                string query = "select tamaño from perfil where idPerfil = 1; ";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        size = dr["tamaño"].ToString();
+                    }
+                }
+                conexion.Close();
+            }
+            if (size == "Grande")
+            {
+                App.profileSize = 20;
+            }
+            else if (size == "Mediano")
+            {
+                App.profileSize = 15;
+            }
+            else if (size == "Pequeño")
+            {
+                App.profileSize = 10;
+            }
+        }
         public string exportPictogramas(List<Pictogram> listaPictogramas, string pathExport, string origen)
         {
             //pathExport = "C:\\Users\\Tomas\\Desktop\\test testing\\integraboar4";

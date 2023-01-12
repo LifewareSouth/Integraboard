@@ -106,7 +106,7 @@
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
                                                 Foreground="Black"
-                                                FontSize="15"
+                                                FontSize="{DynamicResource profileSize}"
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"
                                                 TextAlignment="Center"

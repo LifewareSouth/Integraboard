@@ -182,6 +182,7 @@ namespace WpfApp1.Pages.First_Use
                 SuccessDialog success = new SuccessDialog("Perfil creado");
                 success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 success.Show();
+                Repository.Instance.getProfileSize();
                 this.NavigationService.Navigate(new MenuPage());
             }
         }

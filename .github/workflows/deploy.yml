@@ -18,7 +18,7 @@ env:
 
   CICD_PATH: './cicd'
   NUSPEC_FILE_PATH: './cicd/app.nuspec'
-  SQUIRREL_VERSION: '2.0.0'
+  SQUIRREL_VERSION: '1.5.1'
   # SQUIRREL_ICON: './IntegraBoard/IntegraBoard/logolifewareintegra.ico'
   SQUIRREL_OUTPUT_PATH: './cicd/output'
   APP_ID: 'IntegraBoard 4'
@@ -49,7 +49,7 @@ jobs:
       - name: Restore solution nugget packages
         run: nuget restore $env:SOLUTION_PATH
 
-      - name: Build IntegraBoard_Stand_Alone.csproj (WPF app)
+      - name: Build WpfApp1.csproj (WPF app)
         run: msbuild ${{ env.SOLUTION_PATH }} /p:Platform=$env:TARGET_PLATFORM /p:Configuration=$env:CONFIGURATION /p:Version=${{env.ASSEMBLY_VERSION}} /p:InformationalVersion=${{env.ASSEMBLY_VERSION}}
       
       - name: Generate artifact (build folder)
@@ -148,7 +148,7 @@ jobs:
         run: \& ${{ env.CICD_PATH }}/squirrel-exe-artifact/squirrel.exe --releasify ${{ env.CICD_PATH }}/${{ env.APP_ID }}.${{env.ASSEMBLY_VERSION}}.nupkg --icon ${{ env.SQUIRREL_ICON }} --releaseDir ${{ env.SQUIRREL_OUTPUT_PATH }} -g .\loading-bar.gif  | Write-Output
 
       - name: check output and change name setup.exe
-        run:  cd ${{ env.SQUIRREL_OUTPUT_PATH }} && ls && mv Setup.exe IntegraBoardInstaller.exe
+        run:  cd ${{ env.SQUIRREL_OUTPUT_PATH }} && ls && mv Setup.exe WpfApp1.exe
 
       - name: Generate artifact (squirrel final exe)
         uses: actions/upload-artifact@v2

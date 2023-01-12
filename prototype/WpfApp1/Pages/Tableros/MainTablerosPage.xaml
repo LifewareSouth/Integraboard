@@ -202,13 +202,13 @@
 
 
 
-            <Button Content="Previsualizar"
+            <Button x:Name="Previsualizar" Content="Previsualizar"
                     Grid.Column="1" 
                     Grid.Row="2" 
                     Height="90"
                     Width="180"
                     Style="{StaticResource btnDefault}"
-                    FontSize="25" 
+                    FontSize="25" Click="Previsualizar_Click" 
                     />
 
             <Button x:Name="botonAsignar"

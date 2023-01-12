@@ -37,8 +37,7 @@
                         BorderBrush="{x:Null}" 
                         Foreground="White" 
                         FontSize="30"
-                        FontWeight="Bold"
-                        Click="closebtn_Click">
+                        FontWeight="Bold">
                     <Image Source="{DynamicResource closeButton}"
                        Height="45"
                        Width="40"/>
@@ -67,7 +66,6 @@
                         Foreground="white"
                         FontSize="20"
                         FontWeight="SemiBold" 
-                        Click="btnAceptar_Click"
                         IsDefault="True"
                         />
                     <Button x:Name="btnCancelar"
