@@ -151,7 +151,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void GoToPictogramas(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.GoBack();
         }
     }
 }

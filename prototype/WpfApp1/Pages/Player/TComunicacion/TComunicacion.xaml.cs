@@ -102,7 +102,10 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     {
                         if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                         {
-                            pictTablero pictTablero = (pictTablero)Tablero.SelectedItem;
+                            pictTablero pictTablero = new pictTablero();
+                            pictTablero tempPT = (pictTablero)Tablero.SelectedItem;
+                            pictTablero.pictograma = tempPT.pictograma;
+                            pictTablero.idPictograma = tempPT.idPictograma;
                             pictTablero.imagenEstado = incorrectoEsquinado;
                             ListaPictListado.Add(pictTablero);
                             columnsListado++;
@@ -134,11 +137,14 @@ namespace WpfApp1.Pages.Player.TComunicacion
             {
                 if (((pictTablero)Listado.SelectedItem).idPictograma != 0)
                 {
-                    ListaPictListado.Remove((pictTablero)Listado.SelectedItem);
+                    int idpt = ((pictTablero)Listado.SelectedItem).ID;
+                    ListaPictListado.Remove(ListaPictListado.Where(x=>x.ID==idpt).First());
                     columnsListado--;
+                    ajustarTamanoListado();
                     AjustarListado();
 
-                    ajustarTamanoListado();
+                    
+                    
                 }
             }
         }
@@ -271,11 +277,17 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     pictTab = ListaPictListado.Where(x => (x.x == j)).First();
                 }*/
                 pictTab = ListaPictListado[j];
+                pictTab.ID = j;
                 tempVistas.Add(pictTab);
             }
-            
             vistasListado = tempVistas;
-            Listado.ItemsSource = ListaPictListado;
+            Listado.ItemsSource = vistasListado;
+            List<pictTablero> tempListaPictListado = new List<pictTablero>();
+            foreach (pictTablero pt in vistasListado)
+            {
+                tempListaPictListado.Add(pt);
+            }
+            ListaPictListado = tempListaPictListado;
         }
     }
 }
