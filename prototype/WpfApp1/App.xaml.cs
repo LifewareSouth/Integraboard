@@ -18,6 +18,11 @@ namespace WpfApp1
     /// </summary>
     public partial class App : Application
     {
+        public static double profileSize
+        {
+            get => (double)Current.Resources["profileSize"];
+            set => Current.Resources["profileSize"] = value;
+        }
         public App()
         {
             Update();
@@ -87,6 +92,6 @@ namespace WpfApp1
             //System.Diagnostics.Process.Start("C:\\Users\\" + Environment.UserName + "\\AppData\\Local\\integraboard\\IntegraBoard_Stand_Alone.exe");
             Process.GetProcessById(pid).Kill();
         }
-
     }
+    
 }

@@ -40,6 +40,7 @@ namespace WpfApp1
         public MenuPage()
         {
             InitializeComponent();
+            
             actualizarLista();
         }
         private void actualizarLista()
@@ -72,5 +73,6 @@ namespace WpfApp1
                 }
             }
         }
+
     }
 }

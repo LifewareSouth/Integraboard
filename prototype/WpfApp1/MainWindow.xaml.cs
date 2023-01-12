@@ -40,6 +40,8 @@ namespace WpfApp1
             if (perfilExiste)
             {
                 Main.NavigationService.Navigate(new MenuPage());
+                Repository.Instance.getProfileSize();
+
             }
             else
             {
