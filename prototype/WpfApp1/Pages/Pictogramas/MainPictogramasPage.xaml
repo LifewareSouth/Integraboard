@@ -122,7 +122,7 @@
                                                        TextTrimming="CharacterEllipsis"
                                                        TextWrapping="Wrap"
                                                        Foreground="Black"
-                                                       FontSize="15"
+                                                       FontSize="13"
                                                        FontFamily="arial"
                                                        FontWeight="SemiBold"
                                                        TextAlignment="Center"
