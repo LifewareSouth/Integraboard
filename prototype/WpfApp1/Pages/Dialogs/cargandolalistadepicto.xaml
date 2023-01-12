@@ -1,0 +1,14 @@
+﻿<Window x:Class="WpfApp1.Pages.Dialogs.cargandolalistadepicto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs"
+        mc:Ignorable="d"
+        Title="cargandolalistadepicto" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBox HorizontalAlignment="Center" Margin="0,156,0,0" TextWrapping="Wrap" Text="cargando lista de pictogramas&#xD;&#xA;" VerticalAlignment="Top" Width="438" Height="117" FontSize="30"/>
+
+    </Grid>
+</Window>
