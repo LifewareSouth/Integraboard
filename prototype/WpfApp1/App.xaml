@@ -161,7 +161,9 @@
             <BitmapImage x:Key="volver" UriSource="Resources\arrowBlanca.png"/>
             <!-- dialogs -->
             <!-- BitmapImage x:Key="success" UriSource="Resources\successCheck.png" -->
-            
+
+            <!-- Tamaño texto pictogramas -->
+            <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="profileSize">12</sys:Double>
         </ResourceDictionary>
         
     </Application.Resources>
