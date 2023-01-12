@@ -18,6 +18,7 @@ using System.Windows.Shell;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
+using WpfApp1.Pages.Dialogs.VistaPrevia;
 using WpfApp1.Pages.Pictogramas;
 using WpfApp1.Pages.Tableros;
 
@@ -266,6 +267,31 @@ namespace WpfApp1.Pages.Tableros
         {
             //navigate a la page de I/E
             this.NavigationService.Navigate(new ImportarExportarTableros(listaTableros));
+        }
+
+        private void Previsualizar_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewTableros.SelectedItem != null)
+            {
+                if (boardSelected.tipo == "Comunicación")
+                {
+                    previaComunicacion pc = new previaComunicacion(boardSelected);
+                    pc.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    pc.ShowDialog();
+                }
+                else if (boardSelected.tipo == "Emociones")
+                {
+                    //this.NavigationService.Navigate(new TableroEmociones(boardSelected));
+                }
+                else if (boardSelected.tipo == "Rutina")
+                {
+                    //this.NavigationService.Navigate(new TableroRutina(boardSelected));
+                }
+                else if (boardSelected.tipo == "Sonidos")
+                {
+                    //this.NavigationService.Navigate(new TableroSonidos(boardSelected));
+                }
+            }
         }
     }
 }
