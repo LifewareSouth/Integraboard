@@ -24,10 +24,10 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.ColumnSpan="2" Name="Border"
               BorderBrush="{StaticResource ComboBoxNormalBorderBrush}" 
-              CornerRadius="0" BorderThickness="1, 1, 1, 1" 
+              CornerRadius="20" BorderThickness="1, 1, 1, 1" 
               Background="{StaticResource ComboBoxNormalBackgroundBrush}" />
                 <Border Grid.Column="1" Margin="1, 1, 1, 1" BorderBrush="#444" Name="ButtonBorder"
-              CornerRadius="0, 0, 0, 0" BorderThickness="0, 0, 0, 0" 
+              CornerRadius="20" BorderThickness="0, 0, 0, 0" 
               Background="{StaticResource ComboBoxNormalBackgroundBrush}" />
 
                 <Path Name="Arrow" Grid.Column="1" 
@@ -59,7 +59,7 @@
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
             <Setter Property="TextElement.Foreground" Value="White"/>
             <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
-            
+
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -80,7 +80,7 @@
                                      Foreground="White"
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center"
-                                     Focusable="True" >
+                                     Focusable="False" >
                                 <TextBox.Template>
                                     <ControlTemplate TargetType="TextBox" >
                                         <Border Name="PART_ContentHost" Focusable="False" />
@@ -119,6 +119,7 @@
                                 <Setter Property="UIElement.Visibility" TargetName="PART_EditableTextBox" Value="Visible"/>
                                 <Setter Property="UIElement.Visibility" TargetName="ContentSite" Value="Hidden"/>
                             </Trigger>
+                            
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
