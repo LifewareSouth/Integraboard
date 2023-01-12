@@ -12,9 +12,24 @@ namespace WpfApp1.Pages.Dialogs
         {
             InitializeComponent();
         }
+
+        public update(string msj)
+        {
+            InitializeComponent();
+            Mensaje.Text = msj;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
            
+        }
+        private void closebtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
         }
     }
 }

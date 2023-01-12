@@ -44,7 +44,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Row="1">
-                <TextBlock FontSize="30"
+                <TextBlock x:Name="Mensaje" FontSize="30"
                        TextWrapping="Wrap"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
