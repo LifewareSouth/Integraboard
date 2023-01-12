@@ -240,7 +240,7 @@
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
                                                 Foreground="black"
-                                                FontSize="25"
+                                                FontSize="{DynamicResource profileSize}"
                                                 FontFamily="arial"
                                                 FontWeight="SemiBold"
                                                 TextAlignment="Center"
