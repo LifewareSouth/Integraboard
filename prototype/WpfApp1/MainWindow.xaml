@@ -10,7 +10,8 @@
         WindowStyle = "None"
         ResizeMode = "NoResize"
         WindowStartupLocation="CenterScreen">
-
+        <!-- WindowState = Maximized -->    
+    
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
