@@ -90,7 +90,8 @@
                                                      Columns="{Binding columnsCounter}"
                                                      Grid.IsSharedSizeScope="True" 
                                                      Height="auto" 
-                                                     Background="Transparent"
+                                                     Background="#003b49"
+                                                     
                                                      Width="auto"
                                                      HorizontalAlignment="Center"
                                                      VerticalAlignment="Center"

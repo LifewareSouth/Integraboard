@@ -67,15 +67,14 @@
                             <ItemsControl.ItemsPanel >
                                 <ItemsPanelTemplate x:Name="panelTest">
                                     <UniformGrid Rows="{Binding rowCounter}" 
-                                             Columns="{Binding columnsCounter}"
-                                             Grid.IsSharedSizeScope="True" 
-                                             Height="auto"  
-                                             Width="auto"
-                                             HorizontalAlignment="Center"
-                                             VerticalAlignment="Center"
-                                             x:Name="testTablero"
-                                             
-                                             />
+                                                 Columns="{Binding columnsCounter}"
+                                                 Grid.IsSharedSizeScope="True" 
+                                                 Height="auto"  
+                                                 Width="auto"
+                                                 Background="#003b49"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                                                 x:Name="testTablero"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ListView.ItemTemplate>
