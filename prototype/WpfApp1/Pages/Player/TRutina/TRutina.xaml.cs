@@ -161,6 +161,12 @@ namespace WpfApp1.Pages.Player.TRutina
                         AjustarTablero();
                         Tablero.SelectedIndex = index;
                         timer.Stop();
+                        if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                        {
+                            SuccessDialog sd = new SuccessDialog("a");
+                            sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            sd.ShowDialog();
+                        }
                         if (Tablero.SelectedIndex < pictTablerosCount - 1)
                         {
                             Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -227,6 +233,12 @@ namespace WpfApp1.Pages.Player.TRutina
                 AjustarTablero();
                 Tablero.SelectedIndex= index;
                 timer.Stop();
+                if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                {
+                    SuccessDialog sd = new SuccessDialog("a");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -241,6 +253,12 @@ namespace WpfApp1.Pages.Player.TRutina
                 int index = Tablero.SelectedIndex;
                 AjustarTablero();
                 Tablero.SelectedIndex = index;
+                if (Tablero.SelectedIndex == pictTablerosCount-1)
+                {
+                    SuccessDialog sd = new SuccessDialog("a");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -268,6 +286,12 @@ namespace WpfApp1.Pages.Player.TRutina
                 AjustarTablero();
                 Tablero.SelectedIndex = index;
                 timer.Stop();
+                if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                {
+                    SuccessDialog sd = new SuccessDialog("a");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -282,10 +306,17 @@ namespace WpfApp1.Pages.Player.TRutina
                 int index = Tablero.SelectedIndex;
                 AjustarTablero();
                 Tablero.SelectedIndex = index;
+                if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                {
+                    SuccessDialog sd = new SuccessDialog("a");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
                 }
+                
             }
         }
     }
