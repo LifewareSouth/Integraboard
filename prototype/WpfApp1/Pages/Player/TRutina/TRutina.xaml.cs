@@ -237,6 +237,10 @@ namespace WpfApp1.Pages.Player.TRutina
             }
             else
             {
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = saltarEsquinado;
+                int index = Tablero.SelectedIndex;
+                AjustarTablero();
+                Tablero.SelectedIndex = index;
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -274,6 +278,10 @@ namespace WpfApp1.Pages.Player.TRutina
             }
             else
             {
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = correctoEsquinado;
+                int index = Tablero.SelectedIndex;
+                AjustarTablero();
+                Tablero.SelectedIndex = index;
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
