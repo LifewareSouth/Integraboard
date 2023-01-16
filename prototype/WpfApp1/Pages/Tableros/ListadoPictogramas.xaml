@@ -16,7 +16,7 @@
 
             <Button x:Name="volverTableros"
                     Style="{StaticResource btnVolver}"
-                    Margin="20,0,20,0">
+                    Margin="20,0,20,0" Click="volverTableros_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
                            Height="45"
