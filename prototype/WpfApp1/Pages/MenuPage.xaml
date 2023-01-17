@@ -61,22 +61,22 @@
                                                    TextTrimming="CharacterEllipsis"
                                                    LineStackingStrategy="BlockLineHeight"
                                                    FontStretch="Condensed"
-                                                    TextWrapping="Wrap"
-                                                    Foreground="Black"
-                                                    FontSize="20"
-                                                    FontFamily="arial"
-                                                    FontWeight="SemiBold"
-                                                    TextAlignment="Center"
-                                                    VerticalAlignment="Bottom"/>
+                                                   TextWrapping="Wrap"
+                                                   Foreground="Black"
+                                                   FontSize="20"
+                                                   FontFamily="arial"
+                                                   FontWeight="SemiBold"
+                                                   TextAlignment="Center"
+                                                   VerticalAlignment="Bottom"/>
                                         <TextBlock Text="{Binding tipo}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                Foreground="Black"
-                                                FontSize="15"
-                                                FontFamily="arial"
-                                                FontWeight="SemiBold"
-                                                TextAlignment="Center"
-                                                VerticalAlignment="Bottom"/>
+                                                   TextTrimming="CharacterEllipsis"
+                                                   TextWrapping="Wrap"
+                                                   Foreground="Black"
+                                                   FontSize="15"
+                                                   FontFamily="arial"
+                                                   FontWeight="SemiBold"
+                                                   TextAlignment="Center"
+                                                   VerticalAlignment="Bottom"/>
                                     </StackPanel>
 
                                 </Border>
