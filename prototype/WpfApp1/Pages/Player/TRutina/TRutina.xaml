@@ -116,6 +116,8 @@
                                                     <TextBlock Text="{Binding pictograma.Texto}"
                                                                 TextTrimming="CharacterEllipsis"
                                                                 TextWrapping="Wrap"
+                                                                LineStackingStrategy="BlockLineHeight"
+                                                                FontStretch="Condensed"
                                                                 Foreground="black"
                                                                 FontSize="25"
                                                                 FontFamily="arial"

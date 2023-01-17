@@ -97,6 +97,8 @@
                                                                    Margin="10"/>
                                                             <TextBlock Text="{Binding pictograma.Texto}"
                                                                         TextTrimming="CharacterEllipsis"
+                                                                       LineStackingStrategy="BlockLineHeight"
+                                                                        FontStretch="Condensed"
                                                                         TextWrapping="Wrap"
                                                                         Foreground="black"
                                                                         FontSize="25"
@@ -194,6 +196,8 @@
                                                Margin="10"/>
                                                 <TextBlock Text="{Binding pictograma.Texto}"
                                                 TextTrimming="CharacterEllipsis"
+                                                           LineStackingStrategy="BlockLineHeight"
+                                                       FontStretch="Condensed"
                                                 TextWrapping="Wrap"
                                                 Foreground="black"
                                                 FontSize="{DynamicResource profileSize}"

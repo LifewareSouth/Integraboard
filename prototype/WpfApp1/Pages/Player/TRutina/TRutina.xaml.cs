@@ -163,7 +163,7 @@ namespace WpfApp1.Pages.Player.TRutina
                         timer.Stop();
                         if (Tablero.SelectedIndex == pictTablerosCount - 1)
                         {
-                            SuccessDialog sd = new SuccessDialog("a");
+                            SuccessDialog sd = new SuccessDialog("Rutina terminada");
                             sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                             sd.ShowDialog();
                         }
@@ -235,7 +235,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 timer.Stop();
                 if (Tablero.SelectedIndex == pictTablerosCount - 1)
                 {
-                    SuccessDialog sd = new SuccessDialog("a");
+                    SuccessDialog sd = new SuccessDialog("Rutina terminada");
                     sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     sd.ShowDialog();
                 }
@@ -255,7 +255,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 Tablero.SelectedIndex = index;
                 if (Tablero.SelectedIndex == pictTablerosCount-1)
                 {
-                    SuccessDialog sd = new SuccessDialog("a");
+                    SuccessDialog sd = new SuccessDialog("Rutina termianda");
                     sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     sd.ShowDialog();
                 }
@@ -288,7 +288,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 timer.Stop();
                 if (Tablero.SelectedIndex == pictTablerosCount - 1)
                 {
-                    SuccessDialog sd = new SuccessDialog("a");
+                    SuccessDialog sd = new SuccessDialog("Rutina terminada");
                     sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     sd.ShowDialog();
                 }
@@ -308,7 +308,7 @@ namespace WpfApp1.Pages.Player.TRutina
                 Tablero.SelectedIndex = index;
                 if (Tablero.SelectedIndex == pictTablerosCount - 1)
                 {
-                    SuccessDialog sd = new SuccessDialog("a");
+                    SuccessDialog sd = new SuccessDialog("Rutina terminada");
                     sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     sd.ShowDialog();
                 }

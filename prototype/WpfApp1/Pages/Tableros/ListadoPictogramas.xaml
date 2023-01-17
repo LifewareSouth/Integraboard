@@ -105,6 +105,8 @@
                                                Margin="10"/>
                                         <TextBlock Text="{Binding Texto}"
                                                 TextTrimming="CharacterEllipsis"
+                                                LineStackingStrategy="BlockLineHeight"
+                                                FontStretch="Condensed"
                                                 TextWrapping="Wrap"
                                                 Foreground="Black"
                                                 FontSize="{DynamicResource profileSize}"

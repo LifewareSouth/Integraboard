@@ -91,7 +91,7 @@
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              Background="Transparent" 
                              SelectionChanged="ListViewPictograms_SelectionChanged"
-                             MouseDoubleClick="Row_DoubleClick">
+                             MouseDoubleClick="Row_DoubleClick" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel IsItemsHost="True" HorizontalAlignment="Center"/>
@@ -115,11 +115,13 @@
                                             <Image Source="{Binding Imagen}"
                                                    Height="100"
                                                    Width="100"
-                                                   Margin="10">
+                                                   Margin="5">
 
                                             </Image>
                                             <TextBlock Text="{Binding Texto}"
                                                        TextTrimming="CharacterEllipsis"
+                                                       LineStackingStrategy="BlockLineHeight"
+                                                       FontStretch="Condensed"
                                                        TextWrapping="Wrap"
                                                        Foreground="Black"
                                                        FontSize="{DynamicResource profileSize}"
