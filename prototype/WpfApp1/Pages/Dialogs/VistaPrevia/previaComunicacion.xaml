@@ -187,9 +187,11 @@
                                                 <Image Source="{Binding pictograma.Imagen}"
                                                Height="120"
                                                Width="120"
-                                               Margin="10"/>
+                                               Margin="5"/>
                                                 <TextBlock Text="{Binding pictograma.Texto}"
                                                 TextTrimming="CharacterEllipsis"
+                                                LineStackingStrategy="BlockLineHeight"
+                                                FontStretch="Condensed"
                                                 TextWrapping="Wrap"
                                                 Foreground="black"
                                                 FontSize="25"

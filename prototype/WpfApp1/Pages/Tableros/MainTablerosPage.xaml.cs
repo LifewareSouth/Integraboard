@@ -281,7 +281,9 @@ namespace WpfApp1.Pages.Tableros
                 }
                 else if (boardSelected.tipo == "Emociones")
                 {
-                    //this.NavigationService.Navigate(new TableroEmociones(boardSelected));
+                    previaEmociones pe = new previaEmociones(boardSelected);
+                    pe.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    pe.ShowDialog();
                 }
                 else if (boardSelected.tipo == "Rutina")
                 {

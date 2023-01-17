@@ -147,6 +147,13 @@
     </Reference>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Page Update="Pages\Dialogs\VistaPrevia\previaEmociones.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(SolutionDir)LifewareSoftwareLauncher\bin\$(ConfigurationName)&quot; &quot;$(SolutionDir)\WpfApp1\bin\$(ConfigurationName)\net6.0-windows\LifewareSoftwareLauncher\&quot; /E /Y" />
   </Target>
