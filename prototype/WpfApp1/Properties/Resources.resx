@@ -124,6 +124,9 @@
   <data name="arrowBlanca" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrowBlanca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="borrarConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\borrarConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\camera.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,14 +145,23 @@
   <data name="edadConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\edadConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="escucharConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\escucharConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="incorrectoEsquinado" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\incorrectoEsquinado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="limpiarConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\limpiarConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menuConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\menuConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nombreConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nombreConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
