@@ -1,0 +1,223 @@
+﻿<Window x:Class="WpfApp1.Pages.Dialogs.VistaPrevia.previaRutina"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages.Player.TRutina" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1280"
+      Title="TRutina"
+      Loaded="page_Loaded">
+    
+   
+
+    <Grid Background="#04293a">
+        <Frame x:Name="TRutinaPlayer"/>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              Background="#003b49">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  Grid.RowSpan="2">
+                <Button x:Name="volverMenu"
+                        Width="150"
+                        Height="150"
+                        Content="Menú"
+                        FontFamily="arial"
+                        FontSize="30"
+                        FontWeight="SemiBold"
+                        Foreground="white"
+                        Background="#1597e5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top" 
+                        />
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <Label x:Name="TituloTRutina"
+                           Content="Tablero de Rutina"
+                           Foreground="White"
+                           FontSize="45"
+                           FontWeight="SemiBold"
+                           FontFamily="arial"
+                           Margin="0,30,0,30"/>
+                    <StackPanel x:Name="SeccionTiempo" Orientation="Horizontal"
+                                Width="300"
+                                Background="White">
+                        <Image Source="{DynamicResource temp}"
+                               Height="80"
+                               Width="80"/>
+                        <TextBlock x:Name="lblTime"
+                                   Height="100"
+                                   Width="180"
+                                   Margin="0,20,0,0"
+                                   TextAlignment="Center"
+                                   Grid.RowSpan="2"
+                                   FontSize="55"
+                                   Background="White"
+                                   Foreground="Black"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="130"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="1" 
+                        Margin="0,0,0,28" 
+                        Height="300" 
+                        Width="1150">
+                    <Grid x:Name="testTablero2"
+                          Width="1150">
+                        <Viewbox Width="1150"
+                                 Height="350">
+                            <ListView x:Name="Tablero"
+                                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                        IsEnabled="False"
+                                        SelectedIndex="0"
+                                        ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                                        d:ItemsSource="{d:SampleData ItemCount=4}" BorderBrush="{x:Null}">
+                                <ItemsControl.ItemsPanel >
+                                    <ItemsPanelTemplate x:Name="panelTest">
+                                        <UniformGrid Rows="{Binding rowCounter}" 
+                                                     Columns="{Binding columnsCounter}"
+                                                     Grid.IsSharedSizeScope="True" 
+                                                     Height="auto" 
+                                                     Background="#003b49"
+                                                     
+                                                     Width="auto"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"
+                                                     x:Name="testTablero"/>
+
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="White">
+                                            <Border x:Name="BorderHolder" 
+                                                    Width="200" 
+                                                    Height="200"
+                                                    BorderBrush="{Binding pictograma.colorBorde}"
+                                                    BorderThickness="10">
+                                                <StackPanel HorizontalAlignment="Center"
+                                                            Orientation="Vertical">
+                                                    <Image Source="{Binding pictograma.Imagen}"
+                                                           Height="120"
+                                                           Width="120"
+                                                           Margin="10"/>
+                                                    <TextBlock Text="{Binding pictograma.Texto}"
+                                                                TextTrimming="CharacterEllipsis"
+                                                                TextWrapping="Wrap"
+                                                                LineStackingStrategy="BlockLineHeight"
+                                                                FontStretch="Condensed"
+                                                                Foreground="black"
+                                                                FontSize="25"
+                                                                FontFamily="arial"
+                                                                FontWeight="SemiBold"
+                                                                TextAlignment="Center"
+                                                                VerticalAlignment="Bottom"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Image Width="200" 
+                                                   Height="200"
+                                                   Source="{Binding imagenEstado}"/>
+                                        </Grid>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" Value="True">
+                                                <Setter TargetName="BorderHolder" Property="Height" Value="250"/>
+                                                <Setter TargetName="BorderHolder" Property="Width" Value="250"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Viewbox>
+                    </Grid>
+                </Grid>
+                
+                <!-- botones para temrinar o saltar tarea -->
+                <StackPanel x:Name="botonesInferiores" Orientation="Horizontal"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Visibility="Visible">
+                    <Button x:Name="saltarTarea"
+                            Content="Saltar" 
+                            FontSize="15"
+                            Foreground="White"
+                            Background="#1597e5"
+                            FontFamily="arial"
+                            Height="110"
+                            Width="110"
+                            Visibility="Visible"/>
+
+                    <Button x:Name="terminarTarea"
+                            Content="Terminar Tarea" 
+                            FontSize="15"
+                            Foreground="White"
+                            Background="#1597e5"
+                            FontFamily="arial"
+                            Height="110"
+                            Width="110"
+                            Margin="50,0,50,0"
+                            Visibility="Visible" />
+                    <Button x:Name="agregarTiempo"
+                            Content="Agregar Tiempo" 
+                            FontSize="15"
+                            Foreground="White"
+                            Background="#1597e5"
+                            FontFamily="arial"
+                            Height="110"
+                            Width="110"
+                            Visibility="Visible"/>
+                </StackPanel>
+                <!--boton de play-->
+                <Button x:Name="playButton" 
+                        FontSize="20"
+                        Visibility="Visible"
+                        Foreground="black" >
+                        <Image Source="{DynamicResource check}"
+                           Margin="30,0,0,0"
+                           Height="250"
+                           Width="250"/>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="200"
+                                    Height="400"
+                                    Width="400"
+                                    Background="#9EDE73"
+                                    BorderThickness="4">
+
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="center"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                <Grid/>
+            </Grid>
+            
+        </Grid>
+        
+        <Grid.RowDefinitions>
+        <RowDefinition Height="25"/>
+        <RowDefinition/>
+        <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+    </Grid>
+</Window>

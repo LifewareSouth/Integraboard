@@ -287,11 +287,15 @@ namespace WpfApp1.Pages.Tableros
                 }
                 else if (boardSelected.tipo == "Rutina")
                 {
-                    //this.NavigationService.Navigate(new TableroRutina(boardSelected));
+                    previaRutina pr = new previaRutina(boardSelected);
+                    pr.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    pr.ShowDialog();
                 }
                 else if (boardSelected.tipo == "Sonidos")
                 {
-                    //this.NavigationService.Navigate(new TableroSonidos(boardSelected));
+                    previaSonidos ps = new previaSonidos(boardSelected);
+                    ps.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    ps.ShowDialog();
                 }
             }
         }
