@@ -61,7 +61,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             speaking = false;
-            escuchar.Content = "Escuchar";            
+            //escuchar.Content = "Escuchar";            
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -167,11 +167,11 @@ namespace WpfApp1.Pages.Player.TComunicacion
             
             if (escucharDirectamente == false)
             {
-                if (escuchar.Content.ToString() == "Escuchar")
+                if (speaking==false)
                 {
                     if (ListaPictListado.Count() > 0)
                     {
-                        escuchar.Content = "Parar";
+                        //escuchar.Content = "Parar";
                         string oracion = "";
                         foreach (pictTablero pt in ListaPictListado)
                         {
@@ -181,13 +181,15 @@ namespace WpfApp1.Pages.Player.TComunicacion
                         synth.SpeakAsyncCancelAll();
                         synth.SetOutputToDefaultAudioDevice();
                         synth.Rate = -1;
+                        speaking = true;
                         synth.SpeakAsync(oracion);
                     }
                 }
-                else if (escuchar.Content == "Parar")
+                else if (speaking == true)
                 {
-                    escuchar.Content = "Escuchar";
+                    //escuchar.Content = "Escuchar";
                     synth.SpeakAsyncCancelAll();
+
                 }
             }
             
@@ -214,7 +216,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
 
         private void volverMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (escuchar.Content == "Parar")
+            if (speaking == true)
             {
                 synth.SpeakAsyncCancelAll();
             }
