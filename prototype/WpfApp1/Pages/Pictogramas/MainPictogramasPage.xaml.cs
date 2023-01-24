@@ -16,10 +16,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WpfApp1.Assets;
 using WpfApp1.Model;
 using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Pictogramas;
+
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace WpfApp1
@@ -34,7 +36,7 @@ namespace WpfApp1
         static List<Pictogram> listaPict = new List<Pictogram>();
         static List<Pictogram> filteredPict = new List<Pictogram>();
         BackgroundWorker _worker;
-        cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
+
         private static readonly MainPicrogramasPage instance = new MainPicrogramasPage();
         
 
@@ -61,21 +63,53 @@ namespace WpfApp1
             Style rowStyle = new Style(typeof(DataGridRow));
             rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
                                      new MouseButtonEventHandler(Row_DoubleClick)));
- 
+            
             if ((listaPict.Count == 0) || (actualizandoPictogramas == true))
             {
-                _worker = new BackgroundWorker();
-                _worker.WorkerReportsProgress = true;
-                _worker.WorkerSupportsCancellation = true;
-                _worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-                _worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
-                _worker.RunWorkerAsync();
-                cargandopicto.Show();
-            
+                //    _worker = new BackgroundWorker();
+                //    _worker.WorkerReportsProgress = true;
+                //    _worker.WorkerSupportsCancellation = true;
+                //    _worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+                //    _worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+                //    _worker.RunWorkerAsync();
+                Thread newWindowThread = new Thread(new ThreadStart( () =>
+                {
+                    // Create our context, and install it:
+                    SynchronizationContext.SetSynchronizationContext(
+                        new DispatcherSynchronizationContext(
+                            Dispatcher.CurrentDispatcher));
+
+                    // Create and configure the window
+                    cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
+
+                    //  When the window closes, shut down the dispatcher
+                    cargandopicto.Closed += (s, e) =>
+                       Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
+
+                    cargandopicto.Show();
+                    // Start the Dispatcher Processing
+                    Dispatcher.Run();
+
+                    
+
+                }));
+                newWindowThread.SetApartmentState(ApartmentState.STA);
+                // Make the thread a background thread
+                newWindowThread.IsBackground = true;
+                // Start the thread
+                newWindowThread.Start();
+                listaPict = Repository.Instance.getAllPict();
                 ListViewPictograms.ItemsSource = listaPict;
+                
             }
         }
-
+/*
+        private async Task enlistarpictos()
+        {
+           listaPict = await Repository.Instance.getAllPict();
+        }
+*/
+/*
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             
@@ -90,7 +124,7 @@ namespace WpfApp1
         }
 
 
-
+*/
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
