@@ -83,8 +83,7 @@ namespace WpfApp1
                     cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
 
                     //  When the window closes, shut down the dispatcher
-                    cargandopicto.Closed += (s, e) =>
-                       Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
+                    cargandopicto.Closed += (s, e) => Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
 
                     cargandopicto.Show();
                     // Start the Dispatcher Processing
@@ -98,6 +97,7 @@ namespace WpfApp1
                 newWindowThread.IsBackground = true;
                 // Start the thread
                 newWindowThread.Start();
+
                 listaPict = Repository.Instance.getAllPict();
                 ListViewPictograms.ItemsSource = listaPict;
                 
