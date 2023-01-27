@@ -62,10 +62,6 @@ namespace WpfApp1
         }
 
 
-        private void btnshow_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {

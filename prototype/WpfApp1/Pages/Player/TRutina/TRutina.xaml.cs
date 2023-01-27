@@ -161,6 +161,12 @@ namespace WpfApp1.Pages.Player.TRutina
                         AjustarTablero();
                         Tablero.SelectedIndex = index;
                         timer.Stop();
+                        if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                        {
+                            SuccessDialog sd = new SuccessDialog("Rutina terminada");
+                            sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            sd.ShowDialog();
+                        }
                         if (Tablero.SelectedIndex < pictTablerosCount - 1)
                         {
                             Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -227,6 +233,12 @@ namespace WpfApp1.Pages.Player.TRutina
                 AjustarTablero();
                 Tablero.SelectedIndex= index;
                 timer.Stop();
+                if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                {
+                    SuccessDialog sd = new SuccessDialog("Rutina terminada");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -237,6 +249,16 @@ namespace WpfApp1.Pages.Player.TRutina
             }
             else
             {
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = saltarEsquinado;
+                int index = Tablero.SelectedIndex;
+                AjustarTablero();
+                Tablero.SelectedIndex = index;
+                if (Tablero.SelectedIndex == pictTablerosCount-1)
+                {
+                    SuccessDialog sd = new SuccessDialog("Rutina termianda");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -264,6 +286,12 @@ namespace WpfApp1.Pages.Player.TRutina
                 AjustarTablero();
                 Tablero.SelectedIndex = index;
                 timer.Stop();
+                if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                {
+                    SuccessDialog sd = new SuccessDialog("Rutina terminada");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
@@ -274,10 +302,21 @@ namespace WpfApp1.Pages.Player.TRutina
             }
             else
             {
+                ListaPict.Where(x => x.idPictograma == ((pictTablero)Tablero.SelectedItem).idPictograma).First().imagenEstado = correctoEsquinado;
+                int index = Tablero.SelectedIndex;
+                AjustarTablero();
+                Tablero.SelectedIndex = index;
+                if (Tablero.SelectedIndex == pictTablerosCount - 1)
+                {
+                    SuccessDialog sd = new SuccessDialog("Rutina terminada");
+                    sd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    sd.ShowDialog();
+                }
                 if (Tablero.SelectedIndex < pictTablerosCount - 1)
                 {
                     Tablero.SelectedIndex = Tablero.SelectedIndex + 1;
                 }
+                
             }
         }
     }

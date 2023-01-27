@@ -86,7 +86,7 @@ namespace WpfApp1.Pages.Pictogramas
                 string nombreSonidoNuevo = System.IO.Path.GetFileNameWithoutExtension(pathSonidoNuevo);
                 Repository.Instance.CrearSonido(pathSonidoNuevo, nombreSonidoNuevo, false);
 
-                //CODIGO PARA ACTUALIZAR LISTADO DE LA PAGINA ACTUAL
+                actualizarListaSonidos();
             }
         }
 
@@ -151,7 +151,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void GoToPictogramas(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.GoBack();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace WpfApp1.Pages.First_Use
         List<string> nombresVoces = new List<string>();
         StackPanel LeftMenu;
         SpeechSynthesizer synth = new SpeechSynthesizer();
-        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
+        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
         public FirstUse_VozTexto()
         {
             InitializeComponent();

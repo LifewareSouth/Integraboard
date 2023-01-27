@@ -28,8 +28,10 @@ namespace WpfApp1.Pages.Tableros
         static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();
         static bool isAddingPictogram = true;
-        static List<Pictogram> filteredPict = new List<Pictogram>();
+        List<Pictogram> filteredPict = new List<Pictogram>();
+        List<Pictogram> PictogramasSinImportados = new List<Pictogram>();
         string tipoTablero;
+        List<Pictogram> ListaPictAgregados = new List<Pictogram>();
         /*private static readonly ListadoPictogramas instance = new ListadoPictogramas();
         public static ListadoPictogramas Instance
         {
@@ -63,13 +65,25 @@ namespace WpfApp1.Pages.Tableros
                 listaPict = tempPict;
             }
             isAddingPictogram = true;
-            if(PictAgregados.Count > 0)
-            {//QUITAR DEL LISTADO LOS PICTOGRAMAS YA AGREGADOS
-                List<Pictogram> tempList = new List<Pictogram>();
-                foreach (Pictogram p in PictAgregados)
+            if (PictAgregados.Count > 0)
+            {
+                ListaPictAgregados = PictAgregados;
+                foreach (Pictogram p in listaPict)
                 {
-                    listaPict.Remove(listaPict.Where(x => x.ID == p.ID).First());
+                    bool importado = false;
+                    foreach (Pictogram pImp in PictAgregados)
+                    {
+                        if (pImp.ID == p.ID)
+                        {
+                            importado = true;
+                        }
+                    }
+                    if (importado == false)
+                    {
+                        PictogramasSinImportados.Add(p);
+                    }
                 }
+                ListViewPictograms.ItemsSource = PictogramasSinImportados;
             }
             categorias();
 
@@ -130,7 +144,14 @@ namespace WpfApp1.Pages.Tableros
         {
             string textSearch = buscadorPict.Text.ToUpper();
             List<Pictogram> filtro = new List<Pictogram>();
-            filteredPict = listaPict;
+            if (ListaPictAgregados.Count > 0)
+            {
+                filteredPict = PictogramasSinImportados;
+            }
+            else
+            {
+                filteredPict = listaPict;
+            }
             if (CategoriaPict.SelectedItem.ToString() != "Todas")
             {
                 filtro = filteredPict.Where(x => (x.Categoria.Equals(CategoriaPict.SelectedItem.ToString()))) /* filtro categorias*/
@@ -212,6 +233,11 @@ namespace WpfApp1.Pages.Tableros
                 this.NavigationService.GoBack();
             }
 
+        }
+
+        private void volverTableros_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

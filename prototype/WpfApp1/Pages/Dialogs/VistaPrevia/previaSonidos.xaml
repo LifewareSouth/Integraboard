@@ -1,4 +1,4 @@
-﻿<Page x:Class="WpfApp1.Pages.Player.TSonidos.TSonidos"
+﻿<Window x:Class="WpfApp1.Pages.Dialogs.VistaPrevia.previaSonidos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,7 +31,6 @@
                 FontWeight="SemiBold"
                 Foreground="white"
                 Background="#1597e5"
-                Click="goToMenu"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"/>
             <Label x:Name="TituloTSonidos"
@@ -59,9 +58,7 @@
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              SelectionChanged="Tablero_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"
-                              
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}"
                               >
                             
                             <ItemsControl.ItemsPanel >
@@ -117,4 +114,4 @@
 
     </Grid>
 
-</Page>
+</Window>

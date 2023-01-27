@@ -61,7 +61,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             speaking = false;
-            escuchar.Content = "Escuchar";            
+            //escuchar.Content = "Escuchar";            
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -102,7 +102,10 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     {
                         if (((pictTablero)Tablero.SelectedItem).idPictograma != 0)
                         {
-                            pictTablero pictTablero = (pictTablero)Tablero.SelectedItem;
+                            pictTablero pictTablero = new pictTablero();
+                            pictTablero tempPT = (pictTablero)Tablero.SelectedItem;
+                            pictTablero.pictograma = tempPT.pictograma;
+                            pictTablero.idPictograma = tempPT.idPictograma;
                             pictTablero.imagenEstado = incorrectoEsquinado;
                             ListaPictListado.Add(pictTablero);
                             columnsListado++;
@@ -134,11 +137,14 @@ namespace WpfApp1.Pages.Player.TComunicacion
             {
                 if (((pictTablero)Listado.SelectedItem).idPictograma != 0)
                 {
-                    ListaPictListado.Remove((pictTablero)Listado.SelectedItem);
+                    int idpt = ((pictTablero)Listado.SelectedItem).ID;
+                    ListaPictListado.Remove(ListaPictListado.Where(x=>x.ID==idpt).First());
                     columnsListado--;
+                    ajustarTamanoListado();
                     AjustarListado();
 
-                    ajustarTamanoListado();
+                    
+                    
                 }
             }
         }
@@ -161,11 +167,11 @@ namespace WpfApp1.Pages.Player.TComunicacion
             
             if (escucharDirectamente == false)
             {
-                if (escuchar.Content.ToString() == "Escuchar")
+                if (speaking==false)
                 {
                     if (ListaPictListado.Count() > 0)
                     {
-                        escuchar.Content = "Parar";
+                        //escuchar.Content = "Parar";
                         string oracion = "";
                         foreach (pictTablero pt in ListaPictListado)
                         {
@@ -175,13 +181,15 @@ namespace WpfApp1.Pages.Player.TComunicacion
                         synth.SpeakAsyncCancelAll();
                         synth.SetOutputToDefaultAudioDevice();
                         synth.Rate = -1;
+                        speaking = true;
                         synth.SpeakAsync(oracion);
                     }
                 }
-                else if (escuchar.Content == "Parar")
+                else if (speaking == true)
                 {
-                    escuchar.Content = "Escuchar";
+                    //escuchar.Content = "Escuchar";
                     synth.SpeakAsyncCancelAll();
+
                 }
             }
             
@@ -208,7 +216,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
 
         private void volverMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (escuchar.Content == "Parar")
+            if (speaking == true)
             {
                 synth.SpeakAsyncCancelAll();
             }
@@ -271,11 +279,17 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     pictTab = ListaPictListado.Where(x => (x.x == j)).First();
                 }*/
                 pictTab = ListaPictListado[j];
+                pictTab.ID = j;
                 tempVistas.Add(pictTab);
             }
-            
             vistasListado = tempVistas;
-            Listado.ItemsSource = ListaPictListado;
+            Listado.ItemsSource = vistasListado;
+            List<pictTablero> tempListaPictListado = new List<pictTablero>();
+            foreach (pictTablero pt in vistasListado)
+            {
+                tempListaPictListado.Add(pt);
+            }
+            ListaPictListado = tempListaPictListado;
         }
     }
 }

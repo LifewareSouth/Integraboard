@@ -26,6 +26,7 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
     /// </summary>
     public partial class previaComunicacion : Window
     {
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
         SpeechSynthesizer synth = new SpeechSynthesizer();
         Mp3FileReader reader;
         IWavePlayer waveOut;
@@ -53,6 +54,7 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
             synth.SelectVoice(Repository.Instance.getProfileVoice());
+            this.Resources["closeButton"] = closeButton;
             AjustarTablero();
         }
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
@@ -215,6 +217,11 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             escucharDirectamente = false;
             panelSuperior.Visibility = Visibility.Visible;
             viewboxTablero.Margin = new Thickness(0, 10, 0, 0);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void AjustarTablero()

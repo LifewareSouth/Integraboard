@@ -16,7 +16,7 @@
 
             <Button x:Name="volverTableros"
                     Style="{StaticResource btnVolver}"
-                    Margin="20,0,20,0">
+                    Margin="20,0,20,0" Click="volverTableros_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource volver}"
                            Height="45"
@@ -72,7 +72,8 @@
 
         </Grid>
         <Grid Grid.Row="2">
-            <ScrollViewer Margin="20">
+            <ScrollViewer Margin="20"
+                          PanningMode="Both">
                 <ListBox x:Name="ListViewPictograms"
                          ItemsSource="{Binding Pictogram}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -104,6 +105,8 @@
                                                Margin="10"/>
                                         <TextBlock Text="{Binding Texto}"
                                                 TextTrimming="CharacterEllipsis"
+                                                LineStackingStrategy="BlockLineHeight"
+                                                FontStretch="Condensed"
                                                 TextWrapping="Wrap"
                                                 Foreground="Black"
                                                 FontSize="{DynamicResource profileSize}"

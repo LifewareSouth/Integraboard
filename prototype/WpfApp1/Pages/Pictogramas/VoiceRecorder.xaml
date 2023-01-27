@@ -123,7 +123,7 @@
                     <!--boton de terminar grabación-->
 
                     <Button x:Name="save" 
-                            IsEnabled="False"  
+                            IsEnabled="false"  
                             Width="200"
                             Height="100"
                             Margin="20"

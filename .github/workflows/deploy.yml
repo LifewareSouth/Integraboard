@@ -13,8 +13,8 @@ env:
   RUNTIME_IDENTIFIER: win-x86
   TARGET_PLATFORM: Any CPU
   OUTPUT_PATH: './output'
-  VERSION: '1.0'
-  ASSEMBLY_VERSION: '1.0'
+  VERSION: '1.0.0'
+  ASSEMBLY_VERSION: '1.0.0'
 
   CICD_PATH: './cicd'
   NUSPEC_FILE_PATH: './cicd/app.nuspec'

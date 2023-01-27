@@ -8,10 +8,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1280"
         WindowStyle = "None"
-        WindowState="Maximized"
         ResizeMode = "NoResize"
         WindowStartupLocation="CenterScreen">
-
+        <!-- WindowState = Maximized -->    
+    
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
@@ -20,7 +20,7 @@
         <Storyboard x:Key="CloseMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-500,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
         </Storyboard>
-        
+
     </Window.Resources>
 
     <Grid Background="#04293a"
@@ -79,11 +79,10 @@
 
                     <Button x:Name="btnclose"
                                 Click="btnclose_Click_1"  
-                                Grid.Column="2" 
-                                Height="60"
-                                Width="20"
+                                Grid.Column="1"
+                                Width="40"
                                 Grid.Row="1"
-                                Margin="5,248,-5,192">
+                                Margin="221,213,-6,197" Grid.ColumnSpan="2">
 
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
@@ -92,7 +91,7 @@
                         </Button.Style>
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Border CornerRadius="10,0,0,10"
+                                <Border CornerRadius="20,0,0,20"
                                         Background="{TemplateBinding Background}"/>
                             </ControlTemplate>
                         </Button.Template>
@@ -159,7 +158,7 @@
                                 FontSize="20"
                                 FontWeight="Bold"
                                 Margin="0,5,0,0"/>
-                        
+
                         <Button x:Name="salir"
                                 Grid.Column="1"
                                 Height="60"
@@ -177,10 +176,9 @@
             </Border>
 
             <StackPanel Orientation="Vertical">
-                <Grid Margin="0,400,0,0">
+                <Grid Margin="0,400,0,0" Height="90">
                     <Button x:Name="btnshow" 
-                            BorderThickness="0"
-                            Click="btnshow_Click_3">
+                            BorderThickness="0" Margin="0,-35,0,35">
 
                         <Button.Style>
                             <Style TargetType="Button">
@@ -189,18 +187,16 @@
                         </Button.Style>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="20" Height="60"
-                                        CornerRadius="0,10,10,0"
-                                        Background="{TemplateBinding Background}">
-
-                                </Border>
+                                <Border Width="40"
+                                        CornerRadius="0,20,20,0"
+                                        Background="{TemplateBinding Background}"/>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
                 </Grid>
             </StackPanel>
         </StackPanel>
-        
-        
+
+
     </Grid>
 </Window>

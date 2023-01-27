@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs.VistaPrevia"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1280"
+      d:DesignHeight="750" d:DesignWidth="1200"
       Title="previaComunicacion"
+      WindowStyle = "None"
+      ResizeMode = "NoResize"
       Loaded="page_Loaded">
 
     <Grid Background="#04293a">
@@ -34,14 +36,24 @@
                    VerticalAlignment="Center" 
                    Height="66" 
                    Width="556" Grid.Column="1"/>
+            <Button HorizontalAlignment="Right"
+                    Width="80"
+                    Height="80"
+                    Margin="5"
+                    Background="Transparent"
+                    Grid.Row="0" Click="Button_Click">
+                <Image Source="{DynamicResource closeButton}"
+                       Height="50"
+                       Width="50"/>
+            </Button>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="volverMenu"
-                        Width="120"
-                        Height="120"
+                        Width="100"
+                        Height="100"
                         Grid.Column="0"
                         Content="Menú"
                         FontFamily="arial"
@@ -56,8 +68,8 @@
                         <StackPanel Orientation="Horizontal"
                                     x:Name="panelSuperior"
                                     HorizontalAlignment="Center">
-                            <Border Width="700"
-                                    Height="120"
+                            <Border Width="600"
+                                    Height="100"
                                     Background="White"
                                     Margin="0,0,25,0">
                                 <Viewbox>
@@ -85,14 +97,14 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate >
                                                 <Grid Background="White" >
-                                                    <Border Width="200" Height="200"
+                                                    <Border Width="150" Height="150"
                                                             BorderBrush="{Binding pictograma.colorBorde}"
                                                             BorderThickness="10">
                                                         <StackPanel HorizontalAlignment="Center"
                                                                     Orientation="Vertical">
                                                             <Image Source="{Binding pictograma.Imagen}"
-                                                                   Height="120"
-                                                                   Width="120"
+                                                                   Height="80"
+                                                                   Width="80"
                                                                    Margin="10"/>
                                                             <TextBlock Text="{Binding pictograma.Texto}"
                                                                         TextTrimming="CharacterEllipsis"
@@ -107,8 +119,8 @@
                                                     </Border>
                                                     <Image HorizontalAlignment="Right"
                                                            VerticalAlignment="Bottom"
-                                                           Width="100" 
-                                                           Height="100"
+                                                           Width="50" 
+                                                           Height="50"
                                                            Source="{Binding imagenEstado}"/>
                                                 </Grid>
 
@@ -118,8 +130,8 @@
                                 </Viewbox>
                             </Border>
                             <Button x:Name="escuchar"
-                                Width="120"
-                                Height="120"
+                                Width="100"
+                                Height="100"
                                 Content="Escuchar"
                                 FontFamily="arial"
                                 FontSize="30"
@@ -129,8 +141,8 @@
                                 Margin="0,0,25,0" 
                             />
                             <Button x:Name="eliminar"
-                                Width="120"
-                                Height="120"
+                                Width="100"
+                                Height="100"
                                 Content="Borrar"
                                 FontFamily="arial"
                                 FontSize="30"
@@ -141,12 +153,12 @@
                         <CheckBox Content="Escuchar directamente"
                                   Foreground="White"
                                   FontSize="10"
-                                  Margin="0,10,0,0"
+                                  Margin="0,10,55,0"
                                   Height="18"
                                   HorizontalAlignment="Right" 
                                   IsEnabled="False">
                             <CheckBox.LayoutTransform>
-                                <ScaleTransform ScaleX="3" ScaleY="3" />
+                                <ScaleTransform ScaleX="2.5" ScaleY="2.5" />
                             </CheckBox.LayoutTransform>
                         </CheckBox>
                     </StackPanel>
@@ -154,14 +166,15 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Grid x:Name="testTablero2"
-                      Width="1200">
-                    <Viewbox x:Name="viewboxTablero" Margin="0,10,0,0">
+                      Width="1100">
+                    <Viewbox x:Name="viewboxTablero" Margin="0,0,0,10">
                         <ListView x:Name="Tablero"
+                                  Margin="-150,0,0,0"
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              d:ItemsSource="{d:SampleData ItemCount=5}">
+                              d:ItemsSource="{d:SampleData ItemCount=5}" Height="700">
                             <ItemsControl.ItemsPanel >
                                 <ItemsPanelTemplate x:Name="panelTest">
                                     <UniformGrid Rows="{Binding rowCounter}" 
@@ -179,17 +192,19 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate >
                                     <Grid Background="White" >
-                                        <Border Width="200" Height="200"
+                                        <Border Width="150" Height="150"
                                                 BorderBrush="{Binding pictograma.colorBorde}"
                                                 BorderThickness="10">
                                             <StackPanel HorizontalAlignment="Center"
                                                         Orientation="Vertical">
                                                 <Image Source="{Binding pictograma.Imagen}"
-                                               Height="120"
-                                               Width="120"
-                                               Margin="10"/>
+                                               Height="90"
+                                               Width="90"
+                                               Margin="5"/>
                                                 <TextBlock Text="{Binding pictograma.Texto}"
                                                 TextTrimming="CharacterEllipsis"
+                                                LineStackingStrategy="BlockLineHeight"
+                                                FontStretch="Condensed"
                                                 TextWrapping="Wrap"
                                                 Foreground="black"
                                                 FontSize="25"

@@ -124,7 +124,7 @@
                             </ListView>
                         </Viewbox>
                             <Grid  x:Name="panelTiempo"
-                                   Visibility="Visible"
+                                   Visibility="Hidden"
                                    Grid.Column="1" 
                                    Grid.Row="2">
                             <StackPanel Orientation="Horizontal"
@@ -180,7 +180,7 @@
 
                                 </StackPanel>
                                 <Button x:Name="aplicarTiempo"
-                                        IsEnabled="False"
+                                        IsEnabled="True"
                                         Content="Aplicar"
                                         Style="{StaticResource btnDefault}"
                                         FontSize="25"
