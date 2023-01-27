@@ -42,6 +42,7 @@
                 <Button x:Name="volverMenu"
                         Width="120"
                         Height="120"
+                        Style="{DynamicResource btnDefault}"
                         Grid.Column="0"
                         FontSize="30"
                         VerticalAlignment="Top"
@@ -120,29 +121,33 @@
                                 </Viewbox>
                             </Border>
                             <Button x:Name="escuchar"
-                                Width="120"
-                                Height="120"
-                                Margin="0,0,25,0" Click="escuchar_Click">
+                                    Width="120"
+                                    Height="120"
+                                    Style="{DynamicResource btnDefault}"
+                                    Margin="0,0,25,0" 
+                                    Click="escuchar_Click">
                                 <Image 
                                     x:Name="imagenEscuchar"
                                     Source="{DynamicResource escucharTC}"/>
                             </Button>
                             <Button x:Name="eliminar"
-                                Width="120"
-                                Height="120"
-                                Click="eliminar_Click">
+                                    Width="120"
+                                    Height="120"
+                                    Style="{DynamicResource btnDefault}"
+                                    Click="eliminar_Click">
                                 <Image Source="{DynamicResource limpiarTC}"
                                        Height="120"
                                        Width="120"/>
                             </Button>
                         </StackPanel>
                         <Button Content="Sintetizar Pictogramas"
-                                  x:Name="botonSintetizar"
-                                  Foreground="White"
-                                  FontSize="10"
-                                  Margin="0,10,0,0"
-                                  Height="18"
-                                  HorizontalAlignment="Right" Click="checkboxSintetizar_Click" >
+                                x:Name="botonSintetizar"
+                                Style="{DynamicResource btnDefault}"
+                                FontSize="20"
+                                Margin="0,10,35,0"
+                                Height="40"
+                                Width="250"
+                                HorizontalAlignment="Right" Click="checkboxSintetizar_Click" >
                         </Button>
                     </StackPanel>
                 </Grid>
