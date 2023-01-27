@@ -43,14 +43,13 @@
                         Width="120"
                         Height="120"
                         Grid.Column="0"
-                        Content="Menú"
-                        FontFamily="arial"
                         FontSize="30"
-                        FontWeight="SemiBold"
-                        Foreground="white"
-                        Background="#1597e5"
                         VerticalAlignment="Top"
-                        Click="volverMenu_Click"/>
+                        Click="volverMenu_Click">
+                    <Image Source="{DynamicResource menuBtn}"
+                           Height="120"
+                           Width="120"/>
+                </Button>
                 <Grid Grid.Column="1">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal"
@@ -123,23 +122,17 @@
                             <Button x:Name="escuchar"
                                 Width="120"
                                 Height="120"
-                                Content="Escuchar"
-                                FontFamily="arial"
-                                FontSize="30"
-                                FontWeight="SemiBold"
-                                Foreground="white"
-                                Background="#1597e5"
-                                Margin="0,0,25,0" Click="escuchar_Click"
-                            />
+                                Margin="0,0,25,0" Click="escuchar_Click">
+                                <Image Source="{DynamicResource escucharTC}"/>
+                            </Button>
                             <Button x:Name="eliminar"
                                 Width="120"
                                 Height="120"
-                                Content="Borrar"
-                                FontFamily="arial"
-                                FontSize="30"
-                                FontWeight="SemiBold"
-                                Foreground="white"
-                                Background="#1597e5" Click="eliminar_Click"/>
+                                Click="eliminar_Click">
+                                <Image Source="{DynamicResource limpiarTC}"
+                                       Height="120"
+                                       Width="120"/>
+                            </Button>
                         </StackPanel>
                         <CheckBox Content="Escuchar directamente"
                                   Foreground="White"

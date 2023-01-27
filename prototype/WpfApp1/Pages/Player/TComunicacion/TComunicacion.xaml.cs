@@ -40,6 +40,10 @@ namespace WpfApp1.Pages.Player.TComunicacion
         bool speaking = false;
         bool escucharDirectamente = false;
         private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+        private static BitmapImage escucharBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.escucharConTexto);
+        private static BitmapImage pausarBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.pausarConTexto);
+        private static BitmapImage limpiarBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.limpiarConTexto);
         int rowCounter, columnsCounter,columnsListado;
         public TComunicacion()
         {
@@ -56,6 +60,10 @@ namespace WpfApp1.Pages.Player.TComunicacion
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
             synth.SelectVoice(Repository.Instance.getProfileVoice());
+            this.Resources["menuBtn"] = menuBtn;
+            this.Resources["escucharTC"] = escucharBtn;
+            this.Resources["pausarTC"] = pausarBtn;
+            this.Resources["limpiarTC"] = limpiarBtn;
             AjustarTablero();
         }
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)

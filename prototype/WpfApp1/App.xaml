@@ -159,6 +159,10 @@
             <!-- botones -->
             <BitmapImage x:Key="closeButton" UriSource="Resources\close_cruz_invertida.png"/>
             <BitmapImage x:Key="volver" UriSource="Resources\arrowBlanca.png"/>
+            <BitmapImage x:Key="menuBtn" UriSource="Resources\menuConTexto.png"/>
+            <BitmapImage x:Key="escucharTC" UriSource="Resources\escucharConTexto.png"/>
+            <BitmapImage x:Key="pausarTC" UriSource="Resources\pausarConTexto.png"/>
+            <BitmapImage x:Key="limpiarTC" UriSource="Resources\limpiarConTexto.png"/>
             <!-- dialogs -->
             <!-- BitmapImage x:Key="success" UriSource="Resources\successCheck.png" -->
 
