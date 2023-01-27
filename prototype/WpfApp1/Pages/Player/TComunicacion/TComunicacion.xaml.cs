@@ -69,6 +69,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             speaking = false;
+            imagenEscuchar.Source = escucharBtn;
             //escuchar.Content = "Escuchar";            
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
@@ -131,6 +132,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
                     {
                         synth.SpeakAsyncCancelAll();
                         speaking = true;
+                        imagenEscuchar.Source = pausarBtn;
                         synth.SpeakAsync(pictTablero.pictograma.Texto);
 
                     }
@@ -190,6 +192,7 @@ namespace WpfApp1.Pages.Player.TComunicacion
                         synth.SetOutputToDefaultAudioDevice();
                         synth.Rate = -1;
                         speaking = true;
+                        imagenEscuchar.Source = pausarBtn;
                         synth.SpeakAsync(oracion);
                     }
                 }
@@ -231,17 +234,24 @@ namespace WpfApp1.Pages.Player.TComunicacion
             this.NavigationService.Navigate(new MenuPage());
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        
+
+        private void checkboxSintetizar_Click(object sender, RoutedEventArgs e)
         {
-            escucharDirectamente = true;
-            panelSuperior.Visibility = Visibility.Collapsed;
-            viewboxTablero.Margin = new Thickness(0, -107, 0, 0);
-        }
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            escucharDirectamente = false;
-            panelSuperior.Visibility = Visibility.Visible;
-            viewboxTablero.Margin = new Thickness(0, 10, 0, 0);
+            if (botonSintetizar.Content.ToString() == "Sintetizar Pictogramas")
+            {
+                escucharDirectamente = true;
+                botonSintetizar.Content = "Sintetizar Frase";
+                panelSuperior.Visibility = Visibility.Collapsed;
+                viewboxTablero.Margin = new Thickness(0, -107, 0, 0);
+            }
+            else if (botonSintetizar.Content.ToString() == "Sintetizar Frase")
+            {
+                escucharDirectamente = false;
+                botonSintetizar.Content = "Sintetizar Pictogramas";
+                panelSuperior.Visibility = Visibility.Visible;
+                viewboxTablero.Margin = new Thickness(0, 10, 0, 0);
+            }
         }
 
         private void AjustarTablero()
