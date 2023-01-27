@@ -206,6 +206,7 @@
                                 <Style TargetType="ListViewItem">
                                     <EventSetter Event="MouseMove" Handler="TodoItem_MouseMove" />
                                     <EventSetter Event="DragOver" Handler="TodoItem_DragOver" />
+                                    <EventSetter Event="TouchMove" Handler="TodoItem_TouchMove"/>
                                 </Style>
                             </ListView.ItemContainerStyle>
                             <ItemsControl.ItemsPanel >
