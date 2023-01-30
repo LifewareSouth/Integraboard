@@ -42,15 +42,15 @@
                 <Button x:Name="volverMenu"
                         Width="120"
                         Height="120"
+                        Style="{DynamicResource btnDefault}"
                         Grid.Column="0"
-                        Content="Menú"
-                        FontFamily="arial"
                         FontSize="30"
-                        FontWeight="SemiBold"
-                        Foreground="white"
-                        Background="#1597e5"
                         VerticalAlignment="Top"
-                        Click="volverMenu_Click"/>
+                        Click="volverMenu_Click">
+                    <Image Source="{DynamicResource menuBtn}"
+                           Height="120"
+                           Width="120"/>
+                </Button>
                 <Grid Grid.Column="1">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal"
@@ -121,38 +121,34 @@
                                 </Viewbox>
                             </Border>
                             <Button x:Name="escuchar"
-                                Width="120"
-                                Height="120"
-                                Content="Escuchar"
-                                FontFamily="arial"
-                                FontSize="30"
-                                FontWeight="SemiBold"
-                                Foreground="white"
-                                Background="#1597e5"
-                                Margin="0,0,25,0" Click="escuchar_Click"
-                            />
+                                    Width="120"
+                                    Height="120"
+                                    Style="{DynamicResource btnDefault}"
+                                    Margin="0,0,25,0" 
+                                    Click="escuchar_Click">
+                                <Image 
+                                    x:Name="imagenEscuchar"
+                                    Source="{DynamicResource escucharTC}"/>
+                            </Button>
                             <Button x:Name="eliminar"
-                                Width="120"
-                                Height="120"
-                                Content="Borrar"
-                                FontFamily="arial"
-                                FontSize="30"
-                                FontWeight="SemiBold"
-                                Foreground="white"
-                                Background="#1597e5" Click="eliminar_Click"/>
+                                    Width="120"
+                                    Height="120"
+                                    Style="{DynamicResource btnDefault}"
+                                    Click="eliminar_Click">
+                                <Image Source="{DynamicResource limpiarTC}"
+                                       Height="120"
+                                       Width="120"/>
+                            </Button>
                         </StackPanel>
-                        <CheckBox Content="Escuchar directamente"
-                                  Foreground="White"
-                                  FontSize="10"
-                                  Margin="0,10,0,0"
-                                  Height="18"
-                                  HorizontalAlignment="Right" 
-                                  Checked="CheckBox_Checked"
-                                  Unchecked="CheckBox_Unchecked">
-                            <CheckBox.LayoutTransform>
-                                <ScaleTransform ScaleX="3" ScaleY="3" />
-                            </CheckBox.LayoutTransform>
-                        </CheckBox>
+                        <Button Content="Sintetizar Pictogramas"
+                                x:Name="botonSintetizar"
+                                Style="{DynamicResource btnDefault}"
+                                FontSize="20"
+                                Margin="0,10,35,0"
+                                Height="40"
+                                Width="250"
+                                HorizontalAlignment="Right" Click="checkboxSintetizar_Click" >
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Grid>

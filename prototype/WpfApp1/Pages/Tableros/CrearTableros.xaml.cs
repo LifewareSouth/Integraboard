@@ -644,5 +644,33 @@ namespace WpfApp1.Pages.Tableros
             }
 
         }
+        private void TodoItem_TouchMove(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            if (/*e.TouchDevice == MouseButtonState.Pressed &&*/ //PROBAR EN TABLET
+                sender is FrameworkElement frameworkElement)
+            {
+                object todoItem = frameworkElement.DataContext;
+                //DragDrop.DoDragDrop(Tablero, Tablero, System.Windows.DragDropEffects.Move);
+                System.Windows.DragDropEffects dragDropResult = DragDrop.DoDragDrop(frameworkElement,
+                   new System.Windows.DataObject(System.Windows.DataFormats.Serializable, todoItem),
+                   System.Windows.DragDropEffects.Move);
+
+                intercambiarPos();
+            }
+        }
+        /*
+        private void TodoItem_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+
+            if (sender is FrameworkElement element)
+            {
+                TargetTodoComunicacionItem = element.DataContext;
+                InsertedTodoComunicacionItem = e.Data.GetData(System.Windows.DataFormats.Serializable);
+
+                TodoItemInsertedComunicacionCommand?.Execute(null);
+            }
+
+        }
+        */
     }
 }
