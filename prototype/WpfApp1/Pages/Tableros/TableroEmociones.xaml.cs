@@ -154,7 +154,7 @@ namespace WpfApp1.Pages.Tableros
             }
         }*/
 
-        int _rows = 3, _columns = 4;
+        static int _rows = 3, _columns = 4;
         public int rowCounter
         {
             set
