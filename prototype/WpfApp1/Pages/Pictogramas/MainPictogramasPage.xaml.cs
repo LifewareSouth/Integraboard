@@ -48,7 +48,7 @@ namespace WpfApp1
             {
                 //CAMBIAR DIALOG POR UNO NUEVO
 
-                CargandoDialog cd = new CargandoDialog();
+                Cargandopictodialog cd = new Cargandopictodialog();
                 cd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
                 while (!activo) 
@@ -105,8 +105,6 @@ namespace WpfApp1
                     new Thread(new ThreadStart(threadclass.ThreadMethod));
                 newThread.SetApartmentState(ApartmentState.STA);
                 newThread.Start();
-
-
                 listaPict = Repository.Instance.getAllPict();
                 ListViewPictograms.ItemsSource = listaPict;
                 actualizandoPictogramas = false;
