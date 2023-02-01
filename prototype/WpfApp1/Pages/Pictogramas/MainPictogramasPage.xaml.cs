@@ -111,33 +111,10 @@ namespace WpfApp1
                 ListViewPictograms.ItemsSource = listaPict;
                 actualizandoPictogramas = false;
                 threadclass.Activo = true;
-                //newThread.Interrupt();
-                //newThread.Join();
-               
+                newThread.Join();               
             }
         }
-        public void hilo()
-        {
-            SuccessDialog sc = new SuccessDialog();
-            try
-            {
-
-                sc.Show();
-                Thread.Sleep(5000);
-                sc.Close();
-                Thread.Sleep(5000);
-            }
-            catch (ThreadInterruptedException ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
-                sc.Close();
-            }
-            finally 
-            {
-                sc.Close();
-            }
-
-        }
+       
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
