@@ -26,6 +26,27 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace WpfApp1
 {
+    class TMPThread
+    {
+        bool activo = true;
+        public void FunctionThread()
+        {
+            cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
+            if (activo == true)
+            {
+
+                cargandopicto.Show();
+            }
+            else if (activo == false)
+            {
+                cargandopicto.Close();
+            }
+        }
+        public void FunctionStop()
+        {
+            activo = false;
+        }
+    }
     /// <summary>
     /// Lógica de interacción para Pictogramas.xaml
     /// </summary>
@@ -68,118 +89,19 @@ namespace WpfApp1
             bool listacargada = false;
             if ((listaPict.Count == 0) || (actualizandoPictogramas == true))
             {
-                //       _worker = new BackgroundWorker();
-                //       _worker.WorkerReportsProgress = true;
-                //       _worker.WorkerSupportsCancellation = true;
-                //       _worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-                //       _worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
-                //       _worker.RunWorkerAsync();
-                /* 
-                    Thread newWindowThread = new Thread(new ThreadStart( () =>
-                    {
-                        // Create our context, and install it:
-                        SynchronizationContext.SetSynchronizationContext(
-                            new DispatcherSynchronizationContext(
-                                Dispatcher.CurrentDispatcher));
-
-                        // Create and configure the window
-                        cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
-
-                        //  When the window closes, shut down the dispatcher
-                        cargandopicto.Closed += (s, e) => Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
-                        cargandopicto.Show();
-                        // Start the Dispatcher Processing
-                        Dispatcher.Run();
-
-                    }));
-
-                 newWindowThread.SetApartmentState(ApartmentState.STA);
-                // Make the thread a background thread
-                newWindowThread.IsBackground = true;
-                // Start the thread
-                newWindowThread.Start();
-                    listaPict = Repository.Instance.getAllPict();
-                    ListViewPictograms.ItemsSource = listaPict;
-                */
-                CancellationTokenSource tokenSource = new();
-                Thread newWindowThread = new ( () => NewWindowsLoading(tokenSource.Token));
+                TMPThread tmpthr = new TMPThread();
+                Thread newWindowThread = new Thread (tmpthr.FunctionThread);
                 newWindowThread.SetApartmentState(ApartmentState.STA);
                 // Make the thread a background thread
                 newWindowThread.IsBackground = true;
                 // Start the thread
-                newWindowThread.Start();
-                if (listacargada == false)
-                {
-                    listaPict = Repository.Instance.getAllPict();
-                    ListViewPictograms.ItemsSource = listaPict;
-                    listacargada = true;
-                }
-                if (listacargada == true)
-                {
-                    //newWindowThread.Interrupt();                    
-                    //CloseWindow(cargandopicto);
-                    tokenSource.Cancel();
-                    newWindowThread.Join();
-                    tokenSource.Dispose();
-                }
+                newWindowThread.Start();          
+                listaPict = Repository.Instance.getAllPict();
+                ListViewPictograms.ItemsSource = listaPict;
+                tmpthr.FunctionStop();
+                newWindowThread.Join();
             }
         }
-
-        private void NewWindowsLoading(CancellationToken token)
-        {
-            while (!token.IsCancellationRequested)
-            {
-                try
-                {
-                cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
-                cargandopicto.Show();
-                System.Windows.Threading.Dispatcher.Run();
-
-
-                }
-                catch(ThreadAbortException)
-                {
-                    cargandopicto.Close();
-                    //System.Windows.Threading.Dispatcher.InvokeShutdown();
-                }
-            }
-        }
-
-        void CloseWindow(cargandolalistadepicto cargandopicto)
-        {
-            if (cargandopicto.Dispatcher.CheckAccess())
-            {
-                cargandopicto.Close();
-            }
-            else
-            {
-                cargandopicto.Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(cargandopicto.Close));
-            }
-        }
-        /*
-                private async Task enlistarpictos()
-                {
-                   listaPict = await Repository.Instance.getAllPict();
-                }
-        
-        */
-        /*
-                private void worker_DoWork(object sender, DoWorkEventArgs e)
-                {
-                cargandolalistadepicto cargandopicto = new cargandolalistadepicto();
-
-
-                cargandopicto.Show();
-                    //Thread.Sleep(5000);
-                }
-
-                private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-                {
-                    cargandopicto.Close();
-                }
-
-        */
-
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
