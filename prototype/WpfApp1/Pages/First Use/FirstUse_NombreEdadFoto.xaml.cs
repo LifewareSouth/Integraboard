@@ -157,7 +157,7 @@ namespace WpfApp1.Pages.First_Use
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            WarningTableroSinPortada wt = new WarningTableroSinPortada("CUIDAO!");
+            WarningTableroSinPortada wt = new WarningTableroSinPortada("Al no crear perfil el programa se cerrará");
             wt.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             var result = wt.ShowDialog();
             if (result == true)
