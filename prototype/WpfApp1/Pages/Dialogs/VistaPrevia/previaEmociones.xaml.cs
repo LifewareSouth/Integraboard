@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Dialogs.VistaPrevia
@@ -26,6 +27,8 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         int rowCounter, columnsCounter;
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
         public previaEmociones()
         {
             InitializeComponent();
@@ -39,6 +42,8 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
             AjustarTablero();
+            this.Resources["menuBtn"] = menuBtn;
+            this.Resources["closeButton"] = closeButton;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -64,6 +69,10 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             return null;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
         private void AjustarTablero()
         {

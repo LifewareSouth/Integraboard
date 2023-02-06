@@ -3,12 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs"
+        xmlns:local="clr-namespace:WpfApp1.Pages.Dialogs" xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="Cargandopictodialog" Height="450" Width="800"
+        Title="Cargandopictodialog" Height="300" Width="600"
+        WindowStyle = "None"
+        ResizeMode = "NoResize"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TextBox HorizontalAlignment="Center" Margin="0,156,0,0" TextWrapping="Wrap" Text="cargando lista de pictogramas&#xD;&#xA;" VerticalAlignment="Top" Width="438" Height="117" FontSize="30"/>
+    <Border BorderBrush="#707070"
+                BorderThickness="4">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+              Background="#1597e5">
+                <Label Content="Cargando"
+                   Foreground="White"
+                   FontSize="30"
+                   FontWeight="SemiBold"
+                   Margin="20,0,0,0"
+                   VerticalContentAlignment="Center"
+                   Grid.Column="0"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <fa:ImageAwesome Icon="ClockOutline" 
+                                  Spin="False" 
+                                  Height="80" 
+                                  Width="80"
+                                  Foreground="#1597e5"
+                                  VerticalAlignment="Top"
+                                  Margin="0,40,0,0"/>
+                <TextBox HorizontalAlignment="Center" 
+                         VerticalAlignment="Top"
+                         TextWrapping="Wrap"
+                         BorderThickness="0"
+                         Text="Cargando listado de pictogramas"
+                         FontSize="30" Margin="0,139,0,0"/>
+            </Grid>
 
-    </Grid>
+        </Grid>
+    </Border>
+
+
+
 </Window>

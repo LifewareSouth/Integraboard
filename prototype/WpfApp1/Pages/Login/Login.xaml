@@ -31,6 +31,7 @@
                         <TextBox Width="150"
                              Height="20"/>
                         <Button Background="White"
+                                Style="{DynamicResource btnDefault}"
                                 Content="?"
                                 Height="20"
                                 Width="20"
@@ -46,6 +47,7 @@
                         <TextBox Width="150"
                              Height="20"/>
                         <Button Background="White"
+                                Style="{DynamicResource btnDefault}"
                                 Content="?"
                                 Height="20"
                                 Width="20"

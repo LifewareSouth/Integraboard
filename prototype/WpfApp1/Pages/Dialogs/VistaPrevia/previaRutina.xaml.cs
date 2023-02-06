@@ -65,7 +65,6 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             else if(board.conTiempo == "No")
             {
                 conTiempo = false;
-                playButton.Visibility = Visibility.Collapsed;
                 SeccionTiempo.Visibility = Visibility.Collapsed;
                 agregarTiempo.Visibility = Visibility.Collapsed;
             }
@@ -125,8 +124,11 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             Tablero.ItemsSource = vistas;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
-        
         void ajustar_tiempo()
         {
             if (segundosPict < 60)
