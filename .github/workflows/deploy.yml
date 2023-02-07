@@ -13,15 +13,15 @@ env:
   RUNTIME_IDENTIFIER: win-x86
   TARGET_PLATFORM: Any CPU
   OUTPUT_PATH: './output'
-  VERSION: '1.0.0'
-  ASSEMBLY_VERSION: '1.0.0'
+  VERSION: '1.0.1'
+  ASSEMBLY_VERSION: '1.0.1'
 
   CICD_PATH: './cicd'
   NUSPEC_FILE_PATH: './cicd/app.nuspec'
   SQUIRREL_VERSION: '1.5.1'
   # SQUIRREL_ICON: './IntegraBoard/IntegraBoard/logolifewareintegra.ico'
   SQUIRREL_OUTPUT_PATH: './cicd/output'
-  APP_ID: 'IntegraBoard 4'
+  APP_ID: 'IntegraBoard4'
   AUTHOR: 'Lifeware'
   # Para pruebas -> DESTINO_S3: 'debug'
   # Para producción -> DESTINO_S3: 'release'
