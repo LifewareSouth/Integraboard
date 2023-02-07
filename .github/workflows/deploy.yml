@@ -21,7 +21,7 @@ env:
   SQUIRREL_VERSION: '1.5.1'
   # SQUIRREL_ICON: './IntegraBoard/IntegraBoard/logolifewareintegra.ico'
   SQUIRREL_OUTPUT_PATH: './cicd/output'
-  APP_ID: 'IntegraBoard 4'
+  APP_ID: 'IntegraBoard4'
   AUTHOR: 'Lifeware'
   # Para pruebas -> DESTINO_S3: 'debug'
   # Para producción -> DESTINO_S3: 'release'
