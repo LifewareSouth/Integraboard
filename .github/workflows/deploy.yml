@@ -195,6 +195,6 @@ jobs:
       run: |
         aws s3 cp ${{ env.SQUIRREL_OUTPUT_PATH }}/${{ env.APP_ID }}-${{env.ASSEMBLY_VERSION}}-full.nupkg ${{ secrets.AWS_BUCKET}}/${{ env.DESTINO_S3 }}/ --acl public-read
         aws s3 cp ${{ env.SQUIRREL_OUTPUT_PATH }}/RELEASES ${{ secrets.AWS_BUCKET}}/${{ env.DESTINO_S3 }}/ --acl public-read
-        aws s3 cp ${{ env.SQUIRREL_OUTPUT_PATH }}/IntegraBoard4Installer.exe ${{ secrets.AWS_BUCKET}}/${{ env.DESTINO_S3 }}/ --acl public-read
+        aws s3 cp ${{ env.SQUIRREL_OUTPUT_PATH }}/Setup.exe ${{ secrets.AWS_BUCKET}}/${{ env.DESTINO_S3 }}/ --acl public-read
         aws s3 cp ${{ env.SQUIRREL_OUTPUT_PATH }}/${{ env.APP_ID }}-${{env.ASSEMBLY_VERSION}}-delta.nupkg ${{ secrets.AWS_BUCKET}}/${{ env.DESTINO_S3 }}/ --acl public-read
      
