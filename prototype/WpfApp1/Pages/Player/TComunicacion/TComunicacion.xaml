@@ -162,7 +162,7 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               PreviewMouseLeftButtonUp ="ListViewItem_PreviewMouseLeftButtonDown"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              d:ItemsSource="{d:SampleData ItemCount=5}">
+                              >
                             <ItemsControl.ItemsPanel >
                                 <ItemsPanelTemplate x:Name="panelTest">
                                     <UniformGrid Rows="{Binding rowCounter}" 

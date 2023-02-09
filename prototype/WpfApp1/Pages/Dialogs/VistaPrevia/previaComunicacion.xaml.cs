@@ -39,6 +39,9 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
         bool escucharDirectamente = false;
         private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
         int rowCounter, columnsCounter, columnsListado;
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+        private static BitmapImage escucharBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.escucharConTexto);
+        private static BitmapImage limpiarBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.limpiarConTexto);
         public previaComunicacion()
         {
             InitializeComponent();
@@ -56,6 +59,9 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             synth.SelectVoice(Repository.Instance.getProfileVoice());
             this.Resources["closeButton"] = closeButton;
             AjustarTablero();
+            this.Resources["menuBtn"] = menuBtn;
+            this.Resources["escucharTC"] = escucharBtn;
+            this.Resources["limpiarTC"] = limpiarBtn;
         }
         void Reader_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {

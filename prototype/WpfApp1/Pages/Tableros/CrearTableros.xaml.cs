@@ -153,7 +153,7 @@ namespace WpfApp1.Pages.Tableros
             imagenPortada.Source = pictPortada.Imagen;
         }
 
-        int _rows =4, _columns=4 ;
+        static int _rows =4, _columns=4 ;
         public int rowCounter
         {
             set

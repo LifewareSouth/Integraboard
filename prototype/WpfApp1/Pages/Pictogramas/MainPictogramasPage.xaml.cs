@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,46 @@ namespace WpfApp1
     /// <summary>
     /// Lógica de interacción para Pictogramas.xaml
     /// </summary>
+    /// 
+    class threadClass
+    {
+        bool activo = false;
+
+        public bool Activo
+        {
+            set { activo = value; }
+        }
+
+
+
+        public threadClass() { }
+
+        public void ThreadMethod()
+        {
+           
+            Console.WriteLine("newThread is executing ThreadMethod.");
+
+            try
+            {
+                //CAMBIAR DIALOG POR UNO NUEVO
+
+                Cargandopictodialog cd = new Cargandopictodialog();
+                cd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                while (!activo) 
+                {
+                    cd.Show();
+                }
+                cd.Close();
+
+            }
+            catch (ThreadInterruptedException e)
+            {
+                Console.WriteLine("newThread cannot go to sleep - " +
+                    "interrupted by main thread.");
+            }
+        }
+    }
     public partial class MainPicrogramasPage : Page
     {
         private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
@@ -59,11 +100,19 @@ namespace WpfApp1
                                      new MouseButtonEventHandler(Row_DoubleClick)));
             if((listaPict.Count == 0)||(actualizandoPictogramas==true))
             {
+                threadClass threadclass = new threadClass();
+                Thread newThread =
+                    new Thread(new ThreadStart(threadclass.ThreadMethod));
+                newThread.SetApartmentState(ApartmentState.STA);
+                newThread.Start();
                 listaPict = Repository.Instance.getAllPict();
                 ListViewPictograms.ItemsSource = listaPict;
                 actualizandoPictogramas = false;
+                threadclass.Activo = true;
+                newThread.Join();               
             }
         }
+       
         private void ListViewPictograms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

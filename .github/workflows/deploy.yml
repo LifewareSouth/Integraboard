@@ -19,7 +19,7 @@ env:
   CICD_PATH: './cicd'
   NUSPEC_FILE_PATH: './cicd/app.nuspec'
   SQUIRREL_VERSION: '1.5.1'
-  SQUIRREL_ICON: './prototype/WpfApp1/logoBoard.ico'
+  SQUIRREL_ICON: './prototype/WpfApp1/logoBoard.ico' 
   SQUIRREL_OUTPUT_PATH: './cicd/output'
   APP_ID: 'IntegraBoard4'
   AUTHOR: 'Lifeware'

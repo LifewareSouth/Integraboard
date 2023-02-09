@@ -64,6 +64,10 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             return null;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
         private void AjustarTablero()
         {
