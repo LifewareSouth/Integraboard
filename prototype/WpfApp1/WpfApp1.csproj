@@ -125,6 +125,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LifewareSoftwareCommon\LifewareSoftwareCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Interop.SpeechLib">
       <HintPath>packages\Interop.SpeechLib.dll</HintPath>
     </Reference>
