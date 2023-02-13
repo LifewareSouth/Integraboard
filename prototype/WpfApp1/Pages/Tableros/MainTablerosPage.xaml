@@ -386,10 +386,10 @@
                             <Setter Property="Foreground" Value="black"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#f4f6af" />
+                            <Setter Property="Background" Value="Transparent" />
                             <Setter Property="BorderThickness" Value="1" />
                             <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="Foreground" Value="black"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
