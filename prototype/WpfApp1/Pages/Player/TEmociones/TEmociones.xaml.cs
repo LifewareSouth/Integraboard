@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Player.TEmociones
@@ -26,6 +27,7 @@ namespace WpfApp1.Pages.Player.TEmociones
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         int rowCounter, columnsCounter;
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
         public TEmociones()
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace WpfApp1.Pages.Player.TEmociones
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
             AjustarTablero();
+            this.Resources["menuBtn"] = menuBtn;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {

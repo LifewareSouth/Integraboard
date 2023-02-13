@@ -73,6 +73,16 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agregarTiempoConTexto {
+            get {
+                object obj = ResourceManager.GetObject("agregarTiempoConTexto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrowBlanca {
             get {
                 object obj = ResourceManager.GetObject("arrowBlanca", resourceCulture);
@@ -253,6 +263,16 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap saltarTareaConTexto {
+            get {
+                object obj = ResourceManager.GetObject("saltarTareaConTexto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap seleccionarFotoConTexto {
             get {
                 object obj = ResourceManager.GetObject("seleccionarFotoConTexto", resourceCulture);
@@ -313,9 +333,9 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap terminar {
+        internal static System.Drawing.Bitmap terminarTareaConTexto {
             get {
-                object obj = ResourceManager.GetObject("terminar", resourceCulture);
+                object obj = ResourceManager.GetObject("terminarTareaConTexto", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

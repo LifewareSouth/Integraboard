@@ -142,10 +142,12 @@
             <!-- imagenes -->
             <BitmapImage x:Key="sound" UriSource="Resources\sound.png"/>
             <BitmapImage x:Key="check" UriSource="Resources\playButtonBlanco.png"/>
-            <BitmapImage x:Key="botonSiguiente" UriSource="Resources\terminar.png"/>
+            <BitmapImage x:Key="terminarTarea" UriSource="Resources\terminar.png"/>
             <BitmapImage x:Key="botonSaltar" UriSource="Resources\siguiente.png"/>
             <BitmapImage x:Key="cronometro" UriSource="Resources\stopwatch.png"/>
             <BitmapImage x:Key="temp" UriSource="Resources\timer.png"/>
+            <BitmapImage x:Key="saltarTarea" UriSource="Resources\saltarTareaConTexto.png"/>
+            <BitmapImage x:Key="agregarTiempo" UriSource="Resources\agregarTiempoConTexto.png"/>
             <!-- estas van en el perfil -->
             <BitmapImage x:Key="cam" UriSource="Resources\camera.png"/>
             <BitmapImage x:Key="nombre" UriSource="Resources\nombreConTexto.png"/>

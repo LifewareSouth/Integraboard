@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 using WpfApp1.Model;
 
 namespace WpfApp1.Pages.Player.TSonidos
@@ -30,6 +31,7 @@ namespace WpfApp1.Pages.Player.TSonidos
         IWavePlayer waveOut;
         SoundModel sonidoReproducible = new SoundModel();
         int rowCounter, columnsCounter;
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
         public TSonidos()
         {
             InitializeComponent();
@@ -42,6 +44,7 @@ namespace WpfApp1.Pages.Player.TSonidos
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
             AjustarTablero();
+            this.Resources["menuBtn"] = menuBtn;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {

@@ -23,17 +23,19 @@
             <Grid Grid.Row="0"
                   Grid.RowSpan="2">
                 <Button x:Name="volverMenu"
-                        Width="150"
-                        Height="150"
-                        Content="Menú"
-                        FontFamily="arial"
+                        Width="120"
+                        Height="120"
+                        Style="{DynamicResource btnDefault}"
+                        Grid.Column="0"
                         FontSize="30"
-                        FontWeight="SemiBold"
-                        Foreground="white"
-                        Background="#1597e5"
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top" 
-                        Click="volverMenu_Click"/>
+                        Margin="30"
+                        Click="volverMenu_Click">
+                    <Image Source="{DynamicResource menuBtn}"
+                           Height="120"
+                           Width="120"/>
+                </Button>
                 <StackPanel Orientation="Vertical"
                             HorizontalAlignment="Center">
                     <Label x:Name="TituloTRutina"
@@ -148,35 +150,30 @@
                             Grid.Row="1"
                             HorizontalAlignment="Center"
                             Visibility="Visible">
-                    <Button x:Name="saltarTarea"
-                            Content="Saltar" 
-                            FontSize="15"
-                            Foreground="White"
-                            Background="#1597e5"
-                            FontFamily="arial"
+                    <Button x:Name="saltarTarea" 
+                            Style="{DynamicResource btnDefault}"
                             Height="110"
                             Width="110"
-                            Visibility="Visible" Click="saltarTarea_Click"/>
+                            Visibility="Visible" Click="saltarTarea_Click">
+                        <Image Source="{DynamicResource saltarTarea}"/>
+                    </Button>
+
 
                     <Button x:Name="terminarTarea"
-                            Content="Terminar Tarea" 
-                            FontSize="15"
-                            Foreground="White"
-                            Background="#1597e5"
-                            FontFamily="arial"
+                            Style="{DynamicResource btnDefault}"
                             Height="110"
                             Width="110"
                             Margin="50,0,50,0"
-                            Visibility="Visible" Click="terminarTarea_Click"/>
+                            Visibility="Visible" Click="terminarTarea_Click">
+                        <Image Source="{DynamicResource terminarTarea}"/>
+                    </Button>
                     <Button x:Name="agregarTiempo"
-                            Content="Agregar Tiempo" 
-                            FontSize="15"
-                            Foreground="White"
-                            Background="#1597e5"
-                            FontFamily="arial"
+                            Style="{DynamicResource btnDefault}"
                             Height="110"
                             Width="110"
-                            Visibility="Visible" Click="agregarTiempo_Click"/>
+                            Visibility="Visible" Click="agregarTiempo_Click">
+                        <Image Source="{DynamicResource agregarTiempo}"/>
+                    </Button>
                 </StackPanel>
                 <!--boton de play-->
                 <Button x:Name="playButton" 

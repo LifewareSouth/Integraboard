@@ -18,19 +18,18 @@
                 <RowDefinition Height="150"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0"
+                  Grid.RowSpan="2">
                 <Button x:Name="volverMenu"
                         Width="150"
                         Height="150"
-                        Content="Menú"
-                        FontFamily="arial"
-                        FontSize="30"
-                        FontWeight="SemiBold"
-                        Foreground="white"
-                        Background="#1597e5"
+                        Style="{DynamicResource btnDefault}"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top" 
-                        Click="volverMenu_Click"/>
+                        VerticalAlignment="Top"
+                        Margin="30"
+                        Click="volverMenu_Click">
+                    <Image Source="{DynamicResource menuBtn}"/>
+                </Button>
                 <!--
                 <Label x:Name="TituloTEmociones"
                        Content="Tablero de Emociones"

@@ -30,7 +30,11 @@ namespace WpfApp1.Pages.Player.TRutina
         private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.correctoEsquinado);
         private static BitmapImage saltarEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.saltarEsquinado);
         private static BitmapImage tiempo = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.timer);
-        
+        private static BitmapImage saltarTareaRutina = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.saltarTareaConTexto);
+        private static BitmapImage addTime = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.agregarTiempoConTexto);
+        private static BitmapImage terminarTareaRutina = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.terminarTareaConTexto);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         static int segundosPict = 0;
@@ -51,8 +55,12 @@ namespace WpfApp1.Pages.Player.TRutina
             columnsCounter = board.columnas;
             ListaPict = board.pictTableros;
             Tablero.ItemsSource = board.pictTableros;
+            this.Resources["menuBtn"] = menuBtn;
             this.Resources["check"] = imagenBoton;
             this.Resources["temp"] = tiempo;
+            this.Resources["terminarTarea"] = terminarTareaRutina;
+            this.Resources["saltarTarea"] = saltarTareaRutina;
+            this.Resources["agregarTiempo"] = addTime;
 
             pictTablerosCount = board.pictTableros.Count();
             if(board.conTiempo == "Si")

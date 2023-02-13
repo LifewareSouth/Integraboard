@@ -121,6 +121,9 @@
   <data name="add3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="agregarTiempoConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\agregarTiempoConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="arrowBlanca" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrowBlanca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -175,6 +178,9 @@
   <data name="saltarEsquinado" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saltarEsquinado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="saltarTareaConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\saltarTareaConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="seleccionarFotoConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\seleccionarFotoConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -193,8 +199,8 @@
   <data name="tamanoConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tamanoConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="terminar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\terminar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="terminarTareaConTexto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\terminarTareaConTexto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\timer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -22,18 +22,16 @@
                     Margin="0,40,0,0"
                     VerticalAlignment="Top">
             <Button x:Name="volverMenu"
-                Width="150"
-                Height="150"
-                
-                Content="Menú"
-                FontFamily="arial"
-                FontSize="30"
-                FontWeight="SemiBold"
-                Foreground="white"
-                Background="#1597e5"
-                Click="goToMenu"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"/>
+                    Grid.RowSpan="2"
+                        Width="150"
+                        Height="150"
+                        Style="{DynamicResource btnDefault}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        
+                        Click="goToMenu">
+                <Image Source="{DynamicResource menuBtn}"/>
+            </Button>
             <Label x:Name="TituloTSonidos"
                    Height="55"
                    Margin="250,50,0,0"
