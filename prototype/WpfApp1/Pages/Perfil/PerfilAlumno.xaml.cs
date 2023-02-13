@@ -338,5 +338,9 @@ namespace WpfApp1.Pages.Perfil
             pathImagen = path;
             imagefromCamera = true;
         }
+        private void volverMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MenuPage());
+        }
     }
 }
