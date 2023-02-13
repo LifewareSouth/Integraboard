@@ -21,7 +21,8 @@
                 <Button x:Name="volverMenu"
                     Margin="20,0,20,0"
                     Style="{StaticResource btnVolver}"
-                    FontSize="30">
+                    FontSize="30"
+                        Click="volverMenu_Click">
                     <Grid >
                         <Image Source="{DynamicResource volver}"
                            Height="45"
