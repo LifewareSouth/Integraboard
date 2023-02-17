@@ -17,12 +17,7 @@
                     FontWeight="Bold"
                     FontFamily="Arial"
                     Margin="50,30,0,0"/>
-            <Button Content="Profesional"
-                        Height="65" 
-                        Width="250"
-                        Margin="930,-150,0,500"
-                        Style="{StaticResource btnDefault}"
-                        FontSize="35"/>
+            
 
         <Grid Background="#003b49"
                    Margin="50,130,50,50" 
