@@ -11,22 +11,23 @@
       ResizeMode = "NoResize"
       Loaded="page_Loaded">
 
-    <Grid Background="#04293a">
-        <Frame x:Name="TComunicacionPlayer"/>
+    <Border BorderBrush="#707070" BorderThickness="4" >
+        <Grid Background="#04293a">
+            <Frame x:Name="TComunicacionPlayer"/>
 
-        <Grid Grid.Row="1"
+            <Grid Grid.Row="1"
               Grid.Column="1"
               Background="#003b49">
-            <Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
 
-                <ColumnDefinition Width="52*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="145"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label x:Name="TituloTCom"
+                    <ColumnDefinition Width="52*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="145"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label x:Name="TituloTCom"
                     Content="Tablero de Comunicación"
                     Foreground="White"
                     FontSize="30"
@@ -36,50 +37,50 @@
                    VerticalAlignment="Center" 
                    Height="66" 
                    Width="400"/>
-            <Button HorizontalAlignment="Left"
+                <Button HorizontalAlignment="Left"
                     Width="80"
                     Margin="1020,22,0,23"
                     Background="Transparent"
                     Grid.Row="0" Click="Button_Click">
-                <Image Source="{DynamicResource closeButton}"
+                    <Image Source="{DynamicResource closeButton}"
                        Height="50"
                        Width="50"/>
-            </Button>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal"
+                </Button>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal"
                                     x:Name="panelSuperior"
                                     HorizontalAlignment="Center">
-                            <Button x:Name="volverMenu"
+                                <Button x:Name="volverMenu"
                                     Width="80"
                                     Height="80"
                                     Margin="0,0,60,0"
                                     Background="Transparent"
                                     VerticalAlignment="Top"
                                     >
-                                <Image Source="{DynamicResource menuBtn}"
+                                    <Image Source="{DynamicResource menuBtn}"
                                        Width="80"
                                        Height="80"/>
-                            </Button>
-                            <Border Width="400"
+                                </Button>
+                                <Border Width="400"
                                     Height="80"
                                     Background="White"
                                     Margin="0,0,25,0">
-                                <Viewbox>
-                                    <ListView x:Name="Listado"
+                                    <Viewbox>
+                                        <ListView x:Name="Listado"
                                           Background="Transparent"
                                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ItemsSource="{Binding Path=vistasListado, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                                           d:ItemsSource="{d:SampleData ItemCount=5}">
 
-                                        <ItemsControl.ItemsPanel >
-                                            <ItemsPanelTemplate>
-                                                <UniformGrid Rows="1" 
+                                            <ItemsControl.ItemsPanel >
+                                                <ItemsPanelTemplate>
+                                                    <UniformGrid Rows="1" 
                                                              Columns="1"
                                                              Grid.IsSharedSizeScope="True" 
                                                              Height="auto"  
@@ -89,21 +90,21 @@
                                                              x:Name="testTablero"
                                                              PreviewMouseLeftButtonUp ="listado_MouseLeftButtonUp"
                                                              />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate >
-                                                <Grid Background="White" >
-                                                    <Border Width="150" Height="150"
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate >
+                                                    <Grid Background="White" >
+                                                        <Border Width="150" Height="150"
                                                             BorderBrush="{Binding pictograma.colorBorde}"
                                                             BorderThickness="10">
-                                                        <StackPanel HorizontalAlignment="Center"
+                                                            <StackPanel HorizontalAlignment="Center"
                                                                     Orientation="Vertical">
-                                                            <Image Source="{Binding pictograma.Imagen}"
+                                                                <Image Source="{Binding pictograma.Imagen}"
                                                                    Height="80"
                                                                    Width="80"
                                                                    Margin="10"/>
-                                                            <TextBlock Text="{Binding pictograma.Texto}"
+                                                                <TextBlock Text="{Binding pictograma.Texto}"
                                                                         TextTrimming="CharacterEllipsis"
                                                                         TextWrapping="Wrap"
                                                                         Foreground="black"
@@ -112,39 +113,39 @@
                                                                         FontWeight="SemiBold"
                                                                         TextAlignment="Center"
                                                                         VerticalAlignment="Bottom"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                    <Image HorizontalAlignment="Right"
+                                                            </StackPanel>
+                                                        </Border>
+                                                        <Image HorizontalAlignment="Right"
                                                            VerticalAlignment="Bottom"
                                                            Width="50" 
                                                            Height="50"
                                                            Source="{Binding imagenEstado}"/>
-                                                </Grid>
+                                                    </Grid>
 
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                </Viewbox>
-                            </Border>
-                            <Button x:Name="escuchar"
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Viewbox>
+                                </Border>
+                                <Button x:Name="escuchar"
                                 Width="80"
                                 Height="80"
                                 Background="Transparent"
                                 Margin="0,0,25,0">
-                                <Image Source="{DynamicResource escucharTC}"
+                                    <Image Source="{DynamicResource escucharTC}"
                                        Width="80"
                                        Height="80"/>
-                            </Button>
-                            <Button x:Name="eliminar"
+                                </Button>
+                                <Button x:Name="eliminar"
                                 Width="80"
                                 Height="80"
                                 Background="Transparent">
-                                <Image Source="{DynamicResource limpiarTC}"
+                                    <Image Source="{DynamicResource limpiarTC}"
                                        Width="80"
                                        Height="80"/>
-                            </Button>
-                        </StackPanel>
-                        <Button Content="Sintetizar Pictogramas"
+                                </Button>
+                            </StackPanel>
+                            <Button Content="Sintetizar Pictogramas"
                                 x:Name="botonSintetizar"
                                 Style="{DynamicResource btnDefault}"
                                 FontSize="15"
@@ -152,23 +153,23 @@
                                 Height="40"
                                 Width="180"
                                 HorizontalAlignment="Right"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid x:Name="testTablero2"
+                <Grid Grid.Row="2">
+                    <Grid x:Name="testTablero2"
                       Width="1100" Margin="20,0,20,0">
-                    <Viewbox x:Name="viewboxTablero" Margin="0,0,60,10">
-                        <ListView x:Name="Tablero"
+                        <Viewbox x:Name="viewboxTablero" Margin="0,0,60,10">
+                            <ListView x:Name="Tablero"
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               PreviewMouseLeftButtonUp ="ListViewItem_PreviewMouseLeftButtonDown"
                               ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
                               >
-                            <ItemsControl.ItemsPanel >
-                                <ItemsPanelTemplate x:Name="panelTest">
-                                    <UniformGrid Rows="{Binding rowCounter}" 
+                                <ItemsControl.ItemsPanel >
+                                    <ItemsPanelTemplate x:Name="panelTest">
+                                        <UniformGrid Rows="{Binding rowCounter}" 
                                              Columns="{Binding columnsCounter}"
                                              Grid.IsSharedSizeScope="True" 
                                              Height="auto"  
@@ -179,21 +180,21 @@
                                              x:Name="testTablero"
                                              
                                              />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate >
-                                    <Grid Background="White" >
-                                        <Border Width="200" Height="200"
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate >
+                                        <Grid Background="White" >
+                                            <Border Width="200" Height="200"
                                                 BorderBrush="{Binding pictograma.colorBorde}"
                                                 BorderThickness="10">
-                                            <StackPanel HorizontalAlignment="Center"
+                                                <StackPanel HorizontalAlignment="Center"
                                                         Orientation="Vertical">
-                                                <Image Source="{Binding pictograma.Imagen}"
+                                                    <Image Source="{Binding pictograma.Imagen}"
                                                        Height="120"
                                                        Width="120"
                                                        Margin="10"/>
-                                                <TextBlock Text="{Binding pictograma.Texto}"
+                                                    <TextBlock Text="{Binding pictograma.Texto}"
                                                            TextTrimming="CharacterEllipsis"
                                                            LineStackingStrategy="BlockLineHeight"
                                                            FontStretch="Condensed"
@@ -204,30 +205,31 @@
                                                             FontWeight="SemiBold"
                                                             TextAlignment="Center"
                                                             VerticalAlignment="Bottom"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </Grid>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
 
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Viewbox>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Viewbox>
+                    </Grid>
                 </Grid>
             </Grid>
+
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
         </Grid>
-
-
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition/>
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="30"/>
-        </Grid.ColumnDefinitions>
-    </Grid>
+    </Border>
 </Window>
 

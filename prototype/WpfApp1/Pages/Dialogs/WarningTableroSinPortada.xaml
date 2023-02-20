@@ -9,27 +9,28 @@
         Height="300" Width="600"
         WindowStyle = "None"
         ResizeMode = "NoResize">
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition Height="80"/>
-        </Grid.RowDefinitions>
+    <Border BorderBrush="#707070" BorderThickness="4" >
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
+            <Grid Grid.Row="0"
               Background="#ff6464">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Advertencia"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Advertencia"
                    Foreground="White"
                    FontSize="30"
                    FontWeight="SemiBold"
                    Margin="20,0,0,0"
                    VerticalContentAlignment="Center"
                    Grid.Column="0"/>
-            <Button x:Name="closebtn"
+                <Button x:Name="closebtn"
                     Content="X"
                     Grid.Column="1" 
                     Background="{x:Null}" 
@@ -38,9 +39,9 @@
                     FontSize="30"
                     FontWeight="Bold" Click="closebtn_Click"
                     />
-        </Grid>
-        <Grid Grid.Row="1">
-            <TextBlock x:Name="mensajeAdvertencia" FontSize="30"
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock x:Name="mensajeAdvertencia" FontSize="30"
                        TextWrapping="Wrap"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
@@ -49,12 +50,12 @@
                        TextAlignment="Center">
                 El tablero seleccionado no tiene portada, 
                 por favor agregue una en la sección de Editar Tablero.
-            </TextBlock>
-        </Grid>
-        <Grid Grid.Row="2">
-            <StackPanel Orientation="Horizontal"
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="2">
+                <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                <Button x:Name="btnAceptar"
+                    <Button x:Name="btnAceptar"
                         Content="Aceptar"
                         Background="#9ede73"
                         Height="40"
@@ -64,7 +65,8 @@
                         FontWeight="SemiBold" 
                         Click="btnAceptar_Click"
                         IsDefault="True"/>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </Window>

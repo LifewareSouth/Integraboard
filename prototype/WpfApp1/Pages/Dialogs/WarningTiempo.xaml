@@ -8,6 +8,7 @@
         Title="WarningTiempo" Height="300" Width="600"
         WindowStyle = "None"
         ResizeMode = "NoResize">
+    <Border BorderBrush="#707070" BorderThickness="4" >
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -86,4 +87,5 @@
             </StackPanel>
         </Grid>
     </Grid>
+        </Border>
 </Window>

@@ -8,7 +8,8 @@
         Title="update" Height="400" Width="800"
         WindowStyle = "None"
         ResizeMode = "NoResize">
-    
+
+    <Border BorderBrush="#707070" BorderThickness="4" >
         <Grid Background="White">
 
             <Grid.RowDefinitions>
@@ -23,7 +24,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Label Content="Actualización disponible"
                        Foreground="White"
                        FontSize="30"
@@ -84,5 +85,5 @@
             </Grid>
 
         </Grid>
-    
+    </Border>
 </Window>

@@ -8,60 +8,60 @@
         Title="SuccessDialog" Height="300" Width="600"
         WindowStyle = "None"
         ResizeMode = "NoResize">
-    <Grid Background="White">
+    <Border BorderBrush="#707070" BorderThickness="4" >
+        <Grid Background="White">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
 
-        </Grid.RowDefinitions>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
+            <Grid Grid.Row="0"
               Background="#9ede73">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="Mensaje" Content="¡Listo!"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="Mensaje" Content="¡Listo!"
                    Foreground="White"
                    FontSize="30"
                    FontWeight="SemiBold"
                    Margin="20,0,0,0"
                    VerticalContentAlignment="Center"
                    Grid.Column="0"/>
-            <Button x:Name="closebtn"
+                <Button x:Name="closebtn"
                     Grid.Column="1" 
                     Background="{x:Null}" 
                     BorderBrush="{x:Null}" 
                     Foreground="White" 
                     FontSize="30"
                     FontWeight="Bold" Click="closebtn_Click">
-                <Image Source="{DynamicResource closeButton}"
+                    <Image Source="{DynamicResource closeButton}"
                        Height="45"
                        Width="40"/>
-            </Button>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Button 
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Button 
                     FontSize="20"
                     Foreground="black" 
                     Click="Button_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="100"
+                            <Border CornerRadius="100"
                                     Height="180"
                                     Width="180"
                                     BorderBrush="#707070"
                                     BorderThickness="1">
-                            <Image Source="{DynamicResource success}"/>
+                                <Image Source="{DynamicResource success}"/>
 
-                        </Border>
+                            </Border>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
 
+            </Grid>
         </Grid>
-        
-
-    </Grid>
+    </Border>
 </Window>
