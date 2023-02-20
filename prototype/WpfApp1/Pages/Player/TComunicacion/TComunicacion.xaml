@@ -101,8 +101,7 @@
                                                                         FontStretch="Condensed"
                                                                         TextWrapping="Wrap"
                                                                         Foreground="black"
-                                                                        FontSize="25"
-                                                                        FontFamily="arial"
+                                                                        FontSize="{DynamicResource profileSize}"                                                                        FontFamily="arial"
                                                                         FontWeight="SemiBold"
                                                                         TextAlignment="Center"
                                                                         VerticalAlignment="Bottom"/>
