@@ -23,6 +23,7 @@ using System.IO;
 using System.Security;
 using System.Security.Permissions;
 using WpfApp1.Assets;
+using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -101,6 +102,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            string Mensaje = "Listo!";
             string filename = "C:\\IntegraBoard\\repo\\userProfile\\images\\cameraPhoto2.png";
             RenderTargetBitmap render = new RenderTargetBitmap(500, 500, 96, 96, PixelFormats.Default);
             render.Render(photoCamera);
@@ -112,6 +114,9 @@ namespace WpfApp1.Pages.Pictogramas
             }
             StopCamera();
             CrearPictos.Instance.ImagenFromCamera();
+            SuccessDialog success = new SuccessDialog(Mensaje);
+            success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            success.Show();
             this.NavigationService.GoBack();
         }
 

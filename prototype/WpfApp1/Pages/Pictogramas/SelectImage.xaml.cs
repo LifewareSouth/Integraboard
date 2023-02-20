@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1.Pages.Pictogramas
 {
@@ -79,8 +80,12 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void btn_aceptar_Click(object sender, RoutedEventArgs e)
         {
+            string Mensaje = "Listo!";
             if (ListViewImages.SelectedValue != null)
             {
+                SuccessDialog success = new SuccessDialog(Mensaje);
+                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                success.Show();
                 CrearPictos.Instance.ImagenFromDB(ImagenSeleccionada);
                 this.NavigationService.GoBack();
             }

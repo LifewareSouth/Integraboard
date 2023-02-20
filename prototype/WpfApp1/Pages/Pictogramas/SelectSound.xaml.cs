@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using AForge.Math.Geometry;
+using Microsoft.Win32;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.Assets;
 using WpfApp1.Model;
+using WpfApp1.Pages.Dialogs;
 using WpfApp1.Pages.Tableros;
 
 namespace WpfApp1.Pages.Pictogramas
@@ -134,6 +136,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void btn_aceptar_Click(object sender, RoutedEventArgs e)
         {
+            String Mensaje = "Listo!";
             if (ListViewSounds.SelectedValue != null)
             {
                 //EN CASO DE ESTAR REPRODUCIENDO SONIDO, LO PAUSA
@@ -145,6 +148,9 @@ namespace WpfApp1.Pages.Pictogramas
                     }
                 }                
                 CrearPictos.Instance.SoundFromDb(((SoundModel)ListViewSounds.SelectedItem));
+                SuccessDialog success = new SuccessDialog(Mensaje);
+                success.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                success.Show();
                 this.NavigationService.GoBack();
             }
         }

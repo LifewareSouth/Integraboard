@@ -322,10 +322,14 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void quitarSonido_Click(object sender, RoutedEventArgs e)
         {
+            string Mensaje = "Sonido eliminado de este pictograma";
             selectedSound.Text = "el sonido seleccionado es:";
             sonidoSeleccionado = new SoundModel();
             IsSoundFromDB = false;
             quitarSonido.Visibility = Visibility.Hidden;
+            quitarsonido removed = new quitarsonido(Mensaje);
+            removed.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            removed.Show();
         }
 
         void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e)

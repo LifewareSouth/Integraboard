@@ -8,54 +8,54 @@
         Title="DeleteDialogWin" Height="300" Width="600"
         WindowStyle = "None"
         ResizeMode = "NoResize">
-    
-    <Grid Background="White">
+    <Border BorderBrush="#707070" BorderThickness="4" >
+        <Grid Background="White">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition Height="80"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
+            <Grid Grid.Row="0"
               Background="#ff6464">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Eliminar"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Eliminar"
                    Foreground="White"
                    FontSize="30"
                    FontWeight="SemiBold"
                    Margin="20,0,0,0"
                    VerticalContentAlignment="Center"
                    Grid.Column="0"/>
-            <Button x:Name="closebtn"
+                <Button x:Name="closebtn"
                     Grid.Column="1" 
                     Background="{x:Null}" 
                     BorderBrush="{x:Null}" 
                     Foreground="White" 
                     FontSize="30"
                     FontWeight="Bold" Click="closebtn_Click">
-                <Image Source="{DynamicResource closeButton}"
+                    <Image Source="{DynamicResource closeButton}"
                        Height="45"
                        Width="40"/>
-            </Button>
-        </Grid>
-        <Grid Grid.Row="1">
-            <TextBlock FontSize="30"
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock FontSize="30"
                        TextWrapping="Wrap"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
                        FontFamily="Arial" 
                        TextAlignment="Center">
                 ¿Está seguro que desea eliminar este elemento?
-            </TextBlock>
-        </Grid>
-        <Grid Grid.Row="2">
-            <StackPanel Orientation="Horizontal"
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="2">
+                <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                <Button x:Name="btnAceptar"
+                    <Button x:Name="btnAceptar"
                         Content="Aceptar"
                         Background="#9ede73"
                         Height="40"
@@ -66,7 +66,7 @@
                         Click="btnAceptar_Click"
                         IsDefault="True"
                         />
-                <Button x:Name="btnCancelar"
+                    <Button x:Name="btnCancelar"
                         Content="Cancelar"
                         Background="#ff6464"
                         Height="40"
@@ -78,8 +78,9 @@
                         IsCancel="True"/>
 
 
-            </StackPanel>
-        </Grid>
+                </StackPanel>
+            </Grid>
 
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

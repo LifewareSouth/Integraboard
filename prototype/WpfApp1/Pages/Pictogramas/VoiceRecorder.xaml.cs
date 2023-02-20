@@ -204,6 +204,7 @@ namespace WpfApp1.Pages.Pictogramas
 
         private void guardarbtn_Click(object sender, RoutedEventArgs e)
         {
+            String Mensaje = "Listo!";
             string nombreSonido = "voice_" + Repository.Instance.getVoiceNumber();
             Repository.Instance.CrearSonido(VOICEPATH, nombreSonido, true);
             SelectSound.Instance.runactualizarListaSonidos();
