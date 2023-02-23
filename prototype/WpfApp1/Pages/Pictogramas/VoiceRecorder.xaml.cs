@@ -35,7 +35,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class VoiceRecorder : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         string VOICEPATH = @"C:\IntegraBoard\repo\grabaciones\voice.wav";
         public VoiceRecorder()
         {

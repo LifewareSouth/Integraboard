@@ -27,7 +27,7 @@ namespace WpfApp1.Pages.Player.TEmociones
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         int rowCounter, columnsCounter;
-        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menuConTexto);
         public TEmociones()
         {
             InitializeComponent();

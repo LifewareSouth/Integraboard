@@ -26,10 +26,10 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
     /// </summary>
     public partial class previaRutina : Window
     {
-        private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
-        private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.correctoEsquinado);
-        private static BitmapImage saltarEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.saltarEsquinado);
-        private static BitmapImage tiempo = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.timer);
+        private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.playButtonBlanco);
+        private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.correctoEsquinado);
+        private static BitmapImage saltarEsquinado = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.saltarEsquinado);
+        private static BitmapImage tiempo = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.timer);
         
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();

@@ -24,7 +24,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class SelectImage : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         List<ImagenModel> ListaImagenes = new List<ImagenModel>();
         List<ImagenModel> filteredImages = new List<ImagenModel>();
         public SelectImage()

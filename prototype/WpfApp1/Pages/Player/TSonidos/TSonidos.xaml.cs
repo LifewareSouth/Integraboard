@@ -31,7 +31,7 @@ namespace WpfApp1.Pages.Player.TSonidos
         IWavePlayer waveOut;
         SoundModel sonidoReproducible = new SoundModel();
         int rowCounter, columnsCounter;
-        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menuConTexto);
         public TSonidos()
         {
             InitializeComponent();

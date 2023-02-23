@@ -25,15 +25,15 @@ namespace WpfApp1.Pages.First_Use
     /// </summary>
     public partial class FirstUse_VozTexto : Page
     {
-        private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tamanoConTexto);
-        private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
+        private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.tamanoConTexto);
+        private static BitmapImage voz = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.VozConTexto);
         private static PerfilModel datosPerfil = new PerfilModel();
         string pathImagen = "";
         string tamañoSeleccionado = "";
         List<string> nombresVoces = new List<string>();
         StackPanel LeftMenu;
         SpeechSynthesizer synth = new SpeechSynthesizer();
-        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
+        private static BitmapImage sound = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.sound);
         public FirstUse_VozTexto()
         {
             InitializeComponent();

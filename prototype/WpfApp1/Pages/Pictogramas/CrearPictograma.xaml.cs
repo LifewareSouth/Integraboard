@@ -30,7 +30,7 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class CrearPictos : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         string TipoImagen = null, pathImagen;
         private static bool IsImageFromCamera = false;

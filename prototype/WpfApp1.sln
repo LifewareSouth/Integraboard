@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{DC4D931B-61DF-4B15-B1C0-6595FF9DCB99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integraboard", "WpfApp1\Integraboard.csproj", "{DC4D931B-61DF-4B15-B1C0-6595FF9DCB99}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3D0163C0-97AF-48F1-AF29-11DA75EC8913} = {3D0163C0-97AF-48F1-AF29-11DA75EC8913}
 		{D7280C8C-6320-4965-927C-5F089A08A723} = {D7280C8C-6320-4965-927C-5F089A08A723}

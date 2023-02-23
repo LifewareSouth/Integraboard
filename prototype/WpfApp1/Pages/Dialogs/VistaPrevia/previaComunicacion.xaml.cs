@@ -26,7 +26,7 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
     /// </summary>
     public partial class previaComunicacion : Window
     {
-        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.close_cruz_invertida);
         SpeechSynthesizer synth = new SpeechSynthesizer();
         Mp3FileReader reader;
         IWavePlayer waveOut;
@@ -37,11 +37,11 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
         List<pictTablero> ListaPictListado = new List<pictTablero>();
         bool speaking = false;
         bool escucharDirectamente = false;
-        private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.incorrectoEsquinado);
+        private static BitmapImage incorrectoEsquinado = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.incorrectoEsquinado);
         int rowCounter, columnsCounter, columnsListado;
-        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
-        private static BitmapImage escucharBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.escucharConTexto);
-        private static BitmapImage limpiarBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.limpiarConTexto);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menuConTexto);
+        private static BitmapImage escucharBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.escucharConTexto);
+        private static BitmapImage limpiarBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.limpiarConTexto);
         public previaComunicacion()
         {
             InitializeComponent();

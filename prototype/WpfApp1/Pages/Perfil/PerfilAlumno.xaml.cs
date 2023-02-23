@@ -34,18 +34,18 @@ namespace WpfApp1.Pages.Perfil
     /// </summary>
     public partial class PerfilAlumno : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
-        private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.camera);
-        private static BitmapImage nombre = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.nombreConTexto);
-        private static BitmapImage edad = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.edadConTexto);
-        private static BitmapImage tomarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tomarFotoConTexto);
-        private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.seleccionarFotoConTexto);
-        private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tamanoConTexto);
-        private static BitmapImage voz = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.VozConTexto);
-        private static BitmapImage menos = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menos);
-        private static BitmapImage mas = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.mas);
-        private static BitmapImage sound = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
-        private static PerfilModel datosPerfil = new PerfilModel();
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
+        private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.camera);
+        private static BitmapImage nombre = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.nombreConTexto);
+        private static BitmapImage edad = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.edadConTexto);
+        private static BitmapImage tomarFoto = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.tomarFotoConTexto);
+        private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.seleccionarFotoConTexto);
+        private static BitmapImage tamanoTexto = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.tamanoConTexto);
+        private static BitmapImage voz = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.VozConTexto);
+        private static BitmapImage menos = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menos);
+        private static BitmapImage mas = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.mas);
+        private static BitmapImage sound = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.sound);
+        private static PerfilModel datosPerfil = new PerfilModel(); 
         bool _navigationServiceAssigned = false;
         SpeechSynthesizer synth = new SpeechSynthesizer();
         static List<string> nombresVoces = new List<string>();

@@ -27,8 +27,8 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
         int rowCounter, columnsCounter;
-        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
-        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menuConTexto);
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.close_cruz_invertida);
         public previaEmociones()
         {
             InitializeComponent();

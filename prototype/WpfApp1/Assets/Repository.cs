@@ -1245,7 +1245,7 @@ namespace WpfApp1.Assets
             pict.ID = 0;
             pict.Nombre = "default";
             pict.Texto = "default";
-            pict.Imagen = getImageFromResources(WpfApp1.Properties.Resources.add3);
+            pict.Imagen = getImageFromResources(Integraboard.Properties.Resources.add3);
             return pict;
         }
         public void deleteBoard(int idTablero)

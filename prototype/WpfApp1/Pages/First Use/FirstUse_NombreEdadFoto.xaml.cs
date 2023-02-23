@@ -24,13 +24,13 @@ namespace WpfApp1.Pages.First_Use
     /// </summary>
     public partial class FirstUse_NombreEdadFoto : Page
     {
-        private static BitmapImage menos = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menos);
-        private static BitmapImage mas = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.mas);
-        private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.camera);
-        private static BitmapImage nombre = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.nombreConTexto);
-        private static BitmapImage edad = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.edadConTexto);
-        private static BitmapImage tomarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.tomarFotoConTexto);
-        private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.seleccionarFotoConTexto);
+        private static BitmapImage menos = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menos);
+        private static BitmapImage mas = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.mas);
+        private static BitmapImage cameraButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.camera);
+        private static BitmapImage nombre = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.nombreConTexto);
+        private static BitmapImage edad = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.edadConTexto);
+        private static BitmapImage tomarFoto = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.tomarFotoConTexto);
+        private static BitmapImage seleccionarFoto = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.seleccionarFotoConTexto);
         static int edadPerfil = 0;
         static string pathImagen = "";
         static StackPanel LeftMenu;

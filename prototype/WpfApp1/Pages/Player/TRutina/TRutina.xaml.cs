@@ -26,14 +26,14 @@ namespace WpfApp1.Pages.Player.TRutina
     /// </summary>
     public partial class TRutina : Page
     {
-        private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.playButtonBlanco);
-        private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.correctoEsquinado);
-        private static BitmapImage saltarEsquinado = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.saltarEsquinado);
-        private static BitmapImage tiempo = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.timer);
-        private static BitmapImage saltarTareaRutina = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.saltarTareaConTexto);
-        private static BitmapImage addTime = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.agregarTiempoConTexto);
-        private static BitmapImage terminarTareaRutina = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.terminarTareaConTexto);
-        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.menuConTexto);
+        private static BitmapImage imagenBoton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.playButtonBlanco);
+        private static BitmapImage correctoEsquinado = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.correctoEsquinado);
+        private static BitmapImage saltarEsquinado = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.saltarEsquinado);
+        private static BitmapImage tiempo = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.timer);
+        private static BitmapImage saltarTareaRutina = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.saltarTareaConTexto);
+        private static BitmapImage addTime = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.agregarTiempoConTexto);
+        private static BitmapImage terminarTareaRutina = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.terminarTareaConTexto);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menuConTexto);
 
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();

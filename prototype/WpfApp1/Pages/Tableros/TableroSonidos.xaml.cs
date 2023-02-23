@@ -28,7 +28,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class TableroSonidos : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static pictTablero CuadroSeleccionado = new pictTablero();
         static Collection<pictTablero> listaPictTablero = new Collection<pictTablero>();
@@ -41,7 +41,7 @@ namespace WpfApp1.Pages.Tableros
         static Pictogram pictPortada = new Pictogram();
         private static readonly TableroSonidos instance = new TableroSonidos();
         static Board boardEditable = new Board();
-        private static BitmapImage imagenAddPictograma = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.add3);
+        private static BitmapImage imagenAddPictograma = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.add3);
         Mp3FileReader reader;
         IWavePlayer waveOut;
         SoundModel sonidoReproducible = new SoundModel();

@@ -67,7 +67,7 @@ namespace WpfApp1
     }
     public partial class MainPicrogramasPage : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoPictogramas = false;
         static List<Pictogram> listaPict = new List<Pictogram>();

@@ -27,14 +27,14 @@ namespace WpfApp1.Pages.Pictogramas
     /// </summary>
     public partial class SelectSound : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         Mp3FileReader reader;
         IWavePlayer waveOut;
         SoundModel sonidoReproducible = new SoundModel();
         bool _navigationServiceAssigned = false;
         private static readonly SelectSound instance = new SelectSound();
         static bool actualizandoListaSonidos = false;
-        private static BitmapImage imagenSonido= Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.sound);
+        private static BitmapImage imagenSonido= Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.sound);
         public static SelectSound Instance
         {
             get

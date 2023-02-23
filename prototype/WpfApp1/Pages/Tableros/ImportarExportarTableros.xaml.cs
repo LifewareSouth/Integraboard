@@ -25,7 +25,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class ImportarExportarTableros : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         List<Board> listaTablerosTotal = new List<Board>();
         string importpath = "";
         List<Board> importTempData = new List<Board>();

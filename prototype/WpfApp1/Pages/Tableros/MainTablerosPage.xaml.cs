@@ -29,7 +29,7 @@ namespace WpfApp1.Pages.Tableros
     /// </summary>
     public partial class MainTablerosPage : Page
     {
-        private static BitmapImage volver = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.arrowBlanca);
+        private static BitmapImage volver = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.arrowBlanca);
         bool _navigationServiceAssigned = false;
         static bool actualizandoLista = false;
         static List<Board> listaTableros = new List<Board>();

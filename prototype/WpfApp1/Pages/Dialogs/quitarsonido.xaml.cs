@@ -19,8 +19,8 @@ namespace WpfApp1.Pages.Dialogs
     /// Lógica de interacción para quitarsonido.xaml
     /// </summary>
     public partial class quitarsonido : Window { 
-        private static BitmapImage success = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.successCheck);
-        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
+        private static BitmapImage success = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.successCheck);
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.close_cruz_invertida);
     
         public quitarsonido()
         {

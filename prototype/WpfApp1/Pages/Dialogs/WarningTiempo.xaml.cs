@@ -20,8 +20,8 @@ namespace WpfApp1.Pages.Dialogs
     /// </summary>
     public partial class WarningTiempo : Window
     {
-        private static BitmapImage cronometro = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.stopwatch);
-        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
+        private static BitmapImage cronometro = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.stopwatch);
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.close_cruz_invertida);
         public WarningTiempo()
         {
             InitializeComponent();

@@ -17,7 +17,7 @@ namespace WpfApp1.Pages.Dialogs
 {
     public partial class DeleteDialogWin : Window
     {
-        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(WpfApp1.Properties.Resources.close_cruz_invertida);
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.close_cruz_invertida);
         public DeleteDialogWin()
         {
             InitializeComponent();
