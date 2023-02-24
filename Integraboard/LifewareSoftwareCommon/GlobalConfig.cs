@@ -12,7 +12,7 @@ namespace Lifeware.SoftwareCommon
     public class GlobalConfig
     {
         //TODO: Establecer nombre de aplicación aca
-        private const string APPNAME = "prototipo";
+        private const string APPNAME = "Integraboard";
         //TODO: Establecer versión de aplicación. Recordar actualizar en cada Release
         public const string APPVERSION = "1.0.1";
         //TODO: Establecer GUID de la aplicación.
@@ -25,7 +25,7 @@ namespace Lifeware.SoftwareCommon
         public static string AppName { get { return APPNAME; } }
         public static string AppVersion { get { return APPVERSION; } }
         public static string AppGuid { get { return APPGUID; } }
-        public static string ExeName { get { return "WpfApp1.exe"; } }
+        public static string ExeName { get { return "Integraboard.exe"; } }
         public static string UpdateUrl { get { return UPDATE_URL; } }
     }
 }
