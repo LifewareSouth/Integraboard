@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -2373,6 +2374,203 @@ namespace WpfApp1.Assets
                     }
                 }
             
+        }
+        public void transform_old_database()
+        {
+            string pathapp = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\";
+
+            SQLiteConnection.CreateFile(pathapp + "\\database.db");
+            string connectionString = "Data Source= " + pathapp + "\\database.db;Version=3;";
+            string cadena = "Data Source= " + pathapp + "\\test.db;Version=3;";
+
+            //IMAGENES
+            //-----------------------------------------------------------------------------------------
+            using (SQLiteConnection newconexion = new SQLiteConnection(connectionString))
+            {
+                newconexion.Open();
+                string newquery = "CREATE TABLE IF NOT EXISTS imagenes (idImagen INTEGER NOT NULL, idAlfaImagen TEXT, nombreImagen TEXT,blobImagen BLOB , PRIMARY key( idImagen AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS sonidos (idSonido INTEGER NOT NULL, idAlfaSonido TEXT, nombreSonido TEXT,pathSonido TEXT, PRIMARY key(idSonido AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS pictogramas (idPict INTEGER NOT NULL,idAlfaPict TEXT, nombrePict TEXT, textoPict Text, categoriaPict TEXT, idImagen int, idSonido int, PRIMARY KEY(idPict AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS tableros(idTablero INTEGER NOT NULL,idAlfaTablero Text,nombreTablero TEXT,tipo TEXT,filas INTEGER,columnas INTEGER,pictPortada INTEGER,asignacion TEXT,conTiempo TEXT,PRIMARY KEY(idTablero AUTOINCREMENT));" +
+                    "CREATE TABLE IF NOT EXISTS pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO,PRIMARY KEY(idPictTablero AUTOINCREMENT));";
+                SQLiteCommand newcmd = new SQLiteCommand(newquery, newconexion);
+                newcmd.CommandType = System.Data.CommandType.Text;
+                newcmd.ExecuteNonQuery();
+
+
+                newquery = "insert into imagenes(idImagen, idAlfaImagen,nombreImagen,blobImagen) values (@idImagen, @idAlfaImagen,@nombreImagen,@blobImagen)";
+
+                newcmd = new SQLiteCommand(newquery, newconexion);
+                using (SQLiteConnection conexion = new SQLiteConnection(cadena))
+                {
+                    conexion.Open();
+                    string query = "SELECT * from images ;";
+                    SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    using (SQLiteDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (int.Parse(dr["id_image"].ToString()) != 0)
+                            {
+                                newcmd.Parameters.Add(new SQLiteParameter("@idImagen", dr["id_image"].ToString()));
+                                newcmd.Parameters.Add(new SQLiteParameter("@idAlfaImagen", Guid.NewGuid().ToString()));
+                                SQLiteParameter newparametro = new SQLiteParameter("@blobImagen", System.Data.DbType.Binary);
+                                newcmd.Parameters.Add(new SQLiteParameter("@nombreImagen", dr["nombre"].ToString()));
+                                newparametro.Value = (System.Byte[])dr["image"];
+                                newcmd.Parameters.Add(newparametro);
+                                newcmd.CommandType = System.Data.CommandType.Text;
+                                newcmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    conexion.Close();
+                    conexion.Dispose();
+                }
+                newconexion.Close();
+            }
+            //SONIDOS
+            //------------------------------------------------------------------------------------------
+            using (SQLiteConnection conexion = new SQLiteConnection(cadena))
+            {
+                conexion.Open();
+                string query = "SELECT * from sounds ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    string newquery = "insert into sonidos(idSonido, idAlfaSonido,nombreSonido,pathSonido) values (@idSonido, @idAlfaSonido,@nombreSonido,@pathSonido)";
+                    using (SQLiteConnection newconexion = new SQLiteConnection(connectionString))
+                    {
+                        while (dr.Read())
+                        {
+                            string guidSonido = Guid.NewGuid().ToString();
+                            string pathSonido = "C:\\IntegraBoard\\repo\\sonidos\\" + guidSonido + ".mp3";
+                            newconexion.Open();
+                            SQLiteCommand newcmd = new SQLiteCommand(newquery, newconexion);
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.Parameters.Add(new SQLiteParameter("@idSonido", dr["id_sound"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idAlfaSonido", guidSonido));
+                            newcmd.Parameters.Add(new SQLiteParameter("@nombreSonido", dr["nombre"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@pathSonido", pathSonido));
+                            File.Copy(dr["sound"].ToString(), pathSonido);
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.ExecuteNonQuery();
+                            newconexion.Close();
+                        }
+                    }
+                }
+                conexion.Close();
+                conexion.Dispose();
+            }
+
+            //PICTOGRAMAS
+            //--------------------------------------------------------------
+            using (SQLiteConnection conexion = new SQLiteConnection(cadena))
+            {
+                conexion.Open();
+                string query = "SELECT * from pictogram ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    string newquery = "insert into pictogramas(idPict ,idAlfaPict, nombrePict , textoPict , categoriaPict , idImagen , idSonido ) values (@idPict ,@idAlfaPict, @nombrePict , @textoPict , @categoriaPict ,@idImagen , @idSonido )";
+                    using (SQLiteConnection newconexion = new SQLiteConnection(connectionString))
+                    {
+                        while (dr.Read())
+                        {
+
+                            newconexion.Open();
+                            SQLiteCommand newcmd = new SQLiteCommand(newquery, newconexion);
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.Parameters.Add(new SQLiteParameter("@idPict", dr["id_pictogram"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idAlfaPict", dr["alfa_id"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@nombrePict", dr["name"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@textoPict", dr["title"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@categoriaPict", dr["category"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idImagen", dr["id_image"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idSonido", dr["id_sound"].ToString()));
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.ExecuteNonQuery();
+                            newconexion.Close();
+                        }
+                    }
+                }
+                conexion.Close();
+                conexion.Dispose();
+            }
+            //TABLEROS
+            //----------------------------------------------------------------------------------
+            using (SQLiteConnection conexion = new SQLiteConnection(cadena))
+            {
+                conexion.Open();
+                string query = "SELECT * from board ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    string newquery = "insert into tableros(idTablero, idAlfaTablero, nombreTablero, tipo, filas, columnas, pictPortada, asignacion ) values (@idTablero, @idAlfaTablero, @nombreTablero, @tipo, @filas, @columnas, @pictPortada, @asignacion )";
+                    using (SQLiteConnection newconexion = new SQLiteConnection(connectionString))
+                    {
+                        while (dr.Read())
+                        {
+
+                            newconexion.Open();
+                            SQLiteCommand newcmd = new SQLiteCommand(newquery, newconexion);
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.Parameters.Add(new SQLiteParameter("@idTablero", dr["id_board"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idAlfaTablero", dr["balfa_id"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@nombreTablero", dr["name"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@tipo", "Comunicación"));
+                            newcmd.Parameters.Add(new SQLiteParameter("@filas", dr["rows"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@columnas", dr["columns"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@pictPortada", dr["CoverBoard"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@asignacion", dr["state"].ToString()));
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.ExecuteNonQuery();
+                            newconexion.Close();
+                        }
+                    }
+                }
+                conexion.Close();
+                conexion.Dispose();
+            }
+            //PictTableros
+            //----------------------------------------------------------------------------------
+            using (SQLiteConnection conexion = new SQLiteConnection(cadena))
+            {
+                conexion.Open();
+                string query = "SELECT * from boardpic ;";
+                SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                using (SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    //pictTableros(idPictTablero INTEGER NOT NULL, idTablero INTEGER, idPictograma INTEGER,x INTEGER,y INTEGER,tiempo TEXTO
+                    string newquery = "insert into pictTableros(idPictTablero, idTablero, idPictograma,x,y ) values (@idPictTablero, @idTablero, @idPictograma,@x,@y )";
+                    using (SQLiteConnection newconexion = new SQLiteConnection(connectionString))
+                    {
+                        while (dr.Read())
+                        {
+
+                            newconexion.Open();
+                            SQLiteCommand newcmd = new SQLiteCommand(newquery, newconexion);
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.Parameters.Add(new SQLiteParameter("@idPictTablero", dr["id_boardpic"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idTablero", dr["id_board"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@idPictograma", dr["id_pict"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@x", dr["y"].ToString()));
+                            newcmd.Parameters.Add(new SQLiteParameter("@y", dr["x"].ToString()));
+                            newcmd.CommandType = System.Data.CommandType.Text;
+                            newcmd.ExecuteNonQuery();
+                            newconexion.Close();
+                        }
+                    }
+                }
+                conexion.Close();
+                conexion.Dispose();
+            }
+            SQLiteConnection conexion2 = new SQLiteConnection(cadena);
+            conexion2.Dispose();
         }
     }
 }

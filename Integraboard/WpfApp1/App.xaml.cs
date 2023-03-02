@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfApp1.Assets;
 using WpfApp1.Pages.Dialogs;
 
 namespace WpfApp1
@@ -28,6 +29,11 @@ namespace WpfApp1
         {
             Update();
             RestoreDB();
+            if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))
+            {
+                File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db");
+
+            }
         }
 
 
@@ -92,6 +98,12 @@ namespace WpfApp1
         {
             //Restore database after application update            
             string dest = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\database.db";
+            if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))
+            {
+                Repository.Instance.transform_old_database();
+
+
+            }
             string sourceFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db";
 
             // Check if we have settings that we need to restore
@@ -118,7 +130,10 @@ namespace WpfApp1
             {
                 File.Delete(sourceFile);
             }
-            catch (Exception) { }
+            catch (Exception) 
+            {
+            
+            }
         }
     }
     
