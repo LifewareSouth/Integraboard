@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfApp1.Assets;
@@ -29,11 +30,7 @@ namespace WpfApp1
         {
             Update();
             RestoreDB();
-            if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))
-            {
-                File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db");
-
-            }
+            
         }
 
 
@@ -98,11 +95,16 @@ namespace WpfApp1
         {
             //Restore database after application update            
             string dest = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\database.db";
-            if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))
+            if ((File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))&&(File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db")))
+            {
+
+                File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db");
+                File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db");
+
+            }
+            else if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))
             {
                 Repository.Instance.transform_old_database();
-
-
             }
             string sourceFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db";
 
@@ -132,7 +134,10 @@ namespace WpfApp1
             }
             catch (Exception) 
             {
-            
+                int pid = Process.GetCurrentProcess().Id;
+                string pathExe = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Integraboard.exe";
+                System.Diagnostics.Process.Start(pathExe);
+                Process.GetProcessById(pid).Kill();
             }
         }
     }
