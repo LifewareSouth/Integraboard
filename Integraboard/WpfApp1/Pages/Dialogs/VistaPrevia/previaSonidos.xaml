@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp1.Pages.Player.TSonidos"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1280"
+      d:DesignHeight="700" d:DesignWidth="1200"
       Title="TSonidos"
         WindowStyle = "None"
       ResizeMode = "NoResize"
@@ -19,7 +19,7 @@
                   Grid.Column="1"
                   Background="#003b49">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="71"/>
+                    <RowDefinition Height="105"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -32,10 +32,12 @@
                             HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
                     <Button HorizontalAlignment="Left"
-                        Width="50"
-                        Margin="900,0,0,25"
-                        Background="Transparent"
-                        Grid.Row="0" Click="Button_Click">
+                        Width="80"
+                        Height="80"
+                    Margin="756,16,0,9"
+                    Background="Transparent"
+                    Grid.Row="0"
+                        Grid.RowSpan="2" Click="Button_Click">
                         <Image Source="{DynamicResource closeButton}"
                        Height="30"
                        Width="30"/>
@@ -56,12 +58,12 @@
                     </Button>
                     <Grid x:Name="testTablero2"
                       Width="1000">
-                        <Viewbox>
+                        <Viewbox Margin="0,0,0,-89">
                             <ListView x:Name="Tablero"
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}"
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" Height="4" Width="4"
                               >
 
                                 <ItemsControl.ItemsPanel >

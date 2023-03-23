@@ -19,7 +19,7 @@
                   Grid.Column="1"
                   Background="#003b49">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="71"/>
+                    <RowDefinition Height="105"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -32,10 +32,12 @@
                             HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
                     <Button HorizontalAlignment="Left"
-                        Width="50"
-                        Margin="900,0,0,25"
-                        Background="Transparent"
-                        Grid.Row="0" Click="Button_Click">
+                        Width="80"
+                        Height="80"
+                    Margin="756,16,0,9"
+                    Background="Transparent"
+                    Grid.Row="0"
+                        Grid.RowSpan="2" Click="Button_Click">
                         <Image Source="{DynamicResource closeButton}"
                        Height="30"
                        Width="30"/>
@@ -45,7 +47,7 @@
                     <Button x:Name="volverMenu"
                         Width="80"
                         Height="80"
-                        Margin="210,50,0,0"
+                        Margin="210,10,0,0"
                         Background="Transparent"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left"
@@ -57,9 +59,9 @@
                     <StackPanel x:Name="SeccionTiempo" 
                                 Orientation="Horizontal"
                                 Background="White" 
-                                Height="98"
+                                Height="86"
                                 Width="250"
-                                Margin="0,50,0,0"
+                                Margin="441,10,441,0"
                                 VerticalAlignment="Top">
                         <Image Source="{DynamicResource temp}"
                                Height="62"
@@ -81,7 +83,7 @@
 
                     <Grid x:Name="testTablero2"
                           Width="1000">
-                        <Viewbox Margin="6,34,4,66">
+                        <Viewbox Margin="6,14,64,100">
                             <ListView x:Name="Tablero"
                                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -149,33 +151,30 @@
                 <StackPanel x:Name="botonesInferiores" Orientation="Horizontal"
                             Grid.Row="1"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Top" Margin="0,425,0,0">
+                            VerticalAlignment="Top" Margin="0,350,0,0">
                     <Button x:Name="saltarTarea"
-                            Content="Saltar" 
-                            FontSize="15"
-                            Foreground="White"
-                            Background="#1597e5"
-                            FontFamily="arial"
-                            Height="80"
-                            Width="80"/>
-
-                    <Button x:Name="terminarTarea"
-                            Content="Terminar Tarea" 
-                            FontSize="15"
-                            Foreground="White"
-                            Background="#1597e5"
-                            FontFamily="arial"
+                            Style="{DynamicResource btnDefault}"
                             Height="80"
                             Width="80"
-                            Margin="50,0,50,0"/>
-                    <Button x:Name="agregarTiempo"
-                            Content="Agregar Tiempo" 
-                            FontSize="15"
-                            Foreground="White"
-                            Background="#1597e5"
-                            FontFamily="arial"
+                            Visibility="Visible" >
+                        <Image Source="{DynamicResource saltarTarea}"/>
+                    </Button>
+
+                    <Button x:Name="terminarTarea"
+                            Style="{DynamicResource btnDefault}"
                             Height="80"
-                            Width="80"/>
+                            Width="80"
+                            Margin="50,0,50,0"
+                            Visibility="Visible" >
+                        <Image Source="{DynamicResource terminarTarea}"/>
+                    </Button>
+                    <Button x:Name="agregarTiempo"
+                            Style="{DynamicResource btnDefault}"
+                            Height="80"
+                            Width="80"
+                            Visibility="Visible" >
+                        <Image Source="{DynamicResource agregarTiempo}"/>
+                    </Button>
                 </StackPanel>
             </Grid>
             <Grid.RowDefinitions>
