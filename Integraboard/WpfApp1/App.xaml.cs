@@ -95,16 +95,14 @@ namespace WpfApp1
         {
             //Restore database after application update            
             string dest = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\database.db";
-            if ((File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))&&(File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db")))
+            if ((!File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\database.db"))&&(!File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db")))
             {
 
-                File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db");
-                File.Delete(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db");
-
-            }
-            else if (File.Exists(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\test.db"))
-            {
-                Repository.Instance.transform_old_database();
+                string pathOldDb = getOldDatabase();
+                if(pathOldDb != "")
+                {
+                    Repository.Instance.transform_old_database(pathOldDb);
+                }
             }
             string sourceFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db";
 
@@ -139,6 +137,32 @@ namespace WpfApp1
                 System.Diagnostics.Process.Start(pathExe);
                 Process.GetProcessById(pid).Kill();
             }
+        }
+        private static string getOldDatabase()
+        {
+            string pathOldDb = "";
+            string username = Environment.UserName;
+            string path = "C:\\Users\\" + username + "\\AppData\\Local\\integraboard";
+            string folder = "app-1.1.";
+            long length = 0;
+            for (int i = 66; i > 63; i--)
+            {
+                string TempPathOldDb = path + "\\" + folder + i;
+                if (Directory.Exists(TempPathOldDb))
+                {
+                    if (File.Exists(TempPathOldDb + "\\test.db"))
+                    {
+                        if (length < new System.IO.FileInfo(TempPathOldDb + "\\test.db").Length)
+                        {
+                            length = new System.IO.FileInfo(TempPathOldDb + "\\test.db").Length;
+                            pathOldDb = TempPathOldDb + "\\test.db";
+                        }
+                            
+                    }
+                }
+                
+            }
+            return pathOldDb;
         }
     }
     

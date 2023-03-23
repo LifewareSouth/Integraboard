@@ -2375,13 +2375,13 @@ namespace WpfApp1.Assets
                 }
             
         }
-        public void transform_old_database()
+        public void transform_old_database(string pathOldDb)
         {
             string pathapp = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\";
 
             SQLiteConnection.CreateFile(pathapp + "\\database.db");
             string connectionString = "Data Source= " + pathapp + "\\database.db;Version=3;";
-            string cadena = "Data Source= " + pathapp + "\\test.db;Version=3;";
+            string cadena = "Data Source= " + pathOldDb+"; Version=3;";
 
             //IMAGENES
             //-----------------------------------------------------------------------------------------
