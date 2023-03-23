@@ -15,17 +15,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.Assets;
 using WpfApp1.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace WpfApp1.Pages.Dialogs.VistaPrevia
 {
     /// <summary>
     /// Lógica de interacción para TSonidos.xaml
     /// </summary>
-    public partial class previaSonidos : Window
+    public partial class previaSonidos : System.Windows.Window
     {
         private BindingList<pictTablero> vistas = new BindingList<pictTablero>();
         List<pictTablero> ListaPict = new List<pictTablero>();
+        private static BitmapImage closeButton = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.close_cruz_invertida);
+        private static BitmapImage menuBtn = Repository.Instance.getImageFromResources(Integraboard.Properties.Resources.menuConTexto);
         int rowCounter, columnsCounter;
         public previaSonidos()
         {
@@ -39,6 +44,8 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             Tablero.ItemsSource = board.pictTableros;
             ListaPict = board.pictTableros;
             AjustarTablero();
+            this.Resources["closeButton"] = closeButton;
+            this.Resources["menuBtn"] = menuBtn;
         }
         private void page_Loaded(object sender, RoutedEventArgs e)
         {

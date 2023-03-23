@@ -63,7 +63,9 @@
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" Height="4" Width="4"
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
+                              d:ItemsSource="{d:SampleData ItemCount=5}"
+                              
                               >
 
                                 <ItemsControl.ItemsPanel >

@@ -81,10 +81,12 @@ namespace WpfApp1.Pages.Player.TSonidos
             this.NavigationService.Navigate(new MenuPage());
         }
 
-        private void Tablero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(Tablero.SelectedItem != null)
+            if (Tablero.SelectedItem != null)
             {
+
                 var seleccion = (pictTablero)Tablero.SelectedValue;
                 if (seleccion.idPictograma != 0 && seleccion.idPictograma != null)
                 {
@@ -95,7 +97,7 @@ namespace WpfApp1.Pages.Player.TSonidos
                             StopSound();
                         }
                     }
-                    
+
                     SoundModel tempSound = new SoundModel();
                     tempSound.ID = seleccion.pictograma.idSonido;
                     tempSound.Nombre = seleccion.pictograma.nombreSonido;
@@ -103,6 +105,7 @@ namespace WpfApp1.Pages.Player.TSonidos
                     sonidoReproducible = tempSound;
                     PlaySound(sonidoReproducible.pathSonido);
                 }
+
             }
         }
         public void PlaySound(string audioPath)

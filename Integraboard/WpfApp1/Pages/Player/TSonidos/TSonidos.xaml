@@ -57,8 +57,9 @@
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              SelectionChanged="Tablero_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}"
+                              PreviewMouseLeftButtonUp ="ListViewItem_PreviewMouseLeftButtonDown"
+                               d:ItemsSource="{d:SampleData ItemCount=5}"
                               
                               >
                             
