@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfApp1.Assets;
@@ -32,11 +33,8 @@ namespace WpfApp1
             RestoreDB();
             
         }
-
-
         static async Task Update()
         {
-
             ReleaseEntry release = null;
             try
             {
@@ -57,9 +55,7 @@ namespace WpfApp1
 
                         if (result == true)
                         {
-
                             release = await mgr.UpdateApp();
-
                             int pid = Process.GetCurrentProcess().Id;
                             BackupDatabase();
                             string mensaje = "Descarga completa.\n ¿Desea reiniciar IntegraBoard ahora?";
@@ -67,16 +63,12 @@ namespace WpfApp1
                             //Restart(pid);
                         }
                     }
-
-
                 }
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-
         }
 
         private static void Restart(int pid)
@@ -101,7 +93,14 @@ namespace WpfApp1
                 string pathOldDb = getOldDatabase();
                 if(pathOldDb != "")
                 {
+                    threadClassApp threadclass = new threadClassApp();
+                    Thread newThread =
+                    new Thread(new ThreadStart(threadclass.ThreadMethod));
+                    newThread.SetApartmentState(ApartmentState.STA);
+                    newThread.Start();
                     Repository.Instance.transform_old_database(pathOldDb);
+                    threadclass.Activo = true;
+                    newThread.Join();
                 }
             }
             string sourceFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\..\\database.db";
@@ -157,12 +156,40 @@ namespace WpfApp1
                             length = new System.IO.FileInfo(TempPathOldDb + "\\test.db").Length;
                             pathOldDb = TempPathOldDb + "\\test.db";
                         }
-                            
                     }
                 }
-                
             }
             return pathOldDb;
+        }
+        class threadClassApp
+        {
+            bool activo = false;
+
+            public bool Activo
+            {
+                set { activo = value; }
+            }
+            public threadClassApp() { }
+
+            public void ThreadMethod()
+            {
+                try
+                {
+                    ActualizandoDatosDialog ad = new ActualizandoDatosDialog();
+                    ad.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+                    while (!activo)
+                    {
+                        ad.Show();
+                    }
+                    ad.Close();
+                }
+                catch (ThreadInterruptedException e)
+                {
+                    Console.WriteLine("newThread cannot go to sleep - " +
+                        "interrupted by main thread.");
+                }
+            }
         }
     }
     

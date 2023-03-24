@@ -46,8 +46,6 @@ namespace WpfApp1
 
             try
             {
-                //CAMBIAR DIALOG POR UNO NUEVO
-
                 Cargandopictodialog cd = new Cargandopictodialog();
                 cd.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
