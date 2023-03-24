@@ -132,7 +132,7 @@ namespace WpfApp1
             catch (Exception) 
             {
                 int pid = Process.GetCurrentProcess().Id;
-                string pathExe = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Integraboard.exe";
+                string pathExe = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\IntegraBoard_Stand_Alone.exe";
                 System.Diagnostics.Process.Start(pathExe);
                 Process.GetProcessById(pid).Kill();
             }

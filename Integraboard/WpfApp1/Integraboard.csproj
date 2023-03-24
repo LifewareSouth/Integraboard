@@ -5,7 +5,11 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>   
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <ApplicationIcon>logoParaIcono.ico</ApplicationIcon>
+    <AssemblyName>IntegraBoard_Stand_Alone</AssemblyName>   
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +36,7 @@
     <Content Include="bin\Debug\net6.0-windows\CSWebCam.License.txt" />
     <Content Include="bin\Debug\net6.0-windows\WpfApp1.deps.json" />
     <Content Include="bin\Debug\net6.0-windows\WpfApp1.runtimeconfig.json" />
+    <Content Include="logoParaIcono.ico" />
   </ItemGroup>
 
   <ItemGroup>
