@@ -43,12 +43,11 @@
                        Width="30"/>
                     </Button>
                 </Grid>
-                <Grid Grid.Row="1"
-                      Margin="0,20,0,280">
+                <Grid Grid.Row="0">
                     <Button x:Name="volverMenu"
                         Width="80"
                         Height="80"
-                        Margin="210,50,0,0"
+                        Margin="210,10,0,0"
                         Background="Transparent"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left">
@@ -56,15 +55,22 @@
                                        Width="80"
                                        Height="80"/>
                     </Button>
-                    <Grid x:Name="testTablero2"
-                      Width="1000">
-                        <Viewbox Margin="0,0,0,-89">
+                    <Grid x:Name="testTablero2" Width="1000" Margin="77,107,55,-223" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0.191"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Viewbox Margin="114,1,150,7">
                             <ListView x:Name="Tablero"
                               Background="Transparent"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}" 
-                              d:ItemsSource="{d:SampleData ItemCount=5}"
+                              ItemsSource="{Binding Path=vistas, RelativeSource={RelativeSource AncestorType=RelativeSource}}"
+                               d:ItemsSource="{d:SampleData ItemCount=5}" Height="1081" Width="1017"
                               
                               >
 
@@ -115,9 +121,10 @@
                             </ListView>
                         </Viewbox>
                     </Grid>
-
                 </Grid>
+                
             </Grid>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition/>

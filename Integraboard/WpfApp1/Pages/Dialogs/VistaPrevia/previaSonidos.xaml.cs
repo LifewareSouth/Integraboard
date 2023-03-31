@@ -76,6 +76,8 @@ namespace WpfApp1.Pages.Dialogs.VistaPrevia
             Close();
         }
 
+      
+
         private void AjustarTablero()
         {
             int totalCuadros = rowCounter * columnsCounter;
